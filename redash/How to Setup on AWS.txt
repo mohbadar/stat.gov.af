@@ -1,0 +1,157 @@
+Install Postgresql
+- sudo apt install postgresql postgresql-contrib
+- sudo su - postgres
+- psql
+- CREATE DATABASE redash;
+- ALTER DATABASE redash OWNER TO redash;
+- SELECT d.datname as "Name", pg_catalog.pg_get_userbyid(d.datdba) as "Owner"
+FROM pg_catalog.pg_database d WHERE d.datname = 'redash' ORDER BY 1;
+- grant all privileges on database redash to redash;
+- SELECT table_catalog, table_schema, table_name, privilege_type
+FROM   information_schema.table_privileges WHERE  grantee = 'redash';
+- GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO redash;
+- GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO redash;
+- GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO redash;
+- GRANT ALL PRIVILEGES ON SCHEMA public TO redash;
+
+alter table dashboards add column is_public boolean default false;
+- alter table dashboards add column is_default boolean default false;
+
+USAGE | SELECT | UPDATE
+- GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO user;
+- psql --version
+- /etc/init.d/postgresql status
+- service --status-all
+- sudo service postgresql status
+
+\list
+\connect database_name
+\dt
+
+
+Install Pythong 2.7.15
+- cd /opt && sudo wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz
+- sudo tar -xvf Python-2.7.15.tar.xz
+- cd Python-2.7.15
+- ./configure --with-zlib
+apt-get install build-essential (if c compiler is not installed and it fails)
+sudo apt-get install --reinstall make (if make command is not working)
+- sudo make && sudo make install
+- python -V
+
+- dpkg --get-selections | grep python
+
+
+Redis 
+- sudo apt install redis-server
+- sudo nano /etc/redis/redis.conf
+edit "supervised no" to "supervised systemd"
+
+- sudo service redis-server status
+- sudo systemctl status redis
+- redis-cli
+- ping
+
+NodeJs
+- sudo apt-get install nodejs
+- node -v
+- sudo apt-get install npm
+- npm -v
+
+Mongodb
+- sudo apt install -y mongodb
+- sudo systemctl status mongodb
+- mongo --eval 'db.runCommand({ connectionStatus: 1 })'
+- mongo
+- show dbs;
+- use kankor
+- db.dropDatabase()
+
+MySQL
+- sudo apt install mysql-server
+- sudo mysql
+
+Git
+- sudo apt-get install git-core
+- git --version
+- git config --global user.name "hpardess"
+- git config --global user.email "hameedullah.pardess@gmail.com"
+- git config --list
+- cd /
+- cd home/ubuntu/
+- git clone https://hpardess@bitbucket.org/nsia/stat.gov.af.git
+- enter password
+
+Initial Setup of redash
+- sudo apt install python-pip
+- pip install -r requirements.txt -r requirements_dev.txt
+if failed then install sudo apt-get install python3-pip  and try it with pip3
+sudo apt-get install zlib
+
+- npm install
+- npm run build
+- bin/run ./manage.py check_settings
+- bin/run ./manage.py database create_tables
+
+
+sudo lsof -i -P -n | grep LISTEN
+
+https://raw.githubusercontent.com/getredash/redash/master/setup/ubuntu/bootstrap.sh
+
+
+
+-------------------------------------------------
+-- ---- Final Configuration on AWS ----------- --
+-------------------------------------------------
+apt-get -y update
+# Base packages
+apt install -y python-pip python-dev nginx curl build-essential pwgen
+# Data sources dependencies:
+apt install -y libffi-dev libssl-dev libmysqlclient-dev libpq-dev freetds-dev libsasl2-dev
+# SAML dependency
+apt install -y xmlsec1
+# Storage servers
+apt install -y postgresql redis-server
+apt install -y supervisor
+
+adduser --system --no-create-home --disabled-login --gecos "" redash
+
+pip install --upgrade pip==9.0.3
+pip install setproctitle # setproctitle is used by Celery for "pretty" process titles
+pip install -r $REDASH_BASE_PATH/current/requirements.txt
+pip install -r $REDASH_BASE_PATH/current/requirements_all_ds.txt
+
+# Create user and database
+sudo -u postgres createuser redash --no-superuser --no-createdb --no-createrole
+sudo -u postgres createdb redash --owner=redash
+
+cd $REDASH_BASE_PATH/current
+sudo -u redash bin/run ./manage.py database create_tables
+
+wget -O /etc/supervisor/conf.d/redash.conf "https://raw.githubusercontent.com/getredash/redash/master/setup/ubuntu/files/supervisord.conf"
+(update the redash directory path)
+sudo service supervisor restart
+
+rm /etc/nginx/sites-enabled/default
+wget -O /etc/nginx/sites-available/redash "https://raw.githubusercontent.com/getredash/redash/master/setup/ubuntu/files/nginx_redash_site"
+ln -nfs /etc/nginx/sites-available/redash /etc/nginx/sites-enabled/redash
+sudo service nginx restart
+
+sudo service nginx configtest
+
+
+
+sudo nginx -t
+
+sudo supervisorctl status all
+
+netstat -ap tcp | grep -i "listen"
+
+sudo lsof -PiTCP -sTCP:LISTEN
+
+sudo tail -30 /var/log/nginx/error.log
+
+
+
+Note: Make sure that redash use has access to all tables and sequence or redash database.
+Check logs incase of any error in /var/log/supervise , /var/log/postgresql , /var/log/nginx folder

@@ -1,0 +1,47 @@
+:host /deep/ .counter {
+  margin: 0;
+  padding: 0;
+  display: block;
+  font-size: 80px;
+  overflow: hidden;
+  height: 200px;
+}
+
+:host /deep/ .value,
+ .counter-name,
+ .counter-target {
+  font-size: 1em;
+  line-height: 1em;
+  display: block;
+}
+
+:host /deep/ .value .ruler,
+ .counter-name .ruler,
+ .counter-target .ruler {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font: inherit;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+:host /deep/ .counter-target {
+  color: #ccc;
+}
+
+:host /deep/ .counter.positive .value {
+  color: #5cb85c;
+}
+
+:host /deep/ .counter.negative .value {
+  color: #d9534f;
+  margin-right: 15px;
+}
+
+:host /deep/ .counter-name {
+  font-size: 0.5em;
+  display: block;
+}

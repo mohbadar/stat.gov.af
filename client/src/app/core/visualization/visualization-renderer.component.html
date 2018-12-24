@@ -1,0 +1,14 @@
+<div [ngSwitch]="visualization.type">
+  <boxplot-renderer *ngSwitchCase="'BOXPLOT'"  options="visualization.options" query-result="queryResult"></boxplot-renderer>
+  <chart-renderer *ngSwitchCase="'CHART'"  [options]="visualization.options" [query-result]="queryResult"></chart-renderer>
+  <choropleth-renderer *ngSwitchCase="'CHOROPLETH'"  options="visualization.options" query-result="queryResult"></choropleth-renderer>
+  <cohort-renderer *ngSwitchCase="'COHORT'"  options="visualization.options" query-result="queryResult"></cohort-renderer>
+  <counter-renderer *ngSwitchCase="'COUNTER'" [visualization]="visualization" [options]="visualization.options" [query-result]="queryResult"></counter-renderer>
+  <funnel-renderer *ngSwitchCase="'FUNNEL'"  options="visualization.options" query-result="queryResult"></funnel-renderer>
+  <map-renderer *ngSwitchCase="'MAP'"  [options]="visualization.options" [query-result]="queryResult"></map-renderer>
+  <pivot-table-renderer *ngSwitchCase="'PIVOT'"  visualization="visualization" query-result="queryResult"></pivot-table-renderer>
+  <sankey-renderer *ngSwitchCase="'SANKEY'"  [options]="visualization.options" [query-result]="queryResult"></sankey-renderer>
+  <sunburst-sequence-renderer *ngSwitchCase="'SUNBURST_SEQUENCE'"  [options]="visualization.options" [query-result]="queryResult"></sunburst-sequence-renderer>
+  <grid-renderer *ngSwitchCase="'TABLE'"  [options]="visualization.options" [query-result]="queryResult"></grid-renderer>
+  <word-cloud-renderer *ngSwitchCase="'WORD_CLOUD'"  [options]="visualization.options" [query-result]="queryResult"></word-cloud-renderer>
+</div>

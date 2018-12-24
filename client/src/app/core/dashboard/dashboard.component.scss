@@ -1,0 +1,173 @@
+:host /deep/ .dashboard-header {
+    position: -webkit-sticky;  // required for Safari
+    position: sticky;
+    background: #f6f7f9;
+    z-index: 99;
+    width: 100%;
+    top: 0;
+}
+
+:host /deep/ .scrollbox {
+  overflow: auto;
+  // position: relative;
+
+}
+
+// ======================================
+
+:host /deep/ .dashboard-wrapper {
+  .tile {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+  }
+
+  pivot-table-renderer > table, grid-renderer > div, visualization-renderer > div {
+    // overflow: visible;
+    overflow: auto;
+  }
+
+  &.preview-mode {
+    .widget-menu-regular {
+      display: block;
+    }
+    .widget-menu-remove {
+      display: none;
+    }
+  }
+
+  &.editing-mode {
+    .widget-menu-regular {
+      display: none;
+    }
+    .widget-menu-remove {
+      display: block;
+    }
+  }
+
+  .dashboard-widget-wrapper:not(.widget-auto-height-enabled) {
+    visualization-renderer {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+
+      > filters {
+        flex-grow: 0;
+      }
+
+      > div {
+        flex-grow: 1;
+        position: relative;
+      }
+    }
+
+    .sunburst-visualization-container,
+    .sankey-visualization-container,
+    .map-visualization-container,
+    .plotly-chart-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: auto;
+      overflow: hidden;
+    }
+
+    .counter {
+      position: absolute;
+      left: 10px;
+      top: 15px;
+      right: 10px;
+      bottom: 15px;
+      height: auto;
+      overflow: hidden;
+      padding: 0;
+    }
+  }
+
+  .widget-auto-height-enabled {
+    .spinner {
+      position: static;
+    }
+
+    .scrollbox {
+      overflow-y: hidden;
+    }
+  }
+}
+
+// =========================================
+
+:host /deep/ .grid-stack {
+    // Same options as in JS
+    $gridstack-margin: 15px;
+    $gridstack-width: 6;
+  
+    margin-right: -$gridstack-margin;
+    
+    
+    @mixin gridstack-columns($column, $total) {
+        @if $column > 0 {
+            $value: 100% * ($column / $total);
+            > .grid-stack-item[data-gs-min-width="#{$column}"] { min-width: $value }
+            > .grid-stack-item[data-gs-max-width="#{$column}"] { max-width: $value }
+            > .grid-stack-item[data-gs-width="#{$column}"] { width: $value }
+            > .grid-stack-item[data-gs-x="#{$column}"] { left: $value }
+            
+            @include gridstack-columns(($column - 1), $total); // next iteration
+        }
+    }
+
+    @include gridstack-columns($gridstack-width, $gridstack-width);
+  
+    .grid-stack-item {
+      .grid-stack-item-content {
+        overflow: visible !important;
+        box-shadow: none !important;
+        opacity: 1 !important;
+        left: 0 !important;
+        right: $gridstack-margin !important;
+      }
+  
+      .ui-resizable-handle {
+        background: none !important;
+  
+        &.ui-resizable-w,
+        &.ui-resizable-sw {
+          left: 0 !important;
+        }
+  
+        &.ui-resizable-e,
+        &.ui-resizable-se {
+          right: $gridstack-margin !important;
+        }
+      }
+  
+      &.grid-stack-placeholder > .placeholder-content {
+        border: 0;
+        background: rgba(0, 0, 0, 0.05);
+        border-radius: 3px;
+        left: 0 !important;
+        right: $gridstack-margin !important;
+      }
+    }
+  
+    &.grid-stack-one-column-mode > .grid-stack-item {
+      margin-bottom: $gridstack-margin !important;
+    }
+  }
+  

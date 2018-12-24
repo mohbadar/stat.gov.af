@@ -1,0 +1,10 @@
+
+
+
+node --max_old_space_size=12000 ./node_modules/.bin/ng build --prod --source-map --optimization=false
+
+
+Analyzing bundle size with the Angular CLI and Webpack
+- npm run lint
+- ng build --prod --stats-json
+- npm run bundle-report
