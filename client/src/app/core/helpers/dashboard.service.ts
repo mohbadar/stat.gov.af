@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpXhrBackend } from "@angular/common/http";
 import { HttpParams } from "@angular/common/http";
 import { environment } from '../../../environments/environment';
 import { Dashboard } from "../../models/dashboard";
 import _ from 'lodash';
+
+const staticHttpClient = new HttpClient(new HttpXhrBackend({ build: () => new XMLHttpRequest() }));
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
@@ -18,6 +20,11 @@ export class DashboardService {
     getDashboard(slug) {
         const params = new HttpParams().set('slug', slug);
         return this.httpClient.get<Dashboard>(environment.apiUrl + 'dashboards/' + slug);
+    }
+
+    static getWidget(id) {
+      const params = new HttpParams().set('id', id);
+      return staticHttpClient.get<Dashboard>(environment.apiUrl + 'widgets/' + id);
     }
 
     getDefaultDashboard() {

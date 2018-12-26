@@ -334,3 +334,13 @@ def delete_job(job_id):
     """
     job = QueryTask(job_id=job_id)
     job.cancel()
+
+
+@routes.route('/api/public/widgets', methods=['GET'])
+def public_widget(widget_id):
+    widget = get_object_or_404(models.Widget.get_by_id, widget_id)
+    response = public_widget(widget)
+
+    logging.debug("Retrieves a public widget response: %s", response)
+
+    return json_response(response)

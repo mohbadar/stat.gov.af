@@ -1504,6 +1504,10 @@ class Widget(TimestampMixin, db.Model):
     def get_by_id_and_org(cls, widget_id, org):
         return db.session.query(cls).join(Dashboard).filter(cls.id == widget_id, Dashboard.org == org).one()
 
+    @classmethod
+    def get_by_id(cls, widget_id):
+        return db.session.query(cls).join(Dashboard).filter(cls.id == widget_id).one()
+
 
 @python_2_unicode_compatible
 class Event(db.Model):

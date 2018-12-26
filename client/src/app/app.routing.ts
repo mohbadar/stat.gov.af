@@ -4,6 +4,7 @@ import { AdminLayoutComponent, AuthLayoutComponent } from './core';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import {WidgetPageComponent } from './widget-page/widget-page.component';
 // import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export const AppRoutes: Routes = [
@@ -32,7 +33,10 @@ export const AppRoutes: Routes = [
       },
     ]
   },
-  
+  {
+    path: 'widget/:slug',
+    component: WidgetPageComponent
+  },
   {
     path: '',
     component: AuthLayoutComponent,

@@ -4,6 +4,9 @@ import { Widget } from "../../../models/widget";
 import { QueryService } from '../../../core/helpers/query.service';
 import * as _ from "lodash";
 import { QueryResult } from '../../../models/query-result';
+import { ShareService  } from '@ngx-share/core';
+import { Visualization } from '../../../models/visualization';
+import { DashboardService } from '../../helpers';
 
 @Component({
   selector: 'dashboard-widget',
@@ -11,14 +14,14 @@ import { QueryResult } from '../../../models/query-result';
   styleUrls: ['./widget.component.scss']
 })
 export class WidgetComponent implements OnInit {
-  @Input() widget: Widget;
+  	@Input() widget: Widget;
 	@Input() widgetId;
 	@ViewChild('widgetContainer') widgetContainer: ElementRef;
-  type: string = '';
-  queryResult: QueryResult;
+  	type: string = '';
+  	queryResult: QueryResult;
   
-  constructor(public queryService: QueryService) {
-  }
+	constructor(private dashboardService: DashboardService, public queryService: QueryService, public share: ShareService) {
+	}
 
 	ngOnInit() {
 		// this.widget = _.create(Widget.prototype, this.widget);
@@ -37,6 +40,27 @@ export class WidgetComponent implements OnInit {
 	ngAfterViewInit() {
 		this.widget.$dashboardComponent.addWidget(this.widget);
 		
+	}
+
+	static getWidget(widgetId) {
+		if(widgetId) {
+			DashboardService.getWidget(widgetId).subscribe((data) => {
+				 
+				// this.widgets.push(_.create(Widget.prototype, widget));
+				let newWidget = new Widget(this.queryService, data);
+				
+				if (newWidget.visualization) {
+					let newVisualization = new Visualization(newWidget.visualization);
+					newWidget.visualization = newVisualization;
+				}
+
+				// this.items[newWidget.id] = newWidget.options.position;
+
+				newWidget.$dashboardComponent = this;
+				
+				return newWidget;
+			});
+		}
 	}
 
 	renderWidget(force = false) {
