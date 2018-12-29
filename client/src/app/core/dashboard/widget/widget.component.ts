@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 import { Dashboard } from "../../../models/dashboard";
 import { Widget } from "../../../models/widget";
 import { QueryService } from '../../../core/helpers/query.service';
@@ -20,7 +21,7 @@ export class WidgetComponent implements OnInit {
   	type: string = '';
   	queryResult: QueryResult;
   
-	constructor(private dashboardService: DashboardService, public queryService: QueryService, public share: ShareService) {
+	constructor(private dashboardService: DashboardService, public share: ShareService) {
 	}
 
 	ngOnInit() {
@@ -34,12 +35,15 @@ export class WidgetComponent implements OnInit {
 		}
 		this.widget.$widgetContainer = this.widgetContainer;
 		
+		this.share.config.url = location.origin + '/widgets/' + this.widget.id;
+
 		this.renderWidget(false);
 	}
 
 	ngAfterViewInit() {
-		this.widget.$dashboardComponent.addWidget(this.widget);
-		
+		if(this.widget.$dashboardComponent) {
+			this.widget.$dashboardComponent.addWidget(this.widget);
+		}
 	}
 
 	static getWidget(widgetId) {
@@ -47,7 +51,7 @@ export class WidgetComponent implements OnInit {
 			DashboardService.getWidget(widgetId).subscribe((data) => {
 				 
 				// this.widgets.push(_.create(Widget.prototype, widget));
-				let newWidget = new Widget(this.queryService, data);
+				let newWidget = new Widget(data);
 				
 				if (newWidget.visualization) {
 					let newVisualization = new Visualization(newWidget.visualization);
@@ -61,6 +65,7 @@ export class WidgetComponent implements OnInit {
 				return newWidget;
 			});
 		}
+		return  new Widget({});
 	}
 
 	renderWidget(force = false) {

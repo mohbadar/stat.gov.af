@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit {
 				this.widgets = [];
 				for (var widget of this.dashboard.widgets) {
 					// this.widgets.push(_.create(Widget.prototype, widget));
-					let newWidget = new Widget(this.queryService, widget);
+					let newWidget = new Widget(widget);
 					
 					if (newWidget.visualization) {
 						let newVisualization = new Visualization(newWidget.visualization);

@@ -13,7 +13,6 @@ import { faFacebookMessenger } from '@fortawesome/free-brands-svg-icons/faFacebo
 import { faTelegramPlane } from '@fortawesome/free-brands-svg-icons/faTelegramPlane';
 import { faMix } from '@fortawesome/free-brands-svg-icons/faMix';
 import { faXing } from '@fortawesome/free-brands-svg-icons/faXing';
-import { faLine } from '@fortawesome/free-brands-svg-icons/faLine';
 
 import { faCommentAlt } from '@fortawesome/free-solid-svg-icons/faCommentAlt';
 
