@@ -1,0 +1,20 @@
+<mat-progress-bar class="page-loader" [value]="loader.progress$|async" *ngIf="loader.progress$|async" [ngStyle]="{height: '2px'}"></mat-progress-bar>
+
+<div class="app" [dir]="this.globals.options.dir" [ngClass]="{
+  'app-dark': this.globals.options.dark,
+  'boxed': this.globals.options.boxed,
+  'collapsed-sidebar': this.globals.options.collapsed,
+  'side-panel-opened': sidePanelOpened,
+  'side-panel-closed': !sidePanelOpened }">
+
+  <mat-sidenav-container class="app-inner" (click)="updatePS()">
+
+    <div>
+      <router-outlet ></router-outlet>
+    </div>
+
+  </mat-sidenav-container>
+
+</div>
+
+<!-- <app-options (messageEvent)="receiveMessage($event)" (toggleFullscreen)="toggleFullscreen()"></app-options> -->

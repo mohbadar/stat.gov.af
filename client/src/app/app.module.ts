@@ -46,6 +46,7 @@ import {
   SidebarComponent,
   AdminLayoutComponent,
   AuthLayoutComponent,
+  DefaultLayoutComponent,
   HeaderComponent,
   OptionsComponent,
   AccordionAnchorDirective,
@@ -138,7 +139,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DefaultCellComponent,
     JsonCellComponent,
     DynamicTableRowComponent,
-    WidgetPageComponent
+    WidgetPageComponent,
+    DefaultLayoutComponent
   ],
   imports: [
     BrowserModule,

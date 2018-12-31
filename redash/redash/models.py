@@ -1506,7 +1506,10 @@ class Widget(TimestampMixin, db.Model):
 
     @classmethod
     def get_by_id(cls, widget_id):
-        return db.session.query(cls).join(Dashboard).filter(cls.id == widget_id).one()
+        query = db.session.query(cls).join(Dashboard).filter(cls.id == widget_id)
+        logging.info("Widget>get_by_id: Select query (%s) data; widget_id=%s; cls.id=%s", query, widget_id, cls.id)
+        result = query.one()
+        return result
 
 
 @python_2_unicode_compatible

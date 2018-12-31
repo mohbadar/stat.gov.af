@@ -19,12 +19,14 @@ export class WidgetComponent implements OnInit {
 	@Input() widgetId;
 	@ViewChild('widgetContainer') widgetContainer: ElementRef;
   	type: string = '';
-  	queryResult: QueryResult;
+	queryResult: QueryResult;
+	widgetURL;  
   
 	constructor(private dashboardService: DashboardService, public share: ShareService) {
 	}
 
 	ngOnInit() {
+		console.log("WidgetComponent ngOnInit");
 		// this.widget = _.create(Widget.prototype, this.widget);
 		if (this.widget['visualization']) {
 			this.type = 'visualization';
@@ -34,19 +36,19 @@ export class WidgetComponent implements OnInit {
 			this.type = 'textbox';
 		}
 		this.widget.$widgetContainer = this.widgetContainer;
-		
-		this.share.config.url = location.origin + '/widgets/' + this.widget.id;
+		this.widgetURL = location.origin + '/widgets/' + this.widget.id;
+		this.share.config.url = this.widgetURL;
 
 		this.renderWidget(false);
 	}
 
 	ngAfterViewInit() {
-		if(this.widget.$dashboardComponent) {
+		if(_.isFunction(this.widget.$dashboardComponent.addWidget)) {
 			this.widget.$dashboardComponent.addWidget(this.widget);
 		}
 	}
 
-	static getWidget(widgetId) {
+	static getWidget(widgetId, callback) {
 		if(widgetId) {
 			DashboardService.getWidget(widgetId).subscribe((data) => {
 				 
@@ -60,12 +62,14 @@ export class WidgetComponent implements OnInit {
 
 				// this.items[newWidget.id] = newWidget.options.position;
 
+				newWidget.getQueryResult(true).getById(newWidget.visualization.query.latest_query_data_id);
+
 				newWidget.$dashboardComponent = this;
 				
-				return newWidget;
+				// return newWidget;
+				return callback(newWidget)
 			});
 		}
-		return  new Widget({});
 	}
 
 	renderWidget(force = false) {

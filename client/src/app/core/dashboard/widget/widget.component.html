@@ -12,6 +12,9 @@
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+                <a mat-menu-item href="{{widgetURL}}" target="_blank">
+                    Open
+                </a>
                 <a mat-menu-item href="{{widget.getQueryResult().getLink(widget.getQuery().id, widget.getQueryResult().latest_query_data_id, 'csv')}}" download="{{widget.getQueryResult().getName() + '.csv'}}" target="_self">
                     Download as CSV File
                 </a>

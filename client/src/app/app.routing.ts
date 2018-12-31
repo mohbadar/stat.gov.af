@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent, AuthLayoutComponent } from './core';
+import { AdminLayoutComponent, AuthLayoutComponent, DefaultLayoutComponent } from './core';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
@@ -34,8 +35,15 @@ export const AppRoutes: Routes = [
     ]
   },
   {
-    path: 'widget/:slug',
-    component: WidgetPageComponent
+    path: 'widgets/:slug',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: WidgetPageComponent,
+        // loadChildren: './home/home.module#HomeModule'
+      },
+    ]
   },
   {
     path: '',
