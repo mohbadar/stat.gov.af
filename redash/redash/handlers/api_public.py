@@ -11,7 +11,7 @@ from redash.authentication import current_org, get_login_url
 from redash.authentication.account import (BadSignature, SignatureExpired,
                                            send_password_reset_email,
                                            validate_token)
-from redash.serializers import serialize_public_dashboard
+from redash.serializers import serialize_public_dashboard, serialize_widget
 from redash.handlers import routes
 from redash.handlers.base import json_response, org_scoped_rule
 from redash.version_check import get_latest_version
@@ -334,3 +334,12 @@ def delete_job(job_id):
     """
     job = QueryTask(job_id=job_id)
     job.cancel()
+
+
+@routes.route('/api/public/widgets/<widget_id>', methods=['GET'])
+def public_widget(widget_id):
+    logging.debug("/api/public/widgets/<widget_id> - WidgetResource/public_widget(id)")
+
+    widget = get_object_or_404(models.Widget.get_by_id, widget_id)
+    response = serialize_widget(widget)
+    return json_response(response)

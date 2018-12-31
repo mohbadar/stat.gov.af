@@ -158,7 +158,8 @@ export class MenuComponent {
     if (tag.toLowerCase().indexOf('office') != -1)
       return 'work';
     if (tag.toLowerCase().indexOf('media') != -1)
-			return 'radio';
-		return icon;
+      return 'radio';
+      
+    return icon.charAt(0);
 	}
 }

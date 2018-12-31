@@ -85,8 +85,7 @@ export class Widget {
     $dashboardComponent;
     $widgetContainer;
 
-    constructor(queryService, data) {
-        this.queryService = queryService;
+    constructor(data) {
         // Copy properties
         each(data, (v, k) => {
             this[k] = v;
@@ -131,9 +130,9 @@ export class Widget {
 
     getQueryResult(force = false) {
         if (!this.queryResult && this.visualization) {
-            this.queryResult = new QueryResult(this.queryService, this.visualization.query);
+            this.queryResult = new QueryResult(this.visualization.query);
         } else if (force) {
-            this.queryResult = new QueryResult(this.queryService, this.visualization.query);
+            this.queryResult = new QueryResult(this.visualization.query);
         }
         return this.queryResult;
     }

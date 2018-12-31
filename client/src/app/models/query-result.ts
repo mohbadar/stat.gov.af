@@ -76,8 +76,7 @@ export class QueryResult {
 
     query_result;
 
-    constructor(queryService, data) {
-        this.queryService = queryService
+    constructor(data) {
         this.job = {};
         this.status = 'waiting';
         this.filters = undefined;
@@ -115,7 +114,7 @@ export class QueryResult {
 
     getById(id) {
         this.isLoadingResult = true;
-        this.queryService.getQueryResult(id).subscribe((data) => {
+        QueryService.getQueryResult(id).subscribe((data) => {
             // Success handler
             this.isLoadingResult = false;
             this.update(data);

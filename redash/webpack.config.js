@@ -230,4 +230,9 @@ if (process.env.BUNDLE_ANALYZER) {
   config.plugins.push(new BundleAnalyzerPlugin());
 }
 
+config.performance = {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+};
+
 module.exports = config;

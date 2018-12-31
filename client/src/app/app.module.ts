@@ -39,12 +39,14 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 // google maps
 import { AgmCoreModule } from '@agm/core';
+
 // Template core components
 import {
   MenuComponent,
   SidebarComponent,
   AdminLayoutComponent,
   AuthLayoutComponent,
+  DefaultLayoutComponent,
   HeaderComponent,
   OptionsComponent,
   AccordionAnchorDirective,
@@ -85,7 +87,11 @@ import { DynamicTableRowComponent } from './core/visualization/grid-renderer/dyn
 import { GridStackModule } from 'ng4-gridstack';
 import { CookieService } from 'ngx-cookie-service';
 
+import { ShareModule } from '@ngx-share/core';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { WidgetPageComponent } from './widget-page/widget-page.component';
 // import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -132,7 +138,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DynamicTableComponent,
     DefaultCellComponent,
     JsonCellComponent,
-    DynamicTableRowComponent
+    DynamicTableRowComponent,
+    WidgetPageComponent,
+    DefaultLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -173,6 +181,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     PlotlyModule,
     NgxDatatableModule,
+    ShareModule,
+    FontAwesomeModule
   ],
   providers: [
     {

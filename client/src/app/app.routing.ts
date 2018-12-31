@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent, AuthLayoutComponent } from './core';
+import { AdminLayoutComponent, AuthLayoutComponent, DefaultLayoutComponent } from './core';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import {WidgetPageComponent } from './widget-page/widget-page.component';
 // import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export const AppRoutes: Routes = [
@@ -32,7 +34,17 @@ export const AppRoutes: Routes = [
       },
     ]
   },
-  
+  {
+    path: 'widgets/:slug',
+    component: DefaultLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: WidgetPageComponent,
+        // loadChildren: './home/home.module#HomeModule'
+      },
+    ]
+  },
   {
     path: '',
     component: AuthLayoutComponent,
