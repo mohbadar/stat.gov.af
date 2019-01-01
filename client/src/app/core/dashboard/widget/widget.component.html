@@ -1,8 +1,9 @@
 <div class="widget-wrapper" #widgetContainer>
 <mat-card *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()" class="tile body-container widget-visualization visualization">
     <mat-card-title fxLayout="row" class="body-row">
+        <span fxFlex></span>
         <h3>
-            <b>{{ widget.getQuery().name }}</b>
+            <b>{{ getWidgetTitle() }}</b>
         </h3>
         <mat-chip-list style="margin: 2px;" *ngFor="let tag of widget.getTags()" >
             <mat-chip>{{ tag }}</mat-chip>

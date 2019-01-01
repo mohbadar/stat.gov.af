@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges, SimpleChange, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { QueryResult } from '../../../models/query-result';
 import numberFormat from 'underscore.string/numberFormat';
-import { isNumber, chain } from 'lodash';
+import { isNumber } from 'lodash';
 import { Visualization } from '../../../models/visualization';
 import { debounce } from 'lodash';
 
@@ -17,8 +17,11 @@ export class CounterRendererComponent implements OnInit {
 
 	@ViewChild('counter') counterRendererContainer: ElementRef;
 	rootNode;
+	visualizationRendererEl;
+	counterChildDiv;
 	fontSize = '1em';
 	counterValue;
+	counterLabel = '';
 	targetValue = null;
 	stringPrefix;
 	stringSuffix;
@@ -26,8 +29,7 @@ export class CounterRendererComponent implements OnInit {
 	trendPositive;
 	isNumber;
 	handleResize;
-
-
+	scale = 1;
 
 	constructor() { }
 
@@ -54,6 +56,8 @@ export class CounterRendererComponent implements OnInit {
 	}
 
 	ngAfterViewInit() {
+		this.visualizationRendererEl = this.rootNode.closest('visualization-renderer');
+		this.counterChildDiv = this.rootNode.children[0];
 		this.handleResize();
 	}
 
@@ -63,28 +67,11 @@ export class CounterRendererComponent implements OnInit {
 	}
 
 	updateSize() {
-		const rootMeasures = {
-			height: Math.floor(this.rootNode.offsetHeight),
-			fontSize: parseFloat(window.getComputedStyle(this.rootNode).fontSize),
-		};
-		const rulers = this.rootNode.querySelectorAll('.ruler');
-		const rulerMeasures = chain(rulers).map(ruler => ({
-			height: ruler.offsetHeight,
-			fontSize: parseFloat(window.getComputedStyle(ruler).fontSize),
-		})).reduce((result, value) => ({
-			height: result.height + value.height,
-			fontSize: result.fontSize + value.fontSize,
-		})).value();
-
-		/* eslint-disable function-paren-newline */
-		const fontSize = Math.floor(
-			rootMeasures.height /
-			rulerMeasures.height *
-			rulerMeasures.fontSize /
-			(rulerMeasures.fontSize / rootMeasures.fontSize),
+		const scale = Math.min(
+			this.rootNode.offsetWidth / this.counterChildDiv.offsetWidth,
+			this.rootNode.offsetHeight / this.counterChildDiv.offsetHeight
 		);
-		/* eslint-enable function-paren-newline */
-		this.fontSize = fontSize + 'px';
+		this.scale = Math.floor(scale * 100) / 100; // keep only two decimal places
 	}
 
 	refreshData() {
@@ -109,6 +96,10 @@ export class CounterRendererComponent implements OnInit {
 				}
 			} else {
 				this.targetValue = null;
+			}
+
+			if (this.options.counterLabel) {
+				this.counterLabel = this.options.counterLabel;
 			}
 
 			this.isNumber = isNumber(this.counterValue);

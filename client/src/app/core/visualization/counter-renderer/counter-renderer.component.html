@@ -1,14 +1,22 @@
-<div class="counter" #counter [ngClass]="{'positive': targetValue && trendPositive, 'negative': targetValue && !trendPositive}" [ngStyle]="{'font-size': fontSize}" (window:resize)="onResize($event)">
-	<div class="value" *ngIf="isNumber">
-		<span class="ruler"title="{{stringPrefix}}{{counterValue|number}}{{stringSuffix}}">{{stringPrefix}}{{counterValue|number}}{{stringSuffix}}</span>
-	</div>
-	<div class="value" *ngIf="!isNumber">
-		<span class="ruler" title="{{stringPrefix}}{{counterValue}}{{stringSuffix}}">{{stringPrefix}}{{counterValue}}{{stringSuffix}}</span>
-	</div>
-	<div class="counter-target" *ngIf="targetValue" title="({{targetValue|number}})">
-		<span class="ruler">({{targetValue|number}})</span>
-	</div>
-	<div class="counter-name">
-		<span class="ruler" title="{{visualization.name}}">{{visualization.name}}</span>
+<div class="counter" #counter [ngClass]="{'positive': targetValue && trendPositive, 'negative': targetValue && !trendPositive}" (window:resize)="onResize($event)">
+	<div [ngStyle]="{
+	'-o-transform': 'scale(' + scale + ')',
+	'-ms-transform': 'scale(' + scale + ')',
+	'-moz-transform': 'scale(' + scale + ')',
+	'-webkit-transform': 'scale(' + scale + ')',
+	'transform': 'scale(' + scale + ')'
+	}">
+		<div class="value" *ngIf="isNumber">
+			<span class="ruler"title="{{stringPrefix}}{{counterValue|number}}{{stringSuffix}}">{{stringPrefix}}{{counterValue|number}}{{stringSuffix}}</span>
+		</div>
+		<div class="value" *ngIf="!isNumber">
+			<span class="ruler" title="{{stringPrefix}}{{counterValue}}{{stringSuffix}}">{{stringPrefix}}{{counterValue}}{{stringSuffix}}</span>
+		</div>
+		<div class="counter-target" *ngIf="targetValue" title="({{targetValue|number}})">
+			<span class="ruler">({{targetValue|number}})</span>
+		</div>
+		<div class="counter-name" *ngIf="counterLabel != ''">
+			<span class="ruler" title="{{visualization.name}}">{{counterLabel}}</span>
+		</div>
 	</div>
 </div>

@@ -78,6 +78,13 @@ export class WidgetComponent implements OnInit {
 		}
 	}
 
+	getWidgetTitle() {
+		if(this.widget.visualization) {
+			return this.widget.visualization.name;
+		}
+		return this.widget.getQuery().name;
+	}
+
 	reloadWidget() {
 		this.renderWidget(false);
 	}
