@@ -72,11 +72,11 @@ export class MapRendererComponent implements OnInit {
 
 		this.render();
 
-		this.layers = [
-			L.circle([ 46.95, -122 ], { radius: 5000 }),
-			L.polygon([[ 46.8, -121.85 ], [ 46.92, -121.92 ], [ 46.87, -121.8 ]]),
-			L.marker([ 46.879966, -121.726909 ])
-		];
+		// this.layers = [
+		// 	L.circle([ 46.95, -122 ], { radius: 5000 }),
+		// 	L.polygon([[ 46.8, -121.85 ], [ 46.92, -121.92 ], [ 46.87, -121.8 ]]),
+		// 	L.marker([ 46.879966, -121.726909 ])
+		// ];
 
 		// this.map = L.map(this.mapElement, {
 		// 	scrollWheelZoom: false,
@@ -156,7 +156,7 @@ export class MapRendererComponent implements OnInit {
 			const allMarkers = _.flatten(_.map(_.values(this.layers), l => l.getLayers()));
 			// eslint-disable-next-line new-cap
 			const group = L.featureGroup(allMarkers);
-			this.map.fitBounds(group.getBounds());
+			this.fitBounds = group.getBounds();
 		}
 	}
 
