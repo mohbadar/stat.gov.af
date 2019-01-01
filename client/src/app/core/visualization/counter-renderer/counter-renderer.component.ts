@@ -21,6 +21,7 @@ export class CounterRendererComponent implements OnInit {
 	counterChildDiv;
 	fontSize = '1em';
 	counterValue;
+	counterLabel = '';
 	targetValue = null;
 	stringPrefix;
 	stringSuffix;
@@ -95,6 +96,10 @@ export class CounterRendererComponent implements OnInit {
 				}
 			} else {
 				this.targetValue = null;
+			}
+
+			if (this.options.counterLabel) {
+				this.counterLabel = this.options.counterLabel;
 			}
 
 			this.isNumber = isNumber(this.counterValue);

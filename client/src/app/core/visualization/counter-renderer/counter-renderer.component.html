@@ -15,8 +15,8 @@
 		<div class="counter-target" *ngIf="targetValue" title="({{targetValue|number}})">
 			<span class="ruler">({{targetValue|number}})</span>
 		</div>
-		<div class="counter-name">
-			<span class="ruler" title="{{visualization.name}}">{{visualization.name}}</span>
+		<div class="counter-name" *ngIf="counterLabel != ''">
+			<span class="ruler" title="{{visualization.name}}">{{counterLabel}}</span>
 		</div>
 	</div>
 </div>
