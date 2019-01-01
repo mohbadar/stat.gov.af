@@ -28,6 +28,7 @@ export class PlotlyChartComponent implements OnInit, OnChanges {
 	layout = {};
 	data = [];
 	redrawPendding = false;
+	handleResize;
 
   	constructor() { }
 
@@ -58,6 +59,10 @@ export class PlotlyChartComponent implements OnInit, OnChanges {
 		this.handleResize = debounce(this.updateChartDimensions, 250);
 	}
 
+	ngAfterViewInit() {
+		this.handleResize();
+	}
+
 	updateChartDimensions() {
 		if (updateDimensions(this.layout, this.plotlyElement, calculateMargins(this.plotlyElement))) {
 			this.Plotly.getPlotly().relayout(this.plotlyElement, this.layout);
@@ -72,10 +77,6 @@ export class PlotlyChartComponent implements OnInit, OnChanges {
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
 		this.handleResize();		
-	}
-
-	handleResize() {
-		// this.plotlyElement.afterPlot.emit();
 	}
 
 	update() { }
