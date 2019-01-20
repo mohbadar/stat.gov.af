@@ -60,7 +60,7 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <span>{{ widget.note }} {{ widget.getQuery().description }}</span>
+        <span [innerHTML]="widget.getQuery().description"></span>
         
         <span fxFlex></span>
         <mat-icon (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;">loop</mat-icon>
