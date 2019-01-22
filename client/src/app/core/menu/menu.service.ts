@@ -29,10 +29,14 @@ const MENUITEMS = [
     state: '/',
     name: 'HOME',
     type: 'link',
-    icon: 'explore'
+    icon: 'home'
   },
   {
     type: 'divider'
+  },
+  {
+    type: 'title',
+    name: 'DASHBOARDS'
   },
   // {
   //   state: 'dashbaord',

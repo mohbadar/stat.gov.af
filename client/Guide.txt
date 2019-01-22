@@ -25,3 +25,7 @@ $ sudo rm -rf dist
 
 - Uncompress the zip File
 $ sudo unzip dist.zip
+
+
+used for SVG Icons
+https://www.flaticon.com/

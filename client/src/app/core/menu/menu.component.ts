@@ -6,6 +6,8 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
 import { MenuService, Menu, ChildrenItems } from './menu.service';
 import { DashboardService } from '../helpers/dashboard.service';
 
@@ -37,7 +39,7 @@ import { Globals } from './../helpers/globals';
             <span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
           </a>
           <a appAccordionToggle class="relative" href="javascript:;" *ngIf="menuitem.type === 'sub'">
-            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <mat-icon class="mat-icon material-icons" [svgIcon]="menuitem.icon">{{ menuitem.icon }}</mat-icon>
             <span>{{ menuitem.name | translate }}</span>
             <span fxFlex></span>
             <span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
@@ -60,10 +62,42 @@ export class MenuComponent {
 
   constructor(
     public menuService: MenuService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer,
     public translate: TranslateService,
     public dashboardService: DashboardService,
     public globals: Globals
   ) {
+    iconRegistry.addSvgIcon(
+      'graduate-cap',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/graduate-cap.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'open-book',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/open-book.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'medical-kit',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/medical-kit.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'healthy-lifestyle',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/healthy-lifestyle.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'graduation-hat-and-diploma',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/graduation-hat-and-diploma.svg')
+    );
+    
+    iconRegistry.addSvgIcon(
+      'seeding',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/images/seeding.svg')
+    );
+
     dashboardService.getAll().subscribe((data) => {
       if(data) {
         var menuItem = {
@@ -82,7 +116,7 @@ export class MenuComponent {
 				state: "dashboard",
 				name: tag.toUpperCase(),
 				type: 'sub',
-				icon: this.getMenuItemIcon(tag),
+        icon: this.getMenuItemIcon(tag),
 				children: [
 				]
 			};
@@ -138,15 +172,37 @@ export class MenuComponent {
   }
 
 	getMenuItemIcon(tag) {
-		let icon = tag;
+    let icon = tag;
+    if (tag.toLowerCase().indexOf('living condition') != -1)
+      return 'healthy-lifestyle';
+    if (tag.toLowerCase().indexOf('hemis') != -1)
+      return 'graduation-hat-and-diploma';
+    if (tag.toLowerCase().indexOf('yearbook') != -1)
+      return 'open-book';
+    if (tag.toLowerCase().indexOf('health') != -1)
+      return 'medical-kit';
+    if (tag.toLowerCase().indexOf('agriculture') != -1)
+			return 'seeding';
+    if (tag.toLowerCase().indexOf('assessment') != -1)
+      return 'assessment';
+    if (tag.toLowerCase().indexOf('accessibility') != -1)
+      return 'accessability';
+    if (tag.toLowerCase().indexOf('directions') != -1)
+      return 'directions_run';
+    if (tag.toLowerCase().indexOf('people') != -1)
+      return 'people';
+    if (tag.toLowerCase().indexOf('wc') != -1)
+      return 'wc';
+
+    if (tag.toLowerCase().indexOf('kankor') != -1)
+      return 'school';
 		if (tag.toLowerCase().indexOf('health') != -1)
 			return 'favorite';
 		if (tag.toLowerCase().indexOf('statistics') != -1)
 			return 'blur_on';
 		if (tag.toLowerCase().indexOf('sheet') != -1)
 			return 'library_books';
-		if (tag.toLowerCase().indexOf('agriculture') != -1)
-			return 'timeline';
+		
 		if (tag.toLowerCase().indexOf('medical') != -1)
 			return 'add_box';
 		if (tag.toLowerCase().indexOf('hotel') != -1)
@@ -159,6 +215,10 @@ export class MenuComponent {
       return 'work';
     if (tag.toLowerCase().indexOf('media') != -1)
       return 'radio';
+    if (tag.toLowerCase().indexOf('history') != -1)
+      return 'history';
+    if (tag.toLowerCase().indexOf('industry') != -1)
+      return 'markunread_mailbox';
       
     return icon.charAt(0);
 	}
