@@ -1,5 +1,5 @@
 <div class="widget-wrapper" #widgetContainer>
-<mat-card *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()" class="tile body-container widget-visualization visualization">
+<mat-card *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()" [style.height]="widget.isStandalone? '90vh': 'auto'" class="tile body-container widget-visualization visualization">
     <mat-card-title fxLayout="row" class="body-row">
         <span fxFlex></span>
         <h3>
@@ -40,6 +40,7 @@
                 <button mat-icon-button shareButton="pinterest" #pinBtn [style.color]="share.prop.pinterest.color">
                     <fa-icon [icon]="share.prop.pinterest.icon" size="lg"></fa-icon>
                 </button>
+                <a mat-menu-item (click)="openBottomSheet()">Embed Somewhere</a>
         </mat-menu>
     </mat-card-title>
     <mat-card-content class="body-row-auto spinner-container">

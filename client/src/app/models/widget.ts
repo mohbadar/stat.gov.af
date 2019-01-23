@@ -84,6 +84,7 @@ export class Widget {
     $originalPosition;
     $dashboardComponent;
     $widgetContainer;
+    isStandalone = false;
 
     constructor(data) {
         // Copy properties

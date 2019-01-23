@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import {MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material';
 import { APP_BASE_HREF } from '@angular/common';
 import { Dashboard } from "../../../models/dashboard";
 import { Widget } from "../../../models/widget";
@@ -20,9 +21,9 @@ export class WidgetComponent implements OnInit {
 	@ViewChild('widgetContainer') widgetContainer: ElementRef;
   	type: string = '';
 	queryResult: QueryResult;
-	widgetURL;  
+	widgetURL;
   
-	constructor(private dashboardService: DashboardService, public share: ShareService) {
+	constructor(private dashboardService: DashboardService, public share: ShareService, private bottomSheet: MatBottomSheet) {
 	}
 
 	ngOnInit() {
@@ -48,22 +49,30 @@ export class WidgetComponent implements OnInit {
 		}
 	}
 
-	static getWidget(widgetId, callback) {
+	openBottomSheet(): void {
+		let iframeText = '<iframe src="' + this.widgetURL + '" width="720" height="391"></iframe>';
+		this.bottomSheet.open(IFrameBottomSheet, {
+			data: { iframe: iframeText },
+		});
+	}
+
+	// isStandalone parameter specify whether a single widget is rendered or list of widgets are rendered
+	static getWidget(widgetId, isStandalone, callback) {
 		if(widgetId) {
 			DashboardService.getWidget(widgetId).subscribe((data) => {
 				 
 				// this.widgets.push(_.create(Widget.prototype, widget));
 				let newWidget = new Widget(data);
+				newWidget.isStandalone = isStandalone;
 				
 				if (newWidget.visualization) {
 					let newVisualization = new Visualization(newWidget.visualization);
 					newWidget.visualization = newVisualization;
+
+					newWidget.getQueryResult(true).getById(newWidget.visualization.query.latest_query_data_id);
 				}
 
 				// this.items[newWidget.id] = newWidget.options.position;
-
-				newWidget.getQueryResult(true).getById(newWidget.visualization.query.latest_query_data_id);
-
 				newWidget.$dashboardComponent = this;
 				
 				// return newWidget;
@@ -92,4 +101,13 @@ export class WidgetComponent implements OnInit {
 	referesh() {
 
 	}
+}
+
+@Component({
+	selector: 'iframe-bottomsheet',
+	templateUrl: 'iframe-bottomsheet.html',
+})
+export class IFrameBottomSheet {
+	constructor(private bottomSheetRef: MatBottomSheetRef<IFrameBottomSheet>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) {}
+
 }

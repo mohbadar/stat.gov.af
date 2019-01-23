@@ -20,7 +20,8 @@ import {
   MatInputModule,
   MatProgressSpinnerModule,
   MatChipsModule,
-  MatGridListModule
+  MatGridListModule,
+  MatBottomSheetModule
 } from '@angular/material';
 // Angular Flexlayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -54,6 +55,7 @@ import {
   AccordionDirective,
   DashboardComponent,
   WidgetComponent,
+  IFrameBottomSheet,
   VisualizationRendererComponent,
   BoxplotRendererComponent,
   ChartRendererComponent,
@@ -120,6 +122,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HomeComponent,
     DashboardComponent,
     WidgetComponent,
+    IFrameBottomSheet,
     VisualizationRendererComponent,
     BoxplotRendererComponent,
     ChartRendererComponent,
@@ -171,6 +174,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatProgressSpinnerModule,
     MatChipsModule,
     MatGridListModule,
+    MatBottomSheetModule,
     FlexLayoutModule,
     LoadingBarRouterModule,
     GridStackModule,
@@ -183,6 +187,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgxDatatableModule,
     ShareModule,
     FontAwesomeModule
+  ],
+  entryComponents: [
+    IFrameBottomSheet
   ],
   providers: [
     {

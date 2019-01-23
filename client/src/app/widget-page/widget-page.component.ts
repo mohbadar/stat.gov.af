@@ -28,7 +28,7 @@ export class WidgetPageComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		WidgetComponent.getWidget(this.widget_id, (widget) => {
+		WidgetComponent.getWidget(this.widget_id, true, (widget) => {
 			this.widget = widget;
 			this.is_loaded = true;
 		});
