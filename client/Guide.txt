@@ -1,8 +1,9 @@
 
 
 
-node --max_old_space_size=12000 ./node_modules/.bin/ng build --prod --source-map --optimization=false
+node --max_old_space_size=12000 ./node_modules/.bin/ng build --prod --source-map --optimization=false --vendor-chunk
 
+node --max_old_space_size=8000 ./node_modules/@angular/cli/bin/ng build --prod --source-map
 
 Analyzing bundle size with the Angular CLI and Webpack
 - npm run lint
@@ -21,6 +22,7 @@ $
 
 - Move the dist.zip to target directory
 $ sudo mv dist.zip /opt/stat.gov.af/client/
+$ cd /opt/stat.gov.af/client/
 $ sudo rm -rf dist
 
 - Uncompress the zip File

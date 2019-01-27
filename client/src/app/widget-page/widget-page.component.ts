@@ -36,9 +36,9 @@ export class WidgetPageComponent implements OnInit {
 	}
 
 	renderWidget() {
-		console.log(this.widget.getQueryResult());
+		// console.log(this.widget.getQueryResult());
 		// this.widget.getQueryResult(true).getById(this.widget.visualization.query.latest_query_data_id);
-		console.log(this.widget);
+		// console.log(this.widget);
 	}
 
 }

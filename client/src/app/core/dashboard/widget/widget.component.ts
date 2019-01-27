@@ -27,7 +27,6 @@ export class WidgetComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log("WidgetComponent ngOnInit");
 		// this.widget = _.create(Widget.prototype, this.widget);
 		if (this.widget['visualization']) {
 			this.type = 'visualization';
