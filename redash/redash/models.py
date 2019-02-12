@@ -1436,7 +1436,9 @@ class Dashboard(ChangeTrackingMixin, TimestampMixin, BelongsToOrgMixin, db.Model
 
     @classmethod
     def get_public_by_slug_and_org(cls, slug):
-        query = cls.query.filter(cls.slug == slug)
+        query = cls.query.filter(cls.slug == slug,
+                Dashboard.is_archived == False,
+                Dashboard.is_public == True)
         logging.info("models\Dashboard get_public_by_slug_and_org() query (%s), cls.slug= %s, slug= %s", query, cls.slug, slug)
         return query.one()
 
