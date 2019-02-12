@@ -94,6 +94,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { WidgetPageComponent } from './widget-page/widget-page.component';
+import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 // import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -143,7 +144,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     JsonCellComponent,
     DynamicTableRowComponent,
     WidgetPageComponent,
-    DefaultLayoutComponent
+    DefaultLayoutComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,

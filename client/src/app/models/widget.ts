@@ -85,6 +85,7 @@ export class Widget {
     $dashboardComponent;
     $widgetContainer;
     isStandalone = false;
+    $parsedText;
 
     constructor(data) {
         // Copy properties

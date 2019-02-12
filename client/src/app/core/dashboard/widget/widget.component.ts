@@ -34,6 +34,7 @@ export class WidgetComponent implements OnInit {
 			this.type = 'restricted';
 		} else {
 			this.type = 'textbox';
+			this.widget.$parsedText = this.parseText(this.widget.text);
 		}
 		this.widget.$widgetContainer = this.widgetContainer;
 		this.widgetURL = location.origin + '/widgets/' + this.widget.id;
@@ -95,6 +96,41 @@ export class WidgetComponent implements OnInit {
 
 	reloadWidget() {
 		this.renderWidget(false);
+	}
+
+	parseText(text: string) {
+		var re = new RegExp("<script(.*?)</script>");
+
+		if(text.indexOf('<script') != -1) {
+			var script = re.exec(text);
+			if(script) {
+				this.addScript(script[0]);
+				text = text.replace(script[0], '');
+			}
+		}
+		return text;
+	}
+
+	addScript(text: string) {
+		var jsContent = text;
+
+		var startScriptTag = new RegExp("<script(.*?)>");
+		var resultArray = startScriptTag.exec(jsContent);
+		if(resultArray) {
+			jsContent = jsContent.replace(resultArray[0], '');
+		}
+
+		var endScriptTag = new RegExp("</script>");
+		resultArray = endScriptTag.exec(jsContent);
+		if(resultArray) {
+			jsContent = jsContent.replace(resultArray[0], '');
+		}
+
+		var scriptTag = document.createElement("script");
+		scriptTag.type = "text/javascript";
+
+		scriptTag.innerHTML = jsContent;
+		document.body.appendChild(scriptTag);
 	}
 
 	referesh() {
