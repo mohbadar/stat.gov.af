@@ -1,5 +1,5 @@
 <div class="widget-wrapper" #widgetContainer>
-<mat-card *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()" [style.height]="widget.isStandalone? '90vh': 'auto'" class="tile body-container widget-visualization visualization">
+<mat-card *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()" [style.height]="widget.isStandalone? '90vh': 'auto'" class="tile body-container widget-visualization visualization card-shadow">
     <mat-card-title fxLayout="row" class="body-row">
         <span fxFlex></span>
         <h3>
@@ -68,7 +68,7 @@
     </mat-card-actions>
 </mat-card>
 
-<mat-card *ngIf="type=='textbox'" ng-hide="widget.width === 0" class="tile body-container widget-text textbox">
+<mat-card *ngIf="type=='textbox'" ng-hide="widget.width === 0" class="tile body-container widget-text textbox card-shadow">
     <mat-card-content class="scrollbox" >
         <div class="body-container" ng-class="type">
             <div class="body-row-auto tiled t-body p-15" style="padding: 15px !important;" [innerHTML]="widget.$parsedText | safeHtml"></div>
