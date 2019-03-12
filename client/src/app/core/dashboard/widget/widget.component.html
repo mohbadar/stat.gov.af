@@ -3,10 +3,10 @@
     <mat-card-title fxLayout="row" class="body-row">
         <span fxFlex></span>
         <h3>
-            <b>{{ getWidgetTitle() }}</b>
+            <b [innerHTML]="getWidgetTitle() | safeHtml"></b>
         </h3>
         <mat-chip-list style="margin: 2px;" *ngFor="let tag of widget.getTags()" >
-            <mat-chip>{{ tag }}</mat-chip>
+            <mat-chip [innerHTML]="tag | safeHtml"></mat-chip>
         </mat-chip-list>
         <span fxFlex></span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -61,7 +61,7 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <span [innerHTML]="widget.getQuery().description"></span>
+        <span [innerHTML]="widget.getQuery().description | safeHtml"></span>
         
         <span fxFlex></span>
         <mat-icon (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;">loop</mat-icon>
