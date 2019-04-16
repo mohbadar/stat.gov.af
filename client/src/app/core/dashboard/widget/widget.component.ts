@@ -8,7 +8,7 @@ import * as _ from "lodash";
 import { QueryResult } from '../../../models/query-result';
 import { ShareService  } from '@ngx-share/core';
 import { Visualization } from '../../../models/visualization';
-import { DashboardService } from '../../helpers';
+import { DashboardService, Globals } from '../../helpers';
 
 @Component({
   selector: 'dashboard-widget',
@@ -23,7 +23,9 @@ export class WidgetComponent implements OnInit {
 	queryResult: QueryResult;
 	widgetURL;
   
-	constructor(private dashboardService: DashboardService, public share: ShareService, private bottomSheet: MatBottomSheet) {
+	constructor(private dashboardService: DashboardService, public share: ShareService, 
+		private bottomSheet: MatBottomSheet,
+		public globals: Globals) {
 	}
 
 	ngOnInit() {
@@ -89,9 +91,21 @@ export class WidgetComponent implements OnInit {
 
 	getWidgetTitle() {
 		if(this.widget.visualization) {
-			return this.widget.visualization.name;
+			return this.parseTitleAsObject(this.widget.visualization.name);
 		}
-		return this.widget.getQuery().name;
+		return this.parseTitleAsObject(this.widget.getQuery().name);
+	}
+
+	parseTitleAsObject(title) {
+		try {
+			let titleObj = JSON.parse(title);
+			if(titleObj instanceof Object) {
+				return titleObj[this.globals.lang];
+			}
+			return title;
+		} catch(e) {
+			return title;
+		}
 	}
 
 	reloadWidget() {
