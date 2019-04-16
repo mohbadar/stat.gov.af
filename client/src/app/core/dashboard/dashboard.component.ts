@@ -84,7 +84,19 @@ export class DashboardComponent implements OnInit {
 
 
 	setTitle(title) {
-		this.title = title;
+		this.title = this.parseTitleAsObject(title);
+	}
+
+	parseTitleAsObject(title) {
+		try {
+			let titleObj = JSON.parse(title);
+			if(titleObj instanceof Object) {
+				return titleObj[this.globals.lang];
+			}
+			return title;
+		} catch(e) {
+			return title;
+		}
 	}
 
 	getDashbaord(slug) {
