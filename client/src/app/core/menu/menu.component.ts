@@ -127,7 +127,7 @@ export class MenuComponent {
 				}
 
 				if(item.tags.indexOf(tag) != -1) {
-					menuItem.children.push({state: item.slug, name: item.name});
+					menuItem.children.push({state: item.slug, name: this.parseTitleAsObject(item.name)});
 				}
 			});
 
@@ -147,6 +147,18 @@ export class MenuComponent {
       }
     });
   }
+
+  parseTitleAsObject(title) {
+		try {
+			let titleObj = JSON.parse(title);
+			if(titleObj instanceof Object) {
+				return titleObj[this.globals.lang];
+			}
+			return title;
+		} catch(e) {
+			return title;
+		}
+	}
 
 	getUniqueTags(dashboards) {
 		let tags = [];
