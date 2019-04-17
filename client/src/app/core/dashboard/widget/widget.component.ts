@@ -96,6 +96,10 @@ export class WidgetComponent implements OnInit {
 		return this.parseTitleAsObject(this.widget.getQuery().name);
 	}
 
+	getWidgetDescription() {
+		return this.parseTitleAsObject(this.widget.getQuery().description);
+	}
+
 	parseTitleAsObject(title) {
 		try {
 			let titleObj = JSON.parse(title);

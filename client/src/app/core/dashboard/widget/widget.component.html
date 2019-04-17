@@ -61,7 +61,7 @@
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <span [innerHTML]="widget.getQuery().description | safeHtml"></span>
+        <span [innerHTML]="getWidgetDescription() | safeHtml"></span>
         
         <span fxFlex></span>
         <mat-icon (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;">loop</mat-icon>
