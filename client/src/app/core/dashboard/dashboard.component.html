@@ -1,7 +1,7 @@
 <div class="dashboard-header">
     
     <span fxLayout="row" layout-margin>
-            <h1>{{title}}</h1>
+            <h1>{{ getTitle() }}</h1>
         <mat-chip-list style="margin: 2px;" *ngFor="let tag of dashboard.tags" >
             <mat-chip>{{ tag }}</mat-chip>
         </mat-chip-list>

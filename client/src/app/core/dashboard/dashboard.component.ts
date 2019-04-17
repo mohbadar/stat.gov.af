@@ -82,6 +82,9 @@ export class DashboardComponent implements OnInit {
 	// 	});
 	// }
 
+	getTitle() {
+		return this.parseTitleAsObject(this.dashboard.name);
+	}
 
 	setTitle(title) {
 		this.title = this.parseTitleAsObject(title);
