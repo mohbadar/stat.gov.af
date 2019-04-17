@@ -47,7 +47,7 @@ import { Globals } from './../helpers/globals';
           </a>
           <mat-nav-list class="sub-menu" *ngIf="menuitem.type === 'sub'">
             <mat-list-item *ngFor="let childitem of menuitem.children" routerLinkActive="open">
-              <a [routerLink]="['/', menuitem.state, childitem.state ]" class="relative">{{ childitem.name | translate }}</a>
+              <a [routerLink]="['/', menuitem.state, childitem.state ]" class="relative">{{ this.parseTitleAsObject(childitem.name) | translate }}</a>
             </mat-list-item>
           </mat-nav-list>
         </mat-list-item>
@@ -127,7 +127,7 @@ export class MenuComponent {
 				}
 
 				if(item.tags.indexOf(tag) != -1) {
-					menuItem.children.push({state: item.slug, name: this.parseTitleAsObject(item.name)});
+					menuItem.children.push({state: item.slug, name: item.name});
 				}
 			});
 
