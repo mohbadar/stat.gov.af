@@ -73,6 +73,11 @@
   "PINNING": "Pinning",
   "CHARTS": "Charts",
 
+  "OPEN": "باز کن",
+  "DOWNLOAD_AS_CSV_FILE": "دانلود به صورت فایل CSV",
+  "DOWNLOAD_AS_EXCEL_FILE": "به صورت فایل اکسل دانلود کنید",
+  "EMBED_SOMEWHERE": "جایی جاسازی کن",
+
   "PAGES": "Pages",
   "ECOMMERCE": "Ecommerce",
   "PRODUCTS": "Products",

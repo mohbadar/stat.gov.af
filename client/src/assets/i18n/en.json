@@ -73,6 +73,11 @@
   "PINNING": "Pinning",
   "CHARTS": "Charts",
 
+  "OPEN": "Open",
+  "DOWNLOAD_AS_CSV_FILE": "Download as CSV File",
+  "DOWNLOAD_AS_EXCEL_FILE": "Download as Excel File",
+  "EMBED_SOMEWHERE": "Embed Somewhere",
+
   "PAGES": "Pages",
   "ECOMMERCE": "Ecommerce",
   "PRODUCTS": "Products",
