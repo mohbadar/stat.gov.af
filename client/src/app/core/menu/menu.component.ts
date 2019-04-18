@@ -40,14 +40,14 @@ import { Globals } from './../helpers/globals';
           </a>
           <a appAccordionToggle class="relative" href="javascript:;" *ngIf="menuitem.type === 'sub'">
             <mat-icon class="mat-icon material-icons" [svgIcon]="menuitem.icon">{{ menuitem.icon }}</mat-icon>
-            <span>{{ menuitem.name | translate }}</span>
+            <span>{{ parseAsObject(menuitem.name) | translate }}</span>
             <span fxFlex></span>
-            <span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
+            <span class="menu-badge mat-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ pbadge.value }}</span>
             <mat-icon class="menu-caret">arrow_drop_down</mat-icon>
           </a>
           <mat-nav-list class="sub-menu" *ngIf="menuitem.type === 'sub'">
             <mat-list-item *ngFor="let childitem of menuitem.children" routerLinkActive="open">
-              <a [routerLink]="['/', menuitem.state, childitem.state ]" class="relative">{{ this.parseTitleAsObject(childitem.name) | translate }}</a>
+              <a [routerLink]="['/', menuitem.state, childitem.state ]" class="relative">{{ parseAsObject(childitem.name) | translate }}</a>
             </mat-list-item>
           </mat-nav-list>
         </mat-list-item>
@@ -114,9 +114,9 @@ export class MenuComponent {
 		uniqueTags.forEach(tag => {
 			var menuItem = {
 				state: "dashboard",
-				name: tag.toUpperCase(),
+				name: tag,
 				type: 'sub',
-        icon: this.getMenuItemIcon(tag),
+        icon: this.getMenuItemIcon(this.getEnglishTitle(tag)),
 				children: [
 				]
 			};
@@ -148,7 +148,18 @@ export class MenuComponent {
     });
   }
 
-  parseTitleAsObject(title) {
+  getEnglishTitle(title) {
+    try {
+      let obj = JSON.parse(title);
+      if(obj instanceof Object) {
+        return obj['en'].toUpperCase();
+      }
+    } catch(e) {
+			return title.toUpperCase();
+    }
+  }
+
+  parseAsObject(title) {
 		try {
 			let titleObj = JSON.parse(title);
 			if(titleObj instanceof Object) {

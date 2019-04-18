@@ -3,7 +3,7 @@
     <span fxLayout="row" layout-margin>
             <h1>{{ getTitle() }}</h1>
         <mat-chip-list style="margin: 2px;" *ngFor="let tag of dashboard.tags" >
-            <mat-chip>{{ tag }}</mat-chip>
+            <mat-chip>{{ parseAsObject(tag) }}</mat-chip>
         </mat-chip-list>
     </span>
 </div>
