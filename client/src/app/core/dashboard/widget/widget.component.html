@@ -14,13 +14,13 @@
         </button>
         <mat-menu #menu="matMenu">
                 <a mat-menu-item href="{{widgetURL}}" target="_blank">
-                    Open
+                    {{ 'OPEN' | translate }}
                 </a>
                 <a mat-menu-item href="{{widget.getQueryResult().getLink(widget.getQuery().id, widget.getQueryResult().latest_query_data_id, 'csv')}}" download="{{widget.getQueryResult().getName() + '.csv'}}" target="_self">
-                    Download as CSV File
+                    {{ 'DOWNLOAD_AS_CSV_FILE' | translate }}
                 </a>
                 <a mat-menu-item href="{{widget.getQueryResult().getLink(widget.getQueryResult().id, widget.getQueryResult().latest_query_data_id, 'xlsx')}}" download="{{widget.getQueryResult().getName() + '.xlsx'}}" target="_self">
-                    Download as Excel File
+                    {{ 'DOWNLOAD_AS_EXCEL_FILE' | translate }}
                 </a>
                 <button mat-icon-button shareButton="facebook" #fbBtn [style.color]="share.prop.facebook.color">
                     <fa-icon [icon]="share.prop.facebook.icon" size="lg"></fa-icon>
@@ -40,7 +40,7 @@
                 <button mat-icon-button shareButton="pinterest" #pinBtn [style.color]="share.prop.pinterest.color">
                     <fa-icon [icon]="share.prop.pinterest.icon" size="lg"></fa-icon>
                 </button>
-                <a mat-menu-item (click)="openBottomSheet()">Embed Somewhere</a>
+                <a mat-menu-item (click)="openBottomSheet()">{{ 'EMBED_SOMEWHERE' | translate }}</a>
         </mat-menu>
     </mat-card-title>
     <mat-card-content class="body-row-auto spinner-container">

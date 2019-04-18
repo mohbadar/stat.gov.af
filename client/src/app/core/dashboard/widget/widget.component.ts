@@ -9,6 +9,7 @@ import { QueryResult } from '../../../models/query-result';
 import { ShareService  } from '@ngx-share/core';
 import { Visualization } from '../../../models/visualization';
 import { DashboardService, Globals } from '../../helpers';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'dashboard-widget',
@@ -25,6 +26,7 @@ export class WidgetComponent implements OnInit {
   
 	constructor(private dashboardService: DashboardService, public share: ShareService, 
 		private bottomSheet: MatBottomSheet,
+		public translate: TranslateService,
 		public globals: Globals) {
 	}
 
