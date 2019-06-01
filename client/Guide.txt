@@ -11,6 +11,7 @@ Analyzing bundle size with the Angular CLI and Webpack
 - npm run bundle-report
 
 
+sudo npm install --save-dev  --unsafe-perm node-sass
 
 
 - build the application locally

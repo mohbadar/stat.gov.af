@@ -80,7 +80,10 @@ import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
+
 import { DynamicTableComponent } from './core/visualization/grid-renderer/dynamic-table/dynamic-table.component';
 import { DefaultCellComponent } from './core/visualization/grid-renderer/dynamic-table/default-cell/default-cell.component';
 import { JsonCellComponent } from './core/visualization/grid-renderer/dynamic-table/json-cell/json-cell.component';
