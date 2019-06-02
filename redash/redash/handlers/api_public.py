@@ -64,7 +64,7 @@ def public_dashboards():
     return make_response(data, 200, headers)
 
 @routes.route('/api/public/dashboards/<dashboard_slug>', methods=['GET'])
-def ppublic_dashboard(dashboard_slug):
+def ppublic_dashboard(self, dashboard_slug):
     dashboard = get_object_or_404(models.Dashboard.get_public_by_slug_and_org, dashboard_slug)
     response = serialize_public_dashboard(dashboard, with_widgets=True)
 
@@ -86,7 +86,7 @@ def public_dashboard_tags():
 @routes.route('/api/public/query_results/<query_result_id>', methods=['GET'])
 @routes.route('/api/public/queries/<query_id>/results.<filetype>', methods=['GET'])
 @routes.route('/api/public/queries/<query_id>/results/<query_result_id>.<filetype>', methods=['GET'])
-def query_result(query_id=None, query_result_id=None, filetype='json'):
+def query_result(self, query_id=None, query_result_id=None, filetype='json'):
     """
     Retrieve query results.
 
