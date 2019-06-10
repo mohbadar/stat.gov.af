@@ -7,6 +7,7 @@ export class Visualization {
         editorTemplate: null,
     };
 
+
     static visualizations = {
         'BOXPLOT': {
             'defaultOptions': {

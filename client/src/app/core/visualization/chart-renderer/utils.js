@@ -458,10 +458,11 @@ export function prepareLayout(element, seriesList, options, data) {
       };
 
       if (isNumber(options.yAxis[0].rangeMin) || isNumber(options.yAxis[0].rangeMax)) {
+        
         result.yaxis.range = calculateAxisRange(
           data.filter(s => !s.yaxis !== 'y2'),
           options.yAxis[0].rangeMin,
-          options.yAxis[0].rangeMax,
+          options.yAxis[0].rangeMax
         );
       }
     }
@@ -478,7 +479,7 @@ export function prepareLayout(element, seriesList, options, data) {
         result.yaxis2.range = calculateAxisRange(
           data.filter(s => s.yaxis === 'y2'),
           options.yAxis[1].rangeMin,
-          options.yAxis[1].rangeMax,
+          options.yAxis[1].rangeMax
         );
       }
     }

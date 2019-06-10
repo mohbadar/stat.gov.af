@@ -21,7 +21,7 @@ function calculatePositionOptions(Visualization, dashboardGridOptions, widget) {
 
     const visualization = widget.visualization ? Visualization.visualizations[widget.visualization.type] : null;
     if (isObject(visualization)) {
-      const options = extend({}, visualization.defaultOptions);
+      const options = extend({}, visualization["defaultOptions"]);
 
       if (Object.prototype.hasOwnProperty.call(options, 'autoHeight')) {
         visualizationOptions.autoHeight = options.autoHeight;

@@ -106,7 +106,7 @@ function Sankey() {
     function initializeNodeDepth() {
       const ky = d3.min(
         nodesByBreadth,
-        n => (size[1] - (n.length - 1) * nodePadding) / d3.sum(n, value),
+        n => (size[1] - (n.length - 1) * nodePadding) / d3.sum(n, value)
       );
 
       nodesByBreadth.forEach(n => {
