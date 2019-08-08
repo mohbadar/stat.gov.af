@@ -1,13 +1,13 @@
 /* Sankey Visualization */
-:host /deep/ .sankey .node rect {
+:host ::ng-deep .sankey .node rect {
   fill-opacity: .9;
   shape-rendering: crispEdges;
   stroke-width: 0;
 }
-:host /deep/ .sankey .node text {
+:host ::ng-deep .sankey .node text {
   text-shadow: 0 1px 0 #fff;
 }
-:host /deep/ .sankey .link {
+:host ::ng-deep .sankey .link {
   fill: none;
   stroke: #000;
   stroke-opacity: .2;

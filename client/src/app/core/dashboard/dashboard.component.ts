@@ -1,23 +1,23 @@
-import { Component, Input, OnInit, SimpleChange, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { Dashboard, dashboardGridOptions } from "../../models/dashboard";
-import { Widget } from "../../models/widget";
-import { DashboardService, prepareWidgetsForDashboard } from "../helpers/dashboard.service";
+import { Component, Input, OnInit, SimpleChange, SimpleChanges, ViewChild, ElementRef, OnChanges, AfterViewInit } from '@angular/core';
+import { Dashboard, dashboardGridOptions } from '../../models/dashboard';
+import { Widget } from '../../models/widget';
+import { DashboardService, prepareWidgetsForDashboard } from '../helpers/dashboard.service';
 import { QueryService } from '../helpers/query.service';
-import * as _ from "lodash";
+import * as _ from 'lodash';
 import { WidgetComponent } from './widget/widget.component';
 import { Visualization } from '../../models/visualization';
 import { debounce } from 'lodash';
+import { ActivatedRoute } from '@angular/router';
 import { GridStackOptions, GridStackComponent } from 'ng4-gridstack';
 import { Globals } from './../helpers/globals';
 
 @Component({
-  selector: 'dashboard',
-  inputs: ['slug'],
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+	selector: 'dashboard',
+	templateUrl: './dashboard.component.html',
+	styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
-	@Input() slug: string = '';
+export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
+	@Input() slug = '';
 	title = '';
 	widgets: Widget[] = [];
 	items = {};
@@ -25,39 +25,62 @@ export class DashboardComponent implements OnInit {
 	calculatedMaxRows = 0;
 	gridStackEl;
 
-	@ViewChild('grid_stack') gridStack: ElementRef;
-	@ViewChild('grid_stack_item') gridStackItem: ElementRef;
+	@ViewChild('grid_stack', { static: false }) gridStack: ElementRef;
+	@ViewChild('grid_stack_item', { static: false }) gridStackItem: ElementRef;
 
 	area: GridStackOptions = new GridStackOptions();
-  // public dashboards: Dashboard[] = [
-  //   new Dashboard(1, "Dashbaord 001"),
-  //   new Dashboard(2, "Product 002"),
-  //   new Dashboard(3, "Product 003"),
-  //   new Dashboard(4, "Product 004"),
-  //   new Dashboard(5, "Product 005"),
-  //   new Dashboard(6, "Product 006"),
-  //   new Dashboard(7, "Product 007"),
-  //   new Dashboard(8, "Product 008")
-  // ];
-  // product: Dashboard = this.dashboards[0];// this will store the current product to display 
-  public dashboard: Dashboard = new Dashboard(null, '');
+	// public dashboards: Dashboard[] = [
+	//   new Dashboard(1, "Dashbaord 001"),
+	//   new Dashboard(2, "Product 002"),
+	//   new Dashboard(3, "Product 003"),
+	//   new Dashboard(4, "Product 004"),
+	//   new Dashboard(5, "Product 005"),
+	//   new Dashboard(6, "Product 006"),
+	//   new Dashboard(7, "Product 007"),
+	//   new Dashboard(8, "Product 008")
+	// ];
+	// product: Dashboard = this.dashboards[0];// this will store the current product to display
+	public dashboard: Dashboard = new Dashboard(null, '');
 
-  constructor(private dashboardService: DashboardService,
-	public queryService: QueryService,
-	public globals: Globals) {
-    
-  }
+	constructor(private dashboardService: DashboardService,
+		public queryService: QueryService,
+		public globals: Globals,
+		public route: ActivatedRoute) {
 
-  ngOnChanges(changes: SimpleChanges) {
+	}
+
+	ngOnChanges(changes: SimpleChanges) {
 
 		const slug: SimpleChange = changes.slug;
-		if(!slug.isFirstChange() && changes.slug) {
-        	this.getDashbaord(this.slug);
+		if (!slug.isFirstChange() && changes.slug) {
+			console.log('Slug in changes:', slug);
+
+			this.getDashbaord(this.slug);
 		}
 	}
 
 	ngOnInit() {
-		console.log("Slug : " + this.slug);
+
+		// If no parameter is passed then take it from Globals
+		this.dashboardService.callToDashboardMethodSource.subscribe(() => {
+			this.route.paramMap.subscribe(param => {
+				console.log('params: ', param);
+				if (!param.get('slug')) {
+					this.slug = this.globals.default_dashboard;
+					this.getDashbaord(this.slug);
+				}
+			});
+		});
+
+		this.route.paramMap.subscribe(param => {
+			console.log('params: ', param);
+			if (param.get('slug')) {
+				this.slug = param.get('slug');
+				this.getDashbaord(this.slug);
+			}
+		});
+
+		console.log('Slug : ' + this.slug);
 		this.area.cellHeight = dashboardGridOptions.rowHeight - dashboardGridOptions.margins + 'px';
 		this.area.verticalMargin = dashboardGridOptions.margins;
 		this.area.auto = false;
@@ -65,16 +88,16 @@ export class DashboardComponent implements OnInit {
 		this.area.disableOneColumnMode = true;
 		// this.area.rtl = this.globals.options.dir;
 
-		this.getDashbaord(this.slug);
+		// this.getDashbaord(this.slug);
 
 		// this.handleResize = debounce(this.batchUpdateWidgets, 50);
-		
+
 		// this.updateGridStackAttributes(this.gridStack);
 	}
 
 	ngAfterViewInit() {
 	}
-	
+
 	// updateGridStackAttributes(gridStack) {
 	// 	let gridstackItems = gridStack.items;
 	// 	gridstackItems._results.forEach(item => {
@@ -92,43 +115,48 @@ export class DashboardComponent implements OnInit {
 
 	parseAsObject(title) {
 		try {
-			let titleObj = JSON.parse(title);
-			if(titleObj instanceof Object) {
+			const titleObj = JSON.parse(title);
+			if (titleObj instanceof Object) {
 				return titleObj[this.globals.lang];
 			}
 			return title;
-		} catch(e) {
+		} catch (e) {
 			return title;
 		}
 	}
 
 	getDashbaord(slug) {
-		if(slug) {
+		console.log('Dashboard called: ', slug);
+		
+		if (slug) {
 			this.dashboardService.getDashboard(slug).subscribe((data) => {
+				console.log('Dashboard widgets: ', data);
+
 				this.dashboard = _.create(Dashboard.prototype, data);
-				
+				console.log('generated dashboard: ', this.dashboard);
+
 				this.widgets = [];
-				for (var widget of this.dashboard.widgets) {
+				for (const widget of this.dashboard.widgets) {
 					// this.widgets.push(_.create(Widget.prototype, widget));
-					let newWidget = new Widget(widget);
-					
+					const newWidget = new Widget(widget);
+
 					if (newWidget.visualization) {
-						let newVisualization = new Visualization(newWidget.visualization);
+						const newVisualization = new Visualization(newWidget.visualization);
 						newWidget.visualization = newVisualization;
 					}
 
 					// this.items[newWidget.id] = newWidget.options.position;
 
 					newWidget.$dashboardComponent = this;
-					
+
 					this.widgets.push(newWidget);
 				}
-				
+
 				this.widgets = prepareWidgetsForDashboard(this.widgets);
 
 				this.dashboard.widgets = this.widgets;
 
-				let gsEL:any = this.gridStack;
+				const gsEL: any = this.gridStack;
 				this.gridStackEl = gsEL.el.nativeElement;
 
 				this.renderDashboard(this.dashboard);
@@ -151,34 +179,34 @@ export class DashboardComponent implements OnInit {
 	}
 
 	emptyGridStack() {
-		let gridStackComponenet:any = this.gridStack;
+		const gridStackComponenet: any = this.gridStack;
 		gridStackComponenet.grid.grid.nodes = [];
 		// gridStackComponenet.grid.destroy();
 	}
 
 	addWidget(widget) {
-		let gridStackItemEl = this.gridStackEl.querySelectorAll('.grid-stack-item[id="' + widget.id + '"]')
-		let gridStackComponenet:any = this.gridStack;
-        let grid = gridStackComponenet.grid;
-        if (grid) {
-          grid.addWidget(
-            gridStackItemEl,
-			widget.options.position.col, widget.options.position.row,
-			widget.options.position.sizeX, widget.options.position.sizeY,
-            false, // auto position
-			widget.options.position.minSizeX, widget.options.position.maxSizeX,
-			widget.options.position.minSizeY, widget.options.position.maxSizeY,
-            widget.id,
-		  );
-        }
+		const gridStackItemEl = this.gridStackEl.querySelectorAll('.grid-stack-item[id="' + widget.id + '"]');
+		const gridStackComponenet: any = this.gridStack;
+		const grid = gridStackComponenet.grid;
+		if (grid) {
+			grid.addWidget(
+				gridStackItemEl,
+				widget.options.position.col, widget.options.position.row,
+				widget.options.position.sizeX, widget.options.position.sizeY,
+				false, // auto position
+				widget.options.position.minSizeX, widget.options.position.maxSizeX,
+				widget.options.position.minSizeY, widget.options.position.maxSizeY,
+				widget.id,
+			);
+		}
 
 	}
 
 	getMaxRows(widgets) {
-		if(!this.calculatedMaxRows) {
+		if (!this.calculatedMaxRows) {
 			let calMaxRows = 0;
-			for (var widget of widgets) {
-				if(calMaxRows < widget.options.position.row) {
+			for (const widget of widgets) {
+				if (calMaxRows < widget.options.position.row) {
 					calMaxRows = widget.options.position.row;
 				}
 			}
@@ -187,15 +215,15 @@ export class DashboardComponent implements OnInit {
 		return this.calculatedMaxRows;
 	}
 
-  	batchUpdateWidgets() {
+	batchUpdateWidgets() {
 		// This method is used to update multiple widgets with a single
 		// reflow (for example, restore positions when dashboard editing cancelled).
 		// "dirty" part of code: updating grid and DOM nodes directly.
 		// layout reflow is triggered by `batchUpdate`/`commit` calls
-		let gridStackComponenet:any = this.gridStack;
-		let gridStackItems = gridStackComponenet.items;
+		const gridStackComponenet: any = this.gridStack;
+		const gridStackItems = gridStackComponenet.items;
 		gridStackItems._results.forEach(node => {
-			let nodeId = node.el.nativeElement.getAttribute("id");
+			const nodeId = node.el.nativeElement.getAttribute('id');
 			const item = this.items[nodeId];
 			if (item) {
 				if (_.isNumber(item.col)) {
@@ -248,8 +276,8 @@ export class DashboardComponent implements OnInit {
 			}
 		});
 
-		let grid = gridStackComponenet.grid;
+		const grid = gridStackComponenet.grid;
 		// grid._updateContainerHeight();
-		grid._updateStyles(this.calculatedMaxRows+1);
+		grid._updateStyles(this.calculatedMaxRows + 1);
 	}
 }

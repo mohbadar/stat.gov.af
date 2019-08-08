@@ -1,12 +1,12 @@
-<div class="dashboard-header">
+<!-- <div class="dashboard-header">
     
     <span fxLayout="row" layout-margin>
             <h1>{{ getTitle() }}</h1>
-        <mat-chip-list style="margin: 2px;" *ngFor="let tag of dashboard.tags" >
-            <mat-chip>{{ parseAsObject(tag) }}</mat-chip>
-        </mat-chip-list>
+        <div style="margin: 2px;" *ngFor="let tag of dashboard.tags" >
+            <h3>{{ parseAsObject(tag) }}</h3>
+        </div>
     </span>
-</div>
+</div> -->
 <grid-stack #grid_stack class="grid-stack dashboard-wrapper preview-mode" [ngClass]="{'grid-stack-rtl': this.globals.options.dir == 'rtl'}" style="height: 100%!important;"  [options]="area">
     <grid-stack-item #grid_stack_item *ngFor="let widget of widgets" [option]="widget.getGridStackOptions()" class="grid-stack-item dashboard-widget-wrapper" id="{{widget.id}}" 
     [attr.data-gs-x]="widget.options.position.col" [attr.data-gs-y]="widget.options.position.row" [attr.data-gs-width]="widget.options.position.sizeX" 

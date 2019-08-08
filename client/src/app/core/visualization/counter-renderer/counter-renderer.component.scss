@@ -1,4 +1,4 @@
-:host /deep/ .counter {
+:host ::ng-deep .counter {
 	margin: 0;
 	padding: 0;
 	font-size: 80px;
@@ -12,31 +12,31 @@
 		height: inherit;
 	}
 
-	:host /deep/ .value,
+	:host ::ng-deep .value,
 	.counter-target {
 	font-size: 1em;
 	display: block;
 	}
 
-	:host /deep/ .counter-name {
+	:host ::ng-deep .counter-name {
 	font-size: 0.5em;
 	display: block;
 	}
 
-	:host /deep/ &.positive .value {
+	:host ::ng-deep &.positive .value {
 	color: #5cb85c;
 	}
 
-	:host /deep/ &.negative .value {
+	:host ::ng-deep &.negative .value {
 	color: #d9534f;
 	}
 }
 
-:host /deep/ .counter-target {
+:host ::ng-deep .counter-target {
 	color: #ccc;
 }
 
-:host /deep/ .counter-name {
+:host ::ng-deep .counter-name {
 	font-size: 0.5em;
 	display: block;
 }

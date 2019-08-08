@@ -4,15 +4,15 @@ import { debounce } from 'lodash';
 import Sunburst from './../../lib/sunburst';
 
 @Component({
-  selector: 'sunburst-sequence-renderer',
-  templateUrl: './sunburst-sequence-renderer.component.html',
-  styleUrls: ['./sunburst-sequence-renderer.component.scss']
+	selector: 'sunburst-sequence-renderer',
+	templateUrl: './sunburst-sequence-renderer.component.html',
+	styleUrls: ['./sunburst-sequence-renderer.component.scss']
 })
 export class SunburstSequenceRendererComponent implements OnInit {
 	@Input('options') options: any;
 	@Input('query-result') queryResult: QueryResult;
 
-	@ViewChild('sunburstSequenceContainer') sunburstSequenceContainer: ElementRef;
+	@ViewChild('sunburstSequenceContainer', { static: false }) sunburstSequenceContainer: ElementRef;
 	sunburstSequenceElement;
 	container;
 	sunburst;
@@ -21,7 +21,7 @@ export class SunburstSequenceRendererComponent implements OnInit {
 	constructor() { }
 
 	ngOnChanges(changes: SimpleChanges) {
-		
+
 		const options: SimpleChange = changes.options;
 		if (!options.isFirstChange() && changes.options) {
 			this.resize();

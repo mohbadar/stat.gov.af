@@ -14,7 +14,7 @@ export class SankeyRendererComponent implements OnInit {
 	@Input('options') options: any;
 	@Input('query-result') queryResult: QueryResult;
 
-	@ViewChild('sankeyContainer') sankeyContainer: ElementRef;
+	@ViewChild('sankeyContainer', { static: false }) sankeyContainer: ElementRef;
 	sankeyElement;
 	container;
 	handleResize;

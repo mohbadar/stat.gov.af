@@ -1,0 +1,23 @@
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { TreeNode } from '../models/tree-node.model';
+var TreeNodeComponent = /** @class */ (function () {
+    function TreeNodeComponent() {
+    }
+    TreeNodeComponent.decorators = [
+        { type: Component, args: [{
+                    selector: 'TreeNode, tree-node',
+                    encapsulation: ViewEncapsulation.None,
+                    styles: [],
+                    template: "\n    <ng-container *mobxAutorun=\"{dontDetach: true}\">\n      <div\n        *ngIf=\"!templates.treeNodeFullTemplate\"\n        [class]=\"node.getClass()\"\n        [class.tree-node]=\"true\"\n        [class.tree-node-expanded]=\"node.isExpanded && node.hasChildren\"\n        [class.tree-node-collapsed]=\"node.isCollapsed && node.hasChildren\"\n        [class.tree-node-leaf]=\"node.isLeaf\"\n        [class.tree-node-active]=\"node.isActive\"\n        [class.tree-node-focused]=\"node.isFocused\"\n        >\n\n        <tree-node-drop-slot *ngIf=\"index === 0\" [dropIndex]=\"node.index\" [node]=\"node.parent\"></tree-node-drop-slot>\n\n        <tree-node-wrapper [node]=\"node\" [index]=\"index\" [templates]=\"templates\"></tree-node-wrapper>\n\n        <tree-node-children [node]=\"node\" [templates]=\"templates\"></tree-node-children>\n        <tree-node-drop-slot [dropIndex]=\"node.index + 1\" [node]=\"node.parent\"></tree-node-drop-slot>\n      </div>\n      <ng-container\n        [ngTemplateOutlet]=\"templates.treeNodeFullTemplate\"\n        [ngTemplateOutletContext]=\"{ $implicit: node, node: node, index: index, templates: templates }\">\n      </ng-container>\n    </ng-container>"
+                },] },
+    ];
+    TreeNodeComponent.propDecorators = {
+        node: [{ type: Input }],
+        index: [{ type: Input }],
+        templates: [{ type: Input }]
+    };
+    return TreeNodeComponent;
+}());
+export { TreeNodeComponent };
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidHJlZS1ub2RlLmNvbXBvbmVudC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIi4uLy4uL2xpYi9jb21wb25lbnRzL3RyZWUtbm9kZS5jb21wb25lbnQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUEsT0FBTyxFQUFFLFNBQVMsRUFBRSxLQUFLLEVBQUUsaUJBQWlCLEVBQWUsTUFBTSxlQUFlLENBQUM7QUFDakYsT0FBTyxFQUFFLFFBQVEsRUFBRSxNQUFNLDJCQUEyQixDQUFDO0FBRXJEO0lBQUE7SUFtQ0EsQ0FBQzs7Z0JBbkNBLFNBQVMsU0FBQztvQkFDVCxRQUFRLEVBQUUscUJBQXFCO29CQUMvQixhQUFhLEVBQUUsaUJBQWlCLENBQUMsSUFBSTtvQkFDckMsTUFBTSxFQUFFLEVBQUU7b0JBQ1YsUUFBUSxFQUFFLG1yQ0F3QlE7aUJBQ25COzs7dUJBR0UsS0FBSzt3QkFDTCxLQUFLOzRCQUNMLEtBQUs7O0lBQ1Isd0JBQUM7Q0FBQSxBQW5DRCxJQW1DQztTQUpZLGlCQUFpQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IENvbXBvbmVudCwgSW5wdXQsIFZpZXdFbmNhcHN1bGF0aW9uLCBUZW1wbGF0ZVJlZiB9IGZyb20gJ0Bhbmd1bGFyL2NvcmUnO1xuaW1wb3J0IHsgVHJlZU5vZGUgfSBmcm9tICcuLi9tb2RlbHMvdHJlZS1ub2RlLm1vZGVsJztcblxuQENvbXBvbmVudCh7XG4gIHNlbGVjdG9yOiAnVHJlZU5vZGUsIHRyZWUtbm9kZScsXG4gIGVuY2Fwc3VsYXRpb246IFZpZXdFbmNhcHN1bGF0aW9uLk5vbmUsXG4gIHN0eWxlczogW10sXG4gIHRlbXBsYXRlOiBgXG4gICAgPG5nLWNvbnRhaW5lciAqbW9ieEF1dG9ydW49XCJ7ZG9udERldGFjaDogdHJ1ZX1cIj5cbiAgICAgIDxkaXZcbiAgICAgICAgKm5nSWY9XCIhdGVtcGxhdGVzLnRyZWVOb2RlRnVsbFRlbXBsYXRlXCJcbiAgICAgICAgW2NsYXNzXT1cIm5vZGUuZ2V0Q2xhc3MoKVwiXG4gICAgICAgIFtjbGFzcy50cmVlLW5vZGVdPVwidHJ1ZVwiXG4gICAgICAgIFtjbGFzcy50cmVlLW5vZGUtZXhwYW5kZWRdPVwibm9kZS5pc0V4cGFuZGVkICYmIG5vZGUuaGFzQ2hpbGRyZW5cIlxuICAgICAgICBbY2xhc3MudHJlZS1ub2RlLWNvbGxhcHNlZF09XCJub2RlLmlzQ29sbGFwc2VkICYmIG5vZGUuaGFzQ2hpbGRyZW5cIlxuICAgICAgICBbY2xhc3MudHJlZS1ub2RlLWxlYWZdPVwibm9kZS5pc0xlYWZcIlxuICAgICAgICBbY2xhc3MudHJlZS1ub2RlLWFjdGl2ZV09XCJub2RlLmlzQWN0aXZlXCJcbiAgICAgICAgW2NsYXNzLnRyZWUtbm9kZS1mb2N1c2VkXT1cIm5vZGUuaXNGb2N1c2VkXCJcbiAgICAgICAgPlxuXG4gICAgICAgIDx0cmVlLW5vZGUtZHJvcC1zbG90ICpuZ0lmPVwiaW5kZXggPT09IDBcIiBbZHJvcEluZGV4XT1cIm5vZGUuaW5kZXhcIiBbbm9kZV09XCJub2RlLnBhcmVudFwiPjwvdHJlZS1ub2RlLWRyb3Atc2xvdD5cblxuICAgICAgICA8dHJlZS1ub2RlLXdyYXBwZXIgW25vZGVdPVwibm9kZVwiIFtpbmRleF09XCJpbmRleFwiIFt0ZW1wbGF0ZXNdPVwidGVtcGxhdGVzXCI+PC90cmVlLW5vZGUtd3JhcHBlcj5cblxuICAgICAgICA8dHJlZS1ub2RlLWNoaWxkcmVuIFtub2RlXT1cIm5vZGVcIiBbdGVtcGxhdGVzXT1cInRlbXBsYXRlc1wiPjwvdHJlZS1ub2RlLWNoaWxkcmVuPlxuICAgICAgICA8dHJlZS1ub2RlLWRyb3Atc2xvdCBbZHJvcEluZGV4XT1cIm5vZGUuaW5kZXggKyAxXCIgW25vZGVdPVwibm9kZS5wYXJlbnRcIj48L3RyZWUtbm9kZS1kcm9wLXNsb3Q+XG4gICAgICA8L2Rpdj5cbiAgICAgIDxuZy1jb250YWluZXJcbiAgICAgICAgW25nVGVtcGxhdGVPdXRsZXRdPVwidGVtcGxhdGVzLnRyZWVOb2RlRnVsbFRlbXBsYXRlXCJcbiAgICAgICAgW25nVGVtcGxhdGVPdXRsZXRDb250ZXh0XT1cInsgJGltcGxpY2l0OiBub2RlLCBub2RlOiBub2RlLCBpbmRleDogaW5kZXgsIHRlbXBsYXRlczogdGVtcGxhdGVzIH1cIj5cbiAgICAgIDwvbmctY29udGFpbmVyPlxuICAgIDwvbmctY29udGFpbmVyPmBcbn0pXG5cbmV4cG9ydCBjbGFzcyBUcmVlTm9kZUNvbXBvbmVudCB7XG4gIEBJbnB1dCgpIG5vZGU6IFRyZWVOb2RlO1xuICBASW5wdXQoKSBpbmRleDogbnVtYmVyO1xuICBASW5wdXQoKSB0ZW1wbGF0ZXM6IGFueTtcbn1cbiJdfQ==

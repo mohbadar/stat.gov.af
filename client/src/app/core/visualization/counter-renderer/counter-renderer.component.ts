@@ -6,16 +6,16 @@ import { Visualization } from '../../../models/visualization';
 import { debounce } from 'lodash';
 
 @Component({
-  selector: 'counter-renderer',
-  templateUrl: './counter-renderer.component.html',
-  styleUrls: ['./counter-renderer.component.scss']
+	selector: 'counter-renderer',
+	templateUrl: './counter-renderer.component.html',
+	styleUrls: ['./counter-renderer.component.scss']
 })
 export class CounterRendererComponent implements OnInit {
 	@Input('visualization') visualization: Visualization;
 	@Input('options') options: any;
 	@Input('query-result') queryResult: QueryResult;
 
-	@ViewChild('counter') counterRendererContainer: ElementRef;
+	@ViewChild('counter', { static: false }) counterRendererContainer: ElementRef;
 	rootNode;
 	visualizationRendererEl;
 	counterChildDiv;
@@ -34,7 +34,7 @@ export class CounterRendererComponent implements OnInit {
 	constructor() { }
 
 	ngOnChanges(changes: SimpleChanges) {
-		
+
 		const options: SimpleChange = changes.options;
 		if (!options.isFirstChange() && changes.options) {
 			this.refreshData();
@@ -44,7 +44,7 @@ export class CounterRendererComponent implements OnInit {
 		if (!queryResult.isFirstChange() && changes.queryResult) {
 			this.refreshData();
 		}
-	} 
+	}
 
 	ngOnInit() {
 		this.rootNode = this.counterRendererContainer;
@@ -129,12 +129,12 @@ export class CounterRendererComponent implements OnInit {
 
 function getRowNumber(index, size) {
 	if (index >= 0) {
-	  return index - 1;
+		return index - 1;
 	}
-  
+
 	if (Math.abs(index) > size) {
-	  index %= size;
+		index %= size;
 	}
-  
+
 	return size + index;
 }

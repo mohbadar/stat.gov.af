@@ -1,62 +1,53 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent, AuthLayoutComponent, DefaultLayoutComponent } from './core';
+// import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
+import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { AdminLayoutComponent, DashboardComponent } from './core';
 
-import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
-import {WidgetPageComponent } from './widget-page/widget-page.component';
-// import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
-export const AppRoutes: Routes = [
-  {
+export const AppRoutes: Routes = [{
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+}, {
     path: '',
     component: AdminLayoutComponent,
     children: [
-      {
+    //     {
+    //     path: '',
+    //     loadChildren: './dashboard/dashboard.module#DashboardModule'
+    // },
+     {
+        path: 'components',
+        loadChildren: './components/components.module#ComponentsModule'
+    }, {
+        path: 'forms',
+        loadChildren: './forms/forms.module#Forms'
+    }, {
+        path: 'tables',
+        loadChildren: './tables/tables.module#TablesModule'
+    }, {
+        path: 'maps',
+        loadChildren: './maps/maps.module#MapsModule'
+    }, {
+        path: 'charts',
+        loadChildren: './charts/charts.module#ChartsModule'
+    }, {
+        path: 'calendar',
+        loadChildren: './calendar/calendar.module#CalendarModule'
+    }, {
         path: '',
-        component: HomeComponent,
-        // loadChildren: './home/home.module#HomeModule'
-      },
-      // {
-      //   path: 'documentation',
-      //   loadChildren: './docs/docs.module#DocsModule'
-      // }
-      {
-        path: 'dashboard/:slug',
-        component: DashboardPageComponent
-        // loadChildren: './dashboard-page/dashboard-page.module#DashboardPageModule'
-      },
-      {
-        path: 'dashboards',
-        // component: DashboardListComponent
-        loadChildren: './dashboard-list/dashboard-list.module#DashboardListModule'
-      },
-    ]
-  },
-  {
-    path: 'widgets/:slug',
-    component: DefaultLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: WidgetPageComponent,
-        // loadChildren: './home/home.module#HomeModule'
-      },
-    ]
-  },
-  {
+        loadChildren: './userpage/user.module#UserModule'
+    },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'dashboard/:slug', component: DashboardComponent },
+    { path: '', redirectTo: 'dashboard', pathMatch: 'full' }]
+}, {
     path: '',
     component: AuthLayoutComponent,
-    children: [
-      {
-        path: 'error',
-        loadChildren: './error/error.module#ErrorModule'
-      }
-    ]
-  },
-  {
-    path: '**',
-    redirectTo: 'error/404'
-  }
+    children: [{
+        path: 'pages',
+        loadChildren: './pages/pages.module#PagesModule'
+    }]
+}
 ];

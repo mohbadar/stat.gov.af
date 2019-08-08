@@ -4,11 +4,9 @@ Install Postgresql
 - psql
 - CREATE DATABASE redash;
 - ALTER DATABASE redash OWNER TO redash;
-- SELECT d.datname as "Name", pg_catalog.pg_get_userbyid(d.datdba) as "Owner"
-FROM pg_catalog.pg_database d WHERE d.datname = 'redash' ORDER BY 1;
+- SELECT d.datname as "Name", pg_catalog.pg_get_userbyid(d.datdba) as "Owner" FROM pg_catalog.pg_database d WHERE d.datname = 'redash' ORDER BY 1;
 - grant all privileges on database redash to redash;
-- SELECT table_catalog, table_schema, table_name, privilege_type
-FROM   information_schema.table_privileges WHERE  grantee = 'redash';
+- SELECT table_catalog, table_schema, table_name, privilege_type FROM   information_schema.table_privileges WHERE  grantee = 'redash';
 - GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO redash;
 - GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO redash;
 - GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public TO redash;
@@ -28,12 +26,16 @@ USAGE | SELECT | UPDATE
 \connect database_name
 \dt
 
+Install required system dependencies (ubuntu)
+- sudo apt-get install libssl-dev
+- dpkg -s libssl-dev  will give you the information about this dependency
+
 
 Install Pythong 2.7.15
 - cd /opt && sudo wget https://www.python.org/ftp/python/2.7.15/Python-2.7.15.tar.xz
 - sudo tar -xvf Python-2.7.15.tar.xz
 - cd Python-2.7.15
-- ./configure --with-zlib
+- ./configure --with-zlib --enable-unicode=ucs4
 apt-get install build-essential (if c compiler is not installed and it fails)
 sudo apt-get install --reinstall make (if make command is not working)
 - sudo make && sudo make install

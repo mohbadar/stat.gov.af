@@ -39,7 +39,7 @@ export class OptionsComponent {
   @Output()
   toggleFullscreen = new EventEmitter<void>();
 
-  @ViewChild(PerfectScrollbarDirective)
+  @ViewChild(PerfectScrollbarDirective, { static: false })
   directiveScroll: PerfectScrollbarDirective;
 
   public config: PerfectScrollbarConfigInterface = {};

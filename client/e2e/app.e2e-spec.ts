@@ -1,13 +1,14 @@
-import { AppPage } from './app.po';
+import { PdPPage } from './app.po';
 
-describe('latest App', () => {
-  let page: AppPage;
+describe('pd-p App', () => {
+  let page: PdPPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new PdPPage();
   });
 
-  it('should expect true to be true', () => {
-    expect(true).toBe(true);
+  it('should display message saying app works', () => {
+    page.navigateTo();
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

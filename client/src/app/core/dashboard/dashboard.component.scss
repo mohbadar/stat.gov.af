@@ -1,4 +1,4 @@
-:host /deep/ .dashboard-header {
+:host ::ng-deep .dashboard-header {
     position: -webkit-sticky;  // required for Safari
     position: sticky;
     background: #f6f7f9;
@@ -7,7 +7,7 @@
     top: 0;
 }
 
-:host /deep/ .scrollbox {
+:host ::ng-deep .scrollbox {
   overflow: auto;
   // position: relative;
 
@@ -15,7 +15,7 @@
 
 // ======================================
 
-:host /deep/ .dashboard-wrapper {
+:host ::ng-deep .dashboard-wrapper {
   .tile {
     display: flex;
     position: absolute;
@@ -112,7 +112,7 @@
 
 // =========================================
 
-:host /deep/ .grid-stack {
+:host ::ng-deep .grid-stack {
     // Same options as in JS
     $gridstack-margin: 15px;
     $gridstack-width: 6;

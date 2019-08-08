@@ -9,19 +9,19 @@ import {
 	updateDimensions,
 	updateData,
 	normalizeValue,
-  } from '../utils';
+} from '../utils';
 
 @Component({
-  selector: 'plotly-chart',
-//   templateUrl: './plotly-chart.component.html',
-//   styleUrls: ['./plotly-chart.component.scss']
+	selector: 'plotly-chart',
+	//   templateUrl: './plotly-chart.component.html',
+	//   styleUrls: ['./plotly-chart.component.scss']
 	template: '<plotly-plot [data]="data" [config]="plotlyOptions" [layout]="layout" #plotlyChartContainer></plotly-plot>',
 })
 export class PlotlyChartComponent implements OnInit, OnChanges {
 	@Input() options: any;
 	@Input() series: any;
-	
-	@ViewChild('plotlyChartContainer') plotlyChartContainer: ElementRef;
+
+	@ViewChild('plotlyChartContainer', { static: true }) plotlyChartContainer: ElementRef;
 	Plotly;
 	plotlyElement;
 	plotlyOptions = {};
@@ -30,18 +30,18 @@ export class PlotlyChartComponent implements OnInit, OnChanges {
 	redrawPendding = false;
 	handleResize;
 
-  	constructor() { }
+	constructor() { }
 
 	ngOnChanges(changes) {
 
-		if(changes.options) {
+		if (changes.options) {
 			// if (oldValue !== newValue) {
-				// this.update();
+			// this.update();
 			// }
 		}
-		if(changes.series) {
+		if (changes.series) {
 			// if (oldValue !== newValue) {
-				// this.update();
+			// this.update();
 			// }
 		}
 	}
@@ -76,7 +76,7 @@ export class PlotlyChartComponent implements OnInit, OnChanges {
 
 	@HostListener('window:resize', ['$event'])
 	onResize(event) {
-		this.handleResize();		
+		this.handleResize();
 	}
 
 	update() { }

@@ -9,9 +9,9 @@ import * as L from 'leaflet';
 import 'leaflet.markercluster';
 
 @Component({
-  selector: 'map-renderer',
-//   templateUrl: './map-renderer.component.html',
-//   styleUrls: ['./map-renderer.component.scss']
+	selector: 'map-renderer',
+	//   templateUrl: './map-renderer.component.html',
+	//   styleUrls: ['./map-renderer.component.scss']
 	template: '<div id="map" leaflet [leafletOptions]="mapOptions" [leafletLayers]="detailLayers" [leafletFitBounds]="fitBounds" class="map-visualization-container" #mapContainer></div>',
 	changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -19,7 +19,7 @@ export class MapRendererComponent implements OnInit {
 	@Input('options') options: any;
 	@Input('query-result') queryResult: QueryResult;
 
-	@ViewChild('mapContainer') mapContainer: ElementRef;
+	@ViewChild('mapContainer', { static: false }) mapContainer: ElementRef;
 	mapElement;
 
 	map;
@@ -105,7 +105,7 @@ export class MapRendererComponent implements OnInit {
 
 
 
-		
+
 		// Values to bind to Leaflet Directive
 		// this.mapOptions = {
 		// 	layers: [this.LAYER_OSM],
@@ -208,7 +208,7 @@ export class MapRendererComponent implements OnInit {
 		let markers;
 		if (this.options.clusterMarkers) {
 			const color = this.options.groups[name].color;
-			const options:any = {};
+			const options: any = {};
 
 			if (classify) {
 				options.iconCreateFunction = (cluster) => {
@@ -305,6 +305,6 @@ export class MapRendererComponent implements OnInit {
 		}
 	}
 
-	
+
 
 }
