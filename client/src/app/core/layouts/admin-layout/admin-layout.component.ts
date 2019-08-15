@@ -4,7 +4,8 @@ import {
 	NgZone,
 	OnInit,
 	OnDestroy,
-	ViewChild
+	ViewChild,
+	AfterViewInit
 } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, Route, ActivatedRoute, NavigationEnd } from '@angular/router';
@@ -25,7 +26,7 @@ const SMALL_WIDTH_BREAKPOINT = 960;
 	selector: 'app-admin',
 	templateUrl: './admin-layout.component.html'
 })
-export class AdminLayoutComponent implements OnInit, OnDestroy {
+export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 	private _router: Subscription;
 	public mediaMatcher: MediaQueryList = matchMedia(
 		`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`
@@ -34,6 +35,8 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 	url: string;
 	sidePanelOpened;
 	routeData: any;
+	header;
+	sticky;
 
 	// @ViewChild('sidemenu', { static: false })
 	// sidemenu;
@@ -60,6 +63,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.url = this.router.url;
+		window.onscroll =  () => { this.myFunction() };
 
 		// this._router = this.router.events
 		// 	.pipe(filter(event => event instanceof NavigationEnd))
@@ -73,6 +77,22 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
 		// this.runOnRouteChange();
 
 		// this.printpath('', this.router.config);
+	}
+
+	ngAfterViewInit() {
+		this.header = document.getElementById('navbar');
+		this.sticky = this.header.offsetTop;
+	}
+
+
+
+
+	myFunction() {
+		if (window.pageYOffset > this.sticky) {
+			this.header.classList.add('sticky');
+		} else {
+			this.header.classList.remove('sticky');
+		}
 	}
 
 	printpath(parent: String, config: Route[]) {

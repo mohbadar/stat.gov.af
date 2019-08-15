@@ -1,0 +1,17 @@
+@import "../variables";
+@import "../mixins";
+
+.my-drop-zone {
+  min-height: 32px;
+  margin-bottom: $spacer;
+  padding: ($spacer/2);
+  border: dashed 1px mat-color($foreground, divider);
+  background-color: white;
+  border-radius: 2px;
+}
+
+.app-dark :host ::ng-deep {
+  .my-drop-zone {
+    background: mat-color($dark-background, card);
+  }
+}

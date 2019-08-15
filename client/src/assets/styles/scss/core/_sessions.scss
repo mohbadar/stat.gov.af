@@ -1,0 +1,82 @@
+/* $error-pages
+ ------------------------------------------*/
+.session {
+  position: relative;
+  z-index: 4000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.session>.mat-card {
+  max-width: 800px;
+  width: 100%;
+}
+
+.bg-image-calendar {
+  background: url(/assets/images/material/29.jpg) no-repeat;
+}
+
+.bg-image-pricing {
+  background: url(/assets/images/material/24.jpg) no-repeat;
+}
+
+.bg-image-social {
+  background: url(/assets/images/material/25.jpg) no-repeat;
+}
+
+.bg-image-signin {
+  background: url(/assets/images/material/6.jpg) no-repeat;
+}
+
+.bg-image-signup {
+  background: url(/assets/images/material/14.jpg) no-repeat;
+}
+
+.bg-image-forgot {
+  background: url(/assets/images/material/15.jpg) no-repeat;
+}
+
+.bg-image {
+  background-size: cover;
+  background-position: center center;
+}
+
+.lockscreen-avatar {
+  position: relative;
+  display: block;
+  margin: -75px auto 0 !important;
+}
+
+.lockscreen-wrapper {
+  flex: none;
+  max-width: 280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.error-title {
+  font-family: Erica One;
+  font-size: 150px;
+  line-height: 1.2;
+  display: inline-table;
+  position: relative;
+  padding: 0 $spacer;
+  cursor: pointer;
+  margin: 0 0 $spacer;
+  color: transparent;
+  background: url("/assets/images/material/23.jpg") no-repeat;
+  background-size: cover;
+  background-position: center center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  letter-spacing: -8px;
+}
+
+.error-subtitle {
+  font-size: 32px;
+  font-weight: 100;
+}

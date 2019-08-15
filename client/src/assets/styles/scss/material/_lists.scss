@@ -1,0 +1,16 @@
+/* listgroup
+ ------------------------------------------*/
+mat-divider,
+hr {
+  opacity: .2;
+  border-top: 1px solid mat-color($foreground, divider) !important;
+}
+
+.mat-row,
+.mat-header-row {
+  border-bottom-color: rgba(0, 0, 0, 0.03);
+}
+
+.mat-table .mat-row:last-child {
+  border: 0;
+}

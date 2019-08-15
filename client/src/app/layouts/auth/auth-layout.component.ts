@@ -17,7 +17,7 @@ export class AuthLayoutComponent {
     private _router: Subscription;
     // url: string;
 
-    @ViewChild(PagesnavbarComponent) pagesnavbar: PagesnavbarComponent;
+    @ViewChild(PagesnavbarComponent, { static: false }) pagesnavbar: PagesnavbarComponent;
     constructor( private router: Router, location:Location ) {
       this.location = location;
     }

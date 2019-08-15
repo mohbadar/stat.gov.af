@@ -1,0 +1,365 @@
+@import "../variables";
+@import "../mixins";
+
+@mixin clearfix() {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+.timeline {
+  position: relative;
+  margin: ($spacer/3);
+
+  &::before {
+    position: absolute;
+    top: 6px;
+    width: 4px;
+    height: 100%;
+    content: '';
+    background: mat-color($background, card);
+    left: 4px;
+  }
+
+  .timeline-icon {
+    position: absolute;
+    top: 15px;
+    width: 12px;
+    height: 12px;
+    text-align: center;
+    left: 0;
+    border-radius: 50%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+    }
+  }
+
+  .timeline-card {
+    position: relative;
+    margin: 40px 0;
+    @include clearfix();
+
+    &:first-child .timeline-icon {
+      top: 0;
+    }
+
+    &:last-child .timeline-icon {
+      top: 0;
+    }
+  }
+
+  .timeline-card:first-child {
+    margin-top: 0;
+  }
+
+  .timeline-content {
+    position: relative;
+    margin-left: 30px;
+    @include clearfix();
+
+    >.mat-card {
+      float: left;
+      display: inline-block;
+      margin: 0;
+    }
+  }
+
+  .timeline-content .timeline-date {
+    display: inline-block;
+    padding: 4px 0 10px;
+  }
+
+  .timeline-content>.mat-card::before {
+    position: absolute;
+    top: 11px;
+    width: 0;
+    height: 0;
+    content: ' ';
+    pointer-events: none;
+    border-width: 10px;
+    border-style: solid;
+    right: 100%;
+    border-color: transparent rgba(150, 150, 150, .2) transparent transparent;
+  }
+
+  .timeline-content>.mat-card::after {
+    position: absolute;
+    top: 12px;
+    width: 0;
+    height: 0;
+    content: ' ';
+    pointer-events: none;
+    border-width: 9px;
+    border-style: solid;
+    right: 100%;
+    border-color: transparent mat-color($background, card) transparent transparent;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .timeline:not(.stacked) {
+    &::before {
+      left: 50%;
+      margin-left: -2px;
+    }
+
+    .timeline-card:nth-child(odd) .timeline-content {
+      float: right;
+    }
+
+    .timeline-card:nth-child(even) .timeline-content {
+      float: left;
+    }
+
+    .timeline-card:nth-child(even) .timeline-content>.mat-card {
+      float: right;
+    }
+
+    .timeline-card:nth-child(even) .timeline-content>.mat-card::before {
+      position: absolute;
+      right: auto;
+      left: 100%;
+      border-color: transparent transparent transparent rgba(150, 150, 150, .2);
+    }
+
+    .timeline-card:nth-child(even) .timeline-content>.mat-card::after {
+      position: absolute;
+      right: auto;
+      left: 100%;
+      border-color: transparent transparent transparent mat-color($background, card);
+    }
+
+    .timeline-card:nth-child(odd) .timeline-content .timeline-date {
+      right: 112%;
+      left: auto;
+      text-align: left;
+    }
+
+    .timeline-card:first-child {
+      margin-top: 0;
+    }
+
+    .timeline-icon {
+      left: 50%;
+      margin-left: -6px;
+    }
+
+    .timeline-content {
+      width: 47%;
+      margin-left: 0;
+    }
+  }
+
+  .timeline .timeline-date {
+    position: absolute;
+    top: 7px;
+    width: 100%;
+    left: 112%;
+  }
+
+  .timeline.stacked {
+    .timeline-content>.mat-card {
+      margin-bottom: 0;
+    }
+
+    .timeline-date {
+      position: relative;
+      top: 0;
+      width: 100%;
+      left: auto;
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .timeline {
+    .timeline-content {
+      margin-left: 30px;
+    }
+
+    .timeline-content>.mat-card {
+      float: left;
+    }
+
+    .timeline-content>.mat-card {
+      margin-bottom: 0;
+    }
+
+    .timeline-date {
+      position: relative;
+      top: 0;
+      width: 100%;
+      left: auto;
+    }
+  }
+}
+
+[dir="rtl"] :host ::ng-deep {
+  .timeline {
+    &::before {
+      left: auto;
+      right: 4px;
+    }
+
+    .timeline-icon {
+      left: auto;
+      right: 0;
+    }
+
+    .timeline-content {
+      >.mat-card {
+        float: right !important;
+      }
+    }
+
+    &.stacked {
+      .timeline-content {
+        margin-left: 0;
+        margin-right: 30px;
+      }
+
+      .timeline-content .timeline-date {
+        text-align: right;
+      }
+
+      .timeline-content>.mat-card::before {
+        right: auto;
+        left: 100%;
+        border-color: transparent transparent transparent rgba(150, 150, 150, .2);
+      }
+
+      .timeline-content>.mat-card::after {
+        right: auto;
+        left: 100%;
+        border-color: transparent transparent transparent mat-color($background, card);
+      }
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .timeline:not(.stacked) {
+      &::before {
+        left: auto;
+        right: 50%;
+        margin-left: 0;
+        margin-right: -2px;
+      }
+
+      .timeline-icon {
+        left: auto;
+        right: 50%;
+        margin-left: 0;
+        margin-right: -6px;
+      }
+    }
+
+    .timeline .timeline-date {
+      text-align: left;
+    }
+
+    .timeline.stacked {
+      .timeline-date {
+        position: relative;
+        top: 0;
+        width: 100%;
+        left: auto;
+        text-align: right;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .timeline {
+      .timeline-content {
+        margin-left: 0;
+        margin-right: 30px;
+      }
+
+      .timeline-content .timeline-date {
+        text-align: right;
+      }
+
+      .timeline-content>.mat-card::before {
+        right: auto !important;
+        left: 100% !important;
+        border-color: transparent transparent transparent rgba(150, 150, 150, .2) !important;
+      }
+
+      .timeline-content>.mat-card::after {
+        right: auto !important;
+        left: 100% !important;
+        border-color: transparent transparent transparent mat-color($background, card) !important;
+      }
+    }
+  }
+}
+
+.app-dark :host ::ng-deep {
+  .timeline {
+    &::before {
+      background: mat-color($dark-background, card);
+    }
+
+    .timeline-icon {
+      &::after {
+        background: mat-color($dark-background, card);
+      }
+    }
+
+    .timeline-content>.mat-card::before {
+      border-color: transparent mat-color($dark-background, card) transparent transparent !important;
+    }
+
+    .timeline-content>.mat-card::after {
+      border-color: transparent mat-color($dark-background, card) transparent transparent !important;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    .timeline:not(.stacked) {
+      .timeline-card:nth-child(even) .timeline-content>.mat-card::before {
+        border-color: transparent transparent transparent mat-color($dark-background, card) !important;
+      }
+
+      .timeline-card:nth-child(even) .timeline-content>.mat-card::after {
+        border-color: transparent transparent transparent mat-color($dark-background, card) !important;
+      }
+    }
+  }
+}
+
+.app-dark[dir="rtl"] :host ::ng-deep {
+  .timeline {
+    &.stacked {
+      .timeline-content>.mat-card::before {
+        border-color: transparent transparent transparent rgba(150, 150, 150, .2) !important;
+      }
+
+      .timeline-content>.mat-card::after {
+        border-color: transparent transparent transparent mat-color($dark-background, card) !important;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    .timeline {
+      .timeline-content>.mat-card::before {
+        border-color: transparent transparent transparent rgba(150, 150, 150, .2) !important;
+      }
+
+      .timeline-content>.mat-card::after {
+        border-color: transparent transparent transparent mat-color($dark-background, card) !important;
+      }
+    }
+  }
+}

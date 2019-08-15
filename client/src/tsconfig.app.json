@@ -4,6 +4,7 @@
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
+    "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "target": "es5",
     "lib": [

@@ -1,0 +1,65 @@
+//
+// Material
+//
+@import '~@angular/material/theming';
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-amber, A200, A100, A400);
+$warn: mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent, $warn);
+$background: map-get($theme, background);
+$foreground: map-get($theme, foreground);
+
+@include mat-core();
+
+$dark-primary: mat-palette($mat-blue-grey);
+$dark-accent: mat-palette($mat-amber, A200, A100, A400);
+$dark-warn: mat-palette($mat-deep-orange);
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+$dark-background: map-get($dark-theme, background);
+$dark-foreground: map-get($dark-theme, foreground);
+
+$config: mat-typography-config($font-family: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Open Sans","Helvetica Neue",sans-serif',
+$subheading-2: mat-typography-level(13px, 28px, 400),
+$subheading-1: mat-typography-level(13px, 24px, 400),
+$body-2: mat-typography-level(13px, 24px, 500),
+$body-1: mat-typography-level(13px, 20px, 400),
+$caption: mat-typography-level(13px, 20px, 400),
+$button: mat-typography-level(13px, 14px, 500));
+@include angular-material-typography($config);
+
+//
+// Widths
+//
+$sidebar-width: 15rem !default;
+$collapsed-sidebar-width: 80px !default;
+
+//
+// Spacing
+//
+$spacer: 1rem !default;
+$spacer-x: $spacer !default;
+$spacer-y: $spacer !default;
+$spacers: (0: (x: 0,
+y: 0),
+xs: (x: ($spacer-x / 2),
+y: ($spacer-y / 2)),
+1: (x: $spacer-x,
+y: $spacer-y),
+2: (x: ($spacer-x * 1.5),
+y: ($spacer-y * 1.5)),
+3: (x: ($spacer-x * 3),
+y: ($spacer-y * 3))) !default;
+
+//
+// Media queries breakpoints
+//
+$grid-breakpoints: ( // Extra small screen / phone
+xs: 0,
+// Small screen / phone
+sm: 600px,
+// Medium screen / tablet
+md: 960px,
+// Large screen / desktop
+lg: 1280px,
+// Extra large screen / wide desktop
+xl: 1920px) !default;

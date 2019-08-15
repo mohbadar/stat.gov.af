@@ -1,49 +1,35 @@
 <div class="widget-wrapper" #widgetContainer>
   <div *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()"
-    [style.height]="widget.isStandalone? '90vh': 'auto'" class="card tile">
-    <div class="card-header">
-      <div class="card-title">
-        <h6 [innerHTML]="getWidgetTitle() | safeHtml"></h6>
-        <span fxFlex></span>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-            <i class="fa fa-bars" style="cursor: pointer"></i>
-            <!-- <span class="notification">5</span>
-            <p class="hidden-md hidden-lg">
-              Notifications
-              <b class="caret"></b>
-            </p> -->
-          </a>
-          <ul class="dropdown-menu">
-            <a mat-menu-item href="{{widgetURL}}" target="_blank">
-              {{ 'OPEN' | translate }}
+    [style.height]="widget.isStandalone? '90vh': 'auto'"
+    class="tile body-container widget-visualization visualization card">
+    <div fxLayout="row" class="body-row header">
+      <h6 [innerHTML]="getWidgetTitle() | safeHtml"></h6>
+      <span fxFlex></span>
+      <li class="dropdown" style="list-style: none;">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+          <i class="fa fa-bars" style="cursor: pointer"></i>
+        </a>
+        <ul class="dropdown-menu options-menu">
+          <li><a href="{{widgetURL}}"> {{ 'OPEN' | translate }}</a></li>
+          <li><a
+              href="{{widget.getQueryResult().getLink(widget.getQuery().id, widget.getQueryResult().latest_query_data_id, 'csv')}}">{{ 'DOWNLOAD_AS_CSV_FILE' | translate }}</a>
+          </li>
+          <li><a
+              href="{{widget.getQueryResult().getLink(widget.getQueryResult().id, widget.getQueryResult().latest_query_data_id, 'xlsx')}}">{{ 'DOWNLOAD_AS_EXCEL_FILE' | translate }}</a>
+          </li>
+          <li>
+            <a href="">
+              <button class="btn btn-social btn-simple btn-facebook"><i class="fa fa-facebook-square"></i></button>
+              <button class="btn btn-social btn-simple btn-twitter"><i class="fa fa-twitter"></i></button>
+              <button class="btn btn-social btn-simple btn-linkedin"><i class="fa fa-linkedin-square"></i></button>
             </a>
-            <a mat-menu-item
-              href="{{widget.getQueryResult().getLink(widget.getQuery().id, widget.getQueryResult().latest_query_data_id, 'csv')}}"
-              download="{{widget.getQueryResult().getName() + '.csv'}}" target="_self">
-              {{ 'DOWNLOAD_AS_CSV_FILE' | translate }}
-            </a>
-            <a mat-menu-item
-              href="{{widget.getQueryResult().getLink(widget.getQueryResult().id, widget.getQueryResult().latest_query_data_id, 'xlsx')}}"
-              download="{{widget.getQueryResult().getName() + '.xlsx'}}" target="_self">
-              {{ 'DOWNLOAD_AS_EXCEL_FILE' | translate }}
-            </a>
-            <button mat-icon-button shareButton="facebook" #fbBtn [style.color]="share.prop.facebook.color">
-              <fa-icon [icon]="share.prop.facebook.icon" size="lg"></fa-icon>
-            </button>
-            <button mat-icon-button shareButton="twitter" #twtBtn [style.color]="share.prop.twitter.color">
-              <fa-icon [icon]="share.prop.twitter.icon" size="lg"></fa-icon>
-            </button>
-            <button mat-icon-button shareButton="linkedin" #inBtn [style.color]="share.prop.linkedin.color">
-              <fa-icon [icon]="share.prop.linkedin.icon" size="lg"></fa-icon>
-            </button>
-            <a mat-menu-item (click)="openBottomSheet()">{{ 'EMBED_SOMEWHERE' | translate }}</a>
-          </ul>
-        </li>
-      </div>
-      <p [innerHTML]="getWidgetDescription() | safeHtml" class="card-category"></p>
+          </li>
+          <li (click)="openBottomSheet()"><a href="">{{ 'EMBED_SOMEWHERE' | translate }}</a></li>
+        </ul>
+      </li>
+
     </div>
-    <div class="body-row-auto spinner-container card-body">
+    <div class="body-row-auto spinner-container content">
       <div *ngSwitchCase="'failed'" class="body-row-auto scrollbox">
         Failed
         <div class="alert alert-danger m-5" ng-show="widget.getQueryResult().getError()">Error running query:
@@ -57,39 +43,25 @@
 
       <div *ngSwitchDefault>
         <div class="spinner" style="padding-left: 43%;">
-          <i class="zmdi zmdi-refresh zmdi-hc-spin zmdi-hc-5x"></i>
-          <i class="fa fa-spinner"></i>
+          <!-- <i class="zmdi zmdi-refresh zmdi-hc-spin zmdi-hc-5x"></i> -->
+          <div id="loader"><img src="../../../../assets/img/loader-preview.svg" alt="loading"></div>
         </div>
       </div>
     </div>
-    <div class="card-footer">
-      <hr>
-      <div>
-        <div class="card-title">
-          <span fxFlex></span>
-          <span>
-            <!-- <mat-icon>more_vert</mat-icon> -->
-            <i (click)="reloadWidget()" class="fa fa-refresh" style="cursor: pointer; font-size: 14px;"></i>&nbsp;
-          </span>
-        </div>
-        <ul style="margin: 2px;" *ngFor="let tag of widget.getTags()">
-          <span class="bagde badge-green" [innerHTML]="tag | safeHtml"></span>
-        </ul>
-      </div>
+    <div class="footer">
+      <span [innerHTML]="getWidgetDescription() | safeHtml"></span>
+      <span fxFlex></span>
+      <i (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;" class="fa fa-refresh"></i>
     </div>
-
-
   </div>
 
-  <mat-card *ngIf="type=='textbox'" ng-hide="widget.width === 0"
-    class="tile body-container widget-text textbox card-shadow">
-    <mat-card-content class="scrollbox">
+  <div *ngIf="type=='textbox'" ng-hide="widget.width === 0"
+    class="tile body-container widget-text textbox card">
+    <div class="scrollbox content">
       <div class="body-container" ng-class="type">
         <div class="body-row-auto tiled t-body p-15" style="padding: 15px !important;"
           [innerHTML]="widget.$parsedText | safeHtml"></div>
       </div>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
 </div>
-
-<!-- <h4>This</h4> -->

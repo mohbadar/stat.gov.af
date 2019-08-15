@@ -1,0 +1,79 @@
+@import "../variables";
+@import "../mixins";
+
+:host ::ng-deep {
+  .node-wrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .tree-children-wrapper {
+    padding: 0;
+  }
+
+  .toggle-children {
+    background-image: none;
+    height: 24px;
+    width: 24px;
+
+    &::after {
+      content: 'arrow_drop_down';
+      font-family: 'Material Icons';
+      font-size: 24px;
+      width: 24px;
+      font-weight: normal;
+      font-style: normal;
+      line-height: 1;
+      /* Preferred icon size */
+      display: inline-block;
+      vertical-align: bottom;
+      white-space: nowrap;
+      letter-spacing: normal;
+      text-transform: none;
+      word-wrap: normal;
+      direction: ltr;
+      /* Support for all WebKit browsers. */
+      -webkit-font-smoothing: antialiased;
+      /* Support for Safari and Chrome. */
+      text-rendering: optimizeLegibility;
+      /* Support for Firefox. */
+      -moz-osx-font-smoothing: grayscale;
+      /* Support for IE. */
+      font-feature-settings: 'liga';
+    }
+  }
+
+  .tree-children {
+    padding-right: 0;
+    padding-left: 24px;
+  }
+
+  .toggle-children-wrapper-collapsed>.toggle-children::after {
+    transform: rotate(-90deg);
+  }
+
+  .toggle-children-wrapper-expanded>.toggle-children::after {
+    transform: rotate(0);
+  }
+
+  .node-content-wrapper:hover {
+    background: mat-color($background, 'hover');
+    border-radius: 2px;
+  }
+
+  .tree-node-active.tree-node-focused>.node-wrapper>.node-content-wrapper {
+    background: mat-color($background, 'hover');
+    border-radius: 2px;
+  }
+
+  .tree-node-focused>.node-wrapper>.node-content-wrapper {
+    background: mat-color($background, 'hover');
+  }
+}
+
+[dir=rtl] :host ::ng-deep {
+  .tree-children {
+    padding-left: 0;
+    padding-right: 24px;
+  }
+}

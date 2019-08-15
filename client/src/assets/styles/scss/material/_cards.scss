@@ -1,0 +1,176 @@
+/* $cards
+ ------------------------------------------*/
+$mat-card-header-size: 40px !default;
+
+body {
+
+  .mat-stepper-horizontal,
+  .mat-stepper-vertical,
+  .mat-card {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1) !important;
+    border-radius: 2px;
+  }
+
+  .mat-card {
+    padding: 0;
+    margin: ($spacer/3);
+    color: rgba(mat-color($foreground, base), 0.87);
+
+    &.shadow-none {
+      box-shadow: none !important;
+    }
+
+    .mat-card-header {
+      height: auto;
+    }
+
+    > :first-child {
+      border-radius: 2px 2px 0 0;
+    }
+
+    > :last-child {
+      border-radius: 0 0 2px 2px;
+    }
+
+    [matCardAvatar] {
+      height: $mat-card-header-size;
+      width: $mat-card-header-size;
+      border-radius: 50%;
+    }
+
+    [matCardAvatar] {
+      font-size: 40px;
+      line-height: 40px;
+      margin: $spacer 0 0 $spacer;
+    }
+
+    .mat-card-image {
+      width: 100%;
+      margin: 0;
+    }
+
+    .mat-card-image:first-child {
+      margin-top: 0;
+      border-radius: 2px 2px 0 0;
+    }
+
+    .mat-card-title {
+      padding-top: $spacer;
+      padding-left: $spacer;
+      padding-right: $spacer;
+      line-height: 1;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .mat-card-subtitle {
+      padding-left: $spacer;
+      padding-right: $spacer;
+      line-height: 1;
+      font-size: 12px;
+    }
+
+    .mat-card-subtitle:first-child {
+      padding-top: $spacer;
+    }
+
+    .mat-card-title:nth-child(2) {
+      margin-top: -24px;
+    }
+
+    .mat-card-content {
+      padding: $spacer;
+      margin-bottom: 0;
+      position: relative;
+    }
+
+    [mat-fab-card-float] {
+      top: -36px;
+      position: absolute;
+      right: 8px;
+    }
+
+    .mat-card-actions,
+    .mat-card-actions:last-child {
+      padding: $spacer / 2;
+      margin: 0;
+    }
+
+    &.mat-card {
+      padding: 0;
+    }
+
+    [mat-card-float-icon] {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      margin-top: -20px;
+      width: 40px;
+      height: 40px;
+
+      .material-icons {
+        font-size: 40px;
+        opacity: .2;
+        transform: rotate(-5deg);
+      }
+    }
+
+    [mat-card-widget] {
+      height: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      align-content: center;
+      max-width: 100%;
+      padding: $spacer;
+
+      [mat-card-widget-title],
+      p {
+        margin: 0;
+        padding: 0;
+        line-height: 1.2 !important;
+      }
+    }
+
+    .card-image-header {
+      position: relative;
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      width: 100%;
+
+      img {
+        border-radius: 2px 2px 0 0;
+        display: block;
+        max-width: 100%;
+      }
+    }
+
+    &.card-widget {
+      .card-widget-content {
+        display: flex;
+        flex-direction: row;
+        height: 40px;
+        margin: -($spacer/2) 0 $spacer 0;
+      }
+    }
+  }
+}
+
+body [dir="rtl"] {
+  .mat-card {
+    [matCardAvatar] {
+      margin: $spacer $spacer 0 0;
+    }
+
+    [mat-fab-card-float] {
+      right: auto;
+      left: 8px;
+    }
+
+    [mat-card-float-icon] {
+      right: auto;
+      left: 15px;
+    }
+  }
+}

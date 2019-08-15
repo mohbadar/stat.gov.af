@@ -18,13 +18,25 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "assets/"
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/assets/sass/light-bootstrap-dashboard.scss"
+              "src/assets/sass/light-bootstrap-dashboard.scss",
+              "src/styles.css",
+              "src/assets/styles/scss/node.scss",
+              "node_modules/gridstack/dist/gridstack.min.css"
             ],
             "scripts": [
+              "node_modules/hammerjs/hammer.min.js",
               "node_modules/jquery/dist/jquery.js",
+              "node_modules/lodash/lodash.min.js",
+              "node_modules/gridstack/dist/gridstack.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/moment/moment.js",
               "node_modules/chartist/dist/chartist.js",

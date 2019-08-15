@@ -79,3 +79,11 @@
       }
     }
   }
+
+  .options-menu {
+    margin-left: -147px;
+  }
+
+  .options-menu::before, .options-menu::after {
+    left: 140px !important;
+  }

@@ -7,14 +7,23 @@
         </div>
     </span>
 </div> -->
-<grid-stack #grid_stack class="grid-stack dashboard-wrapper preview-mode" [ngClass]="{'grid-stack-rtl': this.globals.options.dir == 'rtl'}" style="height: 100%!important;"  [options]="area">
-    <grid-stack-item #grid_stack_item *ngFor="let widget of widgets" [option]="widget.getGridStackOptions()" class="grid-stack-item dashboard-widget-wrapper" id="{{widget.id}}" 
-    [attr.data-gs-x]="widget.options.position.col" [attr.data-gs-y]="widget.options.position.row" [attr.data-gs-width]="widget.options.position.sizeX" 
-    [attr.data-gs-height]="widget.options.position.sizeY" [attr.data-gs-min-width]="widget.options.position.minSizeX"
-    [attr.data-gs-max-width]="widget.options.position.maxSizeX" [attr.data-gs-min-height]="widget.options.position.minSizeY" [attr.data-gs-max-height]="widget.options.position.maxSizeY">
-        <dashboard-widget [widget]="widget" [widgetId]="widget.id"></dashboard-widget>
-    </grid-stack-item>
-</grid-stack>
-    
+
 
 <!-- <dashboard-widget *ngFor="let widget of widgets" [widget]="widget" [widgetId]="widget.id"></dashboard-widget> -->
+
+<div class="main-content">
+    <div class="container-fluid">
+
+        <grid-stack #grid_stack class="grid-stack dashboard-wrapper preview-mode" [ngClass]="{'grid-stack-rtl': this.globals.options.dir == 'rtl'}" style="height: 100%!important;"  [options]="area">
+            <grid-stack-item #grid_stack_item *ngFor="let widget of widgets" [option]="widget.getGridStackOptions()" class="grid-stack-item dashboard-widget-wrapper" id="{{widget.id}}" 
+            [attr.data-gs-x]="widget.options.position.col" [attr.data-gs-y]="widget.options.position.row" [attr.data-gs-width]="widget.options.position.sizeX" 
+            [attr.data-gs-height]="widget.options.position.sizeY" [attr.data-gs-min-width]="widget.options.position.minSizeX"
+            [attr.data-gs-max-width]="widget.options.position.maxSizeX" [attr.data-gs-min-height]="widget.options.position.minSizeY" [attr.data-gs-max-height]="widget.options.position.maxSizeY">
+                <dashboard-widget [widget]="widget" [widgetId]="widget.id"></dashboard-widget>
+            </grid-stack-item>
+        </grid-stack>   
+       
+       
+
+    </div>
+</div>

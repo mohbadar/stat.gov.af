@@ -19,22 +19,22 @@ import { ToastrModule } from 'ngx-toastr';
 // import { AppRoutes } from './app.routing';
 // Angular Material
 import {
-    MatSidenavModule,
-    MatMenuModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatTooltipModule,
-    MatListModule,
-    MatProgressBarModule,
-    MatSelectModule,
-    MatCardModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatChipsModule,
-    MatGridListModule,
-    MatBottomSheetModule
+	MatSidenavModule,
+	MatMenuModule,
+	MatCheckboxModule,
+	MatIconModule,
+	MatButtonModule,
+	MatToolbarModule,
+	MatTooltipModule,
+	MatListModule,
+	MatProgressBarModule,
+	MatSelectModule,
+	MatCardModule,
+	MatInputModule,
+	MatProgressSpinnerModule,
+	MatChipsModule,
+	MatGridListModule,
+	MatBottomSheetModule
 } from '@angular/material';
 // Angular Flexlayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -56,37 +56,37 @@ import { AgmCoreModule } from '@agm/core';
 
 // Template core components
 import {
-    MenuComponent,
-    SidebarComponent,
-    AdminLayoutComponent,
-    AuthLayoutComponent,
-    DefaultLayoutComponent,
-    HeaderComponent,
-    OptionsComponent,
-    AccordionAnchorDirective,
-    AccordionLinkDirective,
-    AccordionDirective,
-    DashboardComponent,
-    WidgetComponent,
-    IFrameBottomSheet,
-    VisualizationRendererComponent,
-    BoxplotRendererComponent,
-    ChartRendererComponent,
-    ChoroplethRendererComponent,
-    CohortRendererComponent,
-    CounterRendererComponent,
-    FunnelRendererComponent,
-    MapRendererComponent,
-    PivotTableRendererComponent,
-    SankeyRendererComponent,
-    SunburstSequenceRendererComponent,
-    GridRendererComponent,
-    WordCloudRendererComponent,
+	MenuComponent,
+	SidebarComponent,
+	AdminLayoutComponent,
+	AuthLayoutComponent,
+	DefaultLayoutComponent,
+	HeaderComponent,
+	OptionsComponent,
+	AccordionAnchorDirective,
+	AccordionLinkDirective,
+	AccordionDirective,
+	DashboardComponent,
+	WidgetComponent,
+	IFrameBottomSheet,
+	VisualizationRendererComponent,
+	BoxplotRendererComponent,
+	ChartRendererComponent,
+	ChoroplethRendererComponent,
+	CohortRendererComponent,
+	CounterRendererComponent,
+	FunnelRendererComponent,
+	MapRendererComponent,
+	PivotTableRendererComponent,
+	SankeyRendererComponent,
+	SunburstSequenceRendererComponent,
+	GridRendererComponent,
+	WordCloudRendererComponent,
 
-    PlotlyChartComponent,
-    CustomPlotlyChartComponent,
+	PlotlyChartComponent,
+	CustomPlotlyChartComponent,
 
-    Globals
+	Globals
 } from './core';
 
 import { AppRoutes } from './app.routing';
@@ -114,118 +114,118 @@ import { environment } from '../environments/environment';
 // import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    wheelSpeed: 2,
-    wheelPropagation: true
+	wheelSpeed: 2,
+	wheelPropagation: true
 };
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SidebarComponent,
-        MenuComponent,
-        AdminLayoutComponent,
-        AuthLayoutComponent,
-        HeaderComponent,
-        OptionsComponent,
-        // DashboardListComponent,
-        AccordionAnchorDirective,
-        AccordionLinkDirective,
-        AccordionDirective,
-        DashboardComponent,
-        WidgetComponent,
-        IFrameBottomSheet,
-        VisualizationRendererComponent,
-        BoxplotRendererComponent,
-        ChartRendererComponent,
-        ChoroplethRendererComponent,
-        CohortRendererComponent,
-        CounterRendererComponent,
-        FunnelRendererComponent,
-        MapRendererComponent,
-        PivotTableRendererComponent,
-        SankeyRendererComponent,
-        SunburstSequenceRendererComponent,
-        GridRendererComponent,
-        WordCloudRendererComponent,
-        PlotlyChartComponent,
-        CustomPlotlyChartComponent,
-        DynamicTableComponent,
-        DefaultCellComponent,
-        JsonCellComponent,
-        DynamicTableRowComponent,
-        WidgetPageComponent,
-        DefaultLayoutComponent,
-        SafeHtmlPipe,
-    ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule.forRoot(AppRoutes),
-        LeafletModule.forRoot(),
-        FormsModule,
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: createTranslateLoader,
-                deps: [HttpClient]
-            }
-        }),
-        BrowserAnimationsModule,
-        RouterModule.forRoot(AppRoutes, {
-            useHash: true
-        }),
-        PagesnavbarModule,
-        SidebarModule,
-        NavbarModule,
-        ToastrModule.forRoot(),
-        FooterModule,
-        FixedPluginModule,
-        MatSidenavModule,
-        MatMenuModule,
-        MatCheckboxModule,
-        MatIconModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatTooltipModule,
-        MatListModule,
-        MatSelectModule,
-        MatProgressBarModule,
-        MatCardModule,
-        MatInputModule,
-        MatProgressSpinnerModule,
-        MatChipsModule,
-        MatGridListModule,
-        MatBottomSheetModule,
-        FlexLayoutModule,
-        LoadingBarRouterModule,
-        GridStackModule,
-        LoadingBarModule.forRoot(),
-        AgmCoreModule.forRoot({
-            apiKey: 'YOURAPIKEY'
-        }),
-        PerfectScrollbarModule,
-        PlotlyModule,
-        NgxDatatableModule,
-        ShareModule,
-        FontAwesomeModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
-    ],
-    entryComponents: [
-        IFrameBottomSheet
-    ],
-    providers: [
-        {
-            provide: PERFECT_SCROLLBAR_CONFIG,
-            useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-        },
-        Globals,
-        CookieService
-    ],
-    bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		SidebarComponent,
+		MenuComponent,
+		AdminLayoutComponent,
+		AuthLayoutComponent,
+		HeaderComponent,
+		OptionsComponent,
+		// DashboardListComponent,
+		AccordionAnchorDirective,
+		AccordionLinkDirective,
+		AccordionDirective,
+		DashboardComponent,
+		WidgetComponent,
+		IFrameBottomSheet,
+		VisualizationRendererComponent,
+		BoxplotRendererComponent,
+		ChartRendererComponent,
+		ChoroplethRendererComponent,
+		CohortRendererComponent,
+		CounterRendererComponent,
+		FunnelRendererComponent,
+		MapRendererComponent,
+		PivotTableRendererComponent,
+		SankeyRendererComponent,
+		SunburstSequenceRendererComponent,
+		GridRendererComponent,
+		WordCloudRendererComponent,
+		PlotlyChartComponent,
+		CustomPlotlyChartComponent,
+		DynamicTableComponent,
+		DefaultCellComponent,
+		JsonCellComponent,
+		DynamicTableRowComponent,
+		WidgetPageComponent,
+		DefaultLayoutComponent,
+		SafeHtmlPipe,
+	],
+	imports: [
+		BrowserModule,
+		BrowserAnimationsModule,
+		RouterModule.forRoot(AppRoutes),
+		LeafletModule.forRoot(),
+		FormsModule,
+		HttpClientModule,
+		TranslateModule.forRoot({
+			loader: {
+				provide: TranslateLoader,
+				useFactory: createTranslateLoader,
+				deps: [HttpClient]
+			}
+		}),
+		BrowserAnimationsModule,
+		RouterModule.forRoot(AppRoutes, {
+			useHash: true
+		}),
+		PagesnavbarModule,
+		SidebarModule,
+		NavbarModule,
+		ToastrModule.forRoot(),
+		FooterModule,
+		FixedPluginModule,
+		MatSidenavModule,
+		MatMenuModule,
+		MatCheckboxModule,
+		MatIconModule,
+		MatButtonModule,
+		MatToolbarModule,
+		MatTooltipModule,
+		MatListModule,
+		MatSelectModule,
+		MatProgressBarModule,
+		MatCardModule,
+		MatInputModule,
+		MatProgressSpinnerModule,
+		MatChipsModule,
+		MatGridListModule,
+		MatBottomSheetModule,
+		FlexLayoutModule,
+		LoadingBarRouterModule,
+		GridStackModule,
+		LoadingBarModule.forRoot(),
+		AgmCoreModule.forRoot({
+			apiKey: 'YOURAPIKEY'
+		}),
+		PerfectScrollbarModule,
+		PlotlyModule,
+		NgxDatatableModule,
+		ShareModule,
+		FontAwesomeModule,
+		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+	],
+	entryComponents: [
+		IFrameBottomSheet
+	],
+	providers: [
+		{
+			provide: PERFECT_SCROLLBAR_CONFIG,
+			useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+		},
+		Globals,
+		CookieService
+	],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

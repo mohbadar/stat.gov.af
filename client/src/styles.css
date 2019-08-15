@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.main-panel {
+    width: 100% !important;
+    overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+    .navbar-fixed {
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .sidebar {
+        display: block !important;
+    }
+}
+
+.sidebar {
+    display: none;
+}

@@ -10,6 +10,7 @@ import { debounce } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { GridStackOptions, GridStackComponent } from 'ng4-gridstack';
 import { Globals } from './../helpers/globals';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
 	selector: 'dashboard',
@@ -45,7 +46,9 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 	constructor(private dashboardService: DashboardService,
 		public queryService: QueryService,
 		public globals: Globals,
-		public route: ActivatedRoute) {
+		public route: ActivatedRoute,
+		public translate: TranslateService
+		) {
 
 	}
 
