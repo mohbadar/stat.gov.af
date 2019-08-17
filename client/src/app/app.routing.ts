@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 
 // import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
-import { AdminLayoutComponent, DashboardComponent } from './core';
+import { AdminLayoutComponent, DashboardComponent, DefaultLayoutComponent } from './core';
+import { WidgetPageComponent } from './widget-page/widget-page.component';
 
 
 export const AppRoutes: Routes = [{
@@ -36,12 +37,22 @@ export const AppRoutes: Routes = [{
 			path: 'calendar',
 			loadChildren: './calendar/calendar.module#CalendarModule'
 		}, {
-			path: '',
+			path: 'user',
 			loadChildren: './userpage/user.module#UserModule'
 		},
 		{ path: 'dashboard', component: DashboardComponent },
 		{ path: 'dashboard/:slug', component: DashboardComponent },
 		{ path: '', redirectTo: 'dashboard', pathMatch: 'full' }]
+}, {
+	path: 'widgets/:slug',
+	component: DefaultLayoutComponent,
+	children: [
+		{
+			path: '',
+			component: WidgetPageComponent,
+			// loadChildren: './home/home.module#HomeModule'
+		},
+	]
 }, {
 	path: '',
 	component: AuthLayoutComponent,

@@ -2,10 +2,9 @@
   <div *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()"
     [style.height]="widget.isStandalone? '90vh': 'auto'"
     class="tile body-container widget-visualization visualization card">
-    <div fxLayout="row" class="body-row header">
-      <h6 [innerHTML]="getWidgetTitle() | safeHtml"></h6>
-      <span fxFlex></span>
-      <li class="dropdown" style="list-style: none;">
+    <div  class="body-row header">
+      <h6 [innerHTML]="getWidgetTitle() | safeHtml" style="display: inline;"></h6>
+      <li class="dropdown pull-right" style="list-style: none;">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
           <i class="fa fa-bars" style="cursor: pointer"></i>
         </a>
@@ -50,8 +49,7 @@
     </div>
     <div class="footer">
       <span [innerHTML]="getWidgetDescription() | safeHtml"></span>
-      <span fxFlex></span>
-      <i (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;" class="fa fa-refresh"></i>
+      <i (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;" class="fa fa-refresh pull-right"></i>
     </div>
   </div>
 

@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import { sortBy, uniq, values, some, each, isArray, isNumber, isString, includes } from 'lodash';
 import { QueryService } from '../core/helpers/query.service';
 

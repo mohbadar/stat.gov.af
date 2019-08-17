@@ -1,11 +1,21 @@
-
 <nav #navbar class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-minimize">
-            <button id="minimizeSidebar" class="btn btn-danger btn-fill btn-round btn-icon">
+            <!-- <button id="minimizeSidebar" class="btn btn-danger btn-fill btn-round btn-icon">
                 <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
                 <i class="fa fa-navicon visible-on-sidebar-mini"></i>
-            </button>
+            </button> -->
+
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <button class="btn btn-social btn-fill btn-youtube">
+                        <i class="fa fa-pie-chart"></i> Dashboards 
+                    </button>
+                </a>
+                <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
+                    <li *ngFor="let slg of dashboardSlugs"><a href="" [routerLink]="['/dashboard', slg]">{{ slg | titlecase }}</a></li>
+                </ul>
+            </div>
         </div>
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
@@ -27,7 +37,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a ruterLinkActive = "active" [routerLink]="['/charts']">
+                        <a ruterLinkActive="active" [routerLink]="['/charts']">
                             <i class="fa fa-line-chart"></i>
                             <p>Stats</p>
                         </a>

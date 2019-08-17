@@ -177,7 +177,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		}),
 		BrowserAnimationsModule,
 		RouterModule.forRoot(AppRoutes, {
-			useHash: true
+			useHash: false
 		}),
 		PagesnavbarModule,
 		SidebarModule,

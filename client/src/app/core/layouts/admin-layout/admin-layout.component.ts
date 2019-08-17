@@ -105,7 +105,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 	}
 
 	ngOnDestroy(): void {
-		this._router.unsubscribe();
+		// this._router.unsubscribe();
 	}
 
 	// runOnRouteChange(): void {

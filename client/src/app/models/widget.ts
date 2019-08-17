@@ -1,4 +1,4 @@
-import moment from 'moment';
+import * as moment from 'moment';
 import { each, pick, extend, isObject, truncate } from 'lodash';
 import { Query } from './query';
 import { QueryResult } from './query-result';

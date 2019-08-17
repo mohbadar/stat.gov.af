@@ -58,28 +58,28 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 		if (!slug.isFirstChange() && changes.slug) {
 			console.log('Slug in changes:', slug);
 
-			this.getDashbaord(this.slug);
+			this.getDashboard(this.slug);
 		}
 	}
 
 	ngOnInit() {
-
-		// If no parameter is passed then take it from Globals
+		// Listen to default dashboard set from navbar component
 		this.dashboardService.callToDashboardMethodSource.subscribe(() => {
 			this.route.paramMap.subscribe(param => {
 				console.log('params: ', param);
 				if (!param.get('slug')) {
 					this.slug = this.globals.default_dashboard;
-					this.getDashbaord(this.slug);
+					this.getDashboard(this.slug);
 				}
 			});
 		});
-
+		
+		// If no parameter is passed then take it from Globals
 		this.route.paramMap.subscribe(param => {
 			console.log('params: ', param);
 			if (param.get('slug')) {
 				this.slug = param.get('slug');
-				this.getDashbaord(this.slug);
+				this.getDashboard(this.slug);
 			}
 		});
 
@@ -91,11 +91,12 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 		this.area.disableOneColumnMode = true;
 		// this.area.rtl = this.globals.options.dir;
 
-		// this.getDashbaord(this.slug);
+		// this.getDashboard(this.slug);
 
 		// this.handleResize = debounce(this.batchUpdateWidgets, 50);
 
 		// this.updateGridStackAttributes(this.gridStack);
+
 	}
 
 	ngAfterViewInit() {
@@ -128,7 +129,7 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 		}
 	}
 
-	getDashbaord(slug) {
+	getDashboard(slug) {
 		console.log('Dashboard called: ', slug);
 		
 		if (slug) {

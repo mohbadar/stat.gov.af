@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpXhrBackend } from "@angular/common/http";
-import { HttpParams } from "@angular/common/http";
+import { HttpClient, HttpXhrBackend } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Dashboard } from "../../models/dashboard";
-import _ from 'lodash';
+import { Dashboard } from '../../models/dashboard';
+import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 
 const staticHttpClient = new HttpClient(new HttpXhrBackend({ build: () => new XMLHttpRequest() }));

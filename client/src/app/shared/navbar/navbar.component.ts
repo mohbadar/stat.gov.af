@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit {
 	private nativeElement: Node;
 	private toggleButton;
 	private sidebarVisible: boolean;
+	private dashboardSlugs = [];
 
 	@ViewChild('navbar-cmp', { static: false }) button;
 
@@ -40,6 +41,9 @@ export class NavbarComponent implements OnInit {
 	}
 
 	ngOnInit() {
+		console.log('Navbar method called');
+		this.fetchAllDashboards();
+		
 		this.listTitles = ROUTES.filter(listTitle => listTitle);
 
 		var navbar: HTMLElement = this.element.nativeElement;
@@ -72,25 +76,32 @@ export class NavbarComponent implements OnInit {
 				clearInterval(simulateWindowResize);
 			}, 1000);
 
-			this.fetchAllDashboards();
 		});
 	}
 
 	fetchAllDashboards() {
 		this.dashboardService.getAll().subscribe(data => {
+			console.log('data : ', data);
 			if (data) {
 				data['results'].forEach(item => {
 					if (item.is_default) {
 						this.globals.default_dashboard = item.slug;
+						this.dashboardService.callDefaultMethod();
 					}
+
+					this.dashboardSlugs.push(item.slug);
 
 					// if (item.tags.indexOf(tag) != -1) {
 					// 	menuItem.children.push({ state: item.slug, name: item.name });
 					// }
 				});
 
+				console.log('Slugs are: ', this.dashboardSlugs);
+				
+
 			}
-		})
+		});
+
 	}
 
 
