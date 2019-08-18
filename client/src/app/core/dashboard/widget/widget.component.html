@@ -9,7 +9,7 @@
           <i class="fa fa-bars" style="cursor: pointer"></i>
         </a>
         <ul class="dropdown-menu options-menu">
-          <li><a href="{{widgetURL}}"> {{ 'OPEN' | translate }}</a></li>
+          <li><a href="{{widgetURL}}" target="_blank"> {{ 'OPEN' | translate }}</a></li>
           <li><a
               href="{{widget.getQueryResult().getLink(widget.getQuery().id, widget.getQueryResult().latest_query_data_id, 'csv')}}">{{ 'DOWNLOAD_AS_CSV_FILE' | translate }}</a>
           </li>
@@ -23,7 +23,7 @@
               <button class="btn btn-social btn-simple btn-linkedin"><i class="fa fa-linkedin-square"></i></button>
             </a>
           </li>
-          <li (click)="openBottomSheet()"><a href="">{{ 'EMBED_SOMEWHERE' | translate }}</a></li>
+          <li (click)="openBottomSheet()"><a >{{ 'EMBED_SOMEWHERE' | translate }}</a></li>
         </ul>
       </li>
 
@@ -63,3 +63,5 @@
     </div>
   </div>
 </div>
+
+<div id="snackbar"></div>

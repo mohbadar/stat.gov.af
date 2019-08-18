@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
+// import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { APP_BASE_HREF } from '@angular/common';
 import { Dashboard } from '../../../models/dashboard';
 import { Widget } from '../../../models/widget';
@@ -50,7 +50,7 @@ export class WidgetComponent implements OnInit {
 	}
 
 	constructor(private dashboardService: DashboardService, public share: ShareService,
-		private bottomSheet: MatBottomSheet,
+		// private bottomSheet: MatBottomSheet,
 		public translate: TranslateService,
 		public globals: Globals) {
 	}
@@ -79,10 +79,11 @@ export class WidgetComponent implements OnInit {
 	}
 
 	openBottomSheet(): void {
-		let iframeText = '<iframe src="' + this.widgetURL + '" width="720" height="391"></iframe>';
-		this.bottomSheet.open(IFrameBottomSheet, {
-			data: { iframe: iframeText },
-		});
+		const iframeText = '<iframe src="' + this.widgetURL + '" width="720" height="391"></iframe>';
+		const x = document.getElementById('snackbar');
+		x.innerText = iframeText;
+		x.className = 'show';
+		setTimeout(function () { x.className = x.className.replace('show', ''); }, 8500);
 	}
 
 	renderWidget(force = false) {
@@ -119,7 +120,7 @@ export class WidgetComponent implements OnInit {
 	}
 
 	parseText(text: string) {
-		var re = new RegExp("<script(.*?)</script>");
+		var re = new RegExp('<script(.*?)</script>');
 
 		if (text.indexOf('<script') != -1) {
 			var script = re.exec(text);
@@ -134,20 +135,20 @@ export class WidgetComponent implements OnInit {
 	addScript(text: string) {
 		var jsContent = text;
 
-		var startScriptTag = new RegExp("<script(.*?)>");
+		var startScriptTag = new RegExp('<script(.*?)>');
 		var resultArray = startScriptTag.exec(jsContent);
 		if (resultArray) {
 			jsContent = jsContent.replace(resultArray[0], '');
 		}
 
-		var endScriptTag = new RegExp("</script>");
+		var endScriptTag = new RegExp('</script>');
 		resultArray = endScriptTag.exec(jsContent);
 		if (resultArray) {
 			jsContent = jsContent.replace(resultArray[0], '');
 		}
 
-		var scriptTag = document.createElement("script");
-		scriptTag.type = "text/javascript";
+		var scriptTag = document.createElement('script');
+		scriptTag.type = 'text/javascript';
 
 		scriptTag.innerHTML = jsContent;
 		document.body.appendChild(scriptTag);
@@ -158,11 +159,11 @@ export class WidgetComponent implements OnInit {
 	}
 }
 
-@Component({
-	selector: 'iframe-bottomsheet',
-	templateUrl: 'iframe-bottomsheet.html',
-})
-export class IFrameBottomSheet {
-	constructor(private bottomSheetRef: MatBottomSheetRef<IFrameBottomSheet>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) { }
+// @Component({
+// 	selector: 'iframe-bottomsheet',
+// 	templateUrl: 'iframe-bottomsheet.html',
+// })
+// export class IFrameBottomSheet {
+// 	constructor(private bottomSheetRef: MatBottomSheetRef<IFrameBottomSheet>, @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) { }
 
-}
+// }

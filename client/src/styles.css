@@ -1,21 +1,126 @@
 /* You can add global styles to this file, and also import other style files */
 .main-panel {
-    width: 100% !important;
-    overflow-y: auto;
+  width: 100% !important;
+  overflow-y: auto;
 }
 
 @media (min-width: 992px) {
-    .navbar-fixed {
-        width: 100% !important;
-    }
+  .navbar-fixed {
+    width: 100% !important;
+  }
 }
 
 @media (max-width: 992px) {
-    .sidebar {
-        display: block !important;
-    }
+  .sidebar {
+    display: block !important;
+  }
 }
 
 .sidebar {
-    display: none;
+  display: none;
+}
+
+#navbar {
+  width: 100%;
+  position: fixed;
+  z-index: 400;
+  -webkit-box-shadow: 0 8px 6px -6px #cacaca;
+  -moz-box-shadow: 0 8px 6px -6px #cacaca;
+  box-shadow: 0 8px 6px -6px #cacaca;
+}
+
+.main-outlet {
+  margin-top: 3rem;
+}
+
+/* Snackbar */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 34%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 8s;
+  animation: fadein 0.5s, fadeout 0.5s 8s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+#scroll {
+  position: fixed;
+  right: 30px;
+  bottom: 60px;
+  z-index: 1200;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #01a79b;
+  color: #fff;
+  /* display: none; */
+  padding: 11px 16px;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 60px
+}
+
+#scroll i {
+  font-size: 28px;
 }

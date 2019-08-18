@@ -1,12 +1,7 @@
 export * from './layouts/admin-layout/admin-layout.component';
 export * from './layouts/auth-layout/auth-layout.component';
 export * from './layouts/default-layout/default-layout.component';
-export * from './header/header.component';
-export * from './sidebar/sidebar.component';
-export * from './menu/menu.component';
-export * from './menu-accordion';
 export * from './helpers';
-export * from './options/options.component';
 export * from './dashboard/dashboard.component';
 export * from './dashboard/widget/widget.component';
 

@@ -6,8 +6,8 @@ import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { NavbarModule } from './shared/navbar/navbar.module';
 import { PagesnavbarModule } from './shared/pagesnavbar/pagesnavbar.module';
-// import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-// import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { LoadingBarModule } from '@ngx-loading-bar/core';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -16,34 +16,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
-// import { AppRoutes } from './app.routing';
-// Angular Material
-import {
-	MatSidenavModule,
-	MatMenuModule,
-	MatCheckboxModule,
-	MatIconModule,
-	MatButtonModule,
-	MatToolbarModule,
-	MatTooltipModule,
-	MatListModule,
-	MatProgressBarModule,
-	MatSelectModule,
-	MatCardModule,
-	MatInputModule,
-	MatProgressSpinnerModule,
-	MatChipsModule,
-	MatGridListModule,
-	MatBottomSheetModule
-} from '@angular/material';
-// Angular Flexlayout
-import { FlexLayoutModule } from '@angular/flex-layout';
 // ngx-translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 // ngx-loading-bar
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
-import { LoadingBarModule } from '@ngx-loading-bar/core';
 // ngx-perfect-scrollbar
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -56,19 +33,11 @@ import { AgmCoreModule } from '@agm/core';
 
 // Template core components
 import {
-	MenuComponent,
-	SidebarComponent,
 	AdminLayoutComponent,
 	AuthLayoutComponent,
 	DefaultLayoutComponent,
-	HeaderComponent,
-	OptionsComponent,
-	AccordionAnchorDirective,
-	AccordionLinkDirective,
-	AccordionDirective,
 	DashboardComponent,
 	WidgetComponent,
-	IFrameBottomSheet,
 	VisualizationRendererComponent,
 	BoxplotRendererComponent,
 	ChartRendererComponent,
@@ -125,19 +94,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
 	declarations: [
 		AppComponent,
-		SidebarComponent,
-		MenuComponent,
 		AdminLayoutComponent,
 		AuthLayoutComponent,
-		HeaderComponent,
-		OptionsComponent,
-		// DashboardListComponent,
-		AccordionAnchorDirective,
-		AccordionLinkDirective,
-		AccordionDirective,
 		DashboardComponent,
 		WidgetComponent,
-		IFrameBottomSheet,
 		VisualizationRendererComponent,
 		BoxplotRendererComponent,
 		ChartRendererComponent,
@@ -185,24 +145,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ToastrModule.forRoot(),
 		FooterModule,
 		FixedPluginModule,
-		MatSidenavModule,
-		MatMenuModule,
-		MatCheckboxModule,
-		MatIconModule,
-		MatButtonModule,
-		MatToolbarModule,
-		MatTooltipModule,
-		MatListModule,
-		MatSelectModule,
-		MatProgressBarModule,
-		MatCardModule,
-		MatInputModule,
-		MatProgressSpinnerModule,
-		MatChipsModule,
-		MatGridListModule,
-		MatBottomSheetModule,
-		FlexLayoutModule,
 		LoadingBarRouterModule,
+		LoadingBarHttpClientModule,
 		GridStackModule,
 		LoadingBarModule.forRoot(),
 		AgmCoreModule.forRoot({
@@ -216,7 +160,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 	],
 	entryComponents: [
-		IFrameBottomSheet
 	],
 	providers: [
 		{

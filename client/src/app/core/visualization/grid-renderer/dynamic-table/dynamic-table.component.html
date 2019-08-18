@@ -1,6 +1,6 @@
 <div style="width: 100%" class="mb-1">
-  <input matInput placeholder="Type to filter the name column..." required (keyup)='updateFilter($event)'>
+  <input placeholder="Type to filter the name column..." required (keyup)='updateFilter($event)'>
 </div>
-<ngx-datatable class="material" [rows]="rowsToDisplay" [columns]="columnsToDisplay" [columnMode]="'force'"
+<ngx-datatable [rows]="rowsToDisplay" [columns]="columnsToDisplay" [columnMode]="'force'"
   [headerHeight]="50" [footerHeight]="50" [rowHeight]="'30'" [limit]="5">
 </ngx-datatable>
