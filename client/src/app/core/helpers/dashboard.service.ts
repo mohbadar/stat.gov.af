@@ -24,7 +24,7 @@ export class DashboardService {
 	}
 
 	getAll() {
-		const response = this.httpClient.get(environment.apiUrl + 'dashboards');
+		const response = this.httpClient.get<Array<any>>(environment.apiUrl + 'dashboards');
 		return response;
 	}
 

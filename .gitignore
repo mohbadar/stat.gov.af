@@ -21,6 +21,7 @@ dump.rdb
 
 redash/node_modules
 client/node_modules
+client/dist
 client-2/node_modules
 server/node_modules
 .tmp

@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
+import { DashboardService } from '../core/helpers/dashboard.service';
+import { Globals } from '../core/helpers/globals';
 
 declare var $: any;
 //Metadata
@@ -22,76 +24,77 @@ export interface ChildrenItems {
 export const ROUTES: RouteInfo[] = [{
 	path: '/dashboard',
 	title: 'Dashboard',
-	type: 'link',
+	type: 'sub',
 	icontype: 'pe-7s-graph'
-}, {
-	path: '/components',
-	title: 'Components',
-	type: 'sub',
-	icontype: 'pe-7s-plugin',
-	children: [
-		{ path: 'buttons', title: 'Buttons', ab: 'B' },
-		{ path: 'grid', title: 'Grid System', ab: 'GS' },
-		{ path: 'panels', title: 'Panels', ab: 'P' },
-		{ path: 'sweet-alert', title: 'Sweet Alert', ab: 'SA' },
-		{ path: 'notifications', title: 'Notifications', ab: 'N' },
-		{ path: 'icons', title: 'Icons', ab: 'I' },
-		{ path: 'typography', title: 'Typography', ab: 'T' }
-	]
-}, {
-	path: '/forms',
-	title: 'Forms',
-	type: 'sub',
-	icontype: 'pe-7s-note2',
-	children: [
-		{ path: 'regular', title: 'Regular Forms', ab: 'RF' },
-		{ path: 'extended', title: 'Extended Forms', ab: 'EF' },
-		{ path: 'validation', title: 'Validation Forms', ab: 'VF' },
-		{ path: 'wizard', title: 'Wizard', ab: 'W' }
-	]
-}, {
-	path: '/tables',
-	title: 'Tables',
-	type: 'sub',
-	icontype: 'pe-7s-news-paper',
-	children: [
-		{ path: 'regular', title: 'Regular Tables', ab: 'RT' },
-		{ path: 'extended', title: 'Extended Tables', ab: 'ET' },
-		{ path: 'datatables.net', title: 'Datatables.net', ab: 'DT' }
-	]
-}, {
-	path: '/maps',
-	title: 'Maps',
-	type: 'sub',
-	icontype: 'pe-7s-map-marker',
-	children: [
-		{ path: 'google', title: 'Google Maps', ab: 'GM' },
-		{ path: 'fullscreen', title: 'Full Screen Map', ab: 'FSM' },
-		{ path: 'vector', title: 'Vector Map', ab: 'VM' }
-	]
-}, {
-	path: '/charts',
-	title: 'Charts',
-	type: 'link',
-	icontype: 'pe-7s-graph1'
-
-}, {
-	path: '/calendar',
-	title: 'Calendar',
-	type: 'link',
-	icontype: 'pe-7s-date'
-}, {
-	path: '/pages',
-	title: 'Pages',
-	type: 'sub',
-	icontype: 'pe-7s-gift',
-	children: [
-		{ path: 'user', title: 'User Page', ab: 'UP' },
-		{ path: 'login', title: 'Login Page', ab: 'LP' },
-		{ path: 'register', title: 'Register Page', ab: 'RP' },
-		{ path: 'lock', title: 'Lock Screen Page', ab: 'LSP' }
-	]
 }
+// , {
+// 	path: '/components',
+// 	title: 'Components',
+// 	type: 'sub',
+// 	icontype: 'pe-7s-plugin',
+// 	children: [
+// 		{ path: 'buttons', title: 'Buttons', ab: 'B' },
+// 		{ path: 'grid', title: 'Grid System', ab: 'GS' },
+// 		{ path: 'panels', title: 'Panels', ab: 'P' },
+// 		{ path: 'sweet-alert', title: 'Sweet Alert', ab: 'SA' },
+// 		{ path: 'notifications', title: 'Notifications', ab: 'N' },
+// 		{ path: 'icons', title: 'Icons', ab: 'I' },
+// 		{ path: 'typography', title: 'Typography', ab: 'T' }
+// 	]
+// }, {
+// 	path: '/forms',
+// 	title: 'Forms',
+// 	type: 'sub',
+// 	icontype: 'pe-7s-note2',
+// 	children: [
+// 		{ path: 'regular', title: 'Regular Forms', ab: 'RF' },
+// 		{ path: 'extended', title: 'Extended Forms', ab: 'EF' },
+// 		{ path: 'validation', title: 'Validation Forms', ab: 'VF' },
+// 		{ path: 'wizard', title: 'Wizard', ab: 'W' }
+// 	]
+// }, {
+// 	path: '/tables',
+// 	title: 'Tables',
+// 	type: 'sub',
+// 	icontype: 'pe-7s-news-paper',
+// 	children: [
+// 		{ path: 'regular', title: 'Regular Tables', ab: 'RT' },
+// 		{ path: 'extended', title: 'Extended Tables', ab: 'ET' },
+// 		{ path: 'datatables.net', title: 'Datatables.net', ab: 'DT' }
+// 	]
+// }, {
+// 	path: '/maps',
+// 	title: 'Maps',
+// 	type: 'sub',
+// 	icontype: 'pe-7s-map-marker',
+// 	children: [
+// 		{ path: 'google', title: 'Google Maps', ab: 'GM' },
+// 		{ path: 'fullscreen', title: 'Full Screen Map', ab: 'FSM' },
+// 		{ path: 'vector', title: 'Vector Map', ab: 'VM' }
+// 	]
+// }, {
+// 	path: '/charts',
+// 	title: 'Charts',
+// 	type: 'link',
+// 	icontype: 'pe-7s-graph1'
+
+// }, {
+// 	path: '/calendar',
+// 	title: 'Calendar',
+// 	type: 'link',
+// 	icontype: 'pe-7s-date'
+// }, {
+// 	path: '/pages',
+// 	title: 'Pages',
+// 	type: 'sub',
+// 	icontype: 'pe-7s-gift',
+// 	children: [
+// 		{ path: 'user', title: 'User Page', ab: 'UP' },
+// 		{ path: 'login', title: 'Login Page', ab: 'LP' },
+// 		{ path: 'register', title: 'Register Page', ab: 'RP' },
+// 		{ path: 'lock', title: 'Lock Screen Page', ab: 'LSP' }
+// 	]
+// }
 ];
 
 @Component({
@@ -101,6 +104,7 @@ export const ROUTES: RouteInfo[] = [{
 })
 
 export class SidebarComponent {
+	dashboards = {};
 	public menuItems: any[];
 	isNotMobileMenu() {
 		if ($(window).width() > 991) {
@@ -109,8 +113,13 @@ export class SidebarComponent {
 		return true;
 	}
 
+	constructor(private dashboardService: DashboardService, private globals: Globals) {
+
+	}
+
 	ngOnInit() {
 		console.log('Sidebar component called');
+		let tempChildren: ChildrenItems[] = [];
 		
 		var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 		this.menuItems = ROUTES.filter(menuItem => menuItem);
@@ -124,6 +133,22 @@ export class SidebarComponent {
 		} else {
 			$('html').addClass('perfect-scrollbar-off');
 		}
+
+		this.dashboardService.callToDashboardMethodSource.subscribe(() => {
+			this.globals.dashboardList.forEach(ds => {
+				const tempChild: ChildrenItems = {
+					path: ds.slug,
+					title: ds.slug,
+					ab: 'ab'
+				};
+				tempChildren.push(tempChild);
+			});
+
+			this.menuItems[0].children = tempChildren;
+			tempChildren = [];
+
+
+		})
 	}
 	ngAfterViewInit() {
 		var $sidebarParent = $('.sidebar .nav > li.active .collapse li.active > a').parent().parent().parent();

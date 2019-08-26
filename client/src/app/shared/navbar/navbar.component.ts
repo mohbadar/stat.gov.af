@@ -24,7 +24,7 @@ export class NavbarComponent implements OnInit {
 	private nativeElement: Node;
 	private toggleButton;
 	private sidebarVisible: boolean;
-	private dashboardSlugs = [];
+	public dashboardSlugs = [];
 
 	@ViewChild('navbar-cmp', { static: false }) button;
 
@@ -83,11 +83,13 @@ export class NavbarComponent implements OnInit {
 		this.dashboardService.getAll().subscribe(data => {
 			console.log('data : ', data);
 			if (data) {
+				this.globals.dashboardList = data['results'];
 				data['results'].forEach(item => {
 					if (item.is_default) {
 						this.globals.default_dashboard = item.slug;
 						this.dashboardService.callDefaultMethod();
 					}
+
 
 					this.dashboardSlugs.push(item.slug);
 
@@ -137,24 +139,24 @@ export class NavbarComponent implements OnInit {
 	}
 
 	getTitle() {
-		var titlee = this.location.prepareExternalUrl(this.location.path());
-		if (titlee.charAt(0) === '#') {
-			titlee = titlee.slice(1);
-		}
-		for (let i = 0; i < this.listTitles.length; i++) {
-			if (this.listTitles[i].type === 'link' && this.listTitles[i].path === titlee) {
-				return this.listTitles[i].title;
-			} else if (this.listTitles[i].type === 'sub') {
-				for (let j = 0; j < this.listTitles[i].children.length; j++) {
-					let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
-					// console.log(subtitle)
-					// console.log(titlee)
-					if (subtitle === titlee) {
-						return this.listTitles[i].children[j].title;
-					}
-				}
-			}
-		}
+		// var titlee = this.location.prepareExternalUrl(this.location.path());
+		// if (titlee.charAt(0) === '#') {
+		// 	titlee = titlee.slice(1);
+		// }
+		// for (let i = 0; i < this.listTitles.length; i++) {
+		// 	if (this.listTitles[i].type === 'link' && this.listTitles[i].path === titlee) {
+		// 		return this.listTitles[i].title;
+		// 	} else if (this.listTitles[i].type === 'sub') {
+		// 		for (let j = 0; j < this.listTitles[i].children.length; j++) {
+		// 			let subtitle = this.listTitles[i].path + '/' + this.listTitles[i].children[j].path;
+		// 			// console.log(subtitle)
+		// 			// console.log(titlee)
+		// 			if (subtitle === titlee) {
+		// 				return this.listTitles[i].children[j].title;
+		// 			}
+		// 		}
+		// 	}
+		// }
 		return 'Dashboard';
 	}
 
