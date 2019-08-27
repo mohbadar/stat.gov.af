@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild, ElementRef, SimpleChanges, SimpleChange, HostListener } from '@angular/core';
-import { QueryResult } from '../../../models/query-result';
+import { QueryResult } from '../../models/query-result';
 import { debounce } from 'lodash';
-import Sunburst from './../../lib/sunburst';
+import Sunburst from '../../lib/sunburst';
 
 @Component({
 	selector: 'sunburst-sequence-renderer',

@@ -1,9 +1,9 @@
 import { Component, OnInit, Renderer, ViewChild, ElementRef, Directive } from '@angular/core';
-import { ROUTES } from '../.././sidebar/sidebar.component';
+import { ROUTES } from '../sidebar/sidebar.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { DashboardService } from '../../core/helpers/dashboard.service';
-import { Globals } from '../../core/helpers/globals';
+import { DashboardService } from '../_helpers/dashboard.service';
+import { Globals } from '../_helpers/globals';
 
 var misc: any = {
 	navbar_menu_visible: 0,

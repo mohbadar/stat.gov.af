@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { Component, OnInit, Input, SimpleChanges, SimpleChange } from '@angular/core';
-import { QueryResult, getColumnCleanName } from '../../../models/query-result';
-import { createFormatter } from './../../lib/value-format';
-import { ClientConfigService } from '../../helpers/client-config.service';
+import { QueryResult, getColumnCleanName } from '../../models/query-result';
+import { createFormatter } from '../../lib/value-format';
+import { ClientConfigService } from '../../core/_helpers/client-config.service';
 
 const ALLOWED_ITEM_PER_PAGE = [5, 10, 15, 20, 25];
 

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { QueryResult } from '../../../models/query-result';
-import { Visualization } from '../../../models/visualization';
+import { QueryResult } from '../../models/query-result';
+import { Visualization } from '../../models/visualization';
 import {
 	some, extend, defaults, has, partial, intersection, without, includes, isUndefined,
 	sortBy, each, map, keys, difference,

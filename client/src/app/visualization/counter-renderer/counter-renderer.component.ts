@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, SimpleChanges, SimpleChange, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { QueryResult } from '../../../models/query-result';
+import { QueryResult } from '../../models/query-result';
 import numberFormat from 'underscore.string/numberFormat';
 import { isNumber } from 'lodash';
-import { Visualization } from '../../../models/visualization';
+import { Visualization } from '../../models/visualization';
 import { debounce } from 'lodash';
 
 @Component({

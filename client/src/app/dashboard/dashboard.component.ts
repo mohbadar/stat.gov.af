@@ -1,15 +1,15 @@
 import { Component, Input, OnInit, SimpleChange, SimpleChanges, ViewChild, ElementRef, OnChanges, AfterViewInit } from '@angular/core';
-import { Dashboard, dashboardGridOptions } from '../../models/dashboard';
-import { Widget } from '../../models/widget';
-import { DashboardService, prepareWidgetsForDashboard } from '../helpers/dashboard.service';
-import { QueryService } from '../helpers/query.service';
+import { Dashboard, dashboardGridOptions } from '../models/dashboard';
+import { Widget } from '../models/widget';
+import { DashboardService, prepareWidgetsForDashboard } from '../core/_helpers/dashboard.service';
+import { QueryService } from '../core/_helpers/query.service';
 import * as _ from 'lodash';
 import { WidgetComponent } from './widget/widget.component';
-import { Visualization } from '../../models/visualization';
+import { Visualization } from '../models/visualization';
 import { debounce } from 'lodash';
 import { ActivatedRoute } from '@angular/router';
 import { GridStackOptions, GridStackComponent } from 'ng4-gridstack';
-import { Globals } from './../helpers/globals';
+import { Globals } from '../core/_helpers/globals';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, Input, SimpleChange, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
-import { QueryResult } from '../../../models/query-result';
+import { QueryResult } from '../../models/query-result';
 import _ from 'lodash';
 import d3 from 'd3';
 // import L from 'leaflet';

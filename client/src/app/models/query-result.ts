@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 import { sortBy, uniq, values, some, each, isArray, isNumber, isString, includes } from 'lodash';
-import { QueryService } from '../core/helpers/query.service';
+import { QueryService } from '../core/_helpers/query.service';
 
 const ALL_VALUES = '*';
 const NONE_VALUES = '-';
@@ -415,7 +415,7 @@ export class QueryResult {
     }
     
     getLink(widgetId, queryId, fileType) {
-        let link = `api/queries/${widgetId}/results/${queryId}.${fileType}`;
+        let link = `api/public/queries/${widgetId}/results/${queryId}.${fileType}`;
         return link;
     }
 }

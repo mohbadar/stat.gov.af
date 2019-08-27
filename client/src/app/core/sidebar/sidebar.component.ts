@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, AfterViewChecked, AfterContentInit } from '@angular/core';
-import { DashboardService } from '../core/_helpers/dashboard.service';
-import { Globals } from '../core/_helpers/globals';
+import { DashboardService } from './../_helpers/dashboard.service';
+import { Globals } from './../_helpers/globals';
 
 declare var $: any;
 //Metadata

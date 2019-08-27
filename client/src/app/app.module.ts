@@ -1,11 +1,11 @@
 
 import { APP_BASE_HREF } from '@angular/common';
 
-import { SidebarModule } from './sidebar/sidebar.module';
-import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule } from './shared/navbar/navbar.module';
-import { PagesnavbarModule } from './shared/pagesnavbar/pagesnavbar.module';
+import { SidebarModule } from './core/sidebar/sidebar.module';
+import { FixedPluginModule } from './core/fixedplugin/fixedplugin.module';
+import { FooterModule } from './core/footer/footer.module';
+import { NavbarModule } from './core/navbar/navbar.module';
+import { PagesnavbarModule } from './core/pagesnavbar/pagesnavbar.module';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 
@@ -31,11 +31,14 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 // google maps
 import { AgmCoreModule } from '@agm/core';
 
-// Template core components
 import {
 	AdminLayoutComponent,
 	AuthLayoutComponent,
-	DefaultLayoutComponent,
+	DefaultLayoutComponent
+} from './core';
+
+// Template core components
+import {
 	DashboardComponent,
 	WidgetComponent,
 	VisualizationRendererComponent,
@@ -56,7 +59,7 @@ import {
 	CustomPlotlyChartComponent,
 
 	Globals
-} from './core';
+} from './';
 
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
@@ -65,10 +68,10 @@ import * as PlotlyJS from 'plotly.js/dist/plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
 PlotlyModule.plotlyjs = PlotlyJS;
 
-import { DynamicTableComponent } from './core/visualization/grid-renderer/dynamic-table/dynamic-table.component';
-import { DefaultCellComponent } from './core/visualization/grid-renderer/dynamic-table/default-cell/default-cell.component';
-import { JsonCellComponent } from './core/visualization/grid-renderer/dynamic-table/json-cell/json-cell.component';
-import { DynamicTableRowComponent } from './core/visualization/grid-renderer/dynamic-table-row.component';
+import { DynamicTableComponent } from './visualization/grid-renderer/dynamic-table/dynamic-table.component';
+import { DefaultCellComponent } from './visualization/grid-renderer/dynamic-table/default-cell/default-cell.component';
+import { JsonCellComponent } from './visualization/grid-renderer/dynamic-table/json-cell/json-cell.component';
+import { DynamicTableRowComponent } from './visualization/grid-renderer/dynamic-table-row.component';
 
 import { GridStackModule } from 'ng4-gridstack';
 import { CookieService } from 'ngx-cookie-service';

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { QueryResult } from '../../models/query-result';
-import { Visualization } from '../../models/visualization';
+import { QueryResult } from '../models/query-result';
+import { Visualization } from '../models/visualization';
 
 @Component({
   selector: 'visualization-renderer',

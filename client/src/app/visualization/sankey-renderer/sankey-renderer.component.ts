@@ -2,8 +2,8 @@ import { Component, OnInit, Input, ElementRef, ViewChild, SimpleChanges, SimpleC
 import _ from 'lodash';
 import d3 from 'd3';
 
-import d3sankey from './../../lib/d3sankey';
-import { QueryResult } from '../../../models/query-result';
+import d3sankey from '../../lib/d3sankey';
+import { QueryResult } from '../../models/query-result';
 
 @Component({
 	selector: 'sankey-renderer',

@@ -1,14 +1,14 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 // import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material';
 import { APP_BASE_HREF } from '@angular/common';
-import { Dashboard } from '../../../models/dashboard';
-import { Widget } from '../../../models/widget';
-import { QueryService } from '../../../core/helpers/query.service';
+import { Dashboard } from '../../models/dashboard';
+import { Widget } from '../../models/widget';
+import { QueryService } from '../../core/_helpers/query.service';
 import * as _ from 'lodash';
-import { QueryResult } from '../../../models/query-result';
+import { QueryResult } from '../../models/query-result';
 import { ShareService } from '@ngx-share/core';
-import { Visualization } from '../../../models/visualization';
-import { DashboardService, Globals } from '../../helpers';
+import { Visualization } from '../../models/visualization';
+import { DashboardService, Globals } from '../../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

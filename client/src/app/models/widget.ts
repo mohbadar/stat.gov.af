@@ -2,7 +2,7 @@ import * as moment from 'moment';
 import { each, pick, extend, isObject, truncate } from 'lodash';
 import { Query } from './query';
 import { QueryResult } from './query-result';
-import { QueryService } from '../core/helpers/query.service';
+import { QueryService } from '../core/_helpers/query.service';
 import { Visualization } from './visualization';
 import { dashboardGridOptions } from './dashboard';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, SimpleChanges, SimpleChange, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { QueryResult } from '../../../models/query-result';
+import { QueryResult } from '../../models/query-result';
 import d3 from 'd3';
 import cloud from 'd3-cloud';
 import { each } from 'lodash';

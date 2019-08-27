@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { LoadingBarService } from '@ngx-loading-bar/core';
-import { Globals } from '../../helpers/globals';
+import { Globals } from '../../_helpers/globals';
 
 import {
 	PerfectScrollbarConfigInterface,

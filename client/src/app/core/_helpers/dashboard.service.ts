@@ -7,15 +7,17 @@ import * as _ from 'lodash';
 import { Subject } from 'rxjs';
 
 const staticHttpClient = new HttpClient(new HttpXhrBackend({ build: () => new XMLHttpRequest() }));
+const statucBaseUrl = 'api/public';
 
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
+	private baseUrl = 'api/public';
 
 	callToDashboardMethodSource = new Subject<any>();
 
 	static getWidget(id) {
 		const params = new HttpParams().set('id', id);
-		return staticHttpClient.get<Dashboard>(environment.apiUrl + 'widgets/' + id);
+		return staticHttpClient.get<Dashboard>(`${statucBaseUrl}/widgets/` + id);
 	}
 	constructor(private httpClient: HttpClient) { }
 
@@ -24,17 +26,17 @@ export class DashboardService {
 	}
 
 	getAll() {
-		const response = this.httpClient.get<Array<any>>(environment.apiUrl + 'dashboards');
+		const response = this.httpClient.get<Array<any>>(`${this.baseUrl}/dashboards`);
 		return response;
 	}
 
 	getDashboard(slug) {
 		const params = new HttpParams().set('slug', slug);
-		return this.httpClient.get<Dashboard>(environment.apiUrl + 'dashboards/' + slug);
+		return this.httpClient.get<Dashboard>(`${this.baseUrl}/dashboards/` + slug);
 	}
 
 	getDefaultDashboard() {
-		const response = this.httpClient.get(environment.apiUrl + 'dashboards/default');
+		const response = this.httpClient.get(`${this.baseUrl}/dashboards/default`);
 		return response;
 	}
 }

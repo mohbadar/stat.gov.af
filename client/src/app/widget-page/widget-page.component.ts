@@ -1,8 +1,8 @@
 import { Component, OnInit, SimpleChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Widget } from '../models/widget';
-import { WidgetComponent } from '../core';
-import { Globals } from './../core/helpers/globals';
+import { WidgetComponent } from './../dashboard/widget/widget.component';
+import { Globals } from '../core/_helpers/globals';
 
 @Component({
 	selector: 'widget-page',

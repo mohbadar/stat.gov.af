@@ -8,7 +8,7 @@ import { Routes } from '@angular/router';
 // import { MapsComponent } from '../../../pages/maps/maps.component';
 // import { NotificationsComponent } from '../../../pages/notifications/notifications.component';
 // import { UpgradeComponent } from '../../../pages/upgrade/upgrade.component';
-import { DashboardComponent } from 'app/core/dashboard/dashboard.component';
+import { DashboardComponent } from 'app/dashboard/dashboard.component';
 
 export const AdminLayoutRoutes: Routes = [
 	{ path: 'dashboard', component: DashboardComponent },

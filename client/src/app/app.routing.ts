@@ -2,7 +2,8 @@ import { Routes } from '@angular/router';
 
 // import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
-import { AdminLayoutComponent, DashboardComponent, DefaultLayoutComponent } from './core';
+import { AdminLayoutComponent, DefaultLayoutComponent } from './core/';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { WidgetPageComponent } from './widget-page/widget-page.component';
 
 
