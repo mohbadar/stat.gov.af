@@ -23,7 +23,7 @@ export interface ChildrenItems {
 //Menu Items
 export const ROUTES: RouteInfo[] = [{
 	path: '/dashboard',
-	title: 'Dashboard',
+	title: 'Dashboards',
 	type: 'sub',
 	icontype: 'pe-7s-graph'
 }
@@ -139,7 +139,7 @@ export class SidebarComponent {
 				const tempChild: ChildrenItems = {
 					path: ds.slug,
 					title: ds.slug,
-					ab: 'ab'
+					ab: 'ds'
 				};
 				tempChildren.push(tempChild);
 			});
