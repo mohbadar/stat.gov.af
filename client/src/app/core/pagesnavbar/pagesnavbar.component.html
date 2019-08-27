@@ -7,34 +7,28 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']">Light Bootstrap Dashboard PRO Angular</a>
+            <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']">Stat.Gov.af</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a routerLinkActive="active" [routerLink]="['/dashboard']">
+                    <a routerLinkActive="active" [routerLink]="['/']">
                         <i class="fa fa-tachometer" aria-hidden="true"></i>
-                        <p>Dashboard</p>
+                        <p>Home</p>
                     </a>
                 </li>
                 <li>
-                    <a routerLinkActive="active" [routerLink]="['/pages/login']">
+                    <a *ngIf="!authService.isLoggedIn()" routerLinkActive="active" [routerLink]="['/login']">
                         <i class="fa fa-sign-in" aria-hidden="true"></i>
                         <p>Login</p>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a routerLinkActive="active" [routerLink]="['/pages/register']">
                         <i class="fa fa-user-plus" aria-hidden="true"></i>
                         <p>Register</p>
                     </a>
-                </li>
-                <li>
-                    <a routerLinkActive="active" [routerLink]="['/pages/lock']">
-                        <i class="fa fa-lock" aria-hidden="true"></i>
-                        <p>Lock Screen</p>
-                    </a>
-                </li>
+                </li> -->
             </ul>
         </div>
     </div>

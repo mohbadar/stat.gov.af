@@ -32,7 +32,19 @@ export const AppRoutes: Routes = [{
 			// loadChildren: './home/home.module#HomeModule'
 		},
 	]
-}
+}, {
+	path: 'login',
+	component: AuthLayoutComponent,
+	children: [
+		{
+			path: 'login',
+			loadChildren: './login/login.module#LoginModule',
+			pathMatch: 'full',
+	
+		}
+				
+	]
+},
 // , {
 // 	path: '',
 // 	component: AuthLayoutComponent,

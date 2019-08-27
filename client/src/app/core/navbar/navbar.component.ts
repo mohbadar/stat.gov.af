@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DashboardService } from '../_helpers/dashboard.service';
 import { Globals } from '../_helpers/globals';
+import { AuthService } from 'app/services/auth.service';
 
 var misc: any = {
 	navbar_menu_visible: 0,
@@ -33,7 +34,8 @@ export class NavbarComponent implements OnInit {
 		private renderer: Renderer,
 		private element: ElementRef,
 		private dashboardService: DashboardService,
-		private globals: Globals
+		private globals: Globals,
+		public authService: AuthService
 	) {
 		this.location = location;
 		this.nativeElement = element.nativeElement;
