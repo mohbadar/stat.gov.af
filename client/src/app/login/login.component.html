@@ -1,5 +1,5 @@
 <div class="wrapper wrapper-full-page">
-		<div class="full-page login-page" data-color="red" data-image="../../../assets/img/full-screen-image-1.jpg">
+		<div class="full-page login-page" data-color="azure" data-image="../../../assets/img/full-screen-image-1.jpg">
 	
 		<!--   you can change the color of the filter page using: data-color="blue | azure | green | orange | red | purple" -->
 			<div class="content">
@@ -27,6 +27,9 @@
 											Login
 											<i class="fa fa-spinner fa-spin" *ngIf="isLoading"></i>
 										</button>
+									</div>
+									<div class="account-exist text-center">
+										<span>don't have account?  <a href="" [routerLink]="['/signup']">register</a></span>
 									</div>
 								</div>
 	

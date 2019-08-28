@@ -45,7 +45,7 @@ export class NavbarComponent implements OnInit {
 	ngOnInit() {
 		console.log('Navbar method called');
 		this.fetchAllDashboards();
-		
+
 		this.listTitles = ROUTES.filter(listTitle => listTitle);
 
 		var navbar: HTMLElement = this.element.nativeElement;
@@ -92,8 +92,9 @@ export class NavbarComponent implements OnInit {
 						this.dashboardService.callDefaultMethod();
 					}
 
-
-					this.dashboardSlugs.push(item.slug);
+					if (item.slug !== 'home') {
+						this.dashboardSlugs.push(item.slug);
+					}
 
 					// if (item.tags.indexOf(tag) != -1) {
 					// 	menuItem.children.push({ state: item.slug, name: item.name });
@@ -101,8 +102,6 @@ export class NavbarComponent implements OnInit {
 				});
 
 				console.log('Slugs are: ', this.dashboardSlugs);
-				
-
 			}
 		});
 

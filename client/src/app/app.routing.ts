@@ -33,24 +33,28 @@ export const AppRoutes: Routes = [{
 		},
 	]
 }, {
-	path: 'login',
+	path: '',
 	component: AuthLayoutComponent,
 	children: [
 		{
 			path: 'login',
 			loadChildren: './login/login.module#LoginModule',
 			pathMatch: 'full',
-	
+
+		}, {
+			path: 'signup',
+			loadChildren: './register/register.module#RegisterModule',
+			pathMatch: 'full'
 		}
-				
+
 	]
 },
-// , {
-// 	path: '',
-// 	component: AuthLayoutComponent,
-// 	children: [{
-// 		path: 'pages',
-// 		loadChildren: './pages/pages.module#PagesModule'
-// 	}]
-// }
+	// , {
+	// 	path: '',
+	// 	component: AuthLayoutComponent,
+	// 	children: [{
+	// 		path: 'pages',
+	// 		loadChildren: './pages/pages.module#PagesModule'
+	// 	}]
+	// }
 ];
