@@ -26,10 +26,8 @@ const AuthService: IAuthService = {
                 fullName: body.fullName,
                 username: body.username,
                 mobileNumber: body.mobileNumber,
-                location: body.location,
                 email: body.email,
                 password: body.password,
-                description: body.description
             });
 
             const query: IUserModel = await UserModel.findOne({
@@ -37,6 +35,8 @@ const AuthService: IAuthService = {
             });
 
             if (query) {
+                console.log(query);
+                
                 throw new Error('This mobile number already exists');
             }
 

@@ -165,4 +165,10 @@ export class NavbarComponent implements OnInit {
 		// console.log(this.location);
 		return this.location.prepareExternalUrl(this.location.path());
 	}
+
+	logout() {
+		if(this.authService.logout()) {
+			// TODO: direct to a public dashboard or something I dont know
+		}
+	}
 }

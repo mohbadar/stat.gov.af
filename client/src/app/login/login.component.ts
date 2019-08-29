@@ -20,17 +20,17 @@ export class LoginComponent implements OnInit {
 
 	constructor(public authService: AuthService, private formBuilder: FormBuilder) {
 		this.myForm = this.formBuilder.group({
-			uname: ['', [Validators.required]],
-			passwrd: ['', [Validators.required]]
+			username: ['', [Validators.required]],
+			password: ['', [Validators.required]]
 		});
 	}
 
 	submit() {
 		// Create new object
-		this.newRecord = new User();
-		this.newRecord.username = this.myForm.get('uname').value;
-		this.newRecord.passwrd = this.myForm.get('passwrd').value;
-
+		this.newRecord = {
+			'username': this.myForm.get('username').value,
+			'password': this.myForm.get('password').value
+		}
 		this.isLoading = true;
 		this.authService.login(this.newRecord).subscribe((response: any) => {
 			console.log('server response: ', response);
@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
 			this.authService.saveToken(token);
 			this.authService.routeToPreferencePage()
 		}, (err) => {
+			console.log('error: ', err);
 			const msg = 'Failed to Login. Please enter correct username and password'
 			this.showNotification('top', 'center', msg, 'danger', 'pe-7s-attention');
 			this.isLoading = false;

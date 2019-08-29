@@ -15,19 +15,9 @@ export interface IUserModel extends Document {
     fullName: string;
     username: string;
     mobileNumber: string;
-    location: {
-        province: {
-            pCode: string,
-            pCodeOld: string,
-            shortForm: string,
-            label: { english: string, dari: string },
-            geolocation: { lat: string, lng: string }
-        }
-    };
     email: string;
     password: string;
     lastLogin: Date;
-    description: string;
     passwordResetToken: string;
     passwordResetExpires: Date;
     tokens: AuthToken[];
@@ -65,15 +55,6 @@ const UserSchema: Schema = new Schema({
         trim: true,
         index: true
     },
-    location: {
-        province: {
-            type: String,
-            pCodeOld: String,
-            shortForm: String,
-            label: { english: String, dari: String },
-            geolocation: { lat: String, lng: String }
-        }
-    },
     email: {
         type: String,
         unique: true,
@@ -87,7 +68,6 @@ const UserSchema: Schema = new Schema({
         required: true, 
         default: Date.now() 
     },
-    description: String,
     passwordResetToken: String,
     passwordResetExpires: Date,
     tokens: Array,
