@@ -46,7 +46,7 @@
     "@ngx-loading-bar/http-client": "^4.2.0",
     "@ngx-loading-bar/router": "^2.2.0",
     "@ngx-share/core": "^7.1.1",
-    "@ngx-translate/core": "10.0.2",
+    "@ngx-translate/core": "^10.0.2",
     "@ngx-translate/http-loader": "3.0.1",
     "@swimlane/ngx-datatable": "^15.0.2",
     "@types/googlemaps": "3.36.5",

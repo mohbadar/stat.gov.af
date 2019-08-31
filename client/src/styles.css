@@ -1,4 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: 'Bahij Halvetica';
+  src: url('./assets/fonts/bahij_helvetica_neue_bold_by_bahijvirtualacademy-dammcmt_0.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Bahij Halvetica';
+  src: url('./assets/fonts/Bahij_Helvetica_Neue-Light_1.ttf');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: 'Bahij Halvetica';
+  src: url('./assets/fonts/bahij_helvetica_neue_roman_by_bahijvirtualacademy-dammd50_0.ttf');
+  font-weight: normal;
+}
+
 .main-panel {
   width: 100% !important;
   overflow-y: auto;

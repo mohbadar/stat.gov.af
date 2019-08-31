@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 import { User } from '../models/user';
 
 declare var $: any;
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
 	isLoading = false;
 	newRecord;
 
-	constructor(public authService: AuthService, private formBuilder: FormBuilder) {
+	constructor(public authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
 		this.myForm = this.formBuilder.group({
 			username: ['', [Validators.required]],
 			password: ['', [Validators.required]]
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
 			this.showNotification('top', 'center', msg, 'success', 'pe-7s-check');
 
 			this.authService.saveToken(token);
-			this.authService.routeToPreferencePage()
+			this.router.navigate(['/dashboard']);
 		}, (err) => {
 			console.log('error: ', err);
 			const msg = 'Failed to Login. Please enter correct username and password'

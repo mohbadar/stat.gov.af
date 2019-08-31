@@ -5,6 +5,7 @@ import { Location, LocationStrategy, PathLocationStrategy } from '@angular/commo
 import { DashboardService } from '../_helpers/dashboard.service';
 import { Globals } from '../_helpers/globals';
 import { AuthService } from 'app/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 var misc: any = {
 	navbar_menu_visible: 0,
@@ -26,6 +27,13 @@ export class NavbarComponent implements OnInit {
 	private toggleButton;
 	private sidebarVisible: boolean;
 	public dashboardSlugs = [];
+	public languageBadge;
+
+	public availLangs = [
+		{ name: 'English', value: 'en', dir: 'ltr' },
+		{ name: 'پښتو', value: 'ps', dir: 'rtl' },
+		{ name: 'دری', value: 'dr', dir: 'rtl' }
+	];
 
 	@ViewChild('navbar-cmp', { static: false }) button;
 
@@ -35,7 +43,9 @@ export class NavbarComponent implements OnInit {
 		private element: ElementRef,
 		private dashboardService: DashboardService,
 		private globals: Globals,
-		public authService: AuthService
+		public authService: AuthService,
+		private router: Router,
+		public translate: TranslateService
 	) {
 		this.location = location;
 		this.nativeElement = element.nativeElement;
@@ -44,17 +54,41 @@ export class NavbarComponent implements OnInit {
 
 	ngOnInit() {
 		console.log('Navbar method called');
+		if (localStorage.getItem('lang')) {
+
+			this.translate.defaultLang = localStorage.getItem('lang');
+			this.languageBadge = localStorage.getItem('lang');
+			console.log('Done');
+		} else {
+			this.translate.defaultLang = 'en';
+			this.languageBadge = 'en';
+		}
 		this.fetchAllDashboards();
 
 		this.listTitles = ROUTES.filter(listTitle => listTitle);
 
-		var navbar: HTMLElement = this.element.nativeElement;
+		const navbar: HTMLElement = this.element.nativeElement;
 		this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
 		if ($('body').hasClass('sidebar-mini')) {
 			misc.sidebar_mini_active = true;
 		}
+
+		// translator listener
+		this.translate.onLangChange.subscribe((event) => {
+			// Save the language into localstorage for future reference
+			console.log('Listener called: ', event.lang);
+			localStorage.setItem('lang', event.lang);
+			if (event.lang !== 'en') {
+				$('body').addClass('rtl');
+			} else {
+				$('body').removeClass('rtl');
+			}
+			this.languageBadge = event.lang;
+		});
+
+
 		$('#minimizeSidebar').click(function () {
-			var $btn = $(this);
+			const $btn = $(this);
 
 			if (misc.sidebar_mini_active == true) {
 				$('body').removeClass('sidebar-mini');
@@ -69,7 +103,7 @@ export class NavbarComponent implements OnInit {
 			}
 
 			// we simulate the window Resize so the charts will get updated in realtime.
-			var simulateWindowResize = setInterval(function () {
+			const simulateWindowResize = setInterval(function () {
 				window.dispatchEvent(new Event('resize'));
 			}, 180);
 
@@ -139,6 +173,11 @@ export class NavbarComponent implements OnInit {
 		}
 	}
 
+	changeLanguage(lang) {
+		console.log('Language is: ', lang);
+		this.translate.use(lang);
+	}
+
 	getTitle() {
 		// var titlee = this.location.prepareExternalUrl(this.location.path());
 		// if (titlee.charAt(0) === '#') {
@@ -167,8 +206,10 @@ export class NavbarComponent implements OnInit {
 	}
 
 	logout() {
-		if(this.authService.logout()) {
+		if (this.authService.logout()) {
 			// TODO: direct to a public dashboard or something I dont know
+			this.router.navigateByUrl('/qw', { skipLocationChange: true }).then(() =>
+				this.router.navigate(['dashboard']));
 		}
 	}
 }

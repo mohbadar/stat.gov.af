@@ -10,11 +10,11 @@ declare var $: any;
 export class AppComponent implements OnInit {
 
 	constructor(translate: TranslateService) {
-		translate.addLangs(['en', 'ps', 'dr']);
-		translate.setDefaultLang('en');
+		// translate.addLangs(['en', 'ps', 'dr']);
+		// translate.setDefaultLang('en');
 
-		const browserLang: string = translate.getBrowserLang();
-		translate.use(browserLang.match(/en|ps|dr/) ? browserLang : 'en');
+		// const browserLang: string = translate.getBrowserLang();
+		// translate.use(browserLang.match(/en|ps|dr/) ? browserLang : 'en');
 	}
 
 	ngOnInit() {
