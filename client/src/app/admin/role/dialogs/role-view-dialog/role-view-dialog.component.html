@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <form method="#" action="#">
+
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" placeholder="Role Name" name="name" class="form-control" disabled
+          [(ngModel)]="data.role.name">
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" placeholder=" Description" name="description" class="form-control" disabled
+          [(ngModel)]="data.role.description">
+      </div>
+
+      <div class="form-group">
+        <label>Permissions</label>
+        <div>
+          <span *ngFor="let permission of data.permissions"
+            class="badge badge-pill badge-primary">{{ permission.name }}</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span class="badge badge-pill badge-info">{{ data.role.active ? 'Active': 'Deactive' }}</span>
+      </div>
+    </form>
+  </div>
+</div>

@@ -91,7 +91,7 @@ export class AuthService {
 	public getUserDetails(): UserDetails {
 		const token = this.getToken();
 		let payload;
-		if (token) {
+		if (token && token != "undefined") {
 			payload = token.split('.')[1];
 			payload = window.atob(payload);
 			return JSON.parse(payload);

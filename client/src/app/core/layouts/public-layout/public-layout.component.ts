@@ -23,10 +23,10 @@ import {
 const SMALL_WIDTH_BREAKPOINT = 960;
 
 @Component({
-	selector: 'admin-layout',
-	templateUrl: './admin-layout.component.html'
+	selector: 'public-layout',
+	templateUrl: './public-layout.component.html'
 })
-export class AdminLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
+export class PublicLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 	private _router: Subscription;
 	public mediaMatcher: MediaQueryList = matchMedia(
 		`(max-width: ${SMALL_WIDTH_BREAKPOINT}px)`

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Principal } from 'app/models/principal';
 
 @Injectable()
 export class Globals {
@@ -11,4 +12,6 @@ export class Globals {
         dir: 'ltr'
     };
     default_dashboard;
+
+    principal: Principal = new Principal(null, [], [], [], null, null);
 }

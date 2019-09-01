@@ -1,0 +1,35 @@
+<div class="row">
+    <div class="col-md-12">
+        <form [formGroup]="editForm" (ngSubmit)="submit()">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" placeholder="Group Name" name="name" formControlName="name" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <input type="text" placeholder="Description" name="description" formControlName="description"
+                    class="form-control">
+            </div>
+
+
+            <div class="form-group">
+                <label>Roles</label>
+                <select multiple data-title="Multiple Select" name="roles" class="selectpicker" id="role"
+                    data-style="btn-primary btn-fill btn-block" data-menu-style="dropdown-blue" >
+                    <option *ngFor="let role of data.allRoles" value="{{role.id}}">{{ role.name }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <bSwitch formControlName="active" [switch-on-color]="'primary'" [switch-off-text]="' '" [switch-on-text]="' '" name="active">
+                </bSwitch>
+            </div>
+            <div class="form-group">
+                <button type="submit" [disabled]="editForm.invalid || (editForm.pristine && !rolesController)"
+                    class="btn btn-primary btn-sm btn-fill mx-2">Submit</button>&nbsp;&nbsp;
+                <span class="btn btn-warning btn-fill btn-sm mx-2" (click)="cancelUpdate()">Cancel</span>
+            </div>
+        </form>
+    </div>
+</div>

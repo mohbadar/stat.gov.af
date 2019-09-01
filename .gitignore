@@ -24,6 +24,7 @@ client/node_modules
 client-2/node_modules
 client/package-lock.json
 server/node_modules
+server/build
 .tmp
 .sass-cache
 npm-debug.log

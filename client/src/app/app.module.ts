@@ -32,7 +32,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { AgmCoreModule } from '@agm/core';
 
 import {
-	AdminLayoutComponent,
+	PublicLayoutComponent,
 	AuthLayoutComponent,
 	DefaultLayoutComponent
 } from './core';
@@ -97,7 +97,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 @NgModule({
 	declarations: [
 		AppComponent,
-		AdminLayoutComponent,
+		PublicLayoutComponent,
 		AuthLayoutComponent,
 		DashboardComponent,
 		WidgetComponent,

@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 
-// import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
+import { AdminLayoutComponent } from './core/layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
-import { AdminLayoutComponent, DefaultLayoutComponent } from './core/';
+import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WidgetPageComponent } from './widget-page/widget-page.component';
 
@@ -13,7 +13,7 @@ export const AppRoutes: Routes = [{
 	pathMatch: 'full',
 }, {
 	path: '',
-	component: AdminLayoutComponent,
+	component: PublicLayoutComponent,
 	children: [
 		//     {
 		//     path: '',
@@ -32,6 +32,10 @@ export const AppRoutes: Routes = [{
 			// loadChildren: './home/home.module#HomeModule'
 		},
 	]
+}, {
+	path: 'more',
+	loadChildren: './core/layouts/admin-layout/admin-layout.module#AdminLayoutModule',
+	// canActivate:[AuthGuard],
 }, {
 	path: '',
 	component: AuthLayoutComponent,

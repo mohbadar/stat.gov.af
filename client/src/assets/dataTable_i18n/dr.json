@@ -1,0 +1,23 @@
+{
+    "sEmptyTable": "داده ای در جدول وجود ندارد",
+    "sInfo": "اطلاعات _TOTAL_ از  _END_  الی  _START_ نشان دادن اطلاعاتی ",
+    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
+    "sInfoFiltered": "(filtered from _MAX_ total entries)",
+    "sInfoPostFix": "",
+    "sInfoThousands": ",",
+    "sLengthMenu": "  _MENU_ اطلاع نشان داده میشه",
+    "sLoadingRecords": "Loading...",
+    "sProcessing": "Processing...",
+    "sSearch": "جستجو:",
+    "sZeroRecords": "No matching records found",
+    "oPaginate": {
+        "sFirst": "اول",
+        "sLast": "اخر",
+        "sNext": "بعدی",
+        "sPrevious": "قبلی"
+    },
+    "oAria": {
+        "sSortAscending": ": activate to sort column ascending",
+        "sSortDescending": ": activate to sort column descending"
+    }
+}
