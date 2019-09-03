@@ -48,8 +48,16 @@
   box-shadow: 0 8px 6px -6px #cacaca;
 }
 
+#navbar .dashboards-dropdown {
+  display: inline;
+}
+
 .main-outlet {
-  margin-top: 3rem;
+  margin-top: 4rem;
+}
+
+.legendtext {
+  font-family: "Roboto", "Bahij Halvetica", "Helvetica Neue", Arial, sans-serif !important;
 }
 
 /* Snackbar */
@@ -142,4 +150,28 @@
 
 #scroll i {
   font-size: 28px;
+}
+
+.query-wrapper {
+  padding: 15px 33px;
+}
+
+.ml-1 {
+  margin-left: 8px;
+}
+
+.bg-transparent {
+  background: transparent !important;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.shadowed {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+}
+
+.p-1 {
+  padding: 0px 4px;
 }

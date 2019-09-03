@@ -21,6 +21,7 @@ export const AppRoutes: Routes = [{
 		// },
 		{ path: 'dashboard', component: DashboardComponent },
 		{ path: 'dashboard/:slug', component: DashboardComponent },
+		{ path: 'build-query', loadChildren: './query-builder/query-builder.module#QueryBuilderModule' },
 		{ path: '', redirectTo: 'dashboard', pathMatch: 'full' }]
 }, {
 	path: 'widgets/:slug',

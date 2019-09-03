@@ -1,0 +1,135 @@
+<div class="query-wrapper container-fluid">
+  <div class="action-bar">
+    <div class="card bg-transparent no-shadow">
+      <div class="card-body">
+        <div class="dropdown inline-block">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <button class="btn btn-social btn-fill btn-youtube shadowed">
+              <i class="fa fa-pie-chart"></i> Spreadsheets
+              <i class="fa fa-angle-down"></i>
+            </button>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+          </ul>
+        </div>
+        <div class="dropdown inline-block sheet-number ml-1">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <button class="btn btn-social btn-fill btn-facebook">
+              <i class="fa fa-pie-chart"></i> Sheet Number
+              <i class="fa fa-angle-down"></i>
+            </button>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+            <li><a>Home</a></li>
+          </ul>
+        </div>
+
+        <div class="inline-block ml-1">
+          <button class="btn btn-primary btn-fill">Submit</button>
+        </div>
+
+        <div class="inline-block ml-1">
+          <input type="file" (change)="onFileChange($event)" multiple="false" class="btn btn-primary btn-fill">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <div class="card">
+        <div class="header">
+          <h5>{{ workBookName }} : {{ wSheetName }}</h5>
+          <hr>
+        </div>
+        <div class="content">
+          <div class="sheetlist">
+            <ul style="list-style: none;" *ngIf="data">
+              <li *ngFor="let col of data[0]">{{col}}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-10">
+      <div class="card">
+        <div class="header"></div>
+        <div class="content">
+          <div class="table-show">
+            <p>query filters and tools</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="header"></div>
+        <div class="content">
+          <div class="table-show">
+            <p>chart and tables</p>
+            <table class="sjs-table" *ngIf="data">
+              <thead>
+                <th *ngFor="let val of data[0]; let i=index" class="p-1">
+                  <div class="dropdown inline-block" *ngIf="columDataTypes[i]==='number'">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <span class="btn btn-xs btn-primary btn-fill">
+                        Filters
+                        <i class="fa fa-angle-down"></i>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a>Filter for numnber</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="dropdown inline-block">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" *ngIf="columDataTypes[i]==='string'">
+                      <span class="btn btn-xs btn-primary btn-fill">
+                          Filters
+                        <i class="fa fa-angle-down"></i>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a>Filter for String</a></li>
+                      
+                    </ul>
+                  </div>
+                  <div class="dropdown inline-block">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" *ngIf="columDataTypes[i]==='undefined'">
+                      <span class="btn btn-xs btn-primary btn-fill">
+                          Filters
+                        <i class="fa fa-angle-down"></i>
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a>Filter for undefined</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    {{val}}
+                  </div>
+                </th>
+              </thead>
+              <tr *ngFor="let row of data| slice: 1">
+                <td *ngFor="let val of row" class="p-1">
+                  {{val}}
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

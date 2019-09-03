@@ -6,7 +6,7 @@
                 <i class="fa fa-navicon visible-on-sidebar-mini"></i>
             </button> -->
 
-            <div class="dropdown">
+            <div class="dropdown dashboards-dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <button class="btn btn-social btn-fill btn-youtube">
                         <i class="fa fa-pie-chart"></i> Dashboards
@@ -20,7 +20,9 @@
                             [routerLink]="['/dashboard', slg]">{{ slg | titlecase }}</a></li>
                 </ul>
             </div>
+            <span class="btn btn-primary btn-fill" [routerLink]="['/build-query']">Query Builder</span>
         </div>
+
 
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
