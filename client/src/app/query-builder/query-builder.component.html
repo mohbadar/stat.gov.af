@@ -55,7 +55,10 @@
         <div class="content">
           <div class="sheetlist">
             <ul style="list-style: none;" *ngIf="data">
-              <li *ngFor="let col of data[0]">{{col}}</li>
+              <li *ngFor="let col of columnNames" class="column-name" (click)="toggleColumn($event.target)">
+                <input type="checkbox" class="c-box" [id]="col.name" checked >
+                <span class="ml-1">{{col.name}}</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -66,8 +69,56 @@
       <div class="card">
         <div class="header"></div>
         <div class="content">
-          <div class="table-show">
-            <p>query filters and tools</p>
+          <div class="filter-show" *ngIf="columnDataType !== '' && columnDataType !== 'undefined'">
+            <div class="inline-block">
+              <h6>Column Name</h6>
+            </div>
+            <div class="dropdown inline-block ml-1">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="btn btn-primary btn-fill">
+                  {{ action }}
+                  <i class="fa fa-angle-down"></i>
+                </span>
+              </a>
+              <ul class="dropdown-menu numbers-dropdown" *ngIf="columnDataType === 'number'">
+                <li (click)="setAction('flEq','Equal to', true)"><a>equal to (=)</a></li>
+                <li (click)="setAction('flLt','Less then', false)"><a>less then (&lt;)</a></li>
+                <li (click)="setAction('flGr','Greater then', false)"><a>greater then (&gt;)</a></li>
+                <li (click)="setAction('flLtEq','Less or Equal', false)"><a>less then or equal to (&lt;=)</a></li>
+                <li (click)="setAction('flGrEq','Greater or Equal', false)"><a>greater then or equal to (&gt;=)</a></li>
+                <li (click)="setAction('flNEq','Not Equal', true)"><a>not equal to (!=)</a></li>
+                <li (click)="setAction('flRng','In Range', true)"><a>In a range (Inclusive)</a></li>
+                <li (click)="setAction('flNRng','Not in Range', true)"><a>Not in a range (Inclusive)</a></li>
+              </ul>
+
+              <ul class="dropdown-menu string-dropdown" *ngIf="columnDataType === 'string'">
+                <li (click)="setAction('flCn','Contains', true)"><a>Contains</a></li>
+                <li (click)="setAction('flCnS','Contains start', true)"><a>Contains in the start</a></li>
+                <li (click)="setAction('flCnE','Contains end', true)"><a>Contains in the end</a></li>
+                <li (click)="setAction('flNCn','Not Contains', true)"><a>Doesn't contain</a></li>
+              </ul>
+            </div>
+            <div class="filter-count inline-block ml-1">
+              <input type="checkbox" name="multiple" [disabled]="!applyMultiple" id="multiple-filter"> Multiple<i
+                class="fa fa-info-circle" data-toggle="tooltip" data-placement="top"
+                title="Add more then one inputs seperated by commas"></i>
+            </div>
+            <div class="first-input inline-block ml-1">
+              <input type="text" class="form-control">
+            </div>
+            <div class="second-input inline-block ml-1">
+              <input type="text" class="form-control">
+            </div>
+            <div class="apply-filter inline-block ml-1">
+              <button class="btn btn-primary btn-fill" (click)="testData()">Apply</button>
+            </div>
+          </div>
+          <div class="undefined-data-type text-center" *ngIf="columnDataType === 'undefined'">
+            <h3>Please choose a data type for this column</h3>
+            <div class="data-types-options">
+              <button class="btn btn-info btn-sm btn-fill " (click)="updateDataType('number')">Number</button>
+              <button class="btn btn-warning btn-sm btn-fill ml-1" (click)="updateDataType('string')">String</button>
+            </div>
           </div>
         </div>
       </div>
@@ -76,52 +127,18 @@
         <div class="header"></div>
         <div class="content">
           <div class="table-show">
-            <p>chart and tables</p>
-            <table class="sjs-table" *ngIf="data">
+            <span>chart and tables</span>
+            <span class="btn btn-xs btn-info pull-right" (click)="resetData()">reset</span>
+            <table class="table table-bordered" *ngIf="data">
               <thead>
-                <th *ngFor="let val of data[0]; let i=index" class="p-1">
-                  <div class="dropdown inline-block" *ngIf="columDataTypes[i]==='number'">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                      <span class="btn btn-xs btn-primary btn-fill">
-                        Filters
-                        <i class="fa fa-angle-down"></i>
-                      </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a>Filter for numnber</a></li>
-                      
-                    </ul>
-                  </div>
-                  <div class="dropdown inline-block">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" *ngIf="columDataTypes[i]==='string'">
-                      <span class="btn btn-xs btn-primary btn-fill">
-                          Filters
-                        <i class="fa fa-angle-down"></i>
-                      </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a>Filter for String</a></li>
-                      
-                    </ul>
-                  </div>
-                  <div class="dropdown inline-block">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" *ngIf="columDataTypes[i]==='undefined'">
-                      <span class="btn btn-xs btn-primary btn-fill">
-                          Filters
-                        <i class="fa fa-angle-down"></i>
-                      </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                      <li><a>Filter for undefined</a></li>
-                    </ul>
-                  </div>
-                  <div>
-                    {{val}}
-                  </div>
+                <th *ngFor="let val of columnNames; let i=index" class="p-1">
+                  <span (click)="showFilters(columnDataTypes[i], i)">
+                    {{val.name}}
+                  </span>
                 </th>
               </thead>
-              <tr *ngFor="let row of data| slice: 1">
-                <td *ngFor="let val of row" class="p-1">
+              <tr *ngFor="let row of data">
+                <td *ngFor="let val of row.rowData" class="p-1">
                   {{val}}
                 </td>
               </tr>

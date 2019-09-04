@@ -175,3 +175,16 @@
 .p-1 {
   padding: 0px 4px;
 }
+
+.column-name {
+  cursor: pointer;
+}
+
+.column-name:hover {
+  background-color: aliceblue;
+  transition: background .2s ease-in-out;
+}
+
+.unselected {
+  color: gray;
+}
