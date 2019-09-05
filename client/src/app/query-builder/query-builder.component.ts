@@ -15,10 +15,13 @@ export class QueryBuilderComponent implements OnInit {
 	columnDataTypes = [];
 	columnDataType = '';
 	selectedColumnIndex = 0;
+	selectedColumnName = '';
 	columnNames = [];
 	action = 'Actions';
 	applyMultiple = false;
 	originalData;
+	filterValue;
+	filterAction;
 	constructor() { }
 
 	ngOnInit() {
@@ -77,7 +80,6 @@ export class QueryBuilderComponent implements OnInit {
 			});
 
 			console.log('temp data: ', tempData);
-			
 
 			this.data = tempData;
 
@@ -95,10 +97,11 @@ export class QueryBuilderComponent implements OnInit {
 	checkColumnDataType() {
 		let isInteger;
 		let isUndefined;
-		for (let i = 0; i < this.data[0].rowData.length; i++) {
+		for (let i = 0; i < this.columnNames.length; i++) {
+			console.log('i iterated: ', i);
 			isInteger = true;
 			isUndefined = true;
-			for (let j = 1; j < this.data.length; j++) {
+			for (let j = 0; j < this.data.length; j++) {
 				console.log('Item: ', this.data[j].rowData[i]);
 				if (this.data[j].rowData[i] !== undefined) {
 					isUndefined = false;
@@ -123,6 +126,7 @@ export class QueryBuilderComponent implements OnInit {
 		this.columnDataType = dataType;
 		this.selectedColumnIndex = index;
 		this.action = 'Actions';
+		this.selectedColumnName = this.columnNames[index].name;
 		console.log('Column Data Type: ', this.columnDataType);
 	}
 
@@ -146,12 +150,27 @@ export class QueryBuilderComponent implements OnInit {
 		// reset the multiple filter
 		$('#multiple-filter').prop('checked', false);
 		this.applyMultiple = isMultipleApplicable;
+		this.action = actionName;
+		this.filterAction = filterAction;
+
+		console.log('filter action: ', filterAction);
+
 	}
+
+	numberFilterHandler(filterAction) {
+		switch (filterAction) {
+			// the equal filter
+			case 'flEq':
+				this.data = this.equalFilterN(this.filterValue);
+				break;
+		}
+	}
+
 
 	testData() {
 		const indeces = [3, 4, 5, 6];
 		// code to fitler certain rows
-		this.data = this.data.filter(dt => indeces.includes(this.data.indexOf(dt)));
+		// this.data = this.data.filter(dt => indeces.includes(this.data.indexOf(dt)));
 
 
 		// code to filter certain columns
@@ -165,19 +184,44 @@ export class QueryBuilderComponent implements OnInit {
 		// this.data.splice(3, 1);
 
 		console.log('final data: ', this.data);
+
+		if (this.columnDataType === 'number') {
+			this.numberFilterHandler(this.filterAction)
+		}
 	}
 
 	resetData() {
-		this.data = this.originalData;
+
+		this.data = this.data.map(dt => {
+			dt.showRow = true;
+			return dt;
+		});
 	}
 
-	toggleColumn(column) {
-		console.log(column);
+	toggleColumn(column, cIndex) {
+		this.columnDataType = '';
 		$(column).closest('li').toggleClass('unselected');
 		const checkBox = $(column).closest('li').find('input');
 		if (!$(column).hasClass('c-box')) {
 			$(column).closest('li').find('input').prop('checked', !checkBox.prop('checked'));
 		}
+
+		this.columnNames[cIndex].showColumn = !this.columnNames[cIndex].showColumn;
+	}
+
+	/*******************************************************************
+	 * Following methods are used to filter data
+	 * the format is filteType+'Filter'+Type(N = 'number', S = 'String')
+	 *******************************************************************/
+
+
+	equalFilterN(val) {
+		return this.data.map(dt => {
+			if (dt.rowData[this.selectedColumnIndex] !== Number(this.filterValue)) {
+				dt.showRow = false;
+			}
+			return dt;
+		})
 	}
 
 

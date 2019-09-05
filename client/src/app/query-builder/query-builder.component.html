@@ -55,8 +55,8 @@
         <div class="content">
           <div class="sheetlist">
             <ul style="list-style: none;" *ngIf="data">
-              <li *ngFor="let col of columnNames" class="column-name" (click)="toggleColumn($event.target)">
-                <input type="checkbox" class="c-box" [id]="col.name" checked >
+              <li *ngFor="let col of columnNames; let i=index" class="column-name" (click)="toggleColumn($event.target, i)">
+                <input type="checkbox" class="c-box" [id]="col.name" checked>
                 <span class="ml-1">{{col.name}}</span>
               </li>
             </ul>
@@ -71,7 +71,7 @@
         <div class="content">
           <div class="filter-show" *ngIf="columnDataType !== '' && columnDataType !== 'undefined'">
             <div class="inline-block">
-              <h6>Column Name</h6>
+              <h6>{{ selectedColumnName }}</h6>
             </div>
             <div class="dropdown inline-block ml-1">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -104,13 +104,10 @@
                 title="Add more then one inputs seperated by commas"></i>
             </div>
             <div class="first-input inline-block ml-1">
-              <input type="text" class="form-control">
-            </div>
-            <div class="second-input inline-block ml-1">
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" placeholder="filter string" [(ngModel)]="filterValue">
             </div>
             <div class="apply-filter inline-block ml-1">
-              <button class="btn btn-primary btn-fill" (click)="testData()">Apply</button>
+              <button class="btn btn-primary btn-fill" [disabled]="!filterValue || !filterAction" (click)="testData()">Apply</button>
             </div>
           </div>
           <div class="undefined-data-type text-center" *ngIf="columnDataType === 'undefined'">
@@ -128,17 +125,17 @@
         <div class="content">
           <div class="table-show">
             <span>chart and tables</span>
-            <span class="btn btn-xs btn-info pull-right" (click)="resetData()">reset</span>
-            <table class="table table-bordered" *ngIf="data">
+            <span class="btn btn-xs btn-info btn-fill pull-right" (click)="resetData()">reset</span>
+            <table class="table table-bordered table-stripped table-hover" *ngIf="data">
               <thead>
-                <th *ngFor="let val of columnNames; let i=index" class="p-1">
+                <th *ngFor="let val of columnNames; let i=index" class="p-1" [hidden]="!columnNames[i].showColumn">
                   <span (click)="showFilters(columnDataTypes[i], i)">
                     {{val.name}}
                   </span>
                 </th>
               </thead>
-              <tr *ngFor="let row of data">
-                <td *ngFor="let val of row.rowData" class="p-1">
+              <tr *ngFor="let row of data" [hidden]="!row.showRow">
+                <td *ngFor="let val of row.rowData; let j=index" [hidden]="!columnNames[j].showColumn" class="p-1">
                   {{val}}
                 </td>
               </tr>
