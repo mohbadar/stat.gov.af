@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 declare var $: any;
 
@@ -7,8 +7,8 @@ declare var $: any;
 	templateUrl: './query-builder.component.html',
 	styleUrls: ['./query-builder.component.scss']
 })
-export class QueryBuilderComponent implements OnInit {
-	data;
+export class QueryBuilderComponent implements OnInit, AfterViewInit {
+	data = [];
 	dataSheets = [];
 	wSheetName: string;
 	workBookName: string;
@@ -22,12 +22,38 @@ export class QueryBuilderComponent implements OnInit {
 	originalData;
 	filterValue;
 	filterAction;
-	constructor() { }
+	dTable;
+	dtOptions = {
+		'pagingType': 'full_numbers',
+		'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
+		'scrollX': true,
+		responsive: true,
+		// language: this.datatables.selectedJsonFile
+	};
+	constructor(private cdref: ChangeDetectorRef) { }
 
 	ngOnInit() {
 	}
 
+	ngAfterViewInit() {
+
+	}
+
 	onFileChange(evt: any) {
+		if ($.fn.DataTable.isDataTable('#datatables')) {
+			this.dTable.destroy();
+			this.dTable = null;
+		}
+		this.data = [];
+		this.columnNames = [];
+		this.selectedColumnIndex = 0;
+		this.selectedColumnName = '';
+		this.columnDataType = '';
+		this.columnDataTypes = [];
+		this.filterAction = '';
+		this.filterValue = '';
+
+
 		/* wire up file reader */
 		const target: DataTransfer = <DataTransfer>(evt.target);
 		if (target.files.length !== 1) {
@@ -54,7 +80,7 @@ export class QueryBuilderComponent implements OnInit {
 
 
 			/* save data */
-			this.data = <XLSX.AOA2SheetOpts>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+			this.data = <Array<XLSX.AOA2SheetOpts>>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
 			console.log('data is: ', this.data);
 			// Get column names
 			this.data[0].forEach(element => {
@@ -67,6 +93,7 @@ export class QueryBuilderComponent implements OnInit {
 
 			// After taking out the columns remove the first element of the data
 			this.data.splice(0, 1);
+			this.prepareDataforDataTable();
 
 			// Parse data for better handling
 			const tempData = [];
@@ -82,11 +109,17 @@ export class QueryBuilderComponent implements OnInit {
 			console.log('temp data: ', tempData);
 
 			this.data = tempData;
+			this.cdref.detectChanges();
+			if (!$.fn.DataTable.isDataTable('#datatables')) {
+				this.dTable = $('#datatables').DataTable(this.dtOptions);
+				this.initializeTable();
+			}
 
 			// Save the original data before processing this data
 			this.originalData = this.data;
 
 			console.log('Updated data: ', this.data);
+
 
 			this.checkColumnDataType();
 
@@ -94,15 +127,46 @@ export class QueryBuilderComponent implements OnInit {
 		reader.readAsBinaryString(target.files[0]);
 	}
 
+	prepareDataforDataTable() {
+		this.data.forEach(dt => {
+			if (dt.length < this.columnNames.length) {
+
+				while (dt.length !== this.columnNames.length) {
+					dt.push('');
+				}
+			}
+		});
+	}
+
+	initializeTable() {
+		setTimeout(() => {
+			$('#datatables tfoot th').each(function () {
+				const title = $(this).text();
+				$(this).html('<input type="text" class="table-search" placeholder="Search ' + title + '" />');
+			});
+
+			// Apply the search
+			this.dTable.columns().every(function () {
+				const that = this;
+
+				$('.table-search', this.footer()).on('keyup change clear', function () {
+					if (that.search() !== this.value) {
+						that
+							.search(this.value)
+							.draw();
+					}
+				});
+			});
+		}, );
+	}
+
 	checkColumnDataType() {
 		let isInteger;
 		let isUndefined;
 		for (let i = 0; i < this.columnNames.length; i++) {
-			console.log('i iterated: ', i);
 			isInteger = true;
 			isUndefined = true;
 			for (let j = 0; j < this.data.length; j++) {
-				console.log('Item: ', this.data[j].rowData[i]);
 				if (this.data[j].rowData[i] !== undefined) {
 					isUndefined = false;
 					if (!(/^[0-9]\d*(\.\d+)?$/).test(this.data[j].rowData[i])) {
@@ -161,7 +225,12 @@ export class QueryBuilderComponent implements OnInit {
 		switch (filterAction) {
 			// the equal filter
 			case 'flEq':
-				this.data = this.equalFilterN(this.filterValue);
+				this.equalFilterN();
+				this.dTable.draw();
+				const dData = this.dTable.rows({filter: 'applied'}).data();
+
+				console.log('This table has data: ', dData.length);
+				
 				break;
 		}
 	}
@@ -206,7 +275,16 @@ export class QueryBuilderComponent implements OnInit {
 			$(column).closest('li').find('input').prop('checked', !checkBox.prop('checked'));
 		}
 
-		this.columnNames[cIndex].showColumn = !this.columnNames[cIndex].showColumn;
+		// this.columnNames[cIndex].showColumn = !this.columnNames[cIndex].showColumn;
+		const dColumn = this.dTable.column(cIndex);
+		console.log(dColumn);
+		dColumn.visible(!dColumn.visible());
+	}
+
+	setFilteValue(vl) {
+		console.log(vl);
+
+		this.filterValue = vl;
 	}
 
 	/*******************************************************************
@@ -215,13 +293,31 @@ export class QueryBuilderComponent implements OnInit {
 	 *******************************************************************/
 
 
-	equalFilterN(val) {
-		return this.data.map(dt => {
-			if (dt.rowData[this.selectedColumnIndex] !== Number(this.filterValue)) {
-				dt.showRow = false;
+	equalFilterN() {
+		console.log('filtered value: ', this.filterValue);
+		const that = this;
+
+		// return this.data.map(dt => {
+		// 	if (dt.rowData[this.selectedColumnIndex] !== Number(this.filterValue)) {
+		// 		dt.showRow = false;
+		// 	}
+		// 	return dt;
+		// })
+		$.fn.dataTable.ext.search.push(
+			function (settings, data, dataIndex) {
+				const id = Number(data[that.selectedColumnIndex]) || 0;
+				console.log('filter data: ', that.filterValue);
+				if (that.filterValue !== '') {
+					if (id == that.filterValue) {
+						console.log('I will return');
+						return true;
+					}
+					return false;
+				} else {
+					return true;
+				}
 			}
-			return dt;
-		})
+		);
 	}
 
 

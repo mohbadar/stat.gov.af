@@ -18,6 +18,26 @@
   font-weight: normal;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(226, 226, 226);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(138, 137, 137);
+}
+
 .main-panel {
   width: 100% !important;
   overflow-y: auto;
@@ -150,6 +170,11 @@
 
 #scroll i {
   font-size: 28px;
+}
+
+.table-show {
+
+  overflow: hidden;
 }
 
 .query-wrapper {
