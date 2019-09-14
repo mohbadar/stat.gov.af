@@ -83,6 +83,7 @@ import { WidgetPageComponent } from './widget-page/widget-page.component';
 import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { ChartGeneratorComponent } from './chart-generator/chart-generator.component';
 // import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -123,6 +124,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		WidgetPageComponent,
 		DefaultLayoutComponent,
 		SafeHtmlPipe,
+		ChartGeneratorComponent,
 	],
 	imports: [
 		BrowserModule,

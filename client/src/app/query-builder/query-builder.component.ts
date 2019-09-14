@@ -27,7 +27,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		'pagingType': 'full_numbers',
 		'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
 		'scrollX': true,
-		responsive: true,
+		// responsive: true,
 		// language: this.datatables.selectedJsonFile
 	};
 	constructor(private cdref: ChangeDetectorRef) { }
@@ -111,6 +111,11 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			this.data = tempData;
 			this.cdref.detectChanges();
 			if (!$.fn.DataTable.isDataTable('#datatables')) {
+				$('#datatables tfoot th').each(function () {
+					const title = $(this).text();
+					$(this).html('<input type="text" class="table-search" placeholder="Search ' + title + '" />');
+				});
+
 				this.dTable = $('#datatables').DataTable(this.dtOptions);
 				this.initializeTable();
 			}
@@ -140,10 +145,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 	initializeTable() {
 		setTimeout(() => {
-			$('#datatables tfoot th').each(function () {
-				const title = $(this).text();
-				$(this).html('<input type="text" class="table-search" placeholder="Search ' + title + '" />');
-			});
 
 			// Apply the search
 			this.dTable.columns().every(function () {
@@ -157,7 +158,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					}
 				});
 			});
-		}, );
+		});
 	}
 
 	checkColumnDataType() {
@@ -227,10 +228,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			case 'flEq':
 				this.equalFilterN();
 				this.dTable.draw();
-				const dData = this.dTable.rows({filter: 'applied'}).data();
+				const dData = this.dTable.rows({ filter: 'applied' }).data();
 
 				console.log('This table has data: ', dData.length);
-				
+
 				break;
 		}
 	}
@@ -318,6 +319,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				}
 			}
 		);
+	}
+
+	generateChart() {
+		
 	}
 
 
