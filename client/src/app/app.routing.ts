@@ -5,6 +5,7 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { WidgetPageComponent } from './widget-page/widget-page.component';
+import { VisualizeComponent } from './visualize/visualize.component';
 
 
 export const AppRoutes: Routes = [{
@@ -22,7 +23,8 @@ export const AppRoutes: Routes = [{
 		{ path: 'dashboard', component: DashboardComponent },
 		{ path: 'dashboard/:slug', component: DashboardComponent },
 		{ path: 'build-query', loadChildren: './query-builder/query-builder.module#QueryBuilderModule' },
-		{ path: '', redirectTo: 'dashboard', pathMatch: 'full' }]
+		{ path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+		{ path: 'visualize', component: VisualizeComponent} ]
 }, {
 	path: 'widgets/:slug',
 	component: DefaultLayoutComponent,
