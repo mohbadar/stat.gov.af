@@ -30,7 +30,6 @@
             "styles": [
               "src/assets/sass/light-bootstrap-dashboard.scss",
               "src/styles.css",
-              "src/assets/styles/scss/node.scss",
               "node_modules/gridstack/dist/gridstack.min.css"
             ],
             "scripts": [
