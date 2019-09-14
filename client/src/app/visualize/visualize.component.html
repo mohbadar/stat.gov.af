@@ -1,4 +1,4 @@
-<div class="query-wrapper container-fluid">
+<div class="query-wrapper container-fluid" style="font-size: smaller;">
 	<div class="action-bar">
 		<div class="card bg-transparent no-shadow">
 			<div class="card-body">
@@ -14,7 +14,74 @@
 				<div class="header">Visualization Editor</div>
 				<div class="content">
 					<form>
-						
+						<div class="form-group">
+							<label for="exampleInputEmail1">Visualization Type</label>
+							<select class="form-control input-sm">
+								<option *ngFor="let vType of visualizationTypes" value="vType.id">{{ vType.name }}</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="exampleInputEmail1">Visualization Name</label>
+							<input type="email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Email">
+						</div>
+
+						<ul role="tablist" class="nav nav-tabs">
+							<li role="presentation" class="active">
+								<a href="#general-tab" data-toggle="tab">General</a>
+							</li>
+							<li>
+								<a href="#xaxis-tab" data-toggle="tab" id="mapp">X-Axis</a>
+							</li>
+							<li>
+								<a href="#yaxis-tab" data-toggle="tab">Y-Axis</a>
+							</li>
+							<li>
+								<a href="#legend-tab" data-toggle="tab" id="gallary">Legends</a>
+							</li>
+						</ul>
+	
+						<div class="tab-content">
+							<div id="general-tab" class="tab-pane active">
+								<div class="form-group">
+									<label for="exampleInputEmail1">Chart Type</label>
+									<select class="form-control input-sm">
+										<option *ngFor="let cType of chartTypes" value="cType.id">{{ cType.name }}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">X Column</label>
+									<select class="form-control input-sm">
+										<option *ngFor="let col of source_columns" value="col">{{ col }}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Y Columns</label>
+									<select class="form-control input-sm">
+										<option *ngFor="let col of source_columns" value="col">{{ col }}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">Group By </label>
+									<select class="form-control input-sm">
+										<option *ngFor="let col of source_columns" value="col">{{ col }}</option>
+									</select>
+								</div>
+								<div class="form-group input-sm">
+										<div class="checkbox">
+											<label>
+												<input type="checkbox"> Show Legends
+											</label>
+										</div>
+								</div>
+							</div>
+							<div id="xaxis-tab" class="tab-pane ">
+							</div>
+							<div id="yaxis-tab" class="tab-pane">
+							</div>
+							<div id="legend-tab" class="tab-pane">
+							</div>
+						</div>
 					</form>
 				</div>
 			</div>

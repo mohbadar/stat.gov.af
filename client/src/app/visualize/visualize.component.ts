@@ -9,10 +9,20 @@ import { TranslateService } from '@ngx-translate/core';
 	styleUrls: ['./visualize.component.scss']
 })
 export class VisualizeComponent implements OnInit {
+	@Input() source_columns: any = ["id", "name", "sex"];
 	@Input() source_data: any = [
-		[],
-		[],
-		[]
+		[1, "Ahmad", "M"],
+		[1, "Daud", "M"],
+		[1, "Sara", "F"]
+	];
+
+	visualizationTypes = [
+		{id: "chart", name: "CHART"}
+	];
+	chartTypes = [
+		{id: "chart", name: "CHART"},
+		{id: "pie", name: "PIE"},
+		{id: "line_chart", name: "LINE_CHART"}
 	];
 
 	constructor(public translate: TranslateService,
