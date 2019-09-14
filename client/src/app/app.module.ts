@@ -37,6 +37,8 @@ import {
 	DefaultLayoutComponent
 } from './core';
 
+import { VisualizeComponent } from './visualize/visualize.component';
+
 // Template core components
 import {
 	DashboardComponent,
@@ -124,7 +126,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		WidgetPageComponent,
 		DefaultLayoutComponent,
 		SafeHtmlPipe,
-		ChartGeneratorComponent,
+		VisualizeComponent,
 	],
 	imports: [
 		BrowserModule,
