@@ -40,7 +40,6 @@
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/moment/moment.js",
               "node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js",
-              "node_modules/bootstrap-notify/bootstrap-notify.js",
               "src/assets/js/perfect-scrollbar.min.js",
               "src/assets/js/jquery-jvectormap.js",
               "node_modules/nouislider/distribute/nouislider.min.js",
@@ -49,10 +48,7 @@
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
               "node_modules/bootstrap-select/dist/js/bootstrap-select.js",
               "node_modules/bootstrap-switch/dist/js/bootstrap-switch.js",
-              "node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.js",
-              "node_modules/sweetalert2/dist/sweetalert2.js",
-              "node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js",
-              "node_modules/jquery-validation/dist/jquery.validate.min.js"
+              "node_modules/sweetalert2/dist/sweetalert2.js"
             ]
           },
           "configurations": {
@@ -106,7 +102,6 @@
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/moment/moment.js",
               "node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js",
-              "node_modules/bootstrap-notify/bootstrap-notify.js",
               "src/assets/js/perfect-scrollbar.min.js",
               "src/assets/js/jquery-jvectormap.js",
               "node_modules/nouislider/distribute/nouislider.min.js",
@@ -115,10 +110,7 @@
               "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
               "node_modules/bootstrap-select/dist/js/bootstrap-select.js",
               "node_modules/bootstrap-switch/dist/js/bootstrap-switch.js",
-              "node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.js",
-              "node_modules/sweetalert2/dist/sweetalert2.js",
-              "node_modules/jasny-bootstrap/dist/js/jasny-bootstrap.min.js",
-              "node_modules/jquery-validation/dist/jquery.validate.min.js"
+              "node_modules/sweetalert2/dist/sweetalert2.js"
             ],
             "styles": [
               "src/assets/sass/light-bootstrap-dashboard.scss"
