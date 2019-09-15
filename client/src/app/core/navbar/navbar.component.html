@@ -1,17 +1,25 @@
 <nav #navbar class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-minimize">
-            <!-- <button id="minimizeSidebar" class="btn btn-danger btn-fill btn-round btn-icon">
-                <i class="fa fa-ellipsis-v visible-on-sidebar-regular"></i>
-                <i class="fa fa-navicon visible-on-sidebar-mini"></i>
-            </button> -->
+            <!-- <div class="inline-block logo-wrapper c-pointer">
+                <img [routerLink]="['/dashboard', 'home']" src="../../../assets/img/amended-logo final final-01.svg" style="height: 38px;" alt="">
+            </div>
 
-            <div class="dropdown dashboards-dropdown">
+            <div class="inline-block title ml-2 c-pointer">
+                <h4 [routerLink]="['/dashboard', 'home']">STAT.GOV.AF</h4>
+            </div>
+
+            <div class="home inline-block ml-2">
+                <span class="text-default"  [routerLink]="['/dashboard', 'home']">
+                    Home
+                </span>
+            </div>
+            <div class="dropdown dashboards-dropdown  ml-2">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <button class="btn btn-social btn-fill btn-youtube">
-                        <i class="fa fa-pie-chart"></i> Dashboards
+                    <span class="text-default">
+                        Dashboards
                         <i class="fa fa-angle-down"></i>
-                    </button>
+                    </span>
                 </a>
                 <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
                     <li><a [routerLink]="['/dashboard', 'home']">Home</a></li>
@@ -20,7 +28,50 @@
                             [routerLink]="['/dashboard', slg]">{{ slg | titlecase }}</a></li>
                 </ul>
             </div>
-            <span class="btn btn-primary btn-fill" [routerLink]="['/build-query']">Query Builder</span>
+            <span class="text-default ml-2" [routerLink]="['/build-query']">
+                <i class="fa fa-bar-chart"></i>
+                Custom Charts</span> -->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="inline-block logo-wrapper c-pointer">
+                        <img [routerLink]="['/dashboard', 'home']"
+                            src="../../../assets/img/amended-logo final final-01.svg" style="height: 38px;" alt="">
+                    </a>
+                </li>
+                <li>
+                    <a href="" [routerLink]="['/dashboard', 'home']">
+                        <span>STAT.GOV.AF</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="" [routerLink]="['/dashboard', 'home']">
+                        <span class="text-default">
+                            Home
+                        </span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="text-default">
+                            Dashboards
+                            <i class="fa fa-angle-down"></i>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
+                        <li><a [routerLink]="['/dashboard', 'home']">Home</a></li>
+                        <li class="divider"></li>
+                        <li *ngFor="let slg of dashboardSlugs"><a href="#"
+                                [routerLink]="['/dashboard', slg]">{{ slg | titlecase }}</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"  [routerLink]="['/build-query']">
+                        <span class="text-default ml-2">
+                            <i class="fa fa-bar-chart"></i>
+                            Custom Charts</span>
+                    </a>
+                </li>
+            </ul>
         </div>
 
 

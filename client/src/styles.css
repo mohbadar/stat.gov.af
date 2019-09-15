@@ -185,6 +185,9 @@
   margin-left: 8px;
 }
 
+.ml-2 {
+  margin-left: 16px;
+}
 .bg-transparent {
   background: transparent !important;
 }
@@ -212,4 +215,16 @@
 
 .unselected {
   color: gray;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.title h4 {
+  margin: 0px !important;  
+  font-weight: 400;
+}
+.c-pointer {
+  cursor: pointer;
 }
