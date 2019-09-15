@@ -33,6 +33,8 @@ const DEFAULT_OPTIONS = {
 	styleUrls: ['./visualize.component.scss']
 })
 export class VisualizeComponent implements OnInit {
+	@ViewChild('plotlyChartContainer', { static: true }) plotlyChartContainer: ElementRef;
+
 	@Input() columns: any = ["id", "name", "sex"];
 	@Input() rows: any = [
 		[1, "Ahmad", "M"],
@@ -41,7 +43,8 @@ export class VisualizeComponent implements OnInit {
 	];
 
 	plotlyOptions: any = Object.assign({}, DEFAULT_OPTIONS);
-
+	layout = {};
+	
 	visualizationTypes = [
 		{id: "chart", name: "CHART"}
 	];
