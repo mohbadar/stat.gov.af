@@ -43,8 +43,7 @@ export class VisualizeComponent implements OnInit {
 	plotlyOptions: any = Object.assign({}, DEFAULT_OPTIONS);
 
 	visualizationTypes = [
-		{id: "chart", name: "CHART"},
-		{id: "table", name: "TABLE"}
+		{id: "chart", name: "CHART"}
 	];
 	chartTypes = [
 		{id: "line", name: "LINE"},
