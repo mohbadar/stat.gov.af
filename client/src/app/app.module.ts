@@ -31,6 +31,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 // google maps
 import { AgmCoreModule } from '@agm/core';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 import {
 	PublicLayoutComponent,
 	AuthLayoutComponent,
@@ -135,6 +137,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		LeafletModule.forRoot(),
 		FormsModule,
 		HttpClientModule,
+		ReactiveFormsModule,
 		TranslateModule.forRoot({
 			loader: {
 				provide: TranslateLoader,
