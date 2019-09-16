@@ -13,17 +13,17 @@
 			<div class="card">
 				<div class="header">Visualization Editor</div>
 				<div class="content">
-					<form>
+					<form [formGroup]="chartForm">
 						<div class="form-group">
-							<label for="exampleInputEmail1">Visualization Type</label>
-							<select class="form-control input-sm">
+							<label for="visualization_type">Visualization Type</label>
+							<select class="form-control input-sm" name="visualization_type" formControlName="visualizationType">
 								<option *ngFor="let vType of visualizationTypes" value="vType.id">{{ vType.name }}</option>
 							</select>
 						</div>
 
 						<div class="form-group">
-							<label for="exampleInputEmail1">Visualization Name</label>
-							<input type="text" class="form-control input-sm" id="exampleInputEmail1" placeholder="Visualization Name">
+							<label for="visualization_name">Visualization Name</label>
+							<input type="text" class="form-control input-sm" name="visualization_name" formControlName="visualizationName" placeholder="Visualization Name">
 						</div>
 
 						<ul role="tablist" class="nav nav-tabs">
@@ -37,113 +37,134 @@
 								<a href="#yaxis-tab" data-toggle="tab">Y-Axis</a>
 							</li>
 							<li>
+								<a href="#series-tab" data-toggle="tab">Series</a>
+							</li>
+							<li>
 								<a href="#colors-tab" data-toggle="tab">Colors</a>
 							</li>
 						</ul>
 	
 						<div class="tab-content">
-							<div id="general-tab" class="tab-pane active">
+							<div id="general-tab" class="tab-pane active" formGroupName="general">
 								<div class="form-group">
-									<label for="exampleInputEmail1">Chart Type</label>
-									<select class="form-control input-sm">
-										<option *ngFor="let cType of chartTypes" value="cType.id">{{ cType.name }}</option>
+									<label for="chart_type">Chart Type</label>
+									<select class="form-control input-sm" formControlName="chartType">
+										<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}</option>
 									</select>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail1">X Column</label>
-									<select class="form-control input-sm">
-										<option *ngFor="let col of columns" value="col">{{ col }}</option>
+									<label for="x_column">X Column</label>
+									<select class="form-control input-sm" formControlName="xColumn">
+										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
-									<label for="exampleInputEmail1">Y Columns</label>
-									<select class="form-control input-sm" multiple>
-										<option *ngFor="let col of columns" value="col">{{ col }}</option>
+									<label for="y_columns">Y Columns</label>
+									<select class="form-control input-sm" multiple formControlName="yColumns">
+										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Group By </label>
-									<select class="form-control input-sm">
-										<option *ngFor="let col of columns" value="col">{{ col }}</option>
+									<select class="form-control input-sm" formControlName="groupBy">
+										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group input-sm">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox"> Show Legends
+											<input type="checkbox" formControlName="showLegends"> Show Legends
 										</label>
 									</div>
 								</div>
 							</div>
-							<div id="xaxis-tab" class="tab-pane ">
+							<div id="xaxis-tab" class="tab-pane" formGroupName="xaxis">
 								<div class="form-group">
 									<label for="exampleInputEmail1">Scale</label>
-									<select class="form-control input-sm">
-										<option *ngFor="let sType of scaleTypes" value="sType.id">{{ sType.name }}</option>
+									<select class="form-control input-sm" formControlName="scale">
+										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Name</label>
-									<input type="email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Name">
+									<input type="email" class="form-control input-sm" formControlName="name"placeholder="Name">
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox"> Sort Value
+											<input type="checkbox" formControlName="sortValue"> Sort Value
 										</label>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox"> Reverse Order
+											<input type="checkbox" formControlName="reverseOrder"> Reverse Order
 										</label>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox"> Show Labels
+											<input type="checkbox" formControlName="showLabels"> Show Labels
 										</label>
 									</div>
 								</div>
 							</div>
-							<div id="yaxis-tab" class="tab-pane">
+							<div id="yaxis-tab" class="tab-pane" formGroupName="yaxis">
 								<div class="form-group">
-									<label for="exampleInputEmail1">Scale</label>
-									<select class="form-control input-sm">
-										<option *ngFor="let sType of scaleTypes" value="sType.id">{{ sType.name }}</option>
+									<label for="yaxis_name">Scale</label>
+									<select class="form-control input-sm" formControlName="scale">
+										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Name</label>
-									<input type="email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Name">
+									<input type="email" class="form-control input-sm" formControlName="name" placeholder="Name">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Min Value</label>
-									<input type="email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Name">
+									<input type="email" class="form-control input-sm" formControlName="minValue" placeholder="Name">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Max Value</label>
-									<input type="email" class="form-control input-sm" id="exampleInputEmail1" placeholder="Name">
+									<input type="email" class="form-control input-sm" formControlName="maxValue" placeholder="Name">
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox"> Sort Value
+											<input type="checkbox" formControlName="sortValue"> Sort Value
 										</label>
 									</div>
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
 										<label>
-											<input type="checkbox"> Reverse Order
+											<input type="checkbox" formControlName="reverseOrder"> Reverse Order
 										</label>
 									</div>
 								</div>
 							</div>
-							<div id="colors-tab" class="tab-pane">
+							<div id="series-tab" class="tab-pane" formGroupName="series">
 							</div>
+							<div id="colors-tab" class="tab-pane" formGroupName="colors">
+							</div>
+						</div>
+
+						<div>
+							{{ getValue() }}
+						</div>
+						<hr>Layout
+						<div>
+							{{ getLayout() }}
+						</div>
+						<hr>PlotlyConfig
+						<div>
+							{{ getPlotlyConfig() }}
+						</div>
+						<hr>data
+						<div>
+							{{ getData() }}
 						</div>
 					</form>
 				</div>
@@ -154,7 +175,7 @@
 			<div class="card">
 				<div class="header">Visualization</div>
 				<div class="content">
-						<plotly-plot [data]="data" [config]="plotlyOptions" [layout]="layout" #plotlyChartContainer></plotly-plot>
+						<plotly-plot [data]="data" [config]="plotlyConfig" [layout]="layout" [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyChartContainer></plotly-plot>
 				</div>
 			</div>
 

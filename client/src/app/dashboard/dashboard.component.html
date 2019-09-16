@@ -15,7 +15,7 @@
         </div>
 
         <grid-stack #grid_stack class="grid-stack dashboard-wrapper preview-mode"
-            [ngClass]="{'grid-stack-rtl': this.globals.options.dir == 'rtl'}" style="height: 100%!important;"
+            [ngClass]="{'grid-stack-rtl': getLangDirection() == 'rtl'}" style="height: 100%!important;"
             [options]="area">
             <grid-stack-item #grid_stack_item *ngFor="let widget of widgets" [option]="widget.getGridStackOptions()"
                 class="grid-stack-item dashboard-widget-wrapper" id="{{widget.id}}"

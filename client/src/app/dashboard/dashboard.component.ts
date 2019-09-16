@@ -49,7 +49,15 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 		public route: ActivatedRoute,
 		public translate: TranslateService
 		) {
+	}
 
+	getLangDirection() {
+		if (localStorage.getItem('lang')) {
+			if(localStorage.getItem('lang') != 'en') {
+				return 'rtl'
+			}
+		}
+		return 'ltr';
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
