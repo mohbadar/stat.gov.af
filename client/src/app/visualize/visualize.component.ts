@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild, ElementRef, Inject } from '@angula
 import * as _ from 'lodash';
 import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 
 declare var $: any;
 
@@ -47,19 +47,6 @@ export class VisualizeComponent implements OnInit {
 		[1, "Sara", "F"]
 	];
 
-	
-
-	trace1 = {
-		x: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-		y: [8, 7, 6, 5, 4, 3, 2, 1, 0],
-		type: 'scatter'
-	  };
-	trace2 = {
-		x: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-		y: [0, 1, 2, 3, 4, 5, 6, 7, 8],
-		type: 'scatter'
-	  };
-
 	// plotlyConfig: any = Object.assign({}, DEFAULT_OPTIONS);
 	plotlyConfig: any = { modeBarButtonsToRemove: ['sendDataToCloud'], showLink: false, displaylogo: false };
 	layout: any = {
@@ -68,6 +55,7 @@ export class VisualizeComponent implements OnInit {
 		yaxis: {}
 	};
 	data: any = [];
+	xAxisData: any = [];
 
 	visualizationTypes = [
 		{id: "chart", name: "CHART"}
@@ -89,9 +77,32 @@ export class VisualizeComponent implements OnInit {
 		{id: "logarithmic", name: "Logarithmic"},
 		{id: "category", name: "Category"}
 	];
+	colorTypes = [
+		{id: "", name: "Automatic"},
+		{id: "blue", name: "Blue"},
+		{id: "red", name: "Red"},
+		{id: "green", name: "Green"},
+		{id: "purple", name: "Purple"},
+		{id: "cyan", name: "Cyan"},
+		{id: "orange", name: "Orange"},
+		{id: "light blue", name: "Light Blue"},
+		{id: "lilac", name: "Lilac"},
+		{id: "light green", name: "Light Green"},
+		{id: "brown", name: "Brown"},
+		{id: "black", name: "Black"},
+		{id: "gray", name: "Gray"},
+		{id: "pink", name: "Pink"},
+		{id: "dark blue", name: "Dark Blue"},
+		{id: "indian red", name: "Indian Red"},
+		{id: "green 2", name: "Green 2"},
+		{id: "green 3", name: "Green 3"},
+		{id: "dark violet", name: "Dark Violet"},
+		{id: "pink 2", name: "Pink 2"},
+		{id: "darkturquoise", name: "Darkturquoise"}
+	];
 
-	xColumns = [];
-	yColumns = [];
+	xColumnsList = [];
+	yColumnsList = [];
 
 	chartForm = this.fb.group({
 		visualizationType: ['', Validators.required],
@@ -118,16 +129,18 @@ export class VisualizeComponent implements OnInit {
 			sortValue: [''],
 			reverseOrder: ['']
 		}),
-		series: this.fb.group({
-		}),
-		colors: this.fb.group({
-		})
+		series: this.fb.array([])
 	  });
 
 	constructor(public translate: TranslateService,
 		public globals: Globals,
 		private fb: FormBuilder) {
 	}
+
+	get series() { return this.chartForm.get("series") as FormArray; }
+	set series(seriesArray: FormArray) { this.chartForm.setControl("series", seriesArray); }
+
+	get yColumns() { return this.chartForm.get("general").get("yColumns") ; }
 
 	ngOnInit() {
 		this.plotlyElement = this.plotlyChartContainer;
@@ -136,11 +149,11 @@ export class VisualizeComponent implements OnInit {
 		this.plotlyElement = this.plotlyElement.plotEl.nativeElement;
 
 		// set columns to both x and y columns dorpdown
-		this.xColumns = this.columns;
-		this.yColumns = this.columns;
+		this.xColumnsList = this.columns;
+		this.yColumnsList = this.columns;
 
-		this.data.push(this.trace1);
-		this.data.push(this.trace2);
+		// this.data.push(this.trace1);
+		// this.data.push(this.trace2);
 	}
 
 	ngAfterViewInit() {
@@ -187,7 +200,7 @@ export class VisualizeComponent implements OnInit {
 		// on selection of Y columns, there should be same amount of rows in series tab
 		this.chartForm.get("general").get("yColumns").valueChanges.subscribe((event) => {
 			if (event != null && event != "") {
-				this.updateSeriesTab(event);
+				this.addSeries(event);
 			}
 		});
 		
@@ -197,10 +210,18 @@ export class VisualizeComponent implements OnInit {
 	// 1. the given column should be removed from yColumns dropdown
 	// 2. Also remove that column from chartForm if selected earlier
 	onChangeXaxisColumn($event) {
-		this.yColumns = this.columns.filter(item => item !== $event.currentTarget.value);
+		// fetch the data of selected column as array
+		this.xAxisData = this.unpack(this.rows, this.columns.indexOf($event.currentTarget.value));
+		for(let index = 0; index < this.data.length; index++) {
+			const element = this.data[index];
+			element.x = this.xAxisData;
+		}
+
+		this.yColumnsList = this.columns.filter(item => item !== $event.currentTarget.value);
 		let yColumnsArray = this.chartForm.get("general").get("yColumns").value;
 		if(yColumnsArray.length > 0) {
 			this.chartForm.get("general").get("yColumns").setValue(yColumnsArray.filter(item => item !== $event.currentTarget.value));
+			this.addSeries(this.yColumns.value);
 		}
 	}
 
@@ -212,39 +233,47 @@ export class VisualizeComponent implements OnInit {
 		return rows.map(function(row) { return row[key]; });
 	}
 
-	updateSeriesTab(yColumns: any) {
-		let seriesTabDiv = $("#series-tab");
-		let seriesTbodyEl = $("tbody", seriesTabDiv);
-
-		// remove all rows that does not exist in array
-		$("tr", seriesTbodyEl).each((index, trEl) => {
-			let colName = $(trEl).attr("column-name");
-			if(yColumns.indexOf(colName) == -1) {
-				$(trEl).remove();
-			}
-		});
-		
-
-		// add row for each column in array
-		if(yColumns.length > 0) {
+	addSeries(yColumns: any) {
+		// add formGroup for each column in array of series
+		if(yColumns != null) {
+			let serieseFormArray: FormArray = this.fb.array([]);
+			let newData = [];
+			let index = 0;
 			yColumns.forEach((item) => {
-				// already exist then skip row creating for that column
-				let rowExist = $("tr[column-name=" + item + "]", seriesTbodyEl);
-				if(rowExist.length == 0) {
-					let trEl = $("<tr>").attr("column-name", item);
-					let labelTdEl = $("<td>").appendTo(trEl);
-					let labelEl = $("<input>").addClass("form-control input-sm").val(item).appendTo(labelTdEl);
-					let typeTdEl = $("<td>");
-					let typeEl = $("<select>").addClass("form-control input-sm").appendTo(trEl);
-					this.chartTypes.forEach((element) => {
-						$("<option>").attr("value", element.id).html(element.name).appendTo(typeEl);
-					});
+				serieseFormArray.push(
+					this.fb.group({
+						column: [item, Validators.required],
+						label: [item, Validators.required],
+						type: ['line', [Validators.required]],
+						// color: ['blue', Validators.required]
+					})
+				);
 
-					$(trEl).appendTo(seriesTbodyEl);
-				}
+				newData[index++] = {
+					x: this.xAxisData,
+					y: this.unpack(this.rows,  this.columns.indexOf(item)),
+					name: item,
+					type: 'line',
+					// color:
+				};
 			});
+			this.series = serieseFormArray;
+			this.data = newData;
 		}
+	}
 
+	onSeriesLabelChange(trace, $event) {
+		trace.name = $event.currentTarget.value;
+	}
+
+	onSeriesTypeChange(trace, $event) {
+		trace.type = $event.currentTarget.value;
+	}
+
+	onSeriesColorChange(trace, $event) {
+		trace.marker = {
+			color: $event.currentTarget.value
+		};
 	}
 
 	getValue() {

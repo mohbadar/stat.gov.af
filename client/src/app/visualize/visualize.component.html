@@ -39,9 +39,6 @@
 							<li>
 								<a href="#series-tab" data-toggle="tab">Series</a>
 							</li>
-							<li>
-								<a href="#colors-tab" data-toggle="tab">Colors</a>
-							</li>
 						</ul>
 	
 						<div class="tab-content">
@@ -55,13 +52,13 @@
 								<div class="form-group">
 									<label for="x_column">X Column</label>
 									<select class="form-control input-sm" formControlName="xColumn" (change)="onChangeXaxisColumn($event)">
-										<option *ngFor="let col of xColumns" [value]="col">{{ col }}</option>
+										<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="y_columns">Y Columns</label>
 									<select class="form-control input-sm" multiple formControlName="yColumns">
-										<option *ngFor="let col of yColumns" [value]="col">{{ col }}</option>
+										<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
@@ -151,13 +148,27 @@
 										<tr>
 											<th>Label</th>
 											<th>Type</th>
+											<th>Color</th>
 										</tr>
 										<tbody>
+											<tr *ngFor="let elem of series.controls; let i = index" column-name="elem.label" [formGroup]="elem">
+												<td>
+													<input class="form-control input-sm" formControlName="label" [value]="elem.controls.label.value" (change)="onSeriesLabelChange(data[i], $event)">
+												</td>
+												<td>
+													<select class="form-control input-sm" formControlName="type" (change)="onSeriesTypeChange(data[i], $event)">
+														<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}</option>
+													</select>
+												</td>
+												<td>
+													<select class="form-control input-sm" formControlName="color" (change)="onSeriesColorChange(data[i], $event)">
+														<option *ngFor="let cType of colorTypes" [value]="cType.id">{{ cType.name }}</option>
+													</select>
+												</td>
+											</tr>
 										</tbody>
 									</table>
 								</div>
-							</div>
-							<div id="colors-tab" class="tab-pane" formGroupName="colors">
 							</div>
 						</div>
 
