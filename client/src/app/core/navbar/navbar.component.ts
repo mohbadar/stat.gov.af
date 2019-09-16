@@ -197,7 +197,7 @@ export class NavbarComponent implements OnInit {
 		// 		}
 		// 	}
 		// }
-		return 'Dashboard';
+		return 'Stat.Gov.af';
 	}
 
 	getPath() {

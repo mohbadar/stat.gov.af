@@ -4,6 +4,8 @@ import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
+declare var $: any;
+
 const DEFAULT_OPTIONS = {
 	globalSeriesType: 'column',
 	sortX: true,
@@ -88,13 +90,16 @@ export class VisualizeComponent implements OnInit {
 		{id: "category", name: "Category"}
 	];
 
+	xColumns = [];
+	yColumns = [];
+
 	chartForm = this.fb.group({
 		visualizationType: ['', Validators.required],
 		visualizationName: [''],
 		general: this.fb.group({
 			chartType: [''],
-			xColumn: [''],
-			yColumns: [''],
+			xColumn: ['', Validators.required],
+			yColumns: ['', Validators.required],
 			groupBy: [''],
 			showLegends: ['']
 		}),
@@ -130,13 +135,15 @@ export class VisualizeComponent implements OnInit {
 		// this.plotlyElement.updatePlot();
 		this.plotlyElement = this.plotlyElement.plotEl.nativeElement;
 
+		// set columns to both x and y columns dorpdown
+		this.xColumns = this.columns;
+		this.yColumns = this.columns;
+
 		this.data.push(this.trace1);
 		this.data.push(this.trace2);
 	}
 
 	ngAfterViewInit() {
-		
-
 		this.chartForm.valueChanges.subscribe((event) => {
 			console.log(event);
 			if (event.visualizationName != null && event.visualizationName != "") {
@@ -176,7 +183,25 @@ export class VisualizeComponent implements OnInit {
 
 			this.redraw();
 		});
+
+		// on selection of Y columns, there should be same amount of rows in series tab
+		this.chartForm.get("general").get("yColumns").valueChanges.subscribe((event) => {
+			if (event != null && event != "") {
+				this.updateSeriesTab(event);
+			}
+		});
 		
+	}
+
+	// on change of x-axis column selection, 
+	// 1. the given column should be removed from yColumns dropdown
+	// 2. Also remove that column from chartForm if selected earlier
+	onChangeXaxisColumn($event) {
+		this.yColumns = this.columns.filter(item => item !== $event.currentTarget.value);
+		let yColumnsArray = this.chartForm.get("general").get("yColumns").value;
+		if(yColumnsArray.length > 0) {
+			this.chartForm.get("general").get("yColumns").setValue(yColumnsArray.filter(item => item !== $event.currentTarget.value));
+		}
 	}
 
 	redraw() {
@@ -185,6 +210,41 @@ export class VisualizeComponent implements OnInit {
 
 	unpack(rows, key) {
 		return rows.map(function(row) { return row[key]; });
+	}
+
+	updateSeriesTab(yColumns: any) {
+		let seriesTabDiv = $("#series-tab");
+		let seriesTbodyEl = $("tbody", seriesTabDiv);
+
+		// remove all rows that does not exist in array
+		$("tr", seriesTbodyEl).each((index, trEl) => {
+			let colName = $(trEl).attr("column-name");
+			if(yColumns.indexOf(colName) == -1) {
+				$(trEl).remove();
+			}
+		});
+		
+
+		// add row for each column in array
+		if(yColumns.length > 0) {
+			yColumns.forEach((item) => {
+				// already exist then skip row creating for that column
+				let rowExist = $("tr[column-name=" + item + "]", seriesTbodyEl);
+				if(rowExist.length == 0) {
+					let trEl = $("<tr>").attr("column-name", item);
+					let labelTdEl = $("<td>").appendTo(trEl);
+					let labelEl = $("<input>").addClass("form-control input-sm").val(item).appendTo(labelTdEl);
+					let typeTdEl = $("<td>");
+					let typeEl = $("<select>").addClass("form-control input-sm").appendTo(trEl);
+					this.chartTypes.forEach((element) => {
+						$("<option>").attr("value", element.id).html(element.name).appendTo(typeEl);
+					});
+
+					$(trEl).appendTo(seriesTbodyEl);
+				}
+			});
+		}
+
 	}
 
 	getValue() {

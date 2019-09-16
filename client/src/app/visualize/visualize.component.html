@@ -54,14 +54,14 @@
 								</div>
 								<div class="form-group">
 									<label for="x_column">X Column</label>
-									<select class="form-control input-sm" formControlName="xColumn">
-										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+									<select class="form-control input-sm" formControlName="xColumn" (change)="onChangeXaxisColumn($event)">
+										<option *ngFor="let col of xColumns" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="y_columns">Y Columns</label>
 									<select class="form-control input-sm" multiple formControlName="yColumns">
-										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+										<option *ngFor="let col of yColumns" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
@@ -87,7 +87,7 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Name</label>
-									<input type="email" class="form-control input-sm" formControlName="name"placeholder="Name">
+									<input type="text" class="form-control input-sm" formControlName="name"placeholder="Name">
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
@@ -120,15 +120,15 @@
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Name</label>
-									<input type="email" class="form-control input-sm" formControlName="name" placeholder="Name">
+									<input type="text" class="form-control input-sm" formControlName="name" placeholder="Name">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Min Value</label>
-									<input type="email" class="form-control input-sm" formControlName="minValue" placeholder="Name">
+									<input type="text" class="form-control input-sm" formControlName="minValue" placeholder="Min Value">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Max Value</label>
-									<input type="email" class="form-control input-sm" formControlName="maxValue" placeholder="Name">
+									<input type="text" class="form-control input-sm" formControlName="maxValue" placeholder="Max Value">
 								</div>
 								<div class="form-group">
 									<div class="checkbox">
@@ -146,6 +146,16 @@
 								</div>
 							</div>
 							<div id="series-tab" class="tab-pane" formGroupName="series">
+								<div class="form-group">
+									<table class="table table-condensed table-hover">
+										<tr>
+											<th>Label</th>
+											<th>Type</th>
+										</tr>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
 							</div>
 							<div id="colors-tab" class="tab-pane" formGroupName="colors">
 							</div>
