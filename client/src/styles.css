@@ -73,7 +73,7 @@
 }
 
 .main-outlet {
-  margin-top: 4rem;
+  margin-top: 8rem;
 }
 
 .legendtext {
@@ -227,4 +227,8 @@
 }
 .c-pointer {
   cursor: pointer;
+}
+
+.mr-3 {
+  margin-top: 3rem !important;
 }
