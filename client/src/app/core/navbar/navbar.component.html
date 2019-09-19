@@ -29,15 +29,13 @@
                         <span class="text-default">{{ 'DASHBOARDS' | translate }}<i class="fa fa-angle-down"></i></span>
                     </a>
                     <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
-                        <li><a [routerLink]="['/dashboard', 'home']">{{ 'HOME' | translate }}</a></li>
-                        <li class="divider"></li>
-                        <li *ngFor="let slg of dashboardSlugs"><a href="#"
-                                [routerLink]="['/dashboard', slg]">{{ slg | titlecase  | translate }}</a></li>
+                        <li *ngFor="let dashboard of globals.dashboardList"><a href="#"
+                                [routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a></li>
                     </ul>
                 </li>
                 <li>
                     <a href="#"  [routerLink]="['/build-query']">
-                        <span class="text-default ml-2"><i class="fa fa-bar-chart"></i> {{ 'CUSTOM_CHARTS' | translate }} </span>
+                        <span class="text-default ml-2"><i class="fa fa-bar-chart"></i> {{ 'ANALYZE_DATA' | translate }} </span>
                     </a>
                 </li>
             </ul>
@@ -60,7 +58,7 @@
                 <li *ngIf="!authService.isLoggedIn()">
                     <a routerLinkActive="active" [routerLink]="['/login']">
                         <i class="fa fa-sign-in" aria-hidden="true"></i>
-                        <p>Login</p>
+                        <p> {{ 'LOGIN' | translate }} </p>
                     </a>
                 </li>
                 <li class="dropdown dropdown-with-icons" *ngIf="authService.isLoggedIn()">
@@ -70,7 +68,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-with-icons">
                         <li (click)="logout()">
-                            <a href="#" class="text-danger"><i class="pe-7s-close-circle"></i> Log out</a>
+                            <a href="#" class="text-danger"><i class="pe-7s-close-circle"></i>{{ 'LOGOUT' | translate }} </a>
                         </li>
                     </ul>
                 </li>

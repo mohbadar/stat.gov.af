@@ -52,16 +52,15 @@ export class NavbarComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		console.log('Navbar method called');
 		if (localStorage.getItem('lang')) {
-
 			this.translate.defaultLang = localStorage.getItem('lang');
 			this.languageBadge = localStorage.getItem('lang');
-			console.log('Done');
 		} else {
 			this.translate.defaultLang = 'en';
 			this.languageBadge = 'en';
 		}
+		this.translate.use(this.languageBadge);
+		this.globals.lang = this.languageBadge;
 		this.fetchAllDashboards();
 
 		// this.listTitles = ROUTES.filter(listTitle => listTitle);
@@ -75,7 +74,6 @@ export class NavbarComponent implements OnInit {
 		// translator listener
 		this.translate.onLangChange.subscribe((event) => {
 			// Save the language into localstorage for future reference
-			console.log('Listener called: ', event.lang);
 			localStorage.setItem('lang', event.lang);
 			if (event.lang !== 'en') {
 				$('body').addClass('rtl');
@@ -83,6 +81,7 @@ export class NavbarComponent implements OnInit {
 				$('body').removeClass('rtl');
 			}
 			this.languageBadge = event.lang;
+			this.globals.lang = this.languageBadge;
 		});
 
 
@@ -116,7 +115,6 @@ export class NavbarComponent implements OnInit {
 
 	fetchAllDashboards() {
 		this.dashboardService.getAll().subscribe(data => {
-			console.log('data : ', data);
 			if (data) {
 				this.globals.dashboardList = data['results'];
 				data['results'].forEach(item => {
@@ -133,8 +131,6 @@ export class NavbarComponent implements OnInit {
 					// 	menuItem.children.push({ state: item.slug, name: item.name });
 					// }
 				});
-
-				console.log('Slugs are: ', this.dashboardSlugs);
 			}
 		});
 
@@ -173,11 +169,23 @@ export class NavbarComponent implements OnInit {
 	// }
 
 	changeLanguage(lang) {
-		console.log('Language is: ', lang);
 		this.translate.use(lang);
 	}
 
-	getTitle() {
+	getTitleByLang(title) {
+		try {
+			let titleObj = JSON.parse(title);
+			if(titleObj instanceof Object) {
+
+				return titleObj[localStorage.getItem('lang')];
+			}
+			return title;
+		} catch(e) {
+			return title;
+		}
+	}
+
+	// getTitle() {
 		// var titlee = this.location.prepareExternalUrl(this.location.path());
 		// if (titlee.charAt(0) === '#') {
 		// 	titlee = titlee.slice(1);
@@ -196,8 +204,8 @@ export class NavbarComponent implements OnInit {
 		// 		}
 		// 	}
 		// }
-		return 'Stat.Gov.af';
-	}
+	// 	return 'Stat.Gov.af';
+	// }
 
 	getPath() {
 		// console.log(this.location);

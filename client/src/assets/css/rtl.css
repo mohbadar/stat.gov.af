@@ -55,6 +55,13 @@ body.rtl .sidebar {
     margin-left: 30px;
 }
 
+.rtl .widget-visualization li.pull-right {
+    float: left!important;
+}
+
+.rtl .widget-visualization .footer i.pull-right {
+    float: left!important;
+}
 
 /* html {
     direction: rtl

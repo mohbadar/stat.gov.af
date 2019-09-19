@@ -96,6 +96,11 @@
   "404": "404",
   "500": "500",
 
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
+
+  "ANALYZE_DATA": "Analyze Data",
+
   "DOCS": "Documentation",
   "SETTINGS": "Settings"
 }

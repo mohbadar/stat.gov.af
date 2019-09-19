@@ -76,8 +76,6 @@ export class ChartRendererComponent implements OnInit, OnChanges {
 			showDataLabels: this.options.globalSeriesType === 'pie',
 			dateTimeFormat: 'DD/MM/YY HH:mm',
 		}, DEFAULT_OPTIONS, this.options);
-
-		console.log('plotly options: ', this.plotlyOptions);
 		
 	}
 
@@ -85,7 +83,6 @@ export class ChartRendererComponent implements OnInit, OnChanges {
 		if (!isUndefined(this.queryResult) && this.queryResult.getData()) {
 			const data = this.queryResult.getChartData(this.options.columnMapping);
 			this.chartSeries = sortBy(data, (series) => this.zIndexCompare(series, this.options));
-			console.log('plotly series: ', this.chartSeries);
 		}
 	}
 
