@@ -22,6 +22,7 @@ dump.rdb
 redash/node_modules
 client/node_modules
 client/dist
+client/dist.zip
 client-2/node_modules
 client/package-lock.json
 server/node_modules
