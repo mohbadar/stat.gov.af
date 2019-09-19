@@ -42,9 +42,9 @@ export class VisualizeComponent implements OnInit {
 
 	@Input() columns: any = ["id", "name", "sex"];
 	@Input() rows: any = [
-		[1, "Ahmad", "M"],
-		[1, "Daud", "M"],
-		[1, "Sara", "F"]
+		[1, "Ahmad", "Male"],
+		[1, "Daud", "Male"],
+		[1, "Sara", "Female"]
 	];
 
 	// plotlyConfig: any = Object.assign({}, DEFAULT_OPTIONS);
