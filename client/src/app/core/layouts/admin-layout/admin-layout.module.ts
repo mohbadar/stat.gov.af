@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { SidebarModule } from 'app/core/sidebar/sidebar.module';
 import { NavbarModule } from 'app/core/navbar/navbar.module';
 import { FooterModule } from 'app/core/footer/footer.module';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
@@ -20,7 +19,6 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
   imports: [RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     HttpClientModule,
-    SidebarModule,
     NavbarModule,
     FooterModule,
     LoadingBarHttpClientModule,

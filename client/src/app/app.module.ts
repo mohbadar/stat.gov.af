@@ -1,7 +1,6 @@
 
 import { APP_BASE_HREF } from '@angular/common';
 
-import { SidebarModule } from './core/sidebar/sidebar.module';
 import { FixedPluginModule } from './core/fixedplugin/fixedplugin.module';
 import { FooterModule } from './core/footer/footer.module';
 import { NavbarModule } from './core/navbar/navbar.module';
@@ -150,7 +149,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 			useHash: false
 		}),
 		PagesnavbarModule,
-		SidebarModule,
 		NavbarModule,
 		ToastrModule.forRoot(),
 		FooterModule,

@@ -1,5 +1,4 @@
 import { Component, OnInit, Renderer, ViewChild, ElementRef, Directive } from '@angular/core';
-import { ROUTES } from '../sidebar/sidebar.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { DashboardService } from '../_helpers/dashboard.service';
@@ -65,7 +64,7 @@ export class NavbarComponent implements OnInit {
 		}
 		this.fetchAllDashboards();
 
-		this.listTitles = ROUTES.filter(listTitle => listTitle);
+		// this.listTitles = ROUTES.filter(listTitle => listTitle);
 
 		const navbar: HTMLElement = this.element.nativeElement;
 		this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
@@ -143,35 +142,35 @@ export class NavbarComponent implements OnInit {
 
 
 
-	isMobileMenu() {
-		if ($(window).width() < 991) {
-			return false;
-		}
-		return true;
-	}
+	// isMobileMenu() {
+	// 	if ($(window).width() < 991) {
+	// 		return false;
+	// 	}
+	// 	return true;
+	// }
 
-	sidebarOpen() {
-		var toggleButton = this.toggleButton;
-		var body = document.getElementsByTagName('body')[0];
-		setTimeout(function () {
-			toggleButton.classList.add('toggled');
-		}, 500);
-		body.classList.add('nav-open');
-		this.sidebarVisible = true;
-	}
-	sidebarClose() {
-		var body = document.getElementsByTagName('body')[0];
-		this.toggleButton.classList.remove('toggled');
-		this.sidebarVisible = false;
-		body.classList.remove('nav-open');
-	}
-	sidebarToggle() {
-		if (this.sidebarVisible == false) {
-			this.sidebarOpen();
-		} else {
-			this.sidebarClose();
-		}
-	}
+	// sidebarOpen() {
+	// 	var toggleButton = this.toggleButton;
+	// 	var body = document.getElementsByTagName('body')[0];
+	// 	setTimeout(function () {
+	// 		toggleButton.classList.add('toggled');
+	// 	}, 500);
+	// 	body.classList.add('nav-open');
+	// 	this.sidebarVisible = true;
+	// }
+	// sidebarClose() {
+	// 	var body = document.getElementsByTagName('body')[0];
+	// 	this.toggleButton.classList.remove('toggled');
+	// 	this.sidebarVisible = false;
+	// 	body.classList.remove('nav-open');
+	// }
+	// sidebarToggle() {
+	// 	if (this.sidebarVisible == false) {
+	// 		this.sidebarOpen();
+	// 	} else {
+	// 		this.sidebarClose();
+	// 	}
+	// }
 
 	changeLanguage(lang) {
 		console.log('Language is: ', lang);

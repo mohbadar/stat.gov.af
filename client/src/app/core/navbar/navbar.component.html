@@ -1,91 +1,46 @@
 <nav #navbar class="navbar navbar-default">
     <div class="container-fluid">
-        <div class="navbar-minimize">
-            <!-- <div class="inline-block logo-wrapper c-pointer">
-                <img [routerLink]="['/dashboard', 'home']" src="../../../assets/img/amended-logo final final-01.svg" style="height: 38px;" alt="">
-            </div>
-
-            <div class="inline-block title ml-2 c-pointer">
-                <h4 [routerLink]="['/dashboard', 'home']">STAT.GOV.AF</h4>
-            </div>
-
-            <div class="home inline-block ml-2">
-                <span class="text-default"  [routerLink]="['/dashboard', 'home']">
-                    Home
-                </span>
-            </div>
-            <div class="dropdown dashboards-dropdown  ml-2">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span class="text-default">
-                        Dashboards
-                        <i class="fa fa-angle-down"></i>
-                    </span>
-                </a>
-                <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
-                    <li><a [routerLink]="['/dashboard', 'home']">Home</a></li>
-                    <li class="divider"></li>
-                    <li *ngFor="let slg of dashboardSlugs"><a href=""
-                            [routerLink]="['/dashboard', slg]">{{ slg | titlecase }}</a></li>
-                </ul>
-            </div>
-            <span class="text-default ml-2" [routerLink]="['/build-query']">
-                <i class="fa fa-bar-chart"></i>
-                Custom Charts</span> -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a class="inline-block logo-wrapper c-pointer">
-                        <img [routerLink]="['/dashboard', 'home']"
-                            src="../../../assets/img/amended-logo final final-01.svg" style="height: 38px;" alt="">
-                    </a>
-                </li>
-                <li>
-                    <a href="" [routerLink]="['/dashboard', 'home']">
-                        <span>STAT.GOV.AF</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="" [routerLink]="['/dashboard', 'home']">
-                        <span class="text-default">
-                            Home
-                        </span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="text-default">
-                            Dashboards
-                            <i class="fa fa-angle-down"></i>
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
-                        <li><a [routerLink]="['/dashboard', 'home']">Home</a></li>
-                        <li class="divider"></li>
-                        <li *ngFor="let slg of dashboardSlugs"><a href="#"
-                                [routerLink]="['/dashboard', slg]">{{ slg | titlecase }}</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#"  [routerLink]="['/build-query']">
-                        <span class="text-default ml-2">
-                            <i class="fa fa-bar-chart"></i>
-                            Custom Charts</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand">{{getTitle()}}</a>
+        
+            <a class="inline-block logo-wrapper c-pointer" style="padding: 10px;">
+                <img [routerLink]="['/dashboard', 'home']"
+                        src="../../../assets/img/amended-logo final final-01.svg" style="height: 38px;" alt="">
+            </a>
+            <a class="navbar-brand" href="#">
+                <span>STAT.GOV.AF</span>
+            </a>
         </div>
-
-        <div class="collapse navbar-collapse">
+  
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="" [routerLink]="['/dashboard', 'home']"><span class="text-default">{{ 'HOME' | translate }}</span></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="text-default">{{ 'DASHBOARDS' | translate }}<i class="fa fa-angle-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
+                        <li><a [routerLink]="['/dashboard', 'home']">{{ 'HOME' | translate }}</a></li>
+                        <li class="divider"></li>
+                        <li *ngFor="let slg of dashboardSlugs"><a href="#"
+                                [routerLink]="['/dashboard', slg]">{{ slg | titlecase  | translate }}</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"  [routerLink]="['/build-query']">
+                        <span class="text-default ml-2"><i class="fa fa-bar-chart"></i> {{ 'CUSTOM_CHARTS' | translate }} </span>
+                    </a>
+                </li>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
 
                 <li class="dropdown">
@@ -111,138 +66,15 @@
                 <li class="dropdown dropdown-with-icons" *ngIf="authService.isLoggedIn()">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-list"></i>
-                        <p class="hidden-md hidden-lg">
-                            More
-                            <b class="caret"></b>
-                        </p>
+                        <p class="hidden-md hidden-lg"> More <b class="caret"></b></p>
                     </a>
                     <ul class="dropdown-menu dropdown-with-icons">
-                        <li>
-                            <a href="#">
-                                <i class="pe-7s-mail"></i> Messages
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="pe-7s-help1"></i> Help Center
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="pe-7s-tools"></i> Settings
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">
-                                <i class="pe-7s-lock"></i> Lock Screen
-                            </a>
-                        </li>
                         <li (click)="logout()">
-                            <a href="#" class="text-danger">
-                                <i class="pe-7s-close-circle"></i>
-                                Log out
-                            </a>
+                            <a href="#" class="text-danger"><i class="pe-7s-close-circle"></i> Log out</a>
                         </li>
                     </ul>
                 </li>
             </ul>
-        </div>
-
-        <!-- <div class="collapse navbar-collapse">
-            <div class="" *ngIf="isMobileMenu()">
-                <form class="navbar-form navbar-left navbar-search-form" role="search">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-                        <input type="text" value="" class="form-control" placeholder="Search...">
-                    </div>
-                </form>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a ruterLinkActive="active" [routerLink]="['/charts']">
-                            <i class="fa fa-line-chart"></i>
-                            <p>Stats</p>
-                        </a>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-gavel"></i>
-                            <p class="hidden-md hidden-lg">
-                                Actions
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Create New Post</a></li>
-                            <li><a href="#">Manage Something</a></li>
-                            <li><a href="#">Do Nothing</a></li>
-                            <li><a href="#">Submit to live</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Another Action</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="notification">5</span>
-                            <p class="hidden-md hidden-lg">
-                                Notifications
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Notification 1</a></li>
-                            <li><a href="#">Notification 2</a></li>
-                            <li><a href="#">Notification 3</a></li>
-                            <li><a href="#">Notification 4</a></li>
-                            <li><a href="#">Another notification</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="dropdown dropdown-with-icons">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-list"></i>
-                            <p class="hidden-md hidden-lg">
-                                More
-                                <b class="caret"></b>
-                            </p>
-                        </a>
-                        <ul class="dropdown-menu dropdown-with-icons">
-                            <li>
-                                <a href="#">
-                                    <i class="pe-7s-mail"></i> Messages
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="pe-7s-help1"></i> Help Center
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="pe-7s-tools"></i> Settings
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">
-                                    <i class="pe-7s-lock"></i> Lock Screen
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-danger">
-                                    <i class="pe-7s-close-circle"></i>
-                                    Log out
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-        </div> -->
-    </div>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
 </nav>
