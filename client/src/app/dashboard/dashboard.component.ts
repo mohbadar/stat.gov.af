@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GridStackOptions, GridStackComponent } from 'ng4-gridstack';
 import { Globals } from '../core/_helpers/globals';
 import { TranslateService } from '@ngx-translate/core';
+import { DatasourceQueryService } from 'app/services/datasource.query.service';
 
 @Component({
 	selector: 'dashboard',
@@ -47,7 +48,8 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 		public queryService: QueryService,
 		public globals: Globals,
 		public route: ActivatedRoute,
-		public translate: TranslateService
+		public translate: TranslateService, 
+		public datasourceQueryService: DatasourceQueryService
 		) {
 	}
 
@@ -71,6 +73,11 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	ngOnInit() {
+
+		this.datasourceQueryService.loadQueries().subscribe(data => {
+			console.log("Datasource Data", data);
+
+		});	
 		// Listen to default dashboard set from navbar component
 		this.dashboardService.callToDashboardMethodSource.subscribe(() => {
 			this.route.paramMap.subscribe(param => {
