@@ -72,18 +72,18 @@ export class LoginComponent implements OnInit {
 	}
 
 	showNotification(from, align, msg, type, icon) {
-		$.notify({
-			icon: icon,
-			message: msg
+		// $.notify({
+		// 	icon: icon,
+		// 	message: msg
 
-		}, {
-				type: type,
-				timer: 2000,
-				placement: {
-					from: from,
-					align: align
-				}
-			});
+		// }, {
+		// 		type: type,
+		// 		timer: 2000,
+		// 		placement: {
+		// 			from: from,
+		// 			align: align
+		// 		}
+		// 	});
 	}
 
 }
