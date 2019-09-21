@@ -1,34 +1,33 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DatasourceQueryService {
+export class DatasourceWidgetService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private baseUrl = "/api/queries";
-  private nodeApi = '/node-api/queries';
+  private baseUrl = "/api/dashboards";
+  private nodeApi = '/node-api/widgets';
 
-  loadQueries(): Observable<any>
+  loadWidgets(): Observable<any>
   {
     return this.httpClient.get(`${this.nodeApi}`);
   }
 
-  loadQueryById(id:string): Observable<any>
+  loadWidgetById(id:string): Observable<any>
   {
     return this.httpClient.get(`${this.nodeApi}/${id}`);
   }
 
-  deleteQuery(id:string)
+  deleteWidget(id:string)
   {
       return this.httpClient.delete(`${this.nodeApi}/${id}`);
   }
 
-  createQuery(data): Observable<any>{
+  createWiget(data): Observable<any>{
     return this.httpClient.post(`${this.nodeApi}`, data);
   }
-
 }

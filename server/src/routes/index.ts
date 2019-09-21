@@ -59,7 +59,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/node-api/dashboards', jwtConfig.isAuthenticated, DashboardRouter);
+    app.use('/node-api/dashboards', DashboardRouter);
 
 
 

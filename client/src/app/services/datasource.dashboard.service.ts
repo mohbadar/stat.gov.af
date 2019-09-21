@@ -5,30 +5,29 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DatasourceQueryService {
+export class DatasourceDashboardService {
 
   constructor(private httpClient: HttpClient) { }
 
-  private baseUrl = "/api/queries";
-  private nodeApi = '/node-api/queries';
+  private baseUrl = "/api/dashboards";
+  private nodeApi = '/node-api/dashboards';
 
-  loadQueries(): Observable<any>
+  load(): Observable<any>
   {
     return this.httpClient.get(`${this.nodeApi}`);
   }
 
-  loadQueryById(id:string): Observable<any>
+  loadById(id:string): Observable<any>
   {
     return this.httpClient.get(`${this.nodeApi}/${id}`);
   }
 
-  deleteQuery(id:string)
+  delete(id:string)
   {
       return this.httpClient.delete(`${this.nodeApi}/${id}`);
   }
 
-  createQuery(data): Observable<any>{
+  create(data): Observable<any>{
     return this.httpClient.post(`${this.nodeApi}`, data);
   }
-
 }
