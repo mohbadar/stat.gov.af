@@ -10,11 +10,12 @@
   "MESSAGES": "Messages",
   "SOCIAL": "Social",
   "TASKBOARD": "Taskboard",
-
+  "MY_DASHBOARDS": "زما دشبوردونه",
   "COMPONENTS": "Components",
   "MATERIAL": "Material",
   "AUTOCOMPLETE": "Autocomplete",
   "BUTTON": "Button",
+  "SAVE_CHANAGES": "Save Changes",
   "BUTTONTOGGLE": "Button toggles",
   "CARDS": "Cards",
   "CHECKBOX": "Checkbox",

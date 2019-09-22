@@ -5,21 +5,23 @@ import app from '../../config/server/server';
 
 /**
  * @export
- * @interface IQueryModel
+ * @interface IWidgetModel
  * @extends {Document}
  */
-export interface IQueryModel extends Document {
+export interface IWidgetModel extends Document {
     name: string;
     user: string;
     data: string;
     config: string;
+    query: string;
+    dashboard: string;
 }
 
 
-const QuerySchema: Schema = new Schema({
+const WidgetSchema: Schema = new Schema({
     name: { 
         type: String, 
-        lowercase: false, 
+        lowercase: true, 
         required: true, 
         trim: true, 
         index: true 
@@ -28,28 +30,40 @@ const QuerySchema: Schema = new Schema({
     user: {
         ref: 'UserModel',
         type: Schema.Types.ObjectId,
-        // type:String
+        required:true
+    },
+
+
+    query: {
+        ref: 'QueryModel',
+        type: Schema.Types.ObjectId,
+    },
+
+
+    dashboard: {
+        ref: 'DashboardModel',
+        type: Schema.Types.ObjectId,
     },
 
     data: { 
         type: String, 
-        lowercase: false, 
-        required: false, 
+        lowercase: true, 
+        required: true, 
         trim: false, 
         index: false 
     },
 
     config: { 
         type: String, 
-        lowercase: false, 
+        lowercase: true, 
         required: false, 
         trim: false, 
         index: false 
     },
 }, {
-    collection: 'QueryCollection',
+    collection: 'WidgetCollection',
     versionKey: false
 });
 
 
-export default connections.db.model < IQueryModel > ('QueryModel', QuerySchema);
+export default connections.db.model < IWidgetModel > ('WidgetModel', WidgetSchema);

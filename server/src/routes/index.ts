@@ -5,6 +5,8 @@ import * as swaggerUi from 'swagger-ui-express';
 import AuthRouter from './AuthRouter';
 import UserRouter from './UserRouter';
 import QueryRouter from './QueryRouter';
+import WidgetRouter from './WidgetRouter';
+import DashboardRouter from './DashboardRouter';
 
 let swaggerDoc: Object;
 
@@ -31,7 +33,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/node-api/users', jwtConfig.isAuthenticated, UserRouter);
+    app.use('/node-api/users', UserRouter);
 
     /**
      * @description
@@ -39,7 +41,27 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/node-api/queries', jwtConfig.isAuthenticated, QueryRouter);
+    app.use('/node-api/queries', QueryRouter);
+
+
+        /**
+     * @description
+     *  Forwards any requests to the /api/widgets URI to our WidgetRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/node-api/widgets', WidgetRouter);
+
+
+            /**
+     * @description
+     *  Forwards any requests to the /api/dashboards URI to our DashboardRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/node-api/dashboards', DashboardRouter);
+
+
 
     /**
      * @description Forwards any requests to the /auth URI to our AuthRouter

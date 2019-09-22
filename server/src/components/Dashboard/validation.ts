@@ -1,35 +1,35 @@
 import * as Joi from 'joi';
 import Validation from '../validation';
-import { IQueryModel } from './model';
+import { IDashboardModel } from './model';
 
 /**
  * @export
- * @class QueryValidation
+ * @class DashboardValidation
  * @extends Validation
  */
-class QueryValidation extends Validation {
+class DashboardValidation extends Validation {
 
     /**
-     * Creates an instance of QueryValidation.
-     * @memberof QueryValidation
+     * Creates an instance of DashboardValidation.
+     * @memberof DashboardValidation
      */
     constructor() {
         super();
     }
 
     /**
-     * @param {IQueryModel} params
-     * @returns {Joi.ValidationResult<IQueryModel >}
-     * @memberof QueryValidation
+     * @param {IDashboardModel} params
+     * @returns {Joi.ValidationResult<IDashboardModel >}
+     * @memberof DashboardValidation
      */
-    createQuery(
-        params: IQueryModel
-    ): Joi.ValidationResult < IQueryModel > {
+    create(
+        params: IDashboardModel
+    ): Joi.ValidationResult < IDashboardModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             data: Joi.string().required(),
             config: Joi.string().allow(),
-            user: Joi.string().allow(),
+            user: Joi.string().required()
 
         });
 
@@ -39,9 +39,9 @@ class QueryValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof QueryValidation
+     * @memberof DashboardValidation
      */
-    getQuery(
+    get(
         body: {
             id: string
         }
@@ -58,9 +58,9 @@ class QueryValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof QueryValidation
+     * @memberof DashboardValidation
      */
-    removeQuery(
+    remove(
         body: {
             id: string
         }
@@ -76,4 +76,4 @@ class QueryValidation extends Validation {
 
 }
 
-export default new QueryValidation();
+export default new DashboardValidation();

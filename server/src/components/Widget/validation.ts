@@ -1,35 +1,38 @@
 import * as Joi from 'joi';
 import Validation from '../validation';
-import { IQueryModel } from './model';
+import { IWidgetModel } from './model';
 
 /**
  * @export
- * @class QueryValidation
+ * @class WidgetValidation
  * @extends Validation
  */
-class QueryValidation extends Validation {
+class WidgetValidation extends Validation {
 
     /**
-     * Creates an instance of QueryValidation.
-     * @memberof QueryValidation
+     * Creates an instance of WidgetValidation.
+     * @memberof WidgetValidation
      */
     constructor() {
         super();
     }
 
     /**
-     * @param {IQueryModel} params
-     * @returns {Joi.ValidationResult<IQueryModel >}
-     * @memberof QueryValidation
+     * @param {IWidgetModel} params
+     * @returns {Joi.ValidationResult<IWidgetModel >}
+     * @memberof WidgetValidation
      */
-    createQuery(
-        params: IQueryModel
-    ): Joi.ValidationResult < IQueryModel > {
+    create(
+        params: IWidgetModel
+    ): Joi.ValidationResult < IWidgetModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             data: Joi.string().required(),
-            config: Joi.string().allow(),
-            user: Joi.string().allow(),
+            config: Joi.string().required(),
+            user: Joi.string().required(),
+            query: Joi.string().allow(),
+            dashboard: Joi.string().allow(),
+
 
         });
 
@@ -39,9 +42,9 @@ class QueryValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof QueryValidation
+     * @memberof WidgetValidation
      */
-    getQuery(
+    get(
         body: {
             id: string
         }
@@ -58,9 +61,9 @@ class QueryValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof QueryValidation
+     * @memberof WidgetValidation
      */
-    removeQuery(
+    remove(
         body: {
             id: string
         }
@@ -76,4 +79,4 @@ class QueryValidation extends Validation {
 
 }
 
-export default new QueryValidation();
+export default new WidgetValidation();

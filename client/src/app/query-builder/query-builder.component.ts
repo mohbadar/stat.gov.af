@@ -1,5 +1,9 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import * as XLSX from 'xlsx';
+import { DatasourceQueryService } from 'app/services/datasource.query.service';
+import { DatasourceQuery } from '../models/datasource.query';
+import { stringify } from '@angular/compiler/src/util';
+
 declare var $: any;
 
 @Component({
@@ -30,7 +34,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// responsive: true,
 		// language: this.datatables.selectedJsonFile
 	};
-	constructor(private cdref: ChangeDetectorRef) { }
+	isLoading: boolean;
+	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService) { }
 
 	ngOnInit() {
 	}
@@ -323,6 +328,54 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 	generateChart() {
 		
+	}
+
+	saveChanges()
+	{
+
+		if(this.data)
+		{
+			const query = new DatasourceQuery;
+			query.name = this.wSheetName;
+			query.config= stringify(this.columnDataTypes);
+			query.data = stringify(this.data);
+	
+			console.log("Sended Data: => ", query);
+	
+			this.datasouceQueryService.createQuery(query).subscribe((res) => {
+				console.log("response: ", res);
+				const msg = 'New record successfully created';
+				this.isLoading = false;
+				this.showNotification('top', 'center', msg, 'success', 'pe-7s-check');
+			}, (err) => {
+				const msg = 'There was an error storing data'
+				this.showNotification('top', 'center', msg, 'danger', 'pe-7s-attention');
+			});
+		}
+
+	
+	
+	}
+
+	visualizeChange()
+	{
+		console.log("Visualize this data", this.data);
+		
+	}
+
+	showNotification(from, align, msg, type, icon) {
+		// $.notify({
+		// 	icon: icon,
+		// 	message: msg
+
+		// }, {
+		// 		type: type,
+		// 		timer: 4000,
+		// 		placement: {
+		// 			from: from,
+		// 			align: align
+		// 		}
+		// 	});
 	}
 
 
