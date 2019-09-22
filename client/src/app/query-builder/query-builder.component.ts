@@ -357,6 +357,12 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	
 	}
 
+	visualizeChange()
+	{
+		console.log("Visualize this data", this.data);
+		
+	}
+
 	showNotification(from, align, msg, type, icon) {
 		// $.notify({
 		// 	icon: icon,
