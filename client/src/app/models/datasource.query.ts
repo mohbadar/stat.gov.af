@@ -1,4 +1,4 @@
-export class Query{
+export class DatasourceQuery{
     id:string;
     name:string;
     data:string;
