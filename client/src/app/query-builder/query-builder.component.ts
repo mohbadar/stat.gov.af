@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import { DatasourceQueryService } from 'app/services/datasource.query.service';
 import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
+import {Router} from "@angular/router"
 
 declare var $: any;
 
@@ -35,7 +36,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// language: this.datatables.selectedJsonFile
 	};
 	isLoading: boolean;
-	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService) { }
+	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService, private router: Router) { }
 
 	ngOnInit() {
 	}
@@ -360,6 +361,11 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	visualizeChange()
 	{
 		console.log("Visualize this data", this.data);
+
+		if(this.data)
+		{
+			this.router.navigate(['/visualize', this.data]);
+		}
 		
 	}
 
