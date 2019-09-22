@@ -13,6 +13,8 @@ export interface IWidgetModel extends Document {
     user: string;
     data: string;
     config: string;
+    query: string;
+    dashboard: string;
 }
 
 
@@ -27,6 +29,19 @@ const WidgetSchema: Schema = new Schema({
 
     user: {
         ref: 'UserModel',
+        type: Schema.Types.ObjectId,
+        required:true
+    },
+
+
+    query: {
+        ref: 'QueryModel',
+        type: Schema.Types.ObjectId,
+    },
+
+
+    dashboard: {
+        ref: 'DashboardModel',
         type: Schema.Types.ObjectId,
     },
 

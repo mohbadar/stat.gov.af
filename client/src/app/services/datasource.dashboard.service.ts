@@ -14,20 +14,20 @@ export class DatasourceDashboardService {
 
   load(): Observable<any>
   {
-    return this.httpClient.get(`${this.nodeApi}`);
+    return this.httpClient.get(`${this.nodeApi}/all`);
   }
 
   loadById(id:string): Observable<any>
   {
-    return this.httpClient.get(`${this.nodeApi}/${id}`);
+    return this.httpClient.get(`${this.nodeApi}/one/${id}`);
   }
 
   delete(id:string)
   {
-      return this.httpClient.delete(`${this.nodeApi}/${id}`);
+      return this.httpClient.delete(`${this.nodeApi}/remove/${id}`);
   }
 
   create(data): Observable<any>{
-    return this.httpClient.post(`${this.nodeApi}`, data);
+    return this.httpClient.post(`${this.nodeApi}/create`, data);
   }
 }

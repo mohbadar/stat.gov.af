@@ -325,5 +325,12 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		
 	}
 
+	saveChanges()
+	{
+
+	console.log("Sended Data: => ", this.columnNames);
+	
+	}
+
 
 }

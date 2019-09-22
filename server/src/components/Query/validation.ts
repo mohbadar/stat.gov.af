@@ -28,6 +28,8 @@ class QueryValidation extends Validation {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
             data: Joi.string().required(),
+            config: Joi.string().allow(),
+            user: Joi.string().allow(),
 
         });
 

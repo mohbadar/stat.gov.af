@@ -33,7 +33,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/node-api/users', jwtConfig.isAuthenticated, UserRouter);
+    app.use('/node-api/users', UserRouter);
 
     /**
      * @description
@@ -41,7 +41,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/node-api/queries', jwtConfig.isAuthenticated, QueryRouter);
+    app.use('/node-api/queries', QueryRouter);
 
 
         /**
@@ -50,7 +50,7 @@ export function init(app: express.Application): void {
      *  Also, check if user authenticated
      * @constructs
      */
-    app.use('/node-api/widgets', jwtConfig.isAuthenticated, WidgetRouter);
+    app.use('/node-api/widgets', WidgetRouter);
 
 
             /**

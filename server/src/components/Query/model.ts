@@ -19,7 +19,7 @@ export interface IQueryModel extends Document {
 const QuerySchema: Schema = new Schema({
     name: { 
         type: String, 
-        lowercase: true, 
+        lowercase: false, 
         required: true, 
         trim: true, 
         index: true 
@@ -28,19 +28,20 @@ const QuerySchema: Schema = new Schema({
     user: {
         ref: 'UserModel',
         type: Schema.Types.ObjectId,
+        // type:String
     },
 
     data: { 
         type: String, 
-        lowercase: true, 
-        required: true, 
+        lowercase: false, 
+        required: false, 
         trim: false, 
         index: false 
     },
 
     config: { 
         type: String, 
-        lowercase: true, 
+        lowercase: false, 
         required: false, 
         trim: false, 
         index: false 
