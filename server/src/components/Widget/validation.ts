@@ -27,11 +27,9 @@ class WidgetValidation extends Validation {
     ): Joi.ValidationResult < IWidgetModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
-            data: Joi.string().required(),
             config: Joi.string().required(),
             user: Joi.string().required(),
             query: Joi.string().allow(),
-            dashboard: Joi.string().allow(),
 
 
         });

@@ -27,8 +27,8 @@ class DashboardValidation extends Validation {
     ): Joi.ValidationResult < IDashboardModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
-            data: Joi.string().required(),
-            config: Joi.string().allow(),
+            widgets: Joi.string().allow(),
+            layout: Joi.string().allow(),
             user: Joi.string().required()
 
         });
