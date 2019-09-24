@@ -3,6 +3,8 @@ import * as XLSX from 'xlsx';
 import { DatasourceQueryService } from 'app/services/datasource.query.service';
 import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
+import { Select2OptionData } from 'ng2-select2';
+import { empty } from 'rxjs';
 
 declare var $: any;
 
@@ -12,6 +14,9 @@ declare var $: any;
 	styleUrls: ['./query-builder.component.scss']
 })
 export class QueryBuilderComponent implements OnInit, AfterViewInit {
+	public selectOptions: Array<Select2OptionData>;
+	selected: string;
+	customParams = [];
 	data = [];
 	dataSheets = [];
 	wSheetName: string;
@@ -38,10 +43,35 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService) { }
 
 	ngOnInit() {
+		// document.getElementById("selectDataset").style.display = 'none';
+		// document.getElementById("inputFile").style.display = 'none';
+		// document.getElementById("btnAtach").style.display = 'none';
+		this.customParams.push('title');
+		this.customParams.push('uuid');
+		this.getSelectData(this.customParams);
 	}
 
 	ngAfterViewInit() {
 
+	}
+
+	getSelectData(customParams) {
+		this.datasouceQueryService.getSelectData(customParams, 'resource', 4000).subscribe((selectData) => {
+			// console.log("selectData", selectData);
+			this.selectOptions = [
+				{
+					id: 'placeholder',
+					text: 'Select Dataset'
+				}
+			];
+			selectData.forEach((element) => {
+				this.selectOptions.push({
+					id: element.uuid,
+					text: element.title
+				});
+			});
+			// console.log("selectOptions",this.selectOptions);
+		});
 	}
 
 	onFileChange(evt: any) {
@@ -95,6 +125,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				};
 				this.columnNames.push(obj);
 			});
+			// console.log("columnNames",this.columnNames)
 
 			// After taking out the columns remove the first element of the data
 			this.data.splice(0, 1);
@@ -274,16 +305,16 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	toggleColumn(column, cIndex) {
+		console.log("column",column);
+		console.log("cIndex",cIndex);
 		this.columnDataType = '';
 		$(column).closest('li').toggleClass('unselected');
 		const checkBox = $(column).closest('li').find('input');
 		if (!$(column).hasClass('c-box')) {
 			$(column).closest('li').find('input').prop('checked', !checkBox.prop('checked'));
 		}
-
 		// this.columnNames[cIndex].showColumn = !this.columnNames[cIndex].showColumn;
 		const dColumn = this.dTable.column(cIndex);
-		console.log(dColumn);
 		dColumn.visible(!dColumn.visible());
 	}
 
@@ -327,21 +358,20 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	generateChart() {
-		
+		console.log("generate chart");
+
 	}
 
-	saveChanges()
-	{
+	saveChanges() {
 
-		if(this.data)
-		{
+		if (this.data) {
 			const query = new DatasourceQuery;
 			query.name = this.wSheetName;
-			query.config= stringify(this.columnDataTypes);
+			query.config = stringify(this.columnDataTypes);
 			query.data = stringify(this.data);
-	
+
 			console.log("Sended Data: => ", query);
-	
+
 			this.datasouceQueryService.createQuery(query).subscribe((res) => {
 				console.log("response: ", res);
 				const msg = 'New record successfully created';
@@ -353,14 +383,13 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			});
 		}
 
-	
-	
+
+
 	}
 
-	visualizeChange()
-	{
+	visualizeChange() {
 		console.log("Visualize this data", this.data);
-		
+
 	}
 
 	showNotification(from, align, msg, type, icon) {
@@ -377,6 +406,106 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// 		}
 		// 	});
 	}
+	public changed(e: any): void {
+		if (e.value !== 'placeholder') {
+			this.selected = e.value;
+			if ($.fn.DataTable.isDataTable('#datatables')) {
+				this.dTable.destroy();
+				this.dTable = null;
+			}
+			this.data = [];
+			this.columnNames = [];
+			this.selectedColumnIndex = 0;
+			this.selectedColumnName = '';
+			this.columnDataType = '';
+			this.columnDataTypes = [];
+			this.filterAction = '';
+			this.filterValue = '';
+
+			this.workBookName = e.data[0].text;
+
+			this.datasouceQueryService.getResourceData(this.selected).subscribe((resourceData) => {
+				resourceData.result.fields.forEach((element) => {
+					const obj = {
+						showColumn: true,
+						name: element.id
+					};
+					this.columnNames.push(obj);
+				});
+				const arr = [];
+				resourceData.result.records.forEach((element) => {
+					let val = [];
+					for (let prop in element) {
+						let isNum = /^\d*\.?\d+$/.test(element[prop]);
+						if (isNum) {
+							element[prop] = Number(element[prop]);
+						}
+						val.push(element[prop])
+					}
+					arr.push(val);
+				});
+				this.data = arr;
+				if (this.data[0][0] == null) {
+
+					this.data[0][0] = undefined;
+				}
+				console.log(this.data);
+				// console.log("columnNames",this.columnNames)
+
+				// After taking out the columns remove the first element of the data
+				// this.data.splice(0, 1);
+				this.prepareDataforDataTable();
+
+				// Parse data for better handling
+				const tempData = [];
+
+				this.data.forEach(element => {
+					const obj = {
+						showRow: true,
+						rowData: element
+					}
+					tempData.push(obj);
+				});
+
+				console.log('temp data: ', tempData);
+
+				this.data = tempData;
+				this.cdref.detectChanges();
+				if (!$.fn.DataTable.isDataTable('#datatables')) {
+					$('#datatables tfoot th').each(function () {
+						const title = $(this).text();
+						$(this).html('<input type="text" class="table-search" placeholder="Search ' + title + '" />');
+					});
+
+					this.dTable = $('#datatables').DataTable(this.dtOptions);
+					this.initializeTable();
+				}
+
+				// Save the original data before processing this data
+				this.originalData = this.data;
+
+				console.log('Updated data: ', this.data);
+
+
+				this.checkColumnDataType();
+			});
+		}
+	}
+
+	// handleChange(event) {
+	// 	let target = event.target.value;
+	// 	if (target == "dataset") {
+	// 		document.getElementById("inputFile").style.display = 'none';
+	// 		document.getElementById("btnAtach").style.display = 'none';
+	// 		document.getElementById("selectDataset").style.display = 'inline';
+	// 	}
+	// 	if (target == "file") {
+	// 		document.getElementById("selectDataset").style.display = 'none';
+	// 		document.getElementById("inputFile").style.display = 'inline';
+	// 		document.getElementById("btnAtach").style.display = 'inline';
+	// 	}
+
+	// }
 
 
 }

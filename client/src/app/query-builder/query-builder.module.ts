@@ -4,13 +4,14 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QueryBuilderRoutes } from './query-builder.routing';
 import { QueryBuilderComponent } from './query-builder.component';
-
+import { Select2Module } from 'ng2-select2';
 @NgModule({
 	imports: [
 		CommonModule,
 		RouterModule.forChild(QueryBuilderRoutes),
 		FormsModule,
-		ReactiveFormsModule
+		ReactiveFormsModule,
+		Select2Module
 	],
 	declarations: [
 		QueryBuilderComponent

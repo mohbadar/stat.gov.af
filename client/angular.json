@@ -35,6 +35,7 @@
             "scripts": [
               "node_modules/hammerjs/hammer.min.js",
               "node_modules/jquery/dist/jquery.js",
+              "node_modules/select2/dist/js/select2.js",
               "node_modules/lodash/lodash.min.js",
               "node_modules/gridstack/dist/gridstack.js",
               "node_modules/bootstrap/dist/js/bootstrap.js",
