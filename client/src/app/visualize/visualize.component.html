@@ -16,14 +16,14 @@
 					<form [formGroup]="chartForm">
 						<div class="form-group">
 							<label for="visualization_type">Visualization Type</label>
-							<select class="form-control input-sm" name="visualization_type" formControlName="visualizationType">
-								<option *ngFor="let vType of visualizationTypes" value="vType.id">{{ vType.name }}</option>
+							<select class="form-control input-sm" name="visualization_type" formControlName="visualizationType" required>
+								<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name }}</option>
 							</select>
 						</div>
 
 						<div class="form-group">
 							<label for="visualization_name">Visualization Name</label>
-							<input type="text" class="form-control input-sm" name="visualization_name" formControlName="visualizationName" placeholder="Visualization Name">
+							<input type="text" class="form-control input-sm" name="visualization_name" formControlName="visualizationName" placeholder="Visualization Name" required>
 						</div>
 
 						<ul role="tablist" class="nav nav-tabs">
@@ -45,33 +45,31 @@
 							<div id="general-tab" class="tab-pane active" formGroupName="general">
 								<div class="form-group">
 									<label for="chart_type">Chart Type</label>
-									<select class="form-control input-sm" formControlName="chartType">
+									<select class="form-control input-sm" formControlName="chartType" required>
 										<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="x_column">X Column</label>
-									<select class="form-control input-sm" formControlName="xColumn" (change)="onChangeXaxisColumn($event)">
+									<select class="form-control input-sm" formControlName="xColumn" (change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
 										<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="y_columns">Y Columns</label>
-									<select class="form-control input-sm" multiple formControlName="yColumns">
+									<select class="form-control input-sm" multiple formControlName="yColumns" required>
 										<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Group By </label>
-									<select class="form-control input-sm" formControlName="groupBy">
+									<select class="form-control input-sm" formControlName="groupBy" multiple>
 										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
 									</select>
 								</div>
 								<div class="form-group input-sm">
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" formControlName="showLegends"> Show Legends
-										</label>
+									<div>
+										<span><input type="checkbox" formControlName="showLegends"> Show Legends</span>
 									</div>
 								</div>
 							</div>
@@ -87,24 +85,18 @@
 									<input type="text" class="form-control input-sm" formControlName="name"placeholder="Name">
 								</div>
 								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" formControlName="sortValue"> Sort Value
-										</label>
+									<div>
+										<span><input type="checkbox" formControlName="sortValue"> Sort Value</span>
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" formControlName="reverseOrder"> Reverse Order
-										</label>
+									<div>
+										<span><input type="checkbox" formControlName="reverseOrder"> Reverse Order</span>
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="checkbox">
-										<label>
-											<input type="checkbox" formControlName="showLabels"> Show Labels
-										</label>
+									<div>
+										<span><input type="checkbox" formControlName="showLabels"> Show Labels</span>
 									</div>
 								</div>
 							</div>
@@ -128,17 +120,17 @@
 									<input type="text" class="form-control input-sm" formControlName="maxValue" placeholder="Max Value">
 								</div>
 								<div class="form-group">
-									<div class="checkbox">
-										<label>
+									<div>
+										<span>
 											<input type="checkbox" formControlName="sortValue"> Sort Value
-										</label>
+										</span>
 									</div>
 								</div>
 								<div class="form-group">
-									<div class="checkbox">
-										<label>
+									<div>
+										<span>
 											<input type="checkbox" formControlName="reverseOrder"> Reverse Order
-										</label>
+										</span>
 									</div>
 								</div>
 							</div>

@@ -40,6 +40,8 @@ export class VisualizeComponent implements OnInit {
 	Plotly;
 	plotlyElement;
 
+	isLoading = true;
+
 	@Input() columns: any = ["id", "name", "sex"];
 	@Input() rows: any = [
 		[1, "Ahmad", "Male"],
@@ -51,8 +53,16 @@ export class VisualizeComponent implements OnInit {
 	plotlyConfig: any = { modeBarButtonsToRemove: ['sendDataToCloud'], showLink: false, displaylogo: false };
 	layout: any = {
 		autosize: true,
-		xaxis: {},
-		yaxis: {}
+		xaxis: {
+			showticklabels: true,
+			autorange: '',
+			type: 'linear'
+		},
+		yaxis: {
+			showticklabels: true,
+			autorange: '',
+			type: 'linear'
+		}
 	};
 	data: any = [];
 	xAxisData: any = [];
@@ -74,7 +84,7 @@ export class VisualizeComponent implements OnInit {
 		{id: "auto_detect", name: "Auto Detect"},
 		{id: "datetime", name: "Datetime"},
 		{id: "linear", name: "Linear"},
-		{id: "logarithmic", name: "Logarithmic"},
+		{id: "log", name: "Logarithmic"},
 		{id: "category", name: "Category"}
 	];
 	colorTypes = [
@@ -105,21 +115,21 @@ export class VisualizeComponent implements OnInit {
 	yColumnsList = [];
 
 	chartForm = this.fb.group({
-		visualizationType: ['', Validators.required],
+		visualizationType: ['chart', Validators.required],
 		visualizationName: [''],
 		general: this.fb.group({
-			chartType: [''],
+			chartType: ['bar'],
 			xColumn: ['', Validators.required],
 			yColumns: ['', Validators.required],
 			groupBy: [''],
-			showLegends: ['']
+			showLegends: [false]
 		}),
 		xaxis: this.fb.group({
 			scale: [''],
 			name: [''],
 			sortValue: [''],
-			reverseOrder: [''],
-			showLabels: ['']
+			reverseOrder: [false],
+			showLabels: [true]
 		}),
 		yaxis: this.fb.group({
 			scale: [''],
@@ -127,7 +137,7 @@ export class VisualizeComponent implements OnInit {
 			minValue: [''],
 			maxValue: [''],
 			sortValue: [''],
-			reverseOrder: ['']
+			reverseOrder: [false]
 		}),
 		series: this.fb.array([])
 	  });
@@ -139,6 +149,8 @@ export class VisualizeComponent implements OnInit {
 
 	get series() { return this.chartForm.get("series") as FormArray; }
 	set series(seriesArray: FormArray) { this.chartForm.setControl("series", seriesArray); }
+
+	get general() { return this.chartForm.get("general") }
 
 	get yColumns() { return this.chartForm.get("general").get("yColumns") ; }
 
@@ -156,7 +168,20 @@ export class VisualizeComponent implements OnInit {
 		// this.data.push(this.trace2);
 	}
 
+	// preSetValues() {
+	// 	this.chartForm.patchValue({
+	// 		visualizationType: 'chart',
+	// 		general: {
+	// 			chartType: 'bar'
+	// 		}
+	// 	});
+	// }
+
 	ngAfterViewInit() {
+		// setTimeout(()=> {
+		// 	this.preSetValues();
+		// });
+
 		this.chartForm.valueChanges.subscribe((event) => {
 			console.log(event);
 			if (event.visualizationName != null && event.visualizationName != "") {
@@ -166,6 +191,7 @@ export class VisualizeComponent implements OnInit {
 			// General
 			if (event.general.chartType != null && event.general.chartType != "") {
 				this.plotlyConfig.type = event.general.chartType;
+				// also update the chart type for all series entries
 			}
 			if (event.general.xColumn != null && event.general.xColumn != "") {
 				this.plotlyConfig.title = event.general.xColumn;
@@ -176,16 +202,32 @@ export class VisualizeComponent implements OnInit {
 			if (event.general.groupBy != null && event.general.groupBy != "") {
 				this.plotlyConfig.title = event.general.groupBy;
 			}
-			if (event.general.showLegends != null && event.general.showLegends != "") {
+			if (event.general.showLegends != null) {
 				this.layout.showlegend = event.general.showLegends;
 			}
 
 			// x Axis
+			if (event.xaxis.scale != null && event.xaxis.scale != "") {
+				this.layout.xaxis.type = event.xaxis.scale;
+			}
 			if (event.xaxis.name != null && event.xaxis.name != "") {
 				this.layout.xaxis.title = event.xaxis.name;
 			}
+			if (event.xaxis.showLabels != null) {
+				this.layout.xaxis.showticklabels = event.xaxis.showLabels;
+			}
+			if (event.xaxis.reverseOrder != null) {
+				if(event.xaxis.reverseOrder) {
+					this.layout.xaxis.autorange = 'reversed';
+				} else {
+					this.layout.xaxis.autorange = '';
+				}
+			}
 
 			// y Axis
+			if (event.yaxis.scale != null && event.yaxis.scale != "") {
+				this.layout.yaxis.type = event.yaxis.scale;
+			}
 			if (event.yaxis.name != null && event.yaxis.name != "") {
 				this.layout.yaxis.title = event.yaxis.name;
 			}
@@ -195,6 +237,22 @@ export class VisualizeComponent implements OnInit {
 			}
 
 			this.redraw();
+		});
+
+		// on change of chartType, all type of series entries must also change and set similar to chartTYpe value
+		this.chartForm.get("general").get("chartType").valueChanges.subscribe((event) => {
+			if (event != null && event != "") {
+				this.series.controls.forEach(entry => {
+					let seriesEntryTypeVal = entry.get("type").value;
+					if(seriesEntryTypeVal != event)
+						entry.get("type").setValue(event);
+				});
+
+				//also change the type for data array that feeded to plotly
+				this.data.forEach(entry => {
+					entry.type = event;
+				})
+			}
 		});
 
 		// on selection of Y columns, there should be same amount of rows in series tab
@@ -244,7 +302,8 @@ export class VisualizeComponent implements OnInit {
 					this.fb.group({
 						column: [item, Validators.required],
 						label: [item, Validators.required],
-						type: ['line', [Validators.required]],
+						type: [this.general.get("chartType").value, [Validators.required]],
+						color:''
 						// color: ['blue', Validators.required]
 					})
 				);
@@ -253,7 +312,7 @@ export class VisualizeComponent implements OnInit {
 					x: this.xAxisData,
 					y: this.unpack(this.rows,  this.columns.indexOf(item)),
 					name: item,
-					type: 'line',
+					type: this.general.get("chartType").value,
 					// color:
 				};
 			});
