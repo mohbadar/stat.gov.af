@@ -6,7 +6,7 @@
         <div class="card">
             <div class="content">
                 <div>
-                    <h3>{{ getTitle() | titlecase }}</h3>
+                    <h3>{{ getTitle() }}</h3>
                     <div style="margin: 2px;" *ngFor="let tag of dashboard.tags">
                         <span class="label label-info">{{ parseAsObject(tag) }}</span>
                     </div>

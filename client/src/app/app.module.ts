@@ -25,10 +25,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-// google maps
-import { AgmCoreModule } from '@agm/core';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -38,43 +34,19 @@ import {
 	DefaultLayoutComponent
 } from './core';
 
+import { DashbaordModule } from './dashboard/dashboard.module';
+
+// import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { VisualizeComponent } from './visualize/visualize.component';
 
 // Template core components
 import {
-	DashboardComponent,
-	WidgetComponent,
-	VisualizationRendererComponent,
-	BoxplotRendererComponent,
-	ChartRendererComponent,
-	ChoroplethRendererComponent,
-	CohortRendererComponent,
-	CounterRendererComponent,
-	FunnelRendererComponent,
-	MapRendererComponent,
-	PivotTableRendererComponent,
-	SankeyRendererComponent,
-	SunburstSequenceRendererComponent,
-	GridRendererComponent,
-	WordCloudRendererComponent,
-
-	PlotlyChartComponent,
-	CustomPlotlyChartComponent,
-
 	Globals
 } from './';
 
 import { AppRoutes } from './app.routing';
 import { AppComponent } from './app.component';
-
-import * as PlotlyJS from 'plotly.js/dist/plotly.js';
-import { PlotlyModule } from 'angular-plotly.js';
-PlotlyModule.plotlyjs = PlotlyJS;
-
-import { DynamicTableComponent } from './visualization/grid-renderer/dynamic-table/dynamic-table.component';
-import { DefaultCellComponent } from './visualization/grid-renderer/dynamic-table/default-cell/default-cell.component';
-import { JsonCellComponent } from './visualization/grid-renderer/dynamic-table/json-cell/json-cell.component';
-import { DynamicTableRowComponent } from './visualization/grid-renderer/dynamic-table-row.component';
 
 import { GridStackModule } from 'ng4-gridstack';
 import { CookieService } from 'ngx-cookie-service';
@@ -82,11 +54,8 @@ import { CookieService } from 'ngx-cookie-service';
 import { ShareModule } from '@ngx-share/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-import { WidgetPageComponent } from './widget-page/widget-page.component';
-import { SafeHtmlPipe } from './_pipes/safe-html.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
 
 export function createTranslateLoader(http: HttpClient) {
 	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -96,43 +65,27 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelSpeed: 2,
 	wheelPropagation: true
 };
+import { HomeComponent } from './home/home.component';
+
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		PublicLayoutComponent,
 		AuthLayoutComponent,
-		DashboardComponent,
-		WidgetComponent,
-		VisualizationRendererComponent,
-		BoxplotRendererComponent,
-		ChartRendererComponent,
-		ChoroplethRendererComponent,
-		CohortRendererComponent,
-		CounterRendererComponent,
-		FunnelRendererComponent,
-		MapRendererComponent,
-		PivotTableRendererComponent,
-		SankeyRendererComponent,
-		SunburstSequenceRendererComponent,
-		GridRendererComponent,
-		WordCloudRendererComponent,
-		PlotlyChartComponent,
-		CustomPlotlyChartComponent,
-		DynamicTableComponent,
-		DefaultCellComponent,
-		JsonCellComponent,
-		DynamicTableRowComponent,
-		WidgetPageComponent,
 		DefaultLayoutComponent,
-		SafeHtmlPipe,
+		HomeComponent,
 		VisualizeComponent,
+		// DashboardComponent
 	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
 		RouterModule.forRoot(AppRoutes),
-		LeafletModule.forRoot(),
+		
 		FormsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
@@ -156,12 +109,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 		LoadingBarHttpClientModule,
 		GridStackModule,
 		LoadingBarModule.forRoot(),
-		AgmCoreModule.forRoot({
-			apiKey: 'YOURAPIKEY'
-		}),
+		
 		PerfectScrollbarModule,
 		PlotlyModule,
-		NgxDatatableModule,
 		ShareModule,
 		FontAwesomeModule,
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
