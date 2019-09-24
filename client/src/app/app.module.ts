@@ -65,6 +65,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelSpeed: 2,
 	wheelPropagation: true
 };
+import { HomeComponent } from './home/home.component';
 
 import * as PlotlyJS from 'plotly.js/dist/plotly.js';
 import { PlotlyModule } from 'angular-plotly.js';
@@ -76,6 +77,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		PublicLayoutComponent,
 		AuthLayoutComponent,
 		DefaultLayoutComponent,
+		HomeComponent,
 		VisualizeComponent,
 		// DashboardComponent
 	],
@@ -110,7 +112,6 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		
 		PerfectScrollbarModule,
 		PlotlyModule,
-		DashbaordModule,
 		ShareModule,
 		FontAwesomeModule,
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
