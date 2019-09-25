@@ -1,0 +1,36 @@
+.text-secondary{
+    text-transform: none;
+    color: #888888
+}
+.table-label{
+    cursor: pointer;
+    border-bottom:2px solid #2196f3; 
+    font-size: 1.5rem;
+    font-weight:500;
+}
+.visualize{
+    color: #16181a;
+    font-size: 1.4rem;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+.visualize:hover{
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+}
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+  }
+  .dropdown-menu{
+      cursor: pointer;
+  }
+
