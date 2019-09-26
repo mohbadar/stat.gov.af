@@ -8,7 +8,7 @@ declare var $: any;
 	styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-	
+	currentDate = new Date();
 	constructor() { 
 		console.log("Home Component");
 	}
