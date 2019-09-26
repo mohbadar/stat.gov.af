@@ -30,7 +30,7 @@ export const AppRoutes: Routes = [{
 			// component: DashboardComponent
 		},
 		{ path: 'build-query', loadChildren: './query-builder/query-builder.module#QueryBuilderModule' },
-		{ path: 'visualize', component: VisualizeComponent},
+		// { path: 'visualize', component: VisualizeComponent},
 		{ path: '', redirectTo: 'home', pathMatch: 'full' },
 	]
 }, {

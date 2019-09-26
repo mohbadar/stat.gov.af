@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Inject, EventEmitter, Output } from '@angular/core';
 import * as _ from 'lodash';
 import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
@@ -49,6 +49,9 @@ export class VisualizeComponent implements OnInit {
 		[1, "Sara", "Female"]
 	];
 
+	@Output()
+	closeFlag = new EventEmitter<Object>();
+
 	// plotlyConfig: any = Object.assign({}, DEFAULT_OPTIONS);
 	plotlyConfig: any = { modeBarButtonsToRemove: ['sendDataToCloud'], showLink: false, displaylogo: false };
 	layout: any = {
@@ -68,47 +71,47 @@ export class VisualizeComponent implements OnInit {
 	xAxisData: any = [];
 
 	visualizationTypes = [
-		{id: "chart", name: "CHART"}
+		{ id: "chart", name: "CHART" }
 	];
 	chartTypes = [
-		{id: "line", name: "LINE"},
-		{id: "bar", name: "BAR"},
-		{id: "area", name: "AREA"},
-		{id: "pie", name: "PIE"},
-		{id: "scatter", name: "SCATTER"},
-		{id: "bubble", name: "BUBBLE"},
-		{id: "heatmap", name: "HEATMAP"},
-		{id: "box", name: "BOX"}
+		{ id: "line", name: "LINE" },
+		{ id: "bar", name: "BAR" },
+		{ id: "area", name: "AREA" },
+		{ id: "pie", name: "PIE" },
+		{ id: "scatter", name: "SCATTER" },
+		{ id: "bubble", name: "BUBBLE" },
+		{ id: "heatmap", name: "HEATMAP" },
+		{ id: "box", name: "BOX" }
 	];
 	scaleTypes = [
-		{id: "auto_detect", name: "Auto Detect"},
-		{id: "datetime", name: "Datetime"},
-		{id: "linear", name: "Linear"},
-		{id: "log", name: "Logarithmic"},
-		{id: "category", name: "Category"}
+		{ id: "auto_detect", name: "Auto Detect" },
+		{ id: "datetime", name: "Datetime" },
+		{ id: "linear", name: "Linear" },
+		{ id: "log", name: "Logarithmic" },
+		{ id: "category", name: "Category" }
 	];
 	colorTypes = [
-		{id: "", name: "Automatic"},
-		{id: "blue", name: "Blue"},
-		{id: "red", name: "Red"},
-		{id: "green", name: "Green"},
-		{id: "purple", name: "Purple"},
-		{id: "cyan", name: "Cyan"},
-		{id: "orange", name: "Orange"},
-		{id: "light blue", name: "Light Blue"},
-		{id: "lilac", name: "Lilac"},
-		{id: "light green", name: "Light Green"},
-		{id: "brown", name: "Brown"},
-		{id: "black", name: "Black"},
-		{id: "gray", name: "Gray"},
-		{id: "pink", name: "Pink"},
-		{id: "dark blue", name: "Dark Blue"},
-		{id: "indian red", name: "Indian Red"},
-		{id: "green 2", name: "Green 2"},
-		{id: "green 3", name: "Green 3"},
-		{id: "dark violet", name: "Dark Violet"},
-		{id: "pink 2", name: "Pink 2"},
-		{id: "darkturquoise", name: "Darkturquoise"}
+		{ id: "", name: "Automatic" },
+		{ id: "blue", name: "Blue" },
+		{ id: "red", name: "Red" },
+		{ id: "green", name: "Green" },
+		{ id: "purple", name: "Purple" },
+		{ id: "cyan", name: "Cyan" },
+		{ id: "orange", name: "Orange" },
+		{ id: "light blue", name: "Light Blue" },
+		{ id: "lilac", name: "Lilac" },
+		{ id: "light green", name: "Light Green" },
+		{ id: "brown", name: "Brown" },
+		{ id: "black", name: "Black" },
+		{ id: "gray", name: "Gray" },
+		{ id: "pink", name: "Pink" },
+		{ id: "dark blue", name: "Dark Blue" },
+		{ id: "indian red", name: "Indian Red" },
+		{ id: "green 2", name: "Green 2" },
+		{ id: "green 3", name: "Green 3" },
+		{ id: "dark violet", name: "Dark Violet" },
+		{ id: "pink 2", name: "Pink 2" },
+		{ id: "darkturquoise", name: "Darkturquoise" }
 	];
 
 	xColumnsList = [];
@@ -140,7 +143,7 @@ export class VisualizeComponent implements OnInit {
 			reverseOrder: [false]
 		}),
 		series: this.fb.array([])
-	  });
+	});
 
 	constructor(public translate: TranslateService,
 		public globals: Globals,
@@ -152,7 +155,7 @@ export class VisualizeComponent implements OnInit {
 
 	get general() { return this.chartForm.get("general") }
 
-	get yColumns() { return this.chartForm.get("general").get("yColumns") ; }
+	get yColumns() { return this.chartForm.get("general").get("yColumns"); }
 
 	ngOnInit() {
 		this.plotlyElement = this.plotlyChartContainer;
@@ -166,6 +169,10 @@ export class VisualizeComponent implements OnInit {
 
 		// this.data.push(this.trace1);
 		// this.data.push(this.trace2);
+	}
+
+	close() {
+		this.closeFlag.emit();
 	}
 
 	// preSetValues() {
@@ -217,7 +224,7 @@ export class VisualizeComponent implements OnInit {
 				this.layout.xaxis.showticklabels = event.xaxis.showLabels;
 			}
 			if (event.xaxis.reverseOrder != null) {
-				if(event.xaxis.reverseOrder) {
+				if (event.xaxis.reverseOrder) {
 					this.layout.xaxis.autorange = 'reversed';
 				} else {
 					this.layout.xaxis.autorange = '';
@@ -244,7 +251,7 @@ export class VisualizeComponent implements OnInit {
 			if (event != null && event != "") {
 				this.series.controls.forEach(entry => {
 					let seriesEntryTypeVal = entry.get("type").value;
-					if(seriesEntryTypeVal != event)
+					if (seriesEntryTypeVal != event)
 						entry.get("type").setValue(event);
 				});
 
@@ -261,7 +268,7 @@ export class VisualizeComponent implements OnInit {
 				this.addSeries(event);
 			}
 		});
-		
+
 	}
 
 	// on change of x-axis column selection, 
@@ -270,14 +277,14 @@ export class VisualizeComponent implements OnInit {
 	onChangeXaxisColumn($event) {
 		// fetch the data of selected column as array
 		this.xAxisData = this.unpack(this.rows, this.columns.indexOf($event.currentTarget.value));
-		for(let index = 0; index < this.data.length; index++) {
+		for (let index = 0; index < this.data.length; index++) {
 			const element = this.data[index];
 			element.x = this.xAxisData;
 		}
 
 		this.yColumnsList = this.columns.filter(item => item !== $event.currentTarget.value);
 		let yColumnsArray = this.chartForm.get("general").get("yColumns").value;
-		if(yColumnsArray.length > 0) {
+		if (yColumnsArray.length > 0) {
 			this.chartForm.get("general").get("yColumns").setValue(yColumnsArray.filter(item => item !== $event.currentTarget.value));
 			this.addSeries(this.yColumns.value);
 		}
@@ -288,12 +295,12 @@ export class VisualizeComponent implements OnInit {
 	}
 
 	unpack(rows, key) {
-		return rows.map(function(row) { return row[key]; });
+		return rows.map(function (row) { return row[key]; });
 	}
 
 	addSeries(yColumns: any) {
 		// add formGroup for each column in array of series
-		if(yColumns != null) {
+		if (yColumns != null) {
 			let serieseFormArray: FormArray = this.fb.array([]);
 			let newData = [];
 			let index = 0;
@@ -303,14 +310,14 @@ export class VisualizeComponent implements OnInit {
 						column: [item, Validators.required],
 						label: [item, Validators.required],
 						type: [this.general.get("chartType").value, [Validators.required]],
-						color:''
+						color: ''
 						// color: ['blue', Validators.required]
 					})
 				);
 
 				newData[index++] = {
 					x: this.xAxisData,
-					y: this.unpack(this.rows,  this.columns.indexOf(item)),
+					y: this.unpack(this.rows, this.columns.indexOf(item)),
 					name: item,
 					type: this.general.get("chartType").value,
 					// color:

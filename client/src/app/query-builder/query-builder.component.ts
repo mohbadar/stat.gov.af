@@ -14,6 +14,10 @@ declare var $: any;
 	styleUrls: ['./query-builder.component.scss']
 })
 export class QueryBuilderComponent implements OnInit, AfterViewInit {
+	// these variable will be feed to visualization component
+	visualizationColumns = [];
+	visualizationRows = [];
+
 	public selectOptions: Array<Select2OptionData>;
 	selected: string;
 	customParams = [];
@@ -41,6 +45,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// language: this.datatables.selectedJsonFile
 	};
 	isLoading: boolean;
+	// true: show the visualization, false: show tabular data
+	isVisualize: boolean = false;
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService) { }
 
 	ngOnInit() {
@@ -370,7 +376,23 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 	generateChart() {
 		// console.log("generate chart");
+		this.visualizationColumns = [];
+		const filteredDataLength = this.dTable.rows({ filter: 'applied' }).nodes().length;
+		const filteredData = this.dTable.rows({ filter: 'applied' }).data();
+		this.columnNames.forEach((element) => {
+			if (element.showColumn) {
+				this.visualizationColumns.push(element.name);
+			}
+		});
+		for (let i = 0; i < filteredDataLength; i++) {
+			this.visualizationRows.push(filteredData[i]);
+		}
+		this.isVisualize = true;
 
+	}
+
+	hideVisualization() {
+		this.isVisualize = false;
 	}
 
 	saveChanges() {

@@ -38,7 +38,7 @@ import { DashbaordModule } from './dashboard/dashboard.module';
 
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { VisualizeComponent } from './visualize/visualize.component';
+// import { VisualizeComponent } from './visualize/visualize.component';
 
 // Template core components
 import {
@@ -78,7 +78,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		AuthLayoutComponent,
 		DefaultLayoutComponent,
 		HomeComponent,
-		VisualizeComponent,
+		// VisualizeComponent,
 		// DashboardComponent
 	],
 	imports: [

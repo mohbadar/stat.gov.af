@@ -1,27 +1,4 @@
-<div class="query-wrapper container-fluid">
-  <div id="newVisualization" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <div class="inline-block pull-right">
-            <button type="button" class="btn btn-sm ml-1" data-dismiss="modal">Cancel</button>
-          </div>
-          <div class="inline-block pull-right">
-            <button type="button" class="btn btn-primary btn-fill btn-sm ">Save</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
+<div class="query-wrapper container-fluid" *ngIf="!isVisualize">
   <div class="action-bar">
     <div class="card bg-transparent no-shadow">
       <div class="card-body">
@@ -167,6 +144,15 @@
             <a class="btn btn-sm visualize ml-1" (click)="generateChart()" data-toggle="modal"
               data-target="#newVisualization">+ New
               Visualization</a>
+            <div class="inline-block ml-1 pull-right ">
+              <button class="btn btn-success btn-fill btn-sm " (click)="saveChanges()" *ngIf="data.length">Save
+                Chnages</button>
+            </div>
+
+            <div class="inline-block ml-1 pull-right ">
+              <button class="btn btn-secondary btn-fill btn-sm " (click)="resetData()"
+                *ngIf="data.length">Reset</button>
+            </div>
             <!-- <span class="btn btn-xs btn-info btn-fill pull-right" (click)="resetData()">reset</span>
             <span class="btn btn-xs btn-info btn-fill pull-right" (click)="generateChart()">generate chart</span> -->
             <div class="toolbar">
@@ -200,13 +186,6 @@
                   </tr>
                 </tfoot>
               </table><br>
-              <div class="inline-block ml-1 pull-right ">
-                <button class="btn btn-success btn-fill " (click)="saveChanges()">Save Chnages</button>
-              </div>
-
-              <div class="inline-block ml-1 pull-right ">
-                <button class="btn btn-secondary btn-fill " (click)="resetData()">Reset</button>
-              </div>
             </div>
           </div>
         </div>
@@ -214,4 +193,8 @@
 
     </div>
   </div>
+</div>
+
+<div class="query-wrapper container-fluid" *ngIf="isVisualize">
+  <visualize [columns]="visualizationColumns" [rows]="visualizationRows" (closeFlag)="hideVisualization()"></visualize>
 </div>

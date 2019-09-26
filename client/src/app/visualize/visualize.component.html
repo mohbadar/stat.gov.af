@@ -2,9 +2,9 @@
 	<div class="action-bar">
 		<div class="card bg-transparent no-shadow">
 			<div class="card-body">
-			<button class="btn btn-social btn-fill btn-youtube shadowed">
-				Back
-			</button>
+				<button class="btn btn-social btn-fill btn-youtube shadowed" (click)="close()">
+					Back
+				</button>
 			</div>
 		</div>
 	</div>
@@ -16,14 +16,17 @@
 					<form [formGroup]="chartForm">
 						<div class="form-group">
 							<label for="visualization_type">Visualization Type</label>
-							<select class="form-control input-sm" name="visualization_type" formControlName="visualizationType" required>
-								<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name }}</option>
+							<select class="form-control input-sm" name="visualization_type"
+								formControlName="visualizationType" required>
+								<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name }}
+								</option>
 							</select>
 						</div>
 
 						<div class="form-group">
 							<label for="visualization_name">Visualization Name</label>
-							<input type="text" class="form-control input-sm" name="visualization_name" formControlName="visualizationName" placeholder="Visualization Name" required>
+							<input type="text" class="form-control input-sm" name="visualization_name"
+								formControlName="visualizationName" placeholder="Visualization Name" required>
 						</div>
 
 						<ul role="tablist" class="nav nav-tabs">
@@ -40,18 +43,20 @@
 								<a href="#series-tab" data-toggle="tab">Series</a>
 							</li>
 						</ul>
-	
+
 						<div class="tab-content">
 							<div id="general-tab" class="tab-pane active" formGroupName="general">
 								<div class="form-group">
 									<label for="chart_type">Chart Type</label>
 									<select class="form-control input-sm" formControlName="chartType" required>
-										<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}</option>
+										<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}
+										</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="x_column">X Column</label>
-									<select class="form-control input-sm" formControlName="xColumn" (change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
+									<select class="form-control input-sm" formControlName="xColumn"
+										(change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
 										<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
 									</select>
 								</div>
@@ -77,12 +82,14 @@
 								<div class="form-group">
 									<label for="exampleInputEmail1">Scale</label>
 									<select class="form-control input-sm" formControlName="scale">
-										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}</option>
+										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
+										</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Name</label>
-									<input type="text" class="form-control input-sm" formControlName="name"placeholder="Name">
+									<input type="text" class="form-control input-sm" formControlName="name"
+										placeholder="Name">
 								</div>
 								<div class="form-group">
 									<div>
@@ -91,7 +98,8 @@
 								</div>
 								<div class="form-group">
 									<div>
-										<span><input type="checkbox" formControlName="reverseOrder"> Reverse Order</span>
+										<span><input type="checkbox" formControlName="reverseOrder"> Reverse
+											Order</span>
 									</div>
 								</div>
 								<div class="form-group">
@@ -104,20 +112,24 @@
 								<div class="form-group">
 									<label for="yaxis_name">Scale</label>
 									<select class="form-control input-sm" formControlName="scale">
-										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}</option>
+										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
+										</option>
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Name</label>
-									<input type="text" class="form-control input-sm" formControlName="name" placeholder="Name">
+									<input type="text" class="form-control input-sm" formControlName="name"
+										placeholder="Name">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Min Value</label>
-									<input type="text" class="form-control input-sm" formControlName="minValue" placeholder="Min Value">
+									<input type="text" class="form-control input-sm" formControlName="minValue"
+										placeholder="Min Value">
 								</div>
 								<div class="form-group">
 									<label for="exampleInputEmail1">Max Value</label>
-									<input type="text" class="form-control input-sm" formControlName="maxValue" placeholder="Max Value">
+									<input type="text" class="form-control input-sm" formControlName="maxValue"
+										placeholder="Max Value">
 								</div>
 								<div class="form-group">
 									<div>
@@ -143,18 +155,25 @@
 											<th>Color</th>
 										</tr>
 										<tbody>
-											<tr *ngFor="let elem of series.controls; let i = index" column-name="elem.label" [formGroup]="elem">
+											<tr *ngFor="let elem of series.controls; let i = index"
+												column-name="elem.label" [formGroup]="elem">
 												<td>
-													<input class="form-control input-sm" formControlName="label" [value]="elem.controls.label.value" (change)="onSeriesLabelChange(data[i], $event)">
+													<input class="form-control input-sm" formControlName="label"
+														[value]="elem.controls.label.value"
+														(change)="onSeriesLabelChange(data[i], $event)">
 												</td>
 												<td>
-													<select class="form-control input-sm" formControlName="type" (change)="onSeriesTypeChange(data[i], $event)">
-														<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}</option>
+													<select class="form-control input-sm" formControlName="type"
+														(change)="onSeriesTypeChange(data[i], $event)">
+														<option *ngFor="let cType of chartTypes" [value]="cType.id">
+															{{ cType.name }}</option>
 													</select>
 												</td>
 												<td>
-													<select class="form-control input-sm" formControlName="color" (change)="onSeriesColorChange(data[i], $event)">
-														<option *ngFor="let cType of colorTypes" [value]="cType.id">{{ cType.name }}</option>
+													<select class="form-control input-sm" formControlName="color"
+														(change)="onSeriesColorChange(data[i], $event)">
+														<option *ngFor="let cType of colorTypes" [value]="cType.id">
+															{{ cType.name }}</option>
 													</select>
 												</td>
 											</tr>
@@ -188,7 +207,9 @@
 			<div class="card">
 				<div class="header">Visualization</div>
 				<div class="content">
-						<plotly-plot [data]="data" [config]="plotlyConfig" [layout]="layout" [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyChartContainer></plotly-plot>
+					<plotly-plot [data]="data" [config]="plotlyConfig" [layout]="layout" [useResizeHandler]="true"
+						[style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyChartContainer>
+					</plotly-plot>
 				</div>
 			</div>
 
