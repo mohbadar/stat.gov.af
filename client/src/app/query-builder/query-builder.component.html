@@ -144,7 +144,7 @@
             <a class="btn btn-sm visualize ml-1" (click)="generateChart()" data-toggle="modal"
               data-target="#newVisualization">+ New
               Visualization</a>
-            <div class="inline-block ml-1 pull-right ">
+            <div class="inline-block ml-1 pull-right" *ngIf="authService.isLoggedIn()">
               <button class="btn btn-success btn-fill btn-sm " (click)="saveChanges()" *ngIf="data.length">Save
                 Chnages</button>
             </div>

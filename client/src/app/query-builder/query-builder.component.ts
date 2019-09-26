@@ -47,7 +47,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	isLoading: boolean;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
-	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService) { }
+	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
+		public authService: AuthService) { }
 
 	ngOnInit() {
 		// document.getElementById("selectDataset").style.display = 'none';
