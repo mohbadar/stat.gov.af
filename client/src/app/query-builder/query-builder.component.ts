@@ -5,6 +5,7 @@ import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
 import { Select2OptionData } from 'ng2-select2';
 import { empty } from 'rxjs';
+import { AuthService } from 'app/services/auth.service';
 
 declare var $: any;
 
