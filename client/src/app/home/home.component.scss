@@ -1,0 +1,304 @@
+@font-face {
+  font-family: myfont;
+  //src: url(fonts/Philosopher-Regular.ttf);
+}
+
+#main-top{
+  background-image: url('../../assets/img/b2.jpg');
+  background-size: 100%;
+  background-repeat: no-repeat;
+  padding-top: 10%;
+  min-height: 800px;
+}
+#main-top h1{
+  font-size:4vw;
+}
+
+
+
+// counter css code
+
+
+.counter
+{
+    background-color: #eaecf0;
+    text-align: center;
+}
+.employees,.customer,.design,.order
+{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+.counter-count
+{
+    font-size: 18px;
+    background-color: #00b3e7;
+    border-radius: 50%;
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    line-height: 92px;
+    width: 92px;
+    height: 92px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    display: inline-block;
+}
+
+.employee-p,.customer-p,.order-p,.design-p
+{
+    font-size: 24px;
+    color: #000000;
+    line-height: 34px;
+}
+
+
+// Data Sets list
+body{margin-top:20px;
+  background:#eee;
+}
+/* E-commerce */
+.dataset-box {
+padding: 0;
+border: 1px solid #e7eaec;
+}
+.dataset-box:hover,
+.dataset-box.active {
+border: 1px solid transparent;
+-webkit-box-shadow: 0 3px 7px 0 #a8a8a8;
+-moz-box-shadow: 0 3px 7px 0 #a8a8a8;
+box-shadow: 0 3px 7px 0 #a8a8a8;
+}
+.dataset-imitation {
+text-align: center;
+padding: 90px 0;
+background-color: #f8f8f9;
+color: #bebec3;
+font-weight: 600;
+}
+.cart-dataset-imitation {
+text-align: center;
+padding-top: 30px;
+height: 80px;
+width: 80px;
+background-color: #f8f8f9;
+}
+.dataset-imitation.xl {
+padding: 120px 0;
+}
+.dataset-desc {
+padding: 20px;
+position: relative;
+}
+.ecommerce .tag-list {
+padding: 0;
+}
+.ecommerce .fa-star {
+color: #d1dade;
+}
+.ecommerce .fa-star.active {
+color: #f8ac59;
+}
+.ecommerce .note-editor {
+border: 1px solid #e7eaec;
+}
+table.shoping-cart-table {
+margin-bottom: 0;
+}
+table.shoping-cart-table tr td {
+border: none;
+text-align: right;
+}
+table.shoping-cart-table tr td.desc,
+table.shoping-cart-table tr td:first-child {
+text-align: left;
+}
+table.shoping-cart-table tr td:last-child {
+width: 80px;
+}
+.dataset-name {
+font-size: 16px;
+font-weight: 600;
+color: #676a6c;
+display: block;
+margin: 2px 0 5px 0;
+}
+.dataset-name:hover,
+.dataset-name:focus {
+color: #1ab394;
+}
+.dataset-price {
+font-size: 14px;
+font-weight: 600;
+color: #ffffff;
+background-color: #1ab394;
+padding: 6px 12px;
+position: absolute;
+top: -32px;
+right: 0;
+}
+.dataset-detail .ibox-content {
+padding: 30px 30px 50px 30px;
+}
+.image-imitation {
+background-color: #f8f8f9;
+text-align: center;
+padding: 200px 0;
+}
+.dataset-main-price small {
+font-size: 10px;
+}
+.dataset-images {
+margin: 0 20px;
+}
+
+.ibox {
+clear: both;
+margin-bottom: 25px;
+margin-top: 0;
+padding: 0;
+}
+.ibox.collapsed .ibox-content {
+display: none;
+}
+.ibox.collapsed .fa.fa-chevron-up:before {
+content: "\f078";
+}
+.ibox.collapsed .fa.fa-chevron-down:before {
+content: "\f077";
+}
+.ibox:after,
+.ibox:before {
+display: table;
+}
+.ibox-title {
+-moz-border-bottom-colors: none;
+-moz-border-left-colors: none;
+-moz-border-right-colors: none;
+-moz-border-top-colors: none;
+background-color: #ffffff;
+border-color: #e7eaec;
+border-image: none;
+border-style: solid solid none;
+border-width: 3px 0 0;
+color: inherit;
+margin-bottom: 0;
+padding: 14px 15px 7px;
+min-height: 48px;
+}
+.ibox-content {
+background-color: #ffffff;
+color: inherit;
+padding: 15px 20px 20px 20px;
+border-color: #e7eaec;
+border-image: none;
+border-style: solid solid none;
+border-width: 1px 0;
+}
+.ibox-footer {
+color: inherit;
+border-top: 1px solid #e7eaec;
+font-size: 90%;
+background: #ffffff;
+padding: 10px 15px;
+}
+
+
+
+
+// features css code
+
+.our-feature-main
+{
+	width:100%;
+	height:auto;
+	border-bottom:5px #1ab394 solid;
+	background:#fff;
+	text-align:center;
+	border-radius:10px;
+	overflow:hidden;
+	position:relative;
+	transition:0.5s;
+	margin-bottom:28px;
+}
+
+
+.our-feature-main img
+{
+	border-radius:50%;
+	margin-bottom:20px;
+	width: 90px;
+}
+
+.our-feature-main h3
+{
+	font-size:20px;
+	font-weight:700;
+}
+
+.our-feature-main p
+{
+	margin-bottom:0;
+}
+
+.feature-back
+{
+	width:100%;
+	height:auto;
+	position:absolute;
+	top:0;
+	left:0;
+	padding:5px 15px 0 15px;
+	text-align:left;
+	background:#fff;
+	
+}
+
+.feature-front
+{
+	width:100%;
+	height:auto;
+	position:relative;
+	z-index:10;
+	background:#fff;
+	padding:15px;
+	bottom:0px;
+	transition: all 0.5s ease;
+}
+
+.our-feature-main:hover .feature-front
+{
+	bottom:-200px;
+	transition: all 0.5s ease;
+}
+
+.our-feature-main:hover
+{
+	border-color:#777;
+	transition:0.5s;
+}
+
+#feature-section{
+	background-color: #fff !important;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url('../../assets/img/b2.jpg');
+    /* Set a specific height */
+    height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+/*our-feature-main*/
+
+
+
+                                  
+
