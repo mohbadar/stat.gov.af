@@ -280,7 +280,24 @@ padding: 10px 15px;
 	transition:0.5s;
 }
 
+#feature-section{
+	background-color: #fff !important;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url('../../assets/img/b2.jpg');
+    /* Set a specific height */
+    height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 /*our-feature-main*/
+
 
 
                                   
