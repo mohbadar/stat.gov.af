@@ -7,6 +7,10 @@ import { WidgetModule } from './widget/widget.module';
 import { RouterModule } from '@angular/router';
 import { DashboardRoutes } from './dashboard.routing';
 
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -14,7 +18,7 @@ import { DashboardRoutes } from './dashboard.routing';
 		RouterModule.forChild(DashboardRoutes),
 		GridStackModule,
 		ReactiveFormsModule,
-		
+		PlotlyModule,
 		WidgetModule
 	],
 	declarations: [

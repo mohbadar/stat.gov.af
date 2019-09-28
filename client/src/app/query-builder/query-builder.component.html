@@ -69,7 +69,7 @@
         </div>
         <div class="content">
           <div class="sheetlist">
-            <ul style="list-style: none;" *ngIf="data">
+            <ul style="list-style: none;" *ngIf="data" style="padding: 0px;">
               <li *ngFor="let col of columnNames; let i=index" class="column-name"
                 (click)="toggleColumn($event.target, i)">
                 <input type="checkbox" class="c-box" [id]="col.name" checked>
@@ -142,8 +142,7 @@
           <div class="table-show">
             <span class="table-label">Table</span>
             <a class="btn btn-sm visualize ml-1" (click)="generateChart()" data-toggle="modal"
-              data-target="#newVisualization">+ New
-              Visualization</a>
+              data-target="#newVisualization">+ New Visualization</a>
             <div class="inline-block ml-1 pull-right ">
               <button class="btn btn-success btn-fill btn-sm " (click)="saveChanges()" *ngIf="data.length">Save
                 Chnages</button>

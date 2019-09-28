@@ -6,6 +6,11 @@ import { QueryBuilderRoutes } from './query-builder.routing';
 import { QueryBuilderComponent } from './query-builder.component';
 import { Select2Module } from 'ng2-select2';
 import { VisualizeModule } from 'app/visualize/visualize.module';
+
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
+
 @NgModule({
 	imports: [
 		CommonModule,
@@ -13,7 +18,8 @@ import { VisualizeModule } from 'app/visualize/visualize.module';
 		FormsModule,
 		ReactiveFormsModule,
 		Select2Module,
-		VisualizeModule
+		VisualizeModule,
+		PlotlyModule
 	],
 	declarations: [
 		QueryBuilderComponent,

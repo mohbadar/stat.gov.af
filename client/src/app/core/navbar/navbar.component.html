@@ -9,11 +9,11 @@
                 <span class="icon-bar"></span>
             </button>
         
-            <a class="inline-block logo-wrapper c-pointer" style="padding: 10px;">
-                <img [routerLink]="['/']"
+            <a class="inline-block logo-wrapper c-pointer" style="padding: 10px;" [routerLink]="['/']">
+                <img
                         src="../../../assets/img/amended-logo final final-01.svg" style="height: 38px;" alt="">
             </a>
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" [routerLink]="['/']">
                 <span>STAT.GOV.AF</span>
             </a>
         </div>
@@ -35,13 +35,13 @@
                 </li>
                 <li>
                     <a href="#"  [routerLink]="['/build-query']">
-                        <span class="text-default ml-2"><i class="fa fa-bar-chart"></i> {{ 'ANALYZE_DATA' | translate }} </span>
+                        <span class="text-default"><i class="fa fa-bar-chart"></i> {{ 'ANALYZE_DATA' | translate }} </span>
                     </a>
                 </li>
 
                 <li>
                     <a href="#"  [routerLink]="['/my-dashboards']">
-                        <span class="text-default ml-2"><i class="fa fa-bar-chart"></i> {{ 'MY_DASHBOARDS' | translate }} </span>
+                        <span class="text-default"><i class="fa fa-bar-chart"></i> {{ 'MY_DASHBOARDS' | translate }} </span>
                     </a>
                 </li>
 

@@ -34,7 +34,7 @@ import {
 	DefaultLayoutComponent
 } from './core';
 
-import { DashbaordModule } from './dashboard/dashboard.module';
+// import { DashbaordModule } from './dashboard/dashboard.module';
 
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -67,9 +67,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { HomeComponent } from './home/home.component';
 
-import * as PlotlyJS from 'plotly.js/dist/plotly.js';
-import { PlotlyModule } from 'angular-plotly.js';
-PlotlyModule.plotlyjs = PlotlyJS;
+
 
 @NgModule({
 	declarations: [
@@ -111,7 +109,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		LoadingBarModule.forRoot(),
 		
 		PerfectScrollbarModule,
-		PlotlyModule,
+		// PlotlyModule,
 		ShareModule,
 		FontAwesomeModule,
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
