@@ -42,12 +42,8 @@ export class VisualizeComponent implements OnInit {
 
 	isLoading = true;
 
-	@Input() columns: any = ["id", "name", "sex"];
-	@Input() rows: any = [
-		[1, "Ahmad", "Male"],
-		[1, "Daud", "Male"],
-		[1, "Sara", "Female"]
-	];
+	@Input() columns: any = [];
+	@Input() rows: any = [];
 
 	@Output()
 	closeFlag = new EventEmitter<Object>();
@@ -148,6 +144,7 @@ export class VisualizeComponent implements OnInit {
 	constructor(public translate: TranslateService,
 		public globals: Globals,
 		private fb: FormBuilder) {
+			
 	}
 
 	get series() { return this.chartForm.get("series") as FormArray; }
@@ -155,7 +152,19 @@ export class VisualizeComponent implements OnInit {
 
 	get general() { return this.chartForm.get("general") }
 
+	get chartType() { return this.chartForm.get("general").get("chartType"); }
+
+	get xColumn() { return this.chartForm.get("general").get("xColumn"); }
 	get yColumns() { return this.chartForm.get("general").get("yColumns"); }
+
+	get groupByColumns() {
+		let ySelectedCols: any = this.yColumns == null? []: this.yColumns.value;
+		let xSelectedCols: any = this.xColumn == null? []: this.xColumn.value;
+
+		let difference = this.xColumnsList.filter(x => !ySelectedCols.includes(x));
+		difference = difference.filter(x => !xSelectedCols.includes(x));
+		return difference;
+	}
 
 	ngOnInit() {
 		this.plotlyElement = this.plotlyChartContainer;
@@ -315,13 +324,26 @@ export class VisualizeComponent implements OnInit {
 					})
 				);
 
-				newData[index++] = {
-					x: this.xAxisData,
-					y: this.unpack(this.rows, this.columns.indexOf(item)),
-					name: item,
-					type: this.general.get("chartType").value,
-					// color:
-				};
+				if(this.chartType.value == 'pie') {
+					newData[index++] = {
+						values: this.unpack(this.rows, this.columns.indexOf(item)),
+						labels: this.xAxisData,
+						// domain: {column: 0},
+						// name: 'GHG Emissions',
+						hoverinfo: 'label+percent',
+						// hole: .4,
+						type: this.general.get("chartType").value,
+					};
+				} else {
+					newData[index++] = {
+						x: this.xAxisData,
+						y: this.unpack(this.rows, this.columns.indexOf(item)),
+						name: item,
+						type: this.general.get("chartType").value,
+						// color:
+					};
+				}
+				
 			});
 			this.series = serieseFormArray;
 			this.data = newData;

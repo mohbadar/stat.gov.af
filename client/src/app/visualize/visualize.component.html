@@ -64,12 +64,13 @@
 										<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
 									</select>
 								</div>
-								<div class="form-group">
+								<!-- <div class="form-group">
 									<label for="exampleInputEmail1">Group By </label>
-									<select class="form-control input-sm" formControlName="groupBy" multiple>
-										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
+									<select class="form-control input-sm" formControlName="groupBy">
+										<option value=""></option>
+										<option *ngFor="let col of groupByColumns" [value]="col">{{ col }}</option>
 									</select>
-								</div>
+								</div> -->
 								<div class="form-group input-sm">
 									<div>
 										<span><input type="checkbox" formControlName="showLegends"> Show Legends</span>
@@ -149,8 +150,8 @@
 									<table class="table table-condensed table-hover">
 										<tr>
 											<th>Label</th>
-											<th>Type</th>
-											<th>Color</th>
+											<th *ngIf="chartType.value != 'pie'">Type</th>
+											<th *ngIf="chartType.value != 'pie'">Color</th>
 										</tr>
 										<tbody>
 											<tr *ngFor="let elem of series.controls; let i = index"
@@ -160,14 +161,14 @@
 														[value]="elem.controls.label.value"
 														(change)="onSeriesLabelChange(data[i], $event)">
 												</td>
-												<td>
+												<td *ngIf="chartType.value != 'pie'">
 													<select class="form-control input-sm" formControlName="type"
 														(change)="onSeriesTypeChange(data[i], $event)">
 														<option *ngFor="let cType of chartTypes" [value]="cType.id">
 															{{ cType.name }}</option>
 													</select>
 												</td>
-												<td>
+												<td *ngIf="chartType.value != 'pie'">
 													<select class="form-control input-sm" formControlName="color"
 														(change)="onSeriesColorChange(data[i], $event)">
 														<option *ngFor="let cType of colorTypes" [value]="cType.id">
