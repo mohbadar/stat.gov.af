@@ -66,6 +66,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelPropagation: true
 };
 import { HomeComponent } from './home/home.component';
+import { UserComponent } from './admin/node/user/user.component';
+import { RoleComponent } from './admin/node/role/role.component';
+import { PermissionComponent } from './admin/node/permission/permission.component';
 
 
 
@@ -76,6 +79,9 @@ import { HomeComponent } from './home/home.component';
 		AuthLayoutComponent,
 		DefaultLayoutComponent,
 		HomeComponent,
+		UserComponent,
+		RoleComponent,
+		PermissionComponent,
 		// VisualizeComponent,
 		// DashboardComponent
 	],

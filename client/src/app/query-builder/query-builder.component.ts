@@ -438,7 +438,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			query.name = this.workBookName;
 			query.config = stringify(configData);
 			query.data = stringify(fData);
-			query.uuid = this.resourceId;
+			query.uuid = stringify(this.resourceId);
 			console.log("Sended Data: => ", query);
 			this.datasouceQueryService.createQuery(query).subscribe((res) => {
 				console.log("response: ", res);

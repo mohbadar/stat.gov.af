@@ -26,6 +26,17 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="text-default">{{ 'ADMINISTRATION' | translate }}<i class="fa fa-angle-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" *ngIf="administrationOpts.length">
+                        <li *ngFor="let item of administrationOpts"><a href="#"
+                                [routerLink]="[item.path]">{{ item.name | titlecase  | translate }}</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="text-default">{{ 'DASHBOARDS' | translate }}<i class="fa fa-angle-down"></i></span>
                     </a>
                     <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
@@ -33,6 +44,9 @@
                                 [routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a></li>
                     </ul>
                 </li>
+
+
+
                 <li>
                     <a href="#"  [routerLink]="['/build-query']">
                         <span class="text-default"><i class="fa fa-bar-chart"></i> {{ 'ANALYZE_DATA' | translate }} </span>
