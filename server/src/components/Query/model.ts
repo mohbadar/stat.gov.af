@@ -15,7 +15,8 @@ export interface IQueryModel extends Document {
     user: string;
     data: Object;
     config: Object;
-    createdAt: string;
+    createdAt: String;
+    uuid: Object;
 }
 
 
@@ -50,6 +51,14 @@ const QuerySchema: Schema = new Schema({
         index: false 
     },
 
+    uuid: {
+        type: Object,
+        lowercase: false,
+        required: false,
+        trim: false,
+        index: false
+    },
+
     createdAt: {
         type: Date,
         default: Date.now 
@@ -64,8 +73,10 @@ const QuerySchema: Schema = new Schema({
     try {
         const configJSON = JSON.parse(query.config);
         const dataJSON = JSON.parse(query.data);
+        const uuidJson = JSON.parse(query.uuid);
         query.config = configJSON;
         query.data = dataJSON;
+        query.uuid = uuidJson;
         console.log("JSON DATA: ", query.config);
         
         next();
