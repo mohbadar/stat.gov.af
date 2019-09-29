@@ -11,10 +11,17 @@ export class ViewRoleComponent implements OnInit {
   @Output()
   toggleModal = new EventEmitter<Object>();
   @Input() data;
+  permissions: [];
 
-  constructor(public roleService: RoleService) { }
+  constructor(public roleService: RoleService) { 
 
-  ngOnInit() { }
+  }
+
+  ngOnInit() {
+
+    console.log("Permissions: ", this.data.permissions);
+    this.permissions = this.data.permissions;
+   }
 
   onNoClick(): void {
     // this.toggleModal.emit({"modalType": "view", show: false});

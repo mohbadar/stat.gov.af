@@ -147,9 +147,9 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 	addNew(role?: Role) {
 		this.loading = true;
 
-		if (!this.globals.principal.hasAuthority(['ROLE_CREATE', 'ADMIN'])) {
-			return false;
-		}
+		// if (!this.globals.principal.hasAuthority(['ROLE_CREATE', 'ADMIN'])) {
+		// 	return false;
+		// }
 		this.permissionService.loadAllPermissions().subscribe((permissions) => {
 			this.allPermissionsData = permissions;
 			console.log('all permissions are:', this.allPermissionsData);

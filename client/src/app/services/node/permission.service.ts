@@ -14,7 +14,10 @@ export class PermissionService {
     return this.httpClient.get(`${PERMISSIONS_BASE_URL}/all`);
   }
 
-  
+  public loadPermission(id:string) :Observable<any>
+  {
+    return this.httpClient.get(`${PERMISSIONS_BASE_URL}/one/${id}`);
+  }
 
 
 }
