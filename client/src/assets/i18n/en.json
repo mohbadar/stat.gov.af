@@ -103,5 +103,10 @@
   "ANALYZE_DATA": "Analyze Data",
 
   "DOCS": "Documentation",
-  "SETTINGS": "Settings"
+  "SETTINGS": "Settings" ,
+  "SELECT_PLACEHOLDER":"Please select dataset from Data.gov.af",
+  "RESET":"Reset",
+  "ADD_VISUALIZATION":"+ New Visualization",
+  "EXCEL_EXPORT":"Excel export"
+
 }
