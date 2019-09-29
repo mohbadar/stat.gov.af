@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { AuthService } from 'app/services/auth.service';
 
 declare var $: any;
 
@@ -54,13 +55,13 @@ export class VisualizeComponent implements OnInit {
 		autosize: true,
 		xaxis: {
 			showticklabels: true,
-			autorange: '',
-			type: 'linear'
+			autorange: true,
+			// type: 'linear'
 		},
 		yaxis: {
 			showticklabels: true,
-			autorange: '',
-			type: 'linear'
+			autorange: true,
+			// type: 'linear'
 		}
 	};
 	data: any = [];
@@ -143,7 +144,8 @@ export class VisualizeComponent implements OnInit {
 
 	constructor(public translate: TranslateService,
 		public globals: Globals,
-		private fb: FormBuilder) {
+		private fb: FormBuilder,
+		public authService: AuthService) {
 			
 	}
 
@@ -182,6 +184,10 @@ export class VisualizeComponent implements OnInit {
 
 	close() {
 		this.closeFlag.emit();
+	}
+
+	save() {
+		console.log("Saving Visulaziation");
 	}
 
 	// preSetValues() {
@@ -248,8 +254,8 @@ export class VisualizeComponent implements OnInit {
 				this.layout.yaxis.title = event.yaxis.name;
 			}
 			if (event.yaxis.minValue != "" && event.yaxis.maxValue != "") {
-				this.layout.yaxis.range[0] = Number(event.yaxis.minValue);
-				this.layout.yaxis.range[1] = Number(event.yaxis.maxValue);
+				// this.layout.yaxis.range[0] = Number(event.yaxis.minValue);
+				// this.layout.yaxis.range[1] = Number(event.yaxis.maxValue);
 			}
 
 			this.redraw();
@@ -301,6 +307,11 @@ export class VisualizeComponent implements OnInit {
 
 	redraw() {
 		this.Plotly.getPlotly().redraw(this.plotlyElement);
+
+		this.Plotly.getPlotly().relayout(this.plotlyElement, {
+            'xaxis.autorange': true,
+            'yaxis.autorange': true
+        });
 	}
 
 	unpack(rows, key) {

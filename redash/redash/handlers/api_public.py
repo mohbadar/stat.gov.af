@@ -49,7 +49,8 @@ def public_dashboards():
     Lists all accessible public dashboards.
     """
     logger.info("/api/public/dashboards - PublicDashboardListResource/get()")
-    
+    language = request.args.get('lang')
+    # return all public dashboard of sepcific language and also those who does not set the language
     results = models.Dashboard.all_public()
 
     page = request.args.get('page', 1, type=int)
