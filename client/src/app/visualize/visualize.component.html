@@ -3,35 +3,35 @@
 		<div class="header">
 			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right" [disabled]="myForm.invalid"
 				(click)="save()" *ngIf="authService.isLoggedIn()">
-				Save
+				{{ 'SAVE' | translate }}
 			</button>&nbsp;&nbsp;
 			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right" (click)="close()">
-				Back
+				{{ 'BACK' | translate }}
 			</button>
-			<h5>Visualization Editor</h5>
+			<h5>{{ 'VISUALIZATION_EIDTOR' | translate }}</h5>
 		</div>
 		<div class="content">
 			<div class="row">
 			<div class="col-md-4">
 				<form [formGroup]="chartForm">
 					<div class="form-group">
-						<label for="visualization_type">Visualization Type</label>
+						<label for="visualization_type">{{ 'VISUALIZATION_TYPE' | translate }}</label>
 						<select class="form-control input-sm" name="visualization_type"
 							formControlName="visualizationType" required>
-							<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name }}
+							<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name | translate }}
 							</option>
 						</select>
 					</div>
 
 					<div class="form-group">
-						<label for="visualization_name">Visualization Name</label>
+						<label for="visualization_name">{{ 'VISUALIZATION_NAME' | translate }}</label>
 						<input type="text" class="form-control input-sm" name="visualization_name"
 							formControlName="visualizationName" placeholder="Visualization Name" required>
 					</div>
 
 					<ul role="tablist" class="nav nav-tabs">
 						<li role="presentation" class="active">
-							<a href="#general-tab" data-toggle="tab">General</a>
+							<a href="#general-tab" data-toggle="tab">{{ 'GENERAL' | translate }}</a>
 						</li>
 						<li>
 							<a href="#xaxis-tab" data-toggle="tab">X-Axis</a>
@@ -47,21 +47,21 @@
 					<div class="tab-content">
 						<div id="general-tab" class="tab-pane active" formGroupName="general">
 							<div class="form-group">
-								<label for="chart_type">Chart Type</label>
+								<label for="chart_type">{{ 'CHART_TYPE' | translate }}</label>
 								<select class="form-control input-sm" formControlName="chartType" required>
 									<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}
 									</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="x_column">X Column</label>
+								<label for="x_column">{{ 'X_COLUMN' | translate }}</label>
 								<select class="form-control input-sm" formControlName="xColumn"
 									(change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
 									<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="y_columns">Y Columns</label>
+								<label for="y_columns">{{ 'Y_COLUMNS' | translate }}</label>
 								<select class="form-control input-sm" multiple formControlName="yColumns" required>
 									<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
 								</select>
@@ -75,7 +75,7 @@
 							</div> -->
 							<div class="form-group input-sm">
 								<div>
-									<span><input type="checkbox" formControlName="showLegends"> Show Legends</span>
+									<span><input type="checkbox" formControlName="showLegends"> {{ 'SHOW_LEDGENDS' | translate }}</span>
 								</div>
 							</div>
 						</div>
@@ -111,38 +111,38 @@
 						</div>
 						<div id="yaxis-tab" class="tab-pane" formGroupName="yaxis">
 							<div class="form-group">
-								<label for="yaxis_name">Scale</label>
+								<label for="yaxis_name">{{ 'SCALE' | translate }}</label>
 								<select class="form-control input-sm" formControlName="scale">
-									<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
+									<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name | translate }}
 									</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Name</label>
+								<label for="exampleInputEmail1">{{ 'NAME' | translate }}</label>
 								<input type="text" class="form-control input-sm" formControlName="name"
 									placeholder="Name">
 							</div>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Min Value</label>
+								<label for="exampleInputEmail1">{{ 'MIN_VALUE' | translate }}</label>
 								<input type="text" class="form-control input-sm" formControlName="minValue"
 									placeholder="Min Value">
 							</div>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Max Value</label>
+								<label for="exampleInputEmail1">{{ 'MAX_VALUE' | translate }}</label>
 								<input type="text" class="form-control input-sm" formControlName="maxValue"
 									placeholder="Max Value">
 							</div>
 							<div class="form-group">
 								<div>
 									<span>
-										<input type="checkbox" formControlName="sortValue"> Sort Value
+										<input type="checkbox" formControlName="sortValue"> {{ 'SORT_VALUE' | translate }}
 									</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<div>
 									<span>
-										<input type="checkbox" formControlName="reverseOrder"> Reverse Order
+										<input type="checkbox" formControlName="reverseOrder"> {{ 'REVERSE_ORDER' | translate }}
 									</span>
 								</div>
 							</div>
@@ -151,9 +151,9 @@
 							<div class="form-group">
 								<table class="table table-condensed table-hover">
 									<tr>
-										<th>Label</th>
-										<th *ngIf="chartType.value != 'pie'">Type</th>
-										<th *ngIf="chartType.value != 'pie'">Color</th>
+										<th>{{ 'LABEL' | translate }}</th>
+										<th *ngIf="chartType.value != 'pie'">{{ 'TYPE' | translate }}</th>
+										<th *ngIf="chartType.value != 'pie'">{{ 'COLOR' | translate }}</th>
 									</tr>
 									<tbody>
 										<tr *ngFor="let elem of series.controls; let i = index"

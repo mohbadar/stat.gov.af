@@ -103,5 +103,22 @@
   "ANALYZE_DATA": "تحلیل",
   
   "DOCS": "Documentation",
-  "SETTINGS": "Settings"
+  "SETTINGS": "Settings",
+
+  "VISUALIZATION_EIDTOR": "Visualization Editor",
+  "VISUALIZATION_TYPE": "Visualization Type",
+  "VISUALIZATION_NAME": "Visualization Name",
+  "GENERAL": "General",
+  "CHART_TYPE": "Chart Type",
+  "X_COLUMN": "X Column",
+  "Y_COLUMNS": "Y Columns",
+  "SHOW_LEDGENDS": "Show Ledgends",
+  "SCALE": "Scale",
+  "MIN_VALUE": "Min Value",
+  "MAX_VALUE": "Max Value",
+  "SORT_VALUE": "Sort Value",
+  "REVERSE_ORDER": "Reverse Order",
+  "LABEL": "Label",
+  "COLOR": "Color",
+  "TYPE": "Type"
 }
