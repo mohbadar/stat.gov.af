@@ -4,8 +4,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 import { GridStackModule } from 'ng4-gridstack';
 import { WidgetModule } from './widget/widget.module';
-import { DashboardRoutes } from './dashboard.routing';
 import { RouterModule } from '@angular/router';
+import { DashboardRoutes } from './dashboard.routing';
+
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
 
 @NgModule({
 	imports: [
@@ -14,6 +18,7 @@ import { RouterModule } from '@angular/router';
 		RouterModule.forChild(DashboardRoutes),
 		GridStackModule,
 		ReactiveFormsModule,
+		PlotlyModule,
 		WidgetModule
 	],
 	declarations: [

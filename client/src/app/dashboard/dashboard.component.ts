@@ -73,11 +73,6 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 	}
 
 	ngOnInit() {
-
-		this.datasourceQueryService.loadQueries().subscribe(data => {
-			console.log("Datasource Data", data);
-
-		});	
 		// Listen to default dashboard set from navbar component
 		this.dashboardService.callToDashboardMethodSource.subscribe(() => {
 			this.route.paramMap.subscribe(param => {
@@ -111,6 +106,12 @@ export class DashboardComponent implements OnInit, OnChanges, AfterViewInit {
 		// this.handleResize = debounce(this.batchUpdateWidgets, 50);
 
 		// this.updateGridStackAttributes(this.gridStack);
+
+
+		this.datasourceQueryService.loadQueries().subscribe(data => {
+			console.log("Datasource Data", data);
+
+		});	
 
 	}
 

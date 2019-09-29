@@ -34,11 +34,11 @@ import {
 	DefaultLayoutComponent
 } from './core';
 
-import { DashbaordModule } from './dashboard/dashboard.module';
+// import { DashbaordModule } from './dashboard/dashboard.module';
 
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
-import { VisualizeComponent } from './visualize/visualize.component';
+// import { VisualizeComponent } from './visualize/visualize.component';
 
 // Template core components
 import {
@@ -65,10 +65,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelSpeed: 2,
 	wheelPropagation: true
 };
+import { HomeComponent } from './home/home.component';
 
-import * as PlotlyJS from 'plotly.js/dist/plotly.js';
-import { PlotlyModule } from 'angular-plotly.js';
-PlotlyModule.plotlyjs = PlotlyJS;
+
 
 @NgModule({
 	declarations: [
@@ -76,7 +75,8 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		PublicLayoutComponent,
 		AuthLayoutComponent,
 		DefaultLayoutComponent,
-		VisualizeComponent,
+		HomeComponent,
+		// VisualizeComponent,
 		// DashboardComponent
 	],
 	imports: [
@@ -109,8 +109,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		LoadingBarModule.forRoot(),
 		
 		PerfectScrollbarModule,
-		PlotlyModule,
-		DashbaordModule,
+		// PlotlyModule,
 		ShareModule,
 		FontAwesomeModule,
 		ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
