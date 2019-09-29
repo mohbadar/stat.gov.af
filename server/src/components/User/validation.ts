@@ -29,7 +29,8 @@ class UserValidation extends Validation {
             name: Joi.string().required(),
             email: Joi.string().email({
                 minDomainAtoms: 2
-            }).required()
+            }).required(),
+            roles: Joi.string().allow()
         });
 
         return Joi.validate(params, schema);

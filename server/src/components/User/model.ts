@@ -21,6 +21,7 @@ export interface IUserModel extends Document {
     passwordResetToken: string;
     passwordResetExpires: Date;
     tokens: AuthToken[];
+    roles: [[Object]];
 
     comparePassword: (password: string) => Promise < boolean > ;
     gravatar: (size: number) => string;
@@ -68,6 +69,13 @@ const UserSchema: Schema = new Schema({
         required: true, 
         default: Date.now() 
     },
+    roles: { 
+        type: [[Object]], 
+        required: true, 
+        trim: false, 
+        index: false 
+    },
+
     passwordResetToken: String,
     passwordResetExpires: Date,
     tokens: Array,

@@ -29,6 +29,7 @@ class RoleValidation extends Validation {
             name: Joi.string().required(),
             desctription: Joi.string().allow(),
             isActive: Joi.string().allow(),
+            permissions: Joi.string().allow()
 
         });
 
