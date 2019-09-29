@@ -71,13 +71,13 @@ const QuerySchema: Schema = new Schema({
     const query: any = this;
 
     try {
-        const configJSON = JSON.parse(query.config);
-        const dataJSON = JSON.parse(query.data);
-        const uuidJson = JSON.parse(query.uuid);
-        query.config = configJSON;
-        query.data = dataJSON;
-        query.uuid = uuidJson;
-        console.log("JSON DATA: ", query.config);
+//         const configJSON = JSON.parse(query.config));
+//         const dataJSON = JSON.parse(query.data);
+//         const uuidJson = JSON.parse(query.uuid);
+//         query.config = configJSON;
+//         query.data = dataJSON;
+//         query.uuid = uuidJson;
+//         console.log("JSON DATA: ", query.config);
         
         next();
     } catch (error) {
