@@ -1,36 +1,35 @@
 import * as Joi from 'joi';
 import Validation from '../validation';
-import { IWidgetModel } from './model';
+import { IRoleModel } from './model';
 
 /**
  * @export
- * @class WidgetValidation
+ * @class RoleValidation
  * @extends Validation
  */
-class WidgetValidation extends Validation {
+class RoleValidation extends Validation {
 
     /**
-     * Creates an instance of WidgetValidation.
-     * @memberof WidgetValidation
+     * Creates an instance of RoleValidation.
+     * @memberof RoleValidation
      */
     constructor() {
         super();
     }
 
     /**
-     * @param {IWidgetModel} params
-     * @returns {Joi.ValidationResult<IWidgetModel >}
-     * @memberof WidgetValidation
+     * @param {IRoleModel} params
+     * @returns {Joi.ValidationResult<IRoleModel >}
+     * @memberof RoleValidation
      */
     create(
-        params: IWidgetModel
-    ): Joi.ValidationResult < IWidgetModel > {
+        params: IRoleModel
+    ): Joi.ValidationResult < IRoleModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
-            config: Joi.string().required(),
-            user: Joi.string().required(),
-            query: Joi.string().allow(),
-
+            desctription: Joi.string().allow(),
+            isActive: Joi.string().allow(),
+            permissions: Joi.string().allow()
 
         });
 
@@ -40,7 +39,7 @@ class WidgetValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof WidgetValidation
+     * @memberof RoleValidation
      */
     get(
         body: {
@@ -59,7 +58,7 @@ class WidgetValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof WidgetValidation
+     * @memberof RoleValidation
      */
     remove(
         body: {
@@ -74,7 +73,6 @@ class WidgetValidation extends Validation {
 
         return Joi.validate(body, schema);
     }
-
 }
 
-export default new WidgetValidation();
+export default new RoleValidation();

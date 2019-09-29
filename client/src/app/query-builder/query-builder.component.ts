@@ -3,10 +3,11 @@ import * as XLSX from 'xlsx';
 import { DatasourceQueryService } from 'app/services/datasource.query.service';
 import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
+import {Router} from "@angular/router"
 import { Select2OptionData } from 'ng2-select2';
+
 import { empty } from 'rxjs';
 import { AuthService } from 'app/services/auth.service';
-
 declare var $: any;
 
 @Component({
@@ -451,9 +452,9 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	visualizeChange() {
-		// console.log("Visualize this data", this.data);
-
+	visualizeChange()
+	{
+		console.log("Visualize this data", this.data);
 	}
 
 	showNotification(from, align, msg, type, icon) {

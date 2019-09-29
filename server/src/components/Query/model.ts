@@ -1,6 +1,8 @@
 import * as connections from '../../config/connection/connection';
 import { Document, Schema } from 'mongoose';
 import app from '../../config/server/server';
+import { NextFunction } from 'express-serve-static-core';
+import { config } from 'dotenv';
 
 
 /**
@@ -11,8 +13,9 @@ import app from '../../config/server/server';
 export interface IQueryModel extends Document {
     name: string;
     user: string;
-    data: string;
-    config: string;
+    data: Object;
+    config: Object;
+    createdAt: string;
 }
 
 
@@ -32,7 +35,7 @@ const QuerySchema: Schema = new Schema({
     },
 
     data: { 
-        type: String, 
+        type: Object, 
         lowercase: false, 
         required: false, 
         trim: false, 
@@ -40,16 +43,37 @@ const QuerySchema: Schema = new Schema({
     },
 
     config: { 
-        type: String, 
+        type: Object, 
         lowercase: false, 
         required: false, 
         trim: false, 
         index: false 
     },
+
+    createdAt: {
+        type: Date,
+        default: Date.now 
+    }
+    
 }, {
     collection: 'QueryCollection',
     versionKey: false
+}).pre('save', async function (next: NextFunction): Promise < void > {
+    const query: any = this;
+
+    try {
+        const configJSON = JSON.parse(query.config);
+        const dataJSON = JSON.parse(query.data);
+        query.config = configJSON;
+        query.data = dataJSON;
+        console.log("JSON DATA: ", query.config);
+        
+        next();
+    } catch (error) {
+        return next(error);
+    }
 });
+
 
 
 export default connections.db.model < IQueryModel > ('QueryModel', QuerySchema);

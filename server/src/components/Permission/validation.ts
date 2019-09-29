@@ -1,36 +1,34 @@
 import * as Joi from 'joi';
 import Validation from '../validation';
-import { IWidgetModel } from './model';
+import { IPermissionModel } from './model';
 
 /**
  * @export
- * @class WidgetValidation
+ * @class PermissionValidation
  * @extends Validation
  */
-class WidgetValidation extends Validation {
+class PermissionValidation extends Validation {
 
     /**
-     * Creates an instance of WidgetValidation.
-     * @memberof WidgetValidation
+     * Creates an instance of PermissionValidation.
+     * @memberof PermissionValidation
      */
     constructor() {
         super();
     }
 
     /**
-     * @param {IWidgetModel} params
-     * @returns {Joi.ValidationResult<IWidgetModel >}
-     * @memberof WidgetValidation
+     * @param {IPermissionModel} params
+     * @returns {Joi.ValidationResult<IPermissionModel >}
+     * @memberof PermissionValidation
      */
     create(
-        params: IWidgetModel
-    ): Joi.ValidationResult < IWidgetModel > {
+        params: IPermissionModel
+    ): Joi.ValidationResult < IPermissionModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
-            config: Joi.string().required(),
-            user: Joi.string().required(),
-            query: Joi.string().allow(),
-
+            desctription: Joi.string().allow(),
+            isActive: Joi.string().allow(),
 
         });
 
@@ -40,7 +38,7 @@ class WidgetValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof WidgetValidation
+     * @memberof PermissionValidation
      */
     get(
         body: {
@@ -59,7 +57,7 @@ class WidgetValidation extends Validation {
     /**
      * @param {{ id: string }} body
      * @returns {Joi.ValidationResult<{ id: string }>}
-     * @memberof WidgetValidation
+     * @memberof PermissionValidation
      */
     remove(
         body: {
@@ -74,7 +72,6 @@ class WidgetValidation extends Validation {
 
         return Joi.validate(body, schema);
     }
-
 }
 
-export default new WidgetValidation();
+export default new PermissionValidation();

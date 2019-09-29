@@ -1,6 +1,7 @@
 import * as connections from '../../config/connection/connection';
 import { Document, Schema } from 'mongoose';
 import app from '../../config/server/server';
+import { NextFunction } from 'express-serve-static-core';
 
 
 /**
@@ -11,8 +12,12 @@ import app from '../../config/server/server';
 export interface IDashboardModel extends Document {
     name: string;
     user: string;
-    data: string;
-    config: string;
+    layout: Object;
+    widgets: [[Object]];  // widgets
+    createdAt: string; 
+    // updated_at: string;
+
+
 }
 
 
@@ -22,7 +27,8 @@ const WidgetSchema: Schema = new Schema({
         lowercase: true, 
         required: true, 
         trim: true, 
-        index: true 
+        index: true ,
+        unique: true
     },
 
     user: {
@@ -30,25 +36,38 @@ const WidgetSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
     },
 
-    data: { 
-        type: String, 
-        lowercase: true, 
+    widgets: { 
+        type: [[Object]], 
         required: true, 
         trim: false, 
         index: false 
     },
 
-    config: { 
-        type: String, 
+    layout: { 
+        type: Object, 
         lowercase: true, 
         required: false, 
         trim: false, 
         index: false 
     },
+    createdAt: {
+        type: Date,
+        default: Date.now 
+    }
 }, {
     collection: 'DashboardCollection',
     versionKey: false
+}).pre('save', async function (next: NextFunction): Promise < void > {
+    const dash: any = this;
+
+    try {
+        const layoutJSON = JSON.parse(dash.layout);
+        const widgetsJSON = JSON.parse(dash.widgets);
+        dash.widgets = widgetsJSON;
+        dash.config = layoutJSON;
+        next();
+    } catch (error) {
+        return next(error);
+    }
 });
-
-
 export default connections.db.model < IDashboardModel > ('DashboardModel', WidgetSchema);

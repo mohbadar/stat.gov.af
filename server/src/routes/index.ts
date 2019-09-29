@@ -7,6 +7,8 @@ import UserRouter from './UserRouter';
 import QueryRouter from './QueryRouter';
 import WidgetRouter from './WidgetRouter';
 import DashboardRouter from './DashboardRouter';
+import RoleRouter from './RoleRouter';
+import PermissionRouter from './PermissionRouter';
 
 let swaggerDoc: Object;
 
@@ -61,6 +63,23 @@ export function init(app: express.Application): void {
      */
     app.use('/node-api/dashboards', DashboardRouter);
 
+
+           /**
+     * @description
+     *  Forwards any requests to the /api/roles URI to our RoleRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/node-api/roles', RoleRouter);
+
+
+               /**
+     * @description
+     *  Forwards any requests to the /api/dashboards URI to our DashboardRouter
+     *  Also, check if user authenticated
+     * @constructs
+     */
+    app.use('/node-api/permissions', PermissionRouter);
 
 
     /**

@@ -1,6 +1,7 @@
 import * as connections from '../../config/connection/connection';
 import { Document, Schema } from 'mongoose';
 import app from '../../config/server/server';
+import { NextFunction } from 'express-serve-static-core';
 
 
 /**
@@ -11,10 +12,9 @@ import app from '../../config/server/server';
 export interface IWidgetModel extends Document {
     name: string;
     user: string;
-    data: string;
-    config: string;
+    config: Object; 
     query: string;
-    dashboard: string;
+    createdAt: string;
 }
 
 
@@ -39,12 +39,6 @@ const WidgetSchema: Schema = new Schema({
         type: Schema.Types.ObjectId,
     },
 
-
-    dashboard: {
-        ref: 'DashboardModel',
-        type: Schema.Types.ObjectId,
-    },
-
     data: { 
         type: String, 
         lowercase: true, 
@@ -54,15 +48,31 @@ const WidgetSchema: Schema = new Schema({
     },
 
     config: { 
-        type: String, 
+        type: Object, 
         lowercase: true, 
         required: false, 
         trim: false, 
         index: false 
     },
+
+    createdAt: {
+        type: Date,
+        default: Date.now 
+    }
+    
 }, {
     collection: 'WidgetCollection',
-    versionKey: false
+    versionKey: true
+}).pre('save', async function (next: NextFunction): Promise < void > {
+    const widget: any = this;
+
+    try {
+        const configJSON = JSON.parse(widget.config);
+        widget.config = configJSON;
+        next();
+    } catch (error) {
+        return next(error);
+    }
 });
 
 
