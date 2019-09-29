@@ -2,7 +2,7 @@
   "MAIN": "Main",
   "HOME": "Home",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "‌Dashboard",
+  "DASHBOARDS": "Dashboard",
   "SEARCH_MESSAGE": "What are you looking for?",
 
   "APPS": "Apps",
@@ -103,6 +103,12 @@
   "ANALYZE_DATA": "Analyze Data",
 
   "DOCS": "Documentation",
+  "SETTINGS": "Settings" ,
+  "SELECT_PLACEHOLDER":"Please select dataset from Data.gov.af",
+  "RESET":"Reset",
+  "ADD_VISUALIZATION":"+ New Visualization",
+  "EXCEL_EXPORT":"Excel export",
+
   "SETTINGS": "Settings",
 
   "VISUALIZATION_EIDTOR": "Visualization Editor",

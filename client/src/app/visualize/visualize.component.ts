@@ -177,6 +177,9 @@ export class VisualizeComponent implements OnInit {
 		// set columns to both x and y columns dorpdown
 		this.xColumnsList = this.columns;
 		this.yColumnsList = this.columns;
+		console.log("rows",this.rows);
+		console.log("columns",this.columns);
+		
 
 		// this.data.push(this.trace1);
 		// this.data.push(this.trace2);
