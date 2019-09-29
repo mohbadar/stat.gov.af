@@ -7,6 +7,9 @@ import { UserRoutes } from './user.routing';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { UserComponent } from './user.component';
+import { CreateUserComponent } from './dialog/create-user/create-user.component';
+import { ViewUserComponent } from './dialog/view-user/view-user.component';
+import { EditUserComponent } from './dialog/edit-user/edit-user.component';
 
 @NgModule({
   imports: [
@@ -22,6 +25,9 @@ import { UserComponent } from './user.component';
   ],
   declarations: [
     UserComponent,
+    CreateUserComponent,
+    ViewUserComponent,
+    EditUserComponent,
   ]
 })
 export class UserModule { }

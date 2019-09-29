@@ -185,9 +185,9 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 	editRecord(recordId) {
 		if (!this.editLoading) {
 			this.editLoading = true;
-			if (!this.globals.principal.hasAuthority(['ADMIN', 'ROLE_EDIT'])) {
-				return false;
-			}
+			// if (!this.globals.principal.hasAuthority(['ADMIN', 'ROLE_EDIT'])) {
+			// 	return false;
+			// }
 
 			this.roleService.loadRole(recordId).subscribe(data => {
 				this.editLoading = false;
