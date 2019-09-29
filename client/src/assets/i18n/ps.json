@@ -104,5 +104,26 @@
   "ANALYZE_DATA": "تحلیل",
   
   "DOCS": "Documentation",
-  "SETTINGS": "Settings"
+  "SETTINGS": "Settings",
+
+  "VISUALIZATION_EIDTOR": "ډیزاین تنظیمات",
+  "VISUALIZATION_TYPE": "د ډیزاین ډول",
+  "VISUALIZATION_NAME": "د ډیزاین نوم",
+  "GENERAL": "عمومي",
+  "CHART_TYPE": "د چارت ډول",
+  "X_COLUMN": "X کالم",
+  "Y_COLUMNS": "Y کالمونه",
+  "SHOW_LEDGENDS": "کنډکړي ښودل",
+  "SCALE": "اندازه",
+  "MIN_VALUE": "لږترلږه قیمت",
+  "MAX_VALUE": "اعظمي قیمت",
+  "SORT_VALUE": "ترتیب کول",
+  "REVERSE_ORDER": "معکوس ترتیب",
+  "LABEL": "لیبل",
+  "COLOR": "رنګ",
+  "TYPE": "ډول",
+
+  "X-AXIS": "محور X د",
+  "Y-AXIS": "محور Y د",
+  "SERIES": "لړۍ"
 }

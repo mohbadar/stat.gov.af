@@ -3,6 +3,7 @@ import * as _ from 'lodash';
 import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { AuthService } from 'app/services/auth.service';
 
 declare var $: any;
 
@@ -42,12 +43,8 @@ export class VisualizeComponent implements OnInit {
 
 	isLoading = true;
 
-	@Input() columns: any = ["id", "name", "sex"];
-	@Input() rows: any = [
-		[1, "Ahmad", "Male"],
-		[1, "Daud", "Male"],
-		[1, "Sara", "Female"]
-	];
+	@Input() columns: any = [];
+	@Input() rows: any = [];
 
 	@Output()
 	closeFlag = new EventEmitter<Object>();
@@ -58,13 +55,13 @@ export class VisualizeComponent implements OnInit {
 		autosize: true,
 		xaxis: {
 			showticklabels: true,
-			autorange: '',
-			type: 'linear'
+			autorange: true,
+			// type: 'linear'
 		},
 		yaxis: {
 			showticklabels: true,
-			autorange: '',
-			type: 'linear'
+			autorange: true,
+			// type: 'linear'
 		}
 	};
 	data: any = [];
@@ -147,7 +144,9 @@ export class VisualizeComponent implements OnInit {
 
 	constructor(public translate: TranslateService,
 		public globals: Globals,
-		private fb: FormBuilder) {
+		private fb: FormBuilder,
+		public authService: AuthService) {
+			
 	}
 
 	get series() { return this.chartForm.get("series") as FormArray; }
@@ -155,7 +154,19 @@ export class VisualizeComponent implements OnInit {
 
 	get general() { return this.chartForm.get("general") }
 
+	get chartType() { return this.chartForm.get("general").get("chartType"); }
+
+	get xColumn() { return this.chartForm.get("general").get("xColumn"); }
 	get yColumns() { return this.chartForm.get("general").get("yColumns"); }
+
+	get groupByColumns() {
+		let ySelectedCols: any = this.yColumns == null? []: this.yColumns.value;
+		let xSelectedCols: any = this.xColumn == null? []: this.xColumn.value;
+
+		let difference = this.xColumnsList.filter(x => !ySelectedCols.includes(x));
+		difference = difference.filter(x => !xSelectedCols.includes(x));
+		return difference;
+	}
 
 	ngOnInit() {
 		this.plotlyElement = this.plotlyChartContainer;
@@ -173,6 +184,10 @@ export class VisualizeComponent implements OnInit {
 
 	close() {
 		this.closeFlag.emit();
+	}
+
+	save() {
+		console.log("Saving Visulaziation");
 	}
 
 	// preSetValues() {
@@ -239,8 +254,8 @@ export class VisualizeComponent implements OnInit {
 				this.layout.yaxis.title = event.yaxis.name;
 			}
 			if (event.yaxis.minValue != "" && event.yaxis.maxValue != "") {
-				this.layout.yaxis.range[0] = Number(event.yaxis.minValue);
-				this.layout.yaxis.range[1] = Number(event.yaxis.maxValue);
+				// this.layout.yaxis.range[0] = Number(event.yaxis.minValue);
+				// this.layout.yaxis.range[1] = Number(event.yaxis.maxValue);
 			}
 
 			this.redraw();
@@ -292,6 +307,11 @@ export class VisualizeComponent implements OnInit {
 
 	redraw() {
 		this.Plotly.getPlotly().redraw(this.plotlyElement);
+
+		this.Plotly.getPlotly().relayout(this.plotlyElement, {
+            'xaxis.autorange': true,
+            'yaxis.autorange': true
+        });
 	}
 
 	unpack(rows, key) {
@@ -315,13 +335,26 @@ export class VisualizeComponent implements OnInit {
 					})
 				);
 
-				newData[index++] = {
-					x: this.xAxisData,
-					y: this.unpack(this.rows, this.columns.indexOf(item)),
-					name: item,
-					type: this.general.get("chartType").value,
-					// color:
-				};
+				if(this.chartType.value == 'pie') {
+					newData[index++] = {
+						values: this.unpack(this.rows, this.columns.indexOf(item)),
+						labels: this.xAxisData,
+						// domain: {column: 0},
+						// name: 'GHG Emissions',
+						hoverinfo: 'label+percent',
+						// hole: .4,
+						type: this.general.get("chartType").value,
+					};
+				} else {
+					newData[index++] = {
+						x: this.xAxisData,
+						y: this.unpack(this.rows, this.columns.indexOf(item)),
+						name: item,
+						type: this.general.get("chartType").value,
+						// color:
+					};
+				}
+				
 			});
 			this.series = serieseFormArray;
 			this.data = newData;

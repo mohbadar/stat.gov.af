@@ -1,216 +1,211 @@
 <div class="query-wrapper container-fluid" style="font-size: smaller;">
-	<div class="row">
-		<div class="col-md-4">
-			<div class="card">
-				<div class="content">
-					<button class="btn btn-social btn-fill btn-youtube shadowed" (click)="close()">
-						Back
-					</button>
-				</div>
-				<div class="header">
-					Visualization Editor
-				</div>
-				<div class="content">
-					<form [formGroup]="chartForm">
-						<div class="form-group">
-							<label for="visualization_type">Visualization Type</label>
-							<select class="form-control input-sm" name="visualization_type"
-								formControlName="visualizationType" required>
-								<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name }}
-								</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label for="visualization_name">Visualization Name</label>
-							<input type="text" class="form-control input-sm" name="visualization_name"
-								formControlName="visualizationName" placeholder="Visualization Name" required>
-						</div>
-
-						<ul role="tablist" class="nav nav-tabs">
-							<li role="presentation" class="active">
-								<a href="#general-tab" data-toggle="tab">General</a>
-							</li>
-							<li>
-								<a href="#xaxis-tab" data-toggle="tab">X-Axis</a>
-							</li>
-							<li>
-								<a href="#yaxis-tab" data-toggle="tab">Y-Axis</a>
-							</li>
-							<li>
-								<a href="#series-tab" data-toggle="tab">Series</a>
-							</li>
-						</ul>
-
-						<div class="tab-content">
-							<div id="general-tab" class="tab-pane active" formGroupName="general">
-								<div class="form-group">
-									<label for="chart_type">Chart Type</label>
-									<select class="form-control input-sm" formControlName="chartType" required>
-										<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}
-										</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="x_column">X Column</label>
-									<select class="form-control input-sm" formControlName="xColumn"
-										(change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
-										<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="y_columns">Y Columns</label>
-									<select class="form-control input-sm" multiple formControlName="yColumns" required>
-										<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Group By </label>
-									<select class="form-control input-sm" formControlName="groupBy" multiple>
-										<option *ngFor="let col of columns" [value]="col">{{ col }}</option>
-									</select>
-								</div>
-								<div class="form-group input-sm">
-									<div>
-										<span><input type="checkbox" formControlName="showLegends"> Show Legends</span>
-									</div>
-								</div>
-							</div>
-							<div id="xaxis-tab" class="tab-pane" formGroupName="xaxis">
-								<div class="form-group">
-									<label for="exampleInputEmail1">Scale</label>
-									<select class="form-control input-sm" formControlName="scale">
-										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
-										</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Name</label>
-									<input type="text" class="form-control input-sm" formControlName="name"
-										placeholder="Name">
-								</div>
-								<div class="form-group">
-									<div>
-										<span><input type="checkbox" formControlName="sortValue"> Sort Value</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<div>
-										<span><input type="checkbox" formControlName="reverseOrder"> Reverse
-											Order</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<div>
-										<span><input type="checkbox" formControlName="showLabels"> Show Labels</span>
-									</div>
-								</div>
-							</div>
-							<div id="yaxis-tab" class="tab-pane" formGroupName="yaxis">
-								<div class="form-group">
-									<label for="yaxis_name">Scale</label>
-									<select class="form-control input-sm" formControlName="scale">
-										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
-										</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Name</label>
-									<input type="text" class="form-control input-sm" formControlName="name"
-										placeholder="Name">
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Min Value</label>
-									<input type="text" class="form-control input-sm" formControlName="minValue"
-										placeholder="Min Value">
-								</div>
-								<div class="form-group">
-									<label for="exampleInputEmail1">Max Value</label>
-									<input type="text" class="form-control input-sm" formControlName="maxValue"
-										placeholder="Max Value">
-								</div>
-								<div class="form-group">
-									<div>
-										<span>
-											<input type="checkbox" formControlName="sortValue"> Sort Value
-										</span>
-									</div>
-								</div>
-								<div class="form-group">
-									<div>
-										<span>
-											<input type="checkbox" formControlName="reverseOrder"> Reverse Order
-										</span>
-									</div>
-								</div>
-							</div>
-							<div id="series-tab" class="tab-pane" formGroupName="series">
-								<div class="form-group">
-									<table class="table table-condensed table-hover">
-										<tr>
-											<th>Label</th>
-											<th>Type</th>
-											<th>Color</th>
-										</tr>
-										<tbody>
-											<tr *ngFor="let elem of series.controls; let i = index"
-												column-name="elem.label" [formGroup]="elem">
-												<td>
-													<input class="form-control input-sm" formControlName="label"
-														[value]="elem.controls.label.value"
-														(change)="onSeriesLabelChange(data[i], $event)">
-												</td>
-												<td>
-													<select class="form-control input-sm" formControlName="type"
-														(change)="onSeriesTypeChange(data[i], $event)">
-														<option *ngFor="let cType of chartTypes" [value]="cType.id">
-															{{ cType.name }}</option>
-													</select>
-												</td>
-												<td>
-													<select class="form-control input-sm" formControlName="color"
-														(change)="onSeriesColorChange(data[i], $event)">
-														<option *ngFor="let cType of colorTypes" [value]="cType.id">
-															{{ cType.name }}</option>
-													</select>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							{{ getValue() }}
-						</div>
-						<hr>Layout
-						<div>
-							{{ getLayout() }}
-						</div>
-						<hr>PlotlyConfig
-						<div>
-							{{ getPlotlyConfig() }}
-						</div>
-						<hr>data
-						<div>
-							{{ getData() }}
-						</div>
-					</form>
-				</div>
-			</div>
-
+	<div class="card">
+		<div class="header">
+			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right" [disabled]="myForm.invalid"
+				(click)="save()" *ngIf="authService.isLoggedIn()">
+				{{ 'SAVE' | translate }}
+			</button>&nbsp;&nbsp;
+			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right" (click)="close()">
+				{{ 'BACK' | translate }}
+			</button>
+			<h5>{{ 'VISUALIZATION_EIDTOR' | translate }}</h5>
 		</div>
-		<div class="col-md-8">
-			<div class="card">
-				<div class="header">Visualization</div>
-				<div class="content">
-					<plotly-plot [data]="data" [config]="plotlyConfig" [layout]="layout" [useResizeHandler]="true"
-						[style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyChartContainer>
-					</plotly-plot>
-				</div>
-			</div>
+		<div class="content">
+			<div class="row">
+			<div class="col-md-4">
+				<form [formGroup]="chartForm">
+					<div class="form-group">
+						<label for="visualization_type">{{ 'VISUALIZATION_TYPE' | translate }}</label>
+						<select class="form-control input-sm" name="visualization_type"
+							formControlName="visualizationType" required>
+							<option *ngFor="let vType of visualizationTypes" [value]="vType.id">{{ vType.name | translate }}
+							</option>
+						</select>
+					</div>
 
+					<div class="form-group">
+						<label for="visualization_name">{{ 'VISUALIZATION_NAME' | translate }}</label>
+						<input type="text" class="form-control input-sm" name="visualization_name"
+							formControlName="visualizationName" placeholder="Visualization Name" required>
+					</div>
+
+					<ul role="tablist" class="nav nav-tabs">
+						<li role="presentation" class="active">
+							<a href="#general-tab" data-toggle="tab">{{ 'GENERAL' | translate }}</a>
+						</li>
+						<li>
+							<a href="#xaxis-tab" data-toggle="tab">{{ 'X-AXIS' | translate }}</a>
+						</li>
+						<li>
+							<a href="#yaxis-tab" data-toggle="tab">{{ 'Y-AXIS' | translate }}</a>
+						</li>
+						<li>
+							<a href="#series-tab" data-toggle="tab">{{ 'SERIES' | translate }}</a>
+						</li>
+					</ul>
+
+					<div class="tab-content">
+						<div id="general-tab" class="tab-pane active" formGroupName="general">
+							<div class="form-group">
+								<label for="chart_type">{{ 'CHART_TYPE' | translate }}</label>
+								<select class="form-control input-sm" formControlName="chartType" required>
+									<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="x_column">{{ 'X_COLUMN' | translate }}</label>
+								<select class="form-control input-sm" formControlName="xColumn"
+									(change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
+									<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="y_columns">{{ 'Y_COLUMNS' | translate }}</label>
+								<select class="form-control input-sm" multiple formControlName="yColumns" required>
+									<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
+								</select>
+							</div>
+							<!-- <div class="form-group">
+								<label for="exampleInputEmail1">Group By </label>
+								<select class="form-control input-sm" formControlName="groupBy">
+									<option value=""></option>
+									<option *ngFor="let col of groupByColumns" [value]="col">{{ col }}</option>
+								</select>
+							</div> -->
+							<div class="form-group input-sm">
+								<div>
+									<span><input type="checkbox" formControlName="showLegends"> {{ 'SHOW_LEDGENDS' | translate }}</span>
+								</div>
+							</div>
+						</div>
+						<div id="xaxis-tab" class="tab-pane" formGroupName="xaxis">
+							<div class="form-group">
+								<label for="exampleInputEmail1">{{ 'SCALE' | translate }}</label>
+								<select class="form-control input-sm" formControlName="scale">
+									<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">{{ 'NAME' | translate }}</label>
+								<input type="text" class="form-control input-sm" formControlName="name"
+									placeholder="Name">
+							</div>
+							<div class="form-group">
+								<div>
+									<span><input type="checkbox" formControlName="sortValue"> {{ 'SORT_VALUE' | translate }}</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div>
+									<span><input type="checkbox" formControlName="reverseOrder"> {{ 'REVERSE_ORDER' | translate }}</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div>
+									<span><input type="checkbox" formControlName="showLabels"> {{ 'SHOW_LABELS' | translate }}</span>
+								</div>
+							</div>
+						</div>
+						<div id="yaxis-tab" class="tab-pane" formGroupName="yaxis">
+							<div class="form-group">
+								<label for="yaxis_name">{{ 'SCALE' | translate }}</label>
+								<select class="form-control input-sm" formControlName="scale">
+									<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name | translate }}
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">{{ 'NAME' | translate }}</label>
+								<input type="text" class="form-control input-sm" formControlName="name"
+									placeholder="Name">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">{{ 'MIN_VALUE' | translate }}</label>
+								<input type="text" class="form-control input-sm" formControlName="minValue"
+									placeholder="Min Value">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputEmail1">{{ 'MAX_VALUE' | translate }}</label>
+								<input type="text" class="form-control input-sm" formControlName="maxValue"
+									placeholder="Max Value">
+							</div>
+							<div class="form-group">
+								<div>
+									<span>
+										<input type="checkbox" formControlName="sortValue"> {{ 'SORT_VALUE' | translate }}
+									</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div>
+									<span>
+										<input type="checkbox" formControlName="reverseOrder"> {{ 'REVERSE_ORDER' | translate }}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div id="series-tab" class="tab-pane" formGroupName="series">
+							<div class="form-group">
+								<table class="table table-condensed table-hover">
+									<tr>
+										<th>{{ 'LABEL' | translate }}</th>
+										<th *ngIf="chartType.value != 'pie'">{{ 'TYPE' | translate }}</th>
+										<th *ngIf="chartType.value != 'pie'">{{ 'COLOR' | translate }}</th>
+									</tr>
+									<tbody>
+										<tr *ngFor="let elem of series.controls; let i = index"
+											column-name="elem.label" [formGroup]="elem">
+											<td>
+												<input class="form-control input-sm" formControlName="label"
+													[value]="elem.controls.label.value"
+													(change)="onSeriesLabelChange(data[i], $event)">
+											</td>
+											<td *ngIf="chartType.value != 'pie'">
+												<select class="form-control input-sm" formControlName="type"
+													(change)="onSeriesTypeChange(data[i], $event)">
+													<option *ngFor="let cType of chartTypes" [value]="cType.id">
+														{{ cType.name }}</option>
+												</select>
+											</td>
+											<td *ngIf="chartType.value != 'pie'">
+												<select class="form-control input-sm" formControlName="color"
+													(change)="onSeriesColorChange(data[i], $event)">
+													<option *ngFor="let cType of colorTypes" [value]="cType.id">
+														{{ cType.name }}</option>
+												</select>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- <div>
+						{{ getValue() }}
+					</div>
+					<hr>Layout
+					<div>
+						{{ getLayout() }}
+					</div>
+					<hr>PlotlyConfig
+					<div>
+						{{ getPlotlyConfig() }}
+					</div>
+					<hr>data
+					<div>
+						{{ getData() }}
+					</div> -->
+				</form>
+			</div>
+			<div class="col-md-8">
+				<plotly-plot [data]="data" [config]="plotlyConfig" [layout]="layout" [useResizeHandler]="true"
+					[style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyChartContainer>
+				</plotly-plot>
+			</div>
+			</div>
 		</div>
 	</div>
 </div>

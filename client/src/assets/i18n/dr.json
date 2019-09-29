@@ -105,5 +105,26 @@
   "ANALYZE_DATA": "تحلیل",
 
   "DOCS": "Documentation",
-  "SETTINGS": "Settings"
+  "SETTINGS": "Settings",
+
+  "VISUALIZATION_EIDTOR": "تنظیمات طراحی",
+  "VISUALIZATION_TYPE": "نوع طراحی",
+  "VISUALIZATION_NAME": "نام طراحی",
+  "GENERAL": "عمومی",
+  "CHART_TYPE": "نوع چارت",
+  "X_COLUMN": "ستون X",
+  "Y_COLUMNS": "Y ستون ها",
+  "SHOW_LEDGENDS": "نمایش اختصارات",
+  "SCALE": "مقیاس",
+  "MIN_VALUE": "حداقل",
+  "MAX_VALUE": "حداکثر",
+  "SORT_VALUE": "مرتب سازی",
+  "REVERSE_ORDER": "ترتیب معکوس",
+  "LABEL": "علامت",
+  "COLOR": "رنگ",
+  "TYPE": "نوع",
+
+  "X-AXIS": "محور X",
+  "Y-AXIS": "محور Y",
+  "SERIES": "سلسله"
 }
