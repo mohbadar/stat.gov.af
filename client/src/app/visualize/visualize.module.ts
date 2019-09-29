@@ -5,13 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VisualizeComponent } from 'app/visualize/visualize.component';
 
 import { PlotlyModule } from 'angular-plotly.js';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
 	imports: [
 		CommonModule,
 		FormsModule,
 		ReactiveFormsModule,
-		PlotlyModule
+		PlotlyModule,
+		TranslateModule
 	],
 	declarations: [
 		VisualizeComponent

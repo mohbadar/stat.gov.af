@@ -7,14 +7,14 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/dashboard']">stat.gov.af</a>
+            <a class="navbar-brand" routerLinkActive="active" [routerLink]="['/']">stat.gov.af</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a routerLinkActive="active" [routerLink]="['/']">
-                        <i class="fa fa-tachometer" aria-hidden="true"></i>
-                        <p>Dashboard</p>
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <p>{{ 'HOME' | translate }}</p>
                     </a>
                 </li>
                 <!-- <li>

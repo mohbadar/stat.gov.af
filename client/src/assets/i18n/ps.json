@@ -1,9 +1,10 @@
 {
   "MAIN": "Main",
-  "HOME": "کور پا‌‌‌ڼه",
+  "HOME": "کور پاڼه",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "‌ډاشبورد",
+  "DASHBOARDS": "ډاشبورد",
   "SEARCH_MESSAGE": "پلټنه",
+  "ADMINISTRATION": "مدیریت",
 
   "APPS": "Apps",
   "CALENDAR": "Calendar",
@@ -129,5 +130,26 @@
     "oAria": {
         "sSortAscending":  ": په صعودي ډول مرتبول",
         "sSortDescending": ": په نزولي ډول مرتبول"
-    }
+    },
+
+  "VISUALIZATION_EIDTOR": "ډیزاین تنظیمات",
+  "VISUALIZATION_TYPE": "د ډیزاین ډول",
+  "VISUALIZATION_NAME": "د ډیزاین نوم",
+  "GENERAL": "عمومي",
+  "CHART_TYPE": "د چارت ډول",
+  "X_COLUMN": "X کالم",
+  "Y_COLUMNS": "Y کالمونه",
+  "SHOW_LEDGENDS": "کنډکړي ښودل",
+  "SCALE": "اندازه",
+  "MIN_VALUE": "لږترلږه قیمت",
+  "MAX_VALUE": "اعظمي قیمت",
+  "SORT_VALUE": "ترتیب کول",
+  "REVERSE_ORDER": "معکوس ترتیب",
+  "LABEL": "لیبل",
+  "COLOR": "رنګ",
+  "TYPE": "ډول",
+
+  "X-AXIS": "محور X د",
+  "Y-AXIS": "محور Y د",
+  "SERIES": "لړۍ"
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer, ViewChild, ElementRef, Directive } from '@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { AuthService } from 'app/services/auth.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare var $: any;
 
@@ -20,7 +21,7 @@ export class PagesnavbarComponent implements OnInit{
     @ViewChild('pagesnavbar-cmp' , { static: false }) button;
 
     constructor(location:Location, private renderer : Renderer, private element : ElementRef,
-        public authService: AuthService) {
+        public authService: AuthService, public translate: TranslateService) {
         this.location = location;
         this.nativeElement = element.nativeElement;
         this.sidebarVisible = false;

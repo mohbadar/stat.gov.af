@@ -2,7 +2,7 @@
   "MAIN": "Main",
   "HOME": "Home",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "‌Dashboard",
+  "DASHBOARDS": "Dashboard",
   "SEARCH_MESSAGE": "What are you looking for?",
 
   "APPS": "Apps",
@@ -31,7 +31,7 @@
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
 
-
+  "ADMINISTRATION": "Admin",
   "DIALOG": "Dialog",
   "DRAWER": "Drawer",
   "EXPANSION": "Expansion",
@@ -107,6 +107,28 @@
   "SELECT_PLACEHOLDER":"Please select dataset from Data.gov.af",
   "RESET":"Reset",
   "ADD_VISUALIZATION":"+ New Visualization",
-  "EXCEL_EXPORT":"Excel export"
+  "EXCEL_EXPORT":"Excel export",
 
+  "SETTINGS": "Settings",
+
+  "VISUALIZATION_EIDTOR": "Visualization Editor",
+  "VISUALIZATION_TYPE": "Visualization Type",
+  "VISUALIZATION_NAME": "Visualization Name",
+  "GENERAL": "General",
+  "CHART_TYPE": "Chart Type",
+  "X_COLUMN": "X Column",
+  "Y_COLUMNS": "Y Columns",
+  "SHOW_LEDGENDS": "Show Ledgends",
+  "SCALE": "Scale",
+  "MIN_VALUE": "Min Value",
+  "MAX_VALUE": "Max Value",
+  "SORT_VALUE": "Sort Value",
+  "REVERSE_ORDER": "Reverse Order",
+  "LABEL": "Label",
+  "COLOR": "Color",
+  "TYPE": "Type",
+
+  "X-AXIS": "X-Axis",
+  "Y-AXIS": "Y-Axis",
+  "SERIES": "Series"
 }
