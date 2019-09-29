@@ -42,6 +42,21 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		'pagingType': 'full_numbers',
 		'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
 		'scrollX': true,
+		dom: 'Bfrtip',
+     	 // Configure the buttons
+		buttons: [
+			{
+				extend: 'excel',
+				text: 'Export excel',
+				className: '',
+				filename: "Stat.gov.af",
+				exportOptions: {
+				  modifier: {
+					page: 'all'
+				  }
+				}
+			}
+		]
 		// responsive: true,
 		// language: this.datatables.selectedJsonFile
 	};
@@ -487,6 +502,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			this.filterValue = '';
 
 			this.workBookName = e.data[0].text;
+			this.dtOptions.buttons[0].filename = this.workBookName;
 
 			this.datasouceQueryService.getResourceData(this.selected).subscribe((resourceData) => {
 				this.resourceId = resourceData.result.resource_id;
@@ -541,7 +557,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 						const title = $(this).text();
 						$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
 					});
-
 					this.dTable = $('#datatables').DataTable(this.dtOptions);
 					this.initializeTable();
 				}
