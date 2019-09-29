@@ -26,6 +26,18 @@ export class NavbarComponent implements OnInit {
 	private toggleButton;
 	private sidebarVisible: boolean;
 	public dashboardSlugs = [];
+	public administrationOpts = [
+		{
+			"name": "User Management",
+			"path": "/node/user-management",
+			"slug": "UM"
+		},
+		{
+			"name": "Role Management",
+			"path": "/node/role-management",
+			"slug": "RM"
+		},
+	];
 	public languageBadge;
 
 	public availLangs = [

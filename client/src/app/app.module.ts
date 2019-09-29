@@ -68,7 +68,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { HomeComponent } from './home/home.component';
 
 
-
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -76,6 +75,7 @@ import { HomeComponent } from './home/home.component';
 		AuthLayoutComponent,
 		DefaultLayoutComponent,
 		HomeComponent,
+
 		// VisualizeComponent,
 		// DashboardComponent
 	],
