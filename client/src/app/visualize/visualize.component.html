@@ -34,13 +34,13 @@
 							<a href="#general-tab" data-toggle="tab">{{ 'GENERAL' | translate }}</a>
 						</li>
 						<li>
-							<a href="#xaxis-tab" data-toggle="tab">X-Axis</a>
+							<a href="#xaxis-tab" data-toggle="tab">{{ 'X-AXIS' | translate }}</a>
 						</li>
 						<li>
-							<a href="#yaxis-tab" data-toggle="tab">Y-Axis</a>
+							<a href="#yaxis-tab" data-toggle="tab">{{ 'Y-AXIS' | translate }}</a>
 						</li>
 						<li>
-							<a href="#series-tab" data-toggle="tab">Series</a>
+							<a href="#series-tab" data-toggle="tab">{{ 'SERIES' | translate }}</a>
 						</li>
 					</ul>
 
@@ -81,31 +81,30 @@
 						</div>
 						<div id="xaxis-tab" class="tab-pane" formGroupName="xaxis">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Scale</label>
+								<label for="exampleInputEmail1">{{ 'SCALE' | translate }}</label>
 								<select class="form-control input-sm" formControlName="scale">
 									<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
 									</option>
 								</select>
 							</div>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Name</label>
+								<label for="exampleInputEmail1">{{ 'NAME' | translate }}</label>
 								<input type="text" class="form-control input-sm" formControlName="name"
 									placeholder="Name">
 							</div>
 							<div class="form-group">
 								<div>
-									<span><input type="checkbox" formControlName="sortValue"> Sort Value</span>
+									<span><input type="checkbox" formControlName="sortValue"> {{ 'SORT_VALUE' | translate }}</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<div>
-									<span><input type="checkbox" formControlName="reverseOrder"> Reverse
-										Order</span>
+									<span><input type="checkbox" formControlName="reverseOrder"> {{ 'REVERSE_ORDER' | translate }}</span>
 								</div>
 							</div>
 							<div class="form-group">
 								<div>
-									<span><input type="checkbox" formControlName="showLabels"> Show Labels</span>
+									<span><input type="checkbox" formControlName="showLabels"> {{ 'SHOW_LABELS' | translate }}</span>
 								</div>
 							</div>
 						</div>

@@ -120,5 +120,9 @@
   "REVERSE_ORDER": "Reverse Order",
   "LABEL": "Label",
   "COLOR": "Color",
-  "TYPE": "Type"
+  "TYPE": "Type",
+
+  "X-AXIS": "X-Axis",
+  "Y-AXIS": "Y-Axis",
+  "SERIES": "Series"
 }
