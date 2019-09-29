@@ -338,8 +338,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		{
 			const query = new DatasourceQuery;
 			query.name = this.wSheetName;
-			query.config= stringify(this.columnDataTypes);
-			query.data = stringify(this.data);
+			query.config= JSON.stringify(this.columnDataTypes);
+			query.data = JSON.stringify(this.data);
 	
 			console.log("Sended Data: => ", query);
 	
