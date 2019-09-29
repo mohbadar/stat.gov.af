@@ -8,6 +8,9 @@ import { RoleRoutes } from './role.routing';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 
 import { RoleComponent } from './role.component';
+import { CreateRoleComponent } from './dialogs/create-role/create-role.component';
+import { EditRoleComponent } from './dialogs/edit-role/edit-role.component';
+import { ViewRoleComponent } from './dialogs/view-role/view-role.component';
 
 @NgModule({
   imports: [
@@ -22,6 +25,9 @@ import { RoleComponent } from './role.component';
   ],
   declarations: [
     RoleComponent,
+    CreateRoleComponent,
+    EditRoleComponent,
+    ViewRoleComponent,
   ]
 })
 export class RoleModule { }

@@ -150,7 +150,7 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 		if (!this.globals.principal.hasAuthority(['ROLE_CREATE', 'ADMIN'])) {
 			return false;
 		}
-		this.permissionService.getPermissionsList().subscribe((permissions) => {
+		this.permissionService.loadAllPermissions().subscribe((permissions) => {
 			this.allPermissionsData = permissions;
 			console.log('all permissions are:', this.allPermissionsData);
 			this.loading = false;
@@ -165,11 +165,13 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 		if (!this.viewLoading) {
 			this.viewLoading = true;
 
-			if (!this.globals.principal.hasAuthority(['ADMIN', 'ROLE_VIEW'])) {
-				return false;
-			}
-			this.roleService.getRole(recordId).subscribe(data => {
-				this.viewLoading = false;
+			// if (!this.globals.principal.hasAuthority(['ADMIN', 'ROLE_VIEW'])) {
+			// 	return false;
+			// }
+			this.roleService.loadRole(recordId).subscribe(data => {
+        console.log("Role Data", data);
+        
+        this.viewLoading = false;
 
 				this.roleData = data;
 				$('#showModal').modal();
@@ -187,7 +189,7 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 				return false;
 			}
 
-			this.roleService.getRole(recordId).subscribe(data => {
+			this.roleService.loadRole(recordId).subscribe(data => {
 				this.editLoading = false;
 				// console.log('the role coming is:' + JSON.stringify(data));
 				this.roleData = data;
