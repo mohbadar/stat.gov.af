@@ -1,17 +1,15 @@
 <div class="query-wrapper container-fluid" style="font-size: smaller;">
-	<div class="action-bar">
-		<div class="card bg-transparent no-shadow">
-			<div class="card-body">
-				<button class="btn btn-social btn-fill btn-youtube shadowed" (click)="close()">
-					Back
-				</button>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-md-4">
 			<div class="card">
-				<div class="header">Visualization Editor</div>
+				<div class="content">
+					<button class="btn btn-social btn-fill btn-youtube shadowed" (click)="close()">
+						Back
+					</button>
+				</div>
+				<div class="header">
+					Visualization Editor
+				</div>
 				<div class="content">
 					<form [formGroup]="chartForm">
 						<div class="form-group">
