@@ -12,11 +12,11 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  loadAllRoles(): Observable<any> {
+  loadAllUsers(): Observable<any> {
     return this.httpClient.get(`${ROLE_BASE_URL}/all`);
   }
 
-  loadRole(id:string): Observable<any>
+  loadUser(id:string): Observable<any>
   {
     return this.httpClient.get(`${ROLE_BASE_URL}/one/${id}`);
   }
