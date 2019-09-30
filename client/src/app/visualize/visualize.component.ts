@@ -4,6 +4,7 @@ import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from 'app/services/auth.service';
+import { isNumber, isBoolean } from 'util';
 
 declare var $: any;
 
@@ -82,7 +83,7 @@ export class VisualizeComponent implements OnInit {
 	];
 	scaleTypes = [
 		{ id: "auto_detect", name: "Auto Detect" },
-		{ id: "datetime", name: "Datetime" },
+		{ id: "date", name: "Datetime" },
 		{ id: "linear", name: "Linear" },
 		{ id: "log", name: "Logarithmic" },
 		{ id: "category", name: "Category" }
@@ -153,8 +154,10 @@ export class VisualizeComponent implements OnInit {
 	set series(seriesArray: FormArray) { this.chartForm.setControl("series", seriesArray); }
 
 	get general() { return this.chartForm.get("general") }
+	get xaxis() { return this.chartForm.get("xaxis") }
+	get yaxis() { return this.chartForm.get("xaxis") }
 
-	get chartType() { return this.chartForm.get("general").get("chartType"); }
+	get generalChartType() { return this.chartForm.get("general").get("chartType"); }
 
 	get xColumn() { return this.chartForm.get("general").get("xColumn"); }
 	get yColumns() { return this.chartForm.get("general").get("yColumns"); }
@@ -297,12 +300,50 @@ export class VisualizeComponent implements OnInit {
 			element.x = this.xAxisData;
 		}
 
+		//set the scale based on datatype, for text column the scale should be category
+		if(this.identifyColumnDataType($event.currentTarget.value) == "string") {
+			this.layout.xaxis.type = 'category';
+			this.xaxis.get("scale").setValue('category');
+		} else {
+			// this.layout.xaxis.type = 'category';
+			this.xaxis.get("scale").setValue('category');
+		}
+
 		this.yColumnsList = this.columns.filter(item => item !== $event.currentTarget.value);
 		let yColumnsArray = this.chartForm.get("general").get("yColumns").value;
 		if (yColumnsArray.length > 0) {
 			this.chartForm.get("general").get("yColumns").setValue(yColumnsArray.filter(item => item !== $event.currentTarget.value));
 			this.addSeries(this.yColumns.value);
 		}
+	}
+
+	onChangeYaxisColumn($event) {
+
+	}
+
+	identifyColumnDataType(columnName) {
+		let columnData = this.unpack(this.rows, this.columns.indexOf(columnName));
+		let loopIterations = columnData.length;
+		if(loopIterations > 5) {
+			loopIterations = 5;
+		}
+		for (let index = 0; index < columnData.length; index++) {
+			const element = columnData[index];
+			if(element == undefined) {
+				continue;
+			} else if(element == null) {
+				continue;
+			} else if(element == "") {
+				continue;
+			} else {
+				let numFlag = isNumber(element);
+				if(!numFlag) {
+					return "string";
+				}
+				return "int";
+			}
+		}
+		return null;
 	}
 
 	redraw() {
@@ -335,7 +376,7 @@ export class VisualizeComponent implements OnInit {
 					})
 				);
 
-				if(this.chartType.value == 'pie') {
+				if(this.generalChartType.value == 'pie') {
 					newData[index++] = {
 						values: this.unpack(this.rows, this.columns.indexOf(item)),
 						labels: this.xAxisData,
