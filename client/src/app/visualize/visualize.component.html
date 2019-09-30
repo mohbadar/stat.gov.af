@@ -62,7 +62,8 @@
 							</div>
 							<div class="form-group">
 								<label for="y_columns">{{ 'Y_COLUMNS' | translate }}</label>
-								<select class="form-control input-sm" multiple formControlName="yColumns" required>
+								<select class="form-control input-sm" multiple formControlName="yColumns" 
+									(change)="onChangeYaxisColumn($event)" required>
 									<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
 								</select>
 							</div>
@@ -151,8 +152,8 @@
 								<table class="table table-condensed table-hover">
 									<tr>
 										<th>{{ 'LABEL' | translate }}</th>
-										<th *ngIf="chartType.value != 'pie'">{{ 'TYPE' | translate }}</th>
-										<th *ngIf="chartType.value != 'pie'">{{ 'COLOR' | translate }}</th>
+										<th *ngIf="generalChartType.value != 'pie'">{{ 'TYPE' | translate }}</th>
+										<th *ngIf="generalChartType.value != 'pie'">{{ 'COLOR' | translate }}</th>
 									</tr>
 									<tbody>
 										<tr *ngFor="let elem of series.controls; let i = index"
@@ -162,14 +163,14 @@
 													[value]="elem.controls.label.value"
 													(change)="onSeriesLabelChange(data[i], $event)">
 											</td>
-											<td *ngIf="chartType.value != 'pie'">
+											<td *ngIf="generalChartType.value != 'pie'">
 												<select class="form-control input-sm" formControlName="type"
 													(change)="onSeriesTypeChange(data[i], $event)">
 													<option *ngFor="let cType of chartTypes" [value]="cType.id">
 														{{ cType.name }}</option>
 												</select>
 											</td>
-											<td *ngIf="chartType.value != 'pie'">
+											<td *ngIf="generalChartType.value != 'pie'">
 												<select class="form-control input-sm" formControlName="color"
 													(change)="onSeriesColorChange(data[i], $event)">
 													<option *ngFor="let cType of colorTypes" [value]="cType.id">

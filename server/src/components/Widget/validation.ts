@@ -29,9 +29,8 @@ class WidgetValidation extends Validation {
             name: Joi.string().required(),
             config: Joi.string().required(),
             user: Joi.string().required(),
-            query: Joi.string().allow(),
-
-
+            data: Joi.string().required(),
+            layout: Joi.string().required(),
         });
 
         return Joi.validate(params, schema);

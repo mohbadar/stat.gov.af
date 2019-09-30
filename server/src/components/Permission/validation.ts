@@ -27,7 +27,7 @@ class PermissionValidation extends Validation {
     ): Joi.ValidationResult < IPermissionModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
-            desctription: Joi.string().allow(),
+            description: Joi.string().allow(),
             isActive: Joi.string().allow(),
 
         });
