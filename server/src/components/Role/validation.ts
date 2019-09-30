@@ -27,7 +27,7 @@ class RoleValidation extends Validation {
     ): Joi.ValidationResult < IRoleModel > {
         const schema: Joi.Schema = Joi.object().keys({
             name: Joi.string().required(),
-            desctription: Joi.string().allow(),
+            description: Joi.string().allow(),
             isActive: Joi.string().allow(),
             permissions: Joi.string().allow()
 

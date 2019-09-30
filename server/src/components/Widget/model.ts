@@ -12,8 +12,9 @@ import { NextFunction } from 'express-serve-static-core';
 export interface IWidgetModel extends Document {
     name: string;
     user: string;
-    config: Object; 
-    query: string;
+    config: Object;
+    data: Object;
+    layout: Object;
     createdAt: string;
 }
 
@@ -34,11 +35,6 @@ const WidgetSchema: Schema = new Schema({
     },
 
 
-    query: {
-        ref: 'QueryModel',
-        type: Schema.Types.ObjectId,
-    },
-
     data: { 
         type: String, 
         lowercase: true, 
@@ -55,6 +51,13 @@ const WidgetSchema: Schema = new Schema({
         index: false 
     },
 
+    layout: {
+        type: Object,
+        required: false,
+        trim: false,
+        index: false
+    },
+
     createdAt: {
         type: Date,
         default: Date.now 
@@ -68,7 +71,11 @@ const WidgetSchema: Schema = new Schema({
 
     try {
         const configJSON = JSON.parse(widget.config);
+        const layoutJSON  = JSON.parse(widget.layout);
+        const dataJSON = JSON.parse(widget.data)
         widget.config = configJSON;
+        widget.data = dataJSON;
+        widget.layout = layoutJSON;
         next();
     } catch (error) {
         return next(error);

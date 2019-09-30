@@ -20,26 +20,18 @@ export interface IPermissionModel extends Document {
 const PermissionSchema: Schema = new Schema({
     name: { 
         type: String, 
-        lowercase: true, 
-        required: true, 
+        required: true,
         trim: true, 
         index: true 
     },
     description: { 
-        type: String, 
-        lowercase: true, 
-        required: true, 
-        trim: true, 
-        unique: true, 
-        index: true 
+        type: String
     },
     isActive: {
         type: Boolean,
-        lowercase: true,
-        required: true,
-        unique: true,
-        trim: true,
-        index: true
+        required: false,
+        trim: false,
+        index: false
     }
 }, {
     collection: 'PermissionCollection',
