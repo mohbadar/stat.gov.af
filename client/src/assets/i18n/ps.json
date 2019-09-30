@@ -1,9 +1,10 @@
 {
   "MAIN": "Main",
-  "HOME": "کور پا‌‌‌ڼه",
+  "HOME": "کور پاڼه",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "‌ډاشبورد",
+  "DASHBOARDS": "ډاشبورد",
   "SEARCH_MESSAGE": "پلټنه",
+  "ADMINISTRATION": "مدیریت",
 
   "APPS": "Apps",
   "CALENDAR": "Calendar",
@@ -103,7 +104,33 @@
   "ANALYZE_DATA": "تحلیل",
   
   "DOCS": "Documentation",
-  "SETTINGS": "Settings",
+  "SETTINGS": "Settings" ,
+
+  "SELECT_PLACEHOLDER":"مهرباني وکړئ د Data.gov.af څخه ډاټاسیټ غوره کړئ",
+  "RESET":"بیا تنظیمول",
+  "ADD_VISUALIZATION":"+ نوې لید",
+  "EXCEL_EXPORT":"اکسل صادرول",
+  "sEmptyTable":     "جدول خالي دی",
+    "sInfo":           "د _START_ څخه تر _END_ پوري، له ټولو _TOTAL_ څخه",
+    "sInfoEmpty":      "د 0 څخه تر 0 پوري، له ټولو 0 څخه",
+    "sInfoFiltered":   "(لټول سوي له ټولو _MAX_ څخه)",
+    "sInfoPostFix":    "",
+    "sInfoThousands":  ",",
+    "sLengthMenu":     "_MENU_ کتاره وښايه",
+    "sLoadingRecords": "منتظر اوسئ...",
+    "sProcessing":     "منتظر اوسئ...",
+    "sSearch":         "لټون:",
+    "sZeroRecords":    "د لټون مطابق معلومات و نه موندل سول",
+    "oPaginate": {
+        "sFirst":    "لومړۍ",
+        "sLast":     "وروستۍ",
+        "sNext":     "بله",
+        "sPrevious": "شاته"
+    },
+    "oAria": {
+        "sSortAscending":  ": په صعودي ډول مرتبول",
+        "sSortDescending": ": په نزولي ډول مرتبول"
+    },
 
   "VISUALIZATION_EIDTOR": "ډیزاین تنظیمات",
   "VISUALIZATION_TYPE": "د ډیزاین ډول",

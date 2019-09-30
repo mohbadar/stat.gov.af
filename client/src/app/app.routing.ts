@@ -33,7 +33,27 @@ export const AppRoutes: Routes = [{
 		// { path: 'visualize', component: VisualizeComponent},
 		{ path: '', redirectTo: 'home', pathMatch: 'full' },
 	]
-}, {
+}
+, {
+	path: 'node',
+	component: PublicLayoutComponent,
+	children: [
+		{
+			path: 'user-management', 
+			loadChildren: './admin/node/user/user.module#UserModule'
+			// component: DashboardComponent
+		},
+
+
+		{
+			path: 'role-management', 
+			loadChildren: './admin/node/role/role.module#RoleModule'
+			// component: DashboardComponent
+		},
+
+	]
+},
+{
 	path: 'widgets/:slug',
 	component: DefaultLayoutComponent,
 	children: [

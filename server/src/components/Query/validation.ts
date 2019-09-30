@@ -30,6 +30,7 @@ class QueryValidation extends Validation {
             data: Joi.string().required(),
             config: Joi.string().allow(),
             user: Joi.string().allow(),
+            uuid: Joi.string().allow()
 
         });
 

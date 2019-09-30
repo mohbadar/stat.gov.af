@@ -5,6 +5,7 @@ import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
 import {Router} from "@angular/router"
 import { Select2OptionData } from 'ng2-select2';
+import { TranslateService } from '@ngx-translate/core';
 
 import { empty } from 'rxjs';
 import { AuthService } from 'app/services/auth.service';
@@ -39,6 +40,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	filterAction;
 	dTable;
 	resourceId: string;
+	
 	dtOptions = {
 		'pagingType': 'full_numbers',
 		'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
@@ -48,7 +50,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		buttons: [
 			{
 				extend: 'excel',
-				text: 'Export excel',
+				text: this.translate.instant('EXCEL_EXPORT'),
 				className: '',
 				filename: "Stat.gov.af",
 				exportOptions: {
@@ -57,15 +59,15 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				  }
 				}
 			}
-		]
-		// responsive: true,
+		],
+		 responsive: true,
 		// language: this.datatables.selectedJsonFile
 	};
 	isLoading: boolean;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
-		public authService: AuthService) { }
+		public authService: AuthService , private translate: TranslateService) { }
 
 	ngOnInit() {
 		// document.getElementById("selectDataset").style.display = 'none';
@@ -451,9 +453,9 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		if (this.data) {
 			const query = new DatasourceQuery;
 			query.name = this.workBookName;
-			query.config = stringify(configData);
-			query.data = stringify(fData);
-			query.uuid = this.resourceId;
+			query.config = JSON.stringify(configData);
+			query.data = JSON.stringify(fData);
+			query.uuid = JSON.stringify(this.resourceId);
 			console.log("Sended Data: => ", query);
 			this.datasouceQueryService.createQuery(query).subscribe((res) => {
 				console.log("response: ", res);
@@ -506,6 +508,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			this.dtOptions.buttons[0].filename = this.workBookName;
 
 			this.datasouceQueryService.getResourceData(this.selected).subscribe((resourceData) => {
+				console.log("resourceData",resourceData);
+				
 				this.resourceId = resourceData.result.resource_id;
 				resourceData.result.fields.forEach((element) => {
 					const obj = {
@@ -527,6 +531,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					arr.push(val);
 				});
 				this.data = arr;
+				
 				if (this.data[0][0] == null) {
 
 					this.data[0][0] = undefined;

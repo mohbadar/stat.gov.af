@@ -12,7 +12,7 @@ import { PermissionComponent } from './permission.component';
   imports: [
     CommonModule,
     FormsModule,
-    TranslateModule,
+    TranslateModule, 
     RouterModule.forChild(PermissionRoutes),
   ],
   declarations: [
