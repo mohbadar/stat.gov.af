@@ -5,6 +5,7 @@ import { DashboardService } from '../_helpers/dashboard.service';
 import { Globals } from '../_helpers/globals';
 import { AuthService } from 'app/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { DatatablesService } from '../../services/datatables.service';
 
 var misc: any = {
 	navbar_menu_visible: 0,
@@ -56,7 +57,8 @@ export class NavbarComponent implements OnInit {
 		private globals: Globals,
 		public authService: AuthService,
 		private router: Router,
-		public translate: TranslateService
+		public translate: TranslateService,
+		private datatables: DatatablesService
 	) {
 		this.location = location;
 		this.nativeElement = element.nativeElement;
@@ -94,6 +96,8 @@ export class NavbarComponent implements OnInit {
 			}
 			this.languageBadge = event.lang;
 			this.globals.lang = this.languageBadge;
+			this.datatables.callServiceCmpMethod(event.lang);
+
 		});
 
 

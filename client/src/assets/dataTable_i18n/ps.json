@@ -1,23 +1,23 @@
 {
-    "sEmptyTable": "په جدول کې هیڅ معلومات نشته",
-    "sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
-    "sInfoEmpty": "Showing 0 to 0 of 0 entries",
-    "sInfoFiltered": "(filtered from _MAX_ total entries)",
-    "sInfoPostFix": "",
-    "sInfoThousands": ",",
-    "sLengthMenu": "Show _MENU_ entries",
-    "sLoadingRecords": "Loading...",
-    "sProcessing": "Processing...",
-    "sSearch": "پلټنه:",
-    "sZeroRecords": "No matching records found",
+    "sEmptyTable":     "جدول خالي دی",
+    "sInfo":           "د _START_ څخه تر _END_ پوري، له ټولو _TOTAL_ څخه",
+    "sInfoEmpty":      "د 0 څخه تر 0 پوري، له ټولو 0 څخه",
+    "sInfoFiltered":   "(لټول سوي له ټولو _MAX_ څخه)",
+    "sInfoPostFix":    "",
+    "sInfoThousands":  ",",
+    "sLengthMenu":     "_MENU_ کتاره وښايه",
+    "sLoadingRecords": "منتظر اوسئ...",
+    "sProcessing":     "منتظر اوسئ...",
+    "sSearch":         "لټون:",
+    "sZeroRecords":    "د لټون مطابق معلومات و نه موندل سول",
     "oPaginate": {
-        "sFirst": "اول",
-        "sLast": "آخری",
-        "sNext": "راتلونکی",
-        "sPrevious": "ورستئ"
+        "sFirst":    "لومړۍ",
+        "sLast":     "وروستۍ",
+        "sNext":     "بله",
+        "sPrevious": "شاته"
     },
     "oAria": {
-        "sSortAscending": ": activate to sort column ascending",
-        "sSortDescending": ": activate to sort column descending"
+        "sSortAscending":  ": په صعودي ډول مرتبول",
+        "sSortDescending": ": په نزولي ډول مرتبول"
     }
 }

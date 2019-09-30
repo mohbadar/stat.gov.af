@@ -137,9 +137,12 @@
 					<hr />
 					<div class="content">
 						<div class="table-show">
-							<span class="table-label">Table</span>
+							<div class="inline-block ml-1 pull-left">
+								<span class="table-label">{{ 'TABLE_LABEL' | translate }}</span>
+							</div>
 							<a class="btn btn-sm visualize ml-1 pull-right" (click)="generateChart()"
-								data-toggle="modal" data-target="#newVisualization">{{ 'ADD_VISUALIZATION' | translate }}</a>
+								data-toggle="modal"
+								data-target="#newVisualization">{{ 'ADD_VISUALIZATION' | translate }}</a>
 
 							<div class="inline-block ml-1 pull-right" *ngIf="authService.isLoggedIn()">
 								<button class="btn btn-success btn-fill btn-sm " (click)="saveChanges()"
@@ -156,8 +159,8 @@
 							<div class="toolbar">
 								<!--        Here you can write extra buttons/actions for the toolbar              -->
 							</div>
-							<div class="fresh-datatables" *ngIf="data.length"><br>
-								<table id="datatables"  class="table table-striped table-no-bordered table-hover"
+							<div class="fresh-datatables" *ngIf="data.length"><br><br>
+								<table id="datatables" class="table table-striped table-no-bordered table-hover"
 									cellspacing="0" width="100%" style="width:100%">
 									<thead>
 										<tr>
@@ -193,7 +196,7 @@
 	</div>
 </div>
 
-<div class="query-wrapper container-fluid" *ngIf="isVisualize" >
+<div class="query-wrapper container-fluid" *ngIf="isVisualize">
 	<visualize [columns]="visualizationColumns" [rows]="visualizationRows" (closeFlag)="hideVisualization()">
 	</visualize>
 </div>
