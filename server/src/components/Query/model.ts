@@ -67,23 +67,24 @@ const QuerySchema: Schema = new Schema({
 }, {
     collection: 'QueryCollection',
     versionKey: false
-}).pre('save', async function (next: NextFunction): Promise < void > {
-    const query: any = this;
-
-    try {
-//         const configJSON = JSON.parse(query.config));
-//         const dataJSON = JSON.parse(query.data);
-//         const uuidJson = JSON.parse(query.uuid);
-//         query.config = configJSON;
-//         query.data = dataJSON;
-//         query.uuid = uuidJson;
-//         console.log("JSON DATA: ", query.config);
-        
-        next();
-    } catch (error) {
-        return next(error);
-    }
 });
+// .pre('save', async function (next: NextFunction): Promise < void > {
+//     const query: any = this;
+//
+//     try {
+// //         const configJSON = JSON.parse(query.config));
+// //         const dataJSON = JSON.parse(query.data);
+// //         const uuidJson = JSON.parse(query.uuid);
+// //         query.config = configJSON;
+// //         query.data = dataJSON;
+// //         query.uuid = uuidJson;
+// //         console.log("JSON DATA: ", query.config);
+//
+//         next();
+//     } catch (error) {
+//         return next(error);
+//     }
+// });
 
 
 

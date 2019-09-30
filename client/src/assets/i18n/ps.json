@@ -5,7 +5,8 @@
   "DASHBOARDS": "ډاشبورد",
   "SEARCH_MESSAGE": "پلټنه",
   "ADMINISTRATION": "مدیریت",
-
+  "USER_MANAGEMENT": "مدیریت حساب ها",
+  "ROLE_MANAGEMENT": "مدیریت رول ها",
   "APPS": "Apps",
   "CALENDAR": "Calendar",
   "MESSAGES": "Messages",
@@ -32,8 +33,6 @@
   "BOTTOMSHEET": "Bottom sheet",
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
-
-
   "DIALOG": "Dialog",
   "DRAWER": "Drawer",
   "EXPANSION": "Expansion",
@@ -60,7 +59,6 @@
   "UPLOAD": "Upload",
   "TREE": "Tree",
   "DND": "Drag and Drop",
-
   "DATAVIZ": "Data Visualization",
   "MAPS": "Maps",
   "GOOGLE": "Google",
@@ -74,12 +72,10 @@
   "SORTING": "Sorting",
   "PINNING": "Pinning",
   "CHARTS": "Charts",
-
   "OPEN": "پرانيستل",
   "DOWNLOAD_AS_CSV_FILE": "د CSV فایل په توګه ډاونلوډ کړئ",
   "DOWNLOAD_AS_EXCEL_FILE": "د Excel فایل په توګه کښته کړئ",
   "EMBED_SOMEWHERE": "په بل ځای کې خپور کړئ",
-
   "PAGES": "Pages",
   "ECOMMERCE": "Ecommerce",
   "PRODUCTS": "Products",
@@ -97,41 +93,16 @@
   "ERROR": "Error",
   "404": "404",
   "500": "500",
-
   "LOGIN": "د ننه کیدل",
   "LOGOUT": "وتل",
-
   "ANALYZE_DATA": "تحلیل",
-  
   "DOCS": "Documentation",
-  "SETTINGS": "Settings" ,
-
-  "SELECT_PLACEHOLDER":"مهرباني وکړئ د Data.gov.af څخه ډاټاسیټ غوره کړئ",
-  "RESET":"بیا تنظیمول",
-  "ADD_VISUALIZATION":"+ نوې لید",
-  "EXCEL_EXPORT":"اکسل صادرول",
-  "sEmptyTable":     "جدول خالي دی",
-    "sInfo":           "د _START_ څخه تر _END_ پوري، له ټولو _TOTAL_ څخه",
-    "sInfoEmpty":      "د 0 څخه تر 0 پوري، له ټولو 0 څخه",
-    "sInfoFiltered":   "(لټول سوي له ټولو _MAX_ څخه)",
-    "sInfoPostFix":    "",
-    "sInfoThousands":  ",",
-    "sLengthMenu":     "_MENU_ کتاره وښايه",
-    "sLoadingRecords": "منتظر اوسئ...",
-    "sProcessing":     "منتظر اوسئ...",
-    "sSearch":         "لټون:",
-    "sZeroRecords":    "د لټون مطابق معلومات و نه موندل سول",
-    "oPaginate": {
-        "sFirst":    "لومړۍ",
-        "sLast":     "وروستۍ",
-        "sNext":     "بله",
-        "sPrevious": "شاته"
-    },
-    "oAria": {
-        "sSortAscending":  ": په صعودي ډول مرتبول",
-        "sSortDescending": ": په نزولي ډول مرتبول"
-    },
-
+  "SETTINGS": "Settings",
+  "SELECT_PLACEHOLDER": "مهرباني وکړئ د Data.gov.af څخه ډاټاسیټ غوره کړئ",
+  "RESET": "بیا تنظیمول",
+  "ADD_VISUALIZATION": "+ نوې لید",
+  "EXCEL_EXPORT": "اکسل",
+  "TABLE_LABEL":"جدول",
   "VISUALIZATION_EIDTOR": "ډیزاین تنظیمات",
   "VISUALIZATION_TYPE": "د ډیزاین ډول",
   "VISUALIZATION_NAME": "د ډیزاین نوم",
@@ -148,16 +119,9 @@
   "LABEL": "لیبل",
   "COLOR": "رنګ",
   "TYPE": "ډول",
-
   "X-AXIS": "محور X د",
   "Y-AXIS": "محور Y د",
   "SERIES": "لړۍ",
-
-
-
-
-
-
 
   "main_title":"د افغانستان احصایوي سیستم ته ښه راغلاست",
   "main_sub_title":"د افغانستان یوازنئ احصایوي معلوماتو مرکز. ددی ټول معلومات کاپی حقوق احصایه اداره ته مربوط ده",
@@ -178,3 +142,4 @@
   "sixth_feature_title":"د وخت او ساحې پراساس د معلوماتو سپړونکی",
   "sixth_feature_description":"د Stat یو د ښه خصوصیاتو څخه د معلوماتو سپړول او ښودنه د ټاکل شوی وخت او ټاکل شوی ساحی پر اساس دی چی په لږ وخت او کره توګه ښکاره کوی."
 }
+
