@@ -21,26 +21,18 @@ export interface IRoleModel extends Document {
 const RoleSchema: Schema = new Schema({
     name: { 
         type: String, 
-        lowercase: true, 
-        required: true, 
+        required: true,
         trim: true, 
-        index: true 
+        index: true,
+        unique: true
     },
     description: { 
         type: String, 
-        lowercase: true, 
-        required: true, 
+        required: false,
         trim: true, 
-        unique: true, 
-        index: true 
     },
     isActive: {
         type: Boolean,
-        lowercase: true,
-        required: true,
-        unique: true,
-        trim: true,
-        index: true
     },
     permissions: { 
         type: [[Object]], 
@@ -55,6 +47,8 @@ const RoleSchema: Schema = new Schema({
     const role: any = this; // tslint:disable-line
 
     try {
+        role.permissions = JSON.parse(role.permissions);
+        console.log("Data", role.permissions);
         next();
     } catch (error) {
         return next(error);
