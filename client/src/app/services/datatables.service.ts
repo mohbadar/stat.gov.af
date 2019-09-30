@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-// import * as enJson from '../../assets/dataTable_i18n/en.json';
-// import * as drJson from '../../assets/dataTable_i18n/dr.json';
-// import * as psJson from '../../assets/dataTable_i18n/ps.json';
+import * as enJson from '../../assets/dataTable_i18n/en.json';
+import * as drJson from '../../assets/dataTable_i18n/dr.json';
+import * as psJson from '../../assets/dataTable_i18n/ps.json';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,9 +14,9 @@ export class DatatablesService {
 	callToServiceMethodSource = new Subject<any>();
 
 	private baseUrl = '/api/datasource';
-	private enJson = ""; //enJson;
-	private drJson = ""; //drJson;
-	private psJson = ""; //psJson;
+	private enJson = enJson;
+	private drJson = drJson;
+	private psJson = psJson;
 	public selectedJsonFile;
 
 	constructor(private http: HttpClient) { }

@@ -1,9 +1,10 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { DatasourceQueryService } from 'app/services/datasource.query.service';
+import { DatatablesService } from '../services/datatables.service';
 import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
-import {Router} from "@angular/router"
+import { Router } from "@angular/router"
 import { Select2OptionData } from 'ng2-select2';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -40,35 +41,16 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	filterAction;
 	dTable;
 	resourceId: string;
-	
-	dtOptions = {
-		'pagingType': 'full_numbers',
-		'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
-		'scrollX': true,
-		dom: 'Bfrtip',
-     	 // Configure the buttons
-		buttons: [
-			{
-				extend: 'excel',
-				text: this.translate.instant('EXCEL_EXPORT'),
-				className: '',
-				filename: "Stat.gov.af",
-				exportOptions: {
-				  modifier: {
-					page: 'all'
-				  }
-				}
-			}
-		],
-		 responsive: true,
-		// language: this.datatables.selectedJsonFile
-	};
+	dataTablesObservable;
+	dTableFlag = false;
 	isLoading: boolean;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
+	// datatables options
+	dtOptions;
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
-		public authService: AuthService , private translate: TranslateService) { }
-
+		public authService: AuthService, private translate: TranslateService,
+		private datatables: DatatablesService) { }
 	ngOnInit() {
 		// document.getElementById("selectDataset").style.display = 'none';
 		// document.getElementById("inputFile").style.display = 'none';
@@ -76,6 +58,30 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.customParams.push('title');
 		this.customParams.push('uuid');
 		this.getSelectData(this.customParams);
+		this.dtOptions = {
+			'pagingType': 'full_numbers',
+			'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
+			'scrollX': true,
+			dom: 'Bfrtip',
+			// Configure the buttons
+			buttons: [
+				{
+					extend: 'excel',
+					text: 'Export',
+					className: '',
+					filename: "Stat.gov.af",
+					exportOptions: {
+						modifier: {
+							page: 'all'
+						}
+					}
+				}
+			],
+			language: this.datatables.selectedJsonFile
+			// responsive: true,
+			// language: this.datatables.selectedJsonFile
+		};
+		this.changeLanguage();
 	}
 
 	ngAfterViewInit() {
@@ -469,8 +475,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		}
 	}
 
-	visualizeChange()
-	{
+	visualizeChange() {
 		console.log("Visualize this data", this.data);
 	}
 
@@ -503,13 +508,15 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			this.columnDataTypes = [];
 			this.filterAction = '';
 			this.filterValue = '';
-
+			this.dTableFlag = false;
 			this.workBookName = e.data[0].text;
 			this.dtOptions.buttons[0].filename = this.workBookName;
+			this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
 
 			this.datasouceQueryService.getResourceData(this.selected).subscribe((resourceData) => {
-				console.log("resourceData",resourceData);
-				
+				// console.log("resourceData", resourceData);
+				this.dTableFlag = true;
+
 				this.resourceId = resourceData.result.resource_id;
 				resourceData.result.fields.forEach((element) => {
 					const obj = {
@@ -518,7 +525,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					};
 					this.columnNames.push(obj);
 				});
-				const arr = [];
 				resourceData.result.records.forEach((element) => {
 					let val = [];
 					for (let prop in element) {
@@ -528,10 +534,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 						}
 						val.push(element[prop])
 					}
-					arr.push(val);
+					this.data.push(val);
 				});
-				this.data = arr;
-				
 				if (this.data[0][0] == null) {
 
 					this.data[0][0] = undefined;
@@ -592,6 +596,28 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	// 	}
 
 	// }
+	changeLanguage() {
+		this.dataTablesObservable = this.datatables.callToServiceMethodSource.subscribe(data => {
+			this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
+			this.dtOptions['oLanguage'] = data.default;
+			if (this.dTableFlag) {
+				// Initialize datatable if not initialized before
+				if (!$.fn.DataTable.isDataTable('#datatables')) {
+					this.dTable = $('#datatables').DataTable(this.dtOptions);
+				} else {
+					console.log('dtOptions: ', this.dtOptions);
+					this.dTable.destroy();
+					this.dTable = null;
+					this.dTable = $('#datatables').DataTable(this.dtOptions);
+				}
+			}
+		});
+	}
+	ngOnDestroy() {
+		if (this.dataTablesObservable) {
+			this.dataTablesObservable.unsubscribe();
+		}
+	}
 
 
 }

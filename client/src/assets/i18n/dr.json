@@ -4,7 +4,6 @@
   "WIDGETS": "Widgets",
   "DASHBOARDS": "داشبورد",
   "SEARCH_MESSAGE": "اینجا جستجو کنید.",
-
   "APPS": "Apps",
   "CALENDAR": "Calendar",
   "MESSAGES": "Messages",
@@ -19,7 +18,6 @@
   "CARDS": "Cards",
   "SAVE_CHANAGES": "Save Changes",
   "CHECKBOX": "Checkbox",
-
   "ADMINISTRATION": "مدیریت",
   "CHIPS": "Chips",
   "DATEPICKER": "Datepicker",
@@ -33,8 +31,6 @@
   "BOTTOMSHEET": "Bottom sheet",
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
-
-
   "DIALOG": "Dialog",
   "DRAWER": "Drawer",
   "EXPANSION": "Expansion",
@@ -61,7 +57,6 @@
   "UPLOAD": "Upload",
   "TREE": "Tree",
   "DND": "Drag and Drop",
-
   "DATAVIZ": "Data Visualization",
   "MAPS": "Maps",
   "GOOGLE": "Google",
@@ -75,12 +70,10 @@
   "SORTING": "Sorting",
   "PINNING": "Pinning",
   "CHARTS": "Charts",
-
   "OPEN": "باز کن",
   "DOWNLOAD_AS_CSV_FILE": "دانلود به صورت فایل CSV",
   "DOWNLOAD_AS_EXCEL_FILE": "به صورت فایل اکسل دانلود کنید",
   "EMBED_SOMEWHERE": "جایی جاسازی کن",
-
   "PAGES": "Pages",
   "ECOMMERCE": "Ecommerce",
   "PRODUCTS": "Products",
@@ -98,42 +91,16 @@
   "ERROR": "Error",
   "404": "404",
   "500": "500",
-
   "LOGIN": "ورود",
   "LOGOUT": "خروج",
-
   "ANALYZE_DATA": "تحلیل",
-
   "DOCS": "Documentation",
   "SETTINGS": "Settings",
-
-  "SELECT_PLACEHOLDER":"لطفاً دیتاست را از Data.gov.af انتخاب کنید",
-  "RESET":"تنظیم مجدد",
-
-  "ADD_VISUALIZATION":"+ تجسم جدید",
-  "EXCEL_EXPORT":"اکسل",
-  "sEmptyTable":     "هیچ داده ای در جدول وجود ندارد",
-  "sInfo":           "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
-  "sInfoEmpty":      "نمایش 0 تا 0 از 0 رکورد",
-  "sInfoFiltered":   "(فیلتر شده از _MAX_ رکورد)",
-  "sInfoPostFix":    "",
-  "sInfoThousands":  ",",
-  "sLengthMenu":     "نمایش _MENU_ رکورد",
-  "sLoadingRecords": "در حال بارگزاری...",
-  "sProcessing":     "در حال پردازش...",
-  "sSearch":         "جستجو:",
-  "sZeroRecords":    "رکوردی با این مشخصات پیدا نشد",
-  "oPaginate": {
-      "sFirst":    "ابتدا",
-      "sLast":     "انتها",
-      "sNext":     "بعدی",
-      "sPrevious": "قبلی"
-  },
-  "oAria": {
-      "sSortAscending":  ": فعال سازی نمایش به صورت صعودی",
-      "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
-  },
-
+  "SELECT_PLACEHOLDER": "لطفاً دیتاست را از Data.gov.af انتخاب کنید",
+  "RESET": "تنظیم مجدد",
+  "ADD_VISUALIZATION": "+ تجسم جدید",
+  "EXCEL_EXPORT": "اکسل",
+  "TABLE_LABEL":"جدول",
   "VISUALIZATION_EIDTOR": "تنظیمات طراحی",
   "VISUALIZATION_TYPE": "نوع طراحی",
   "VISUALIZATION_NAME": "نام طراحی",
@@ -150,7 +117,6 @@
   "LABEL": "علامت",
   "COLOR": "رنگ",
   "TYPE": "نوع",
-
   "X-AXIS": "محور X",
   "Y-AXIS": "محور Y",
   "SERIES": "سلسله"
