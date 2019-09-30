@@ -24,17 +24,7 @@
                 <li>
                     <a href="" [routerLink]="['/']"><span class="text-default">{{ 'HOME' | translate }}</span></a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="text-default">{{ 'ADMINISTRATION' | translate }}<i class="fa fa-angle-down"></i></span>
-                    </a>
-                    <ul class="dropdown-menu" *ngIf="administrationOpts.length">
-                        <li *ngFor="let item of administrationOpts"><a href="#"
-                                [routerLink]="[item.path]">{{ item.name | titlecase  | translate }}</a></li>
-                    </ul>
-                </li>
-
-
+                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="text-default">{{ 'DASHBOARDS' | translate }}<i class="fa fa-angle-down"></i></span>
@@ -44,8 +34,6 @@
                                 [routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a></li>
                     </ul>
                 </li>
-
-
 
                 <li>
                     <a href="#"  [routerLink]="['/build-query']">
@@ -59,7 +47,15 @@
                     </a>
                 </li>
 
-
+                <li class="dropdown" *ngIf="authService.isLoggedIn()">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="text-default">{{ 'ADMINISTRATION' | translate }}<i class="fa fa-angle-down"></i></span>
+                    </a>
+                    <ul class="dropdown-menu" *ngIf="administrationOpts.length">
+                        <li *ngFor="let item of administrationOpts"><a href="#"
+                                [routerLink]="[item.path]">{{ item.name | titlecase  | translate }}</a></li>
+                    </ul>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
 

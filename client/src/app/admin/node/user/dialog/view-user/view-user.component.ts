@@ -10,8 +10,8 @@ export class ViewUserComponent implements OnInit {
 
 	@Output()
 	toggleModal = new EventEmitter<Object>();
-  @Input() data;
-  role;
+	@Input() data;
+	roles;
 
 	constructor(public userService: UserService) { }
 
@@ -21,7 +21,7 @@ export class ViewUserComponent implements OnInit {
 
 	ngOnInit() {
 		console.log('data is: ', this.data);
-		this.role = JSON.parse(JSON.stringify(this.data.roles));
+		this.roles = JSON.parse(JSON.stringify(this.data.roles));
 	 }
 
 	onNoClick(): void {
