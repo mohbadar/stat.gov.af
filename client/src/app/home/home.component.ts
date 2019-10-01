@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	get dashboardCount() {
-		if(this.globals.dashboardList && this.globals.dashboardList.length > 0) {
+		if (this.globals.dashboardList && this.globals.dashboardList.length > 0) {
 			return this.globals.dashboardList.length;
 		} else {
 			return 0;
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	get widgetCount() {
-		if(this.globals.dashboardList && this.globals.dashboardList.length > 0) {
+		if (this.globals.dashboardList && this.globals.dashboardList.length > 0) {
 			return this.globals.dashboardList.length;
 		} else {
 			return 0;
@@ -87,11 +87,11 @@ export class HomeComponent implements OnInit {
 			const selectedLang = event.lang;
 			if (selectedLang !== 'en') {
 				$('.feature-back').addClass("text-right");
-				$('.feature-back').css("text-align","right");
+				$('.feature-back').css("text-align", "right");
 			}
-			else{
+			else {
 				$('.feature-back').removeClass("text-right");
-				$('.feature-back').css("text-align","left");
+				$('.feature-back').css("text-align", "left");
 			}
 			this.languageBadge = selectedLang;
 
@@ -100,16 +100,41 @@ export class HomeComponent implements OnInit {
 		});
 
 
-		$(document).ready(function() {
-			$('#media').carousel({
-			  pause: true,
-			  interval: false,
-			});
+		// $(document).ready(function() {
+		// 	$('#media').carousel({
+		// 	  pause: true,
+		// 	  interval: false,
+		// 	});
+		// });
+		$('#myCarousel').carousel({
+			interval: 400000
 		});
+
+
+		
 	}
 
 	ngAfterViewInit() {
+
 		
+
+		$('.carousel .item').each(function () {
+			var next = $(this).next();
+			if (!next.length) {
+				next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+
+			for (var i = 0; i < 4; i++) {
+				next = next.next();
+				if (!next.length) {
+					next = $(this).siblings(':first');
+				}
+
+				next.children(':first-child').clone().appendTo($(this));
+			}
+		});
+
 	}
 
 	private setupLanguage() {
@@ -130,12 +155,12 @@ export class HomeComponent implements OnInit {
 	getTitleByLang(title) {
 		try {
 			let titleObj = JSON.parse(title);
-			if(titleObj instanceof Object) {
+			if (titleObj instanceof Object) {
 
 				return titleObj[localStorage.getItem('lang')];
 			}
 			return title;
-		} catch(e) {
+		} catch (e) {
 			return title;
 		}
 	}
