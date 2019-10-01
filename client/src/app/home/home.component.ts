@@ -99,47 +99,17 @@ export class HomeComponent implements OnInit {
 			// this.navbarRTL(selectedLang);
 		});
 
-		$('#myCarousel').carousel({
-			interval: 10000
-		  })
-		  
-		  $('.carousel .item').each(function(){
-			var next = $(this).next();
-			if (!next.length) {
-			  next = $(this).siblings(':first');
-			}
-			next.children(':first-child').clone().appendTo($(this));
-			
-			if (next.next().length>0) {
-			  next.next().children(':first-child').clone().appendTo($(this));
-			}
-			else {
-				$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-			}
-		  });
 
-
+		$(document).ready(function() {
+			$('#media').carousel({
+			  pause: true,
+			  interval: false,
+			});
+		});
 	}
 
 	ngAfterViewInit() {
-		$('#myCarousel').carousel({
-			interval: 10000
-		  })
-		  
-		  $('.carousel .item').each(function(){
-			var next = $(this).next();
-			if (!next.length) {
-			  next = $(this).siblings(':first');
-			}
-			next.children(':first-child').clone().appendTo($(this));
-			
-			if (next.next().length>0) {
-			  next.next().children(':first-child').clone().appendTo($(this));
-			}
-			else {
-				$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
-			}
-		  });
+		
 	}
 
 	private setupLanguage() {
