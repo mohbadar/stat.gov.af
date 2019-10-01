@@ -29,10 +29,18 @@ export class HomeComponent implements OnInit {
 
 	currentDate = new Date();
 	constructor(private translate: TranslateService,
-		private globals: Globals,
+		public globals: Globals,
 		private cookieService: CookieService,
 		private datatablesService: DatatablesService) {
 		console.log("Home Component");
+	}
+
+	get dashboardCount() {
+		if(this.globals.dashboardList && this.globals.dashboardList.length > 0) {
+			return this.globals.dashboardList.length;
+		} else {
+			return 0;
+		}
 	}
 
 	getCurrentEnvironment() {
@@ -84,6 +92,27 @@ export class HomeComponent implements OnInit {
 		});
 	}
 
+	ngAfterViewInit() {
+		$('#myCarousel').carousel({
+			interval: 10000
+		  })
+		  
+		  $('.carousel .item').each(function(){
+			var next = $(this).next();
+			if (!next.length) {
+			  next = $(this).siblings(':first');
+			}
+			next.children(':first-child').clone().appendTo($(this));
+			
+			if (next.next().length>0) {
+			  next.next().children(':first-child').clone().appendTo($(this));
+			}
+			else {
+				$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+			}
+		  });
+	}
+
 	private setupLanguage() {
 		this.translate.addLangs(['en', 'ps', 'dr']);
 
@@ -99,6 +128,18 @@ export class HomeComponent implements OnInit {
 		this.translate.use(browserLang.match(/en|ps|dr/) ? browserLang : 'en');
 	}
 
+	getTitleByLang(title) {
+		try {
+			let titleObj = JSON.parse(title);
+			if(titleObj instanceof Object) {
+
+				return titleObj[localStorage.getItem('lang')];
+			}
+			return title;
+		} catch(e) {
+			return title;
+		}
+	}
 
 }
 
