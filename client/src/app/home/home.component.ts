@@ -43,6 +43,14 @@ export class HomeComponent implements OnInit {
 		}
 	}
 
+	get widgetCount() {
+		if(this.globals.dashboardList && this.globals.dashboardList.length > 0) {
+			return this.globals.dashboardList.length;
+		} else {
+			return 0;
+		}
+	}
+
 	getCurrentEnvironment() {
 		if (this.globals.principal) {
 			for (let envObj of this.globals.principal.environments) {
