@@ -81,7 +81,7 @@ const UserService: IUserService = {
                 throw new Error(validate.error.message);
             }
 
-            const user: IUserModel = await UserModel.update({'id': code}, body);
+            const user: IUserModel = await UserModel.update({_id: Types.ObjectId(code)}, body);
 
             return user;
         } catch (error) {

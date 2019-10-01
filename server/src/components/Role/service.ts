@@ -81,7 +81,7 @@ const PermissionService: IRoleService = {
                 throw new Error(validate.error.message);
             }
 
-            const user: IRoleModel = await RoleModel.update({'id': code}, body);
+            const user: IRoleModel = await RoleModel.update({_id: Types.ObjectId(code)}, body);
 
             return user;
         } catch (error) {

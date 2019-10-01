@@ -117,6 +117,7 @@ export class AuthService {
 	public logout() {
 		this.token = null;
 		localStorage.removeItem('auth_token');
+		localStorage.removeItem('authPrincipal')
 		// return this.http.post('/api/logout', '');
 		return true;
 	}

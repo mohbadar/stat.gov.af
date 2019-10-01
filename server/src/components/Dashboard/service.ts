@@ -81,7 +81,7 @@ const DashboardService: IDashboardService = {
                 throw new Error(validate.error.message);
             }
 
-            const user: IDashboardModel = await DashboardModel.update({'id': code}, body);
+            const user: IDashboardModel = await DashboardModel.update({_id: Types.ObjectId(code)}, body);
 
             return user;
         } catch (error) {

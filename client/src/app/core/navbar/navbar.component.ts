@@ -5,6 +5,7 @@ import { DashboardService } from '../_helpers/dashboard.service';
 import { Globals } from '../_helpers/globals';
 import { AuthService } from 'app/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthPrincipal } from '../../admin/node/AuthPrinicipal';
 
 var misc: any = {
 	navbar_menu_visible: 0,
@@ -39,6 +40,7 @@ export class NavbarComponent implements OnInit {
 		},
 	];
 	public languageBadge;
+	public authPrincipal: AuthPrincipal;
 
 	public availLangs = [
 		{ name: 'English', value: 'en', dir: 'ltr' },
@@ -47,6 +49,7 @@ export class NavbarComponent implements OnInit {
 	];
 
 	@ViewChild('navbar-cmp', { static: false }) button;
+	isLoggedIn: boolean;
 
 	constructor(
 		location: Location,
@@ -61,6 +64,15 @@ export class NavbarComponent implements OnInit {
 		this.location = location;
 		this.nativeElement = element.nativeElement;
 		this.sidebarVisible = false;
+
+		this.authPrincipal = JSON.parse(localStorage.getItem('authPrincipal'));
+		if(this.authPrincipal)
+		{
+			this.isLoggedIn = this.authPrincipal.authenticated;
+		}
+		
+
+		console.log("Perm", this.authPrincipal);
 	}
 
 	ngOnInit() {

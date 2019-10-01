@@ -24,8 +24,8 @@
                 <li>
                     <a href="" [routerLink]="['/']"><span class="text-default">{{ 'HOME' | translate }}</span></a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <li *ngIf="isLoggedIn" class="dropdown" >
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                         <span class="text-default">{{ 'ADMINISTRATION' | translate }}<i class="fa fa-angle-down"></i></span>
                     </a>
                     <ul class="dropdown-menu" *ngIf="administrationOpts.length">

@@ -81,7 +81,7 @@ const WidgetService: IWidgetService = {
                 throw new Error(validate.error.message);
             }
 
-            const user: IWidgetModel = await WidgetModel.update({'id': code}, body);
+            const user: IWidgetModel = await WidgetModel.update({_id: Types.ObjectId(code)}, body);
 
             return user;
         } catch (error) {

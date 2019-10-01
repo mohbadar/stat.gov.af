@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Principal } from 'app/models/principal';
+import { AuthPrincipal } from '../../admin/node/AuthPrinicipal';
 
 @Injectable()
 export class Globals {
