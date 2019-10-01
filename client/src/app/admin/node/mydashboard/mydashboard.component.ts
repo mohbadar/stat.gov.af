@@ -10,6 +10,7 @@ import { AuthPrincipal } from '../AuthPrinicipal';
 import { DatasourceDashboardService } from 'app/services/datasource.dashboard.service';
 import { DatasourceWidgetService } from 'app/services/datasource.widget.service';
 import { DatasourceDashboard } from 'app/models/datasource.dashboard';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -47,7 +48,8 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 		public authService: AuthService,
 		public globals: Globals,
 		private cdref: ChangeDetectorRef,
-		private datatables: DatatablesService
+    private datatables: DatatablesService, 
+    private router: Router
 	) { }
 
 	ngOnInit() {
@@ -155,8 +157,6 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 	}
 
 	addNew(role?: Role) {
-		// this.loading = true;
-
 		// if (!this.globals.principal.hasAuthority(['ROLE_CREATE', 'ADMIN'])) {
 		// 	return false;
 		// }
@@ -189,22 +189,27 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 	}
 
 	editRecord(recordId) {
-		if (!this.editLoading) {
-			this.editLoading = true;
-			// if (!this.globals.principal.hasAuthority(['ADMIN', 'ROLE_EDIT'])) {
-			// 	return false;
-			// }
+		// if (!this.editLoading) {
+		// 	this.editLoading = true;
+		// 	// if (!this.globals.principal.hasAuthority(['ADMIN', 'ROLE_EDIT'])) {
+		// 	// 	return false;
+		// 	// }
 
-			this.datasourceDashboardService.loadById(recordId).subscribe(data => {
-				this.editLoading = false;
-				// console.log('the role coming is:' + JSON.stringify(data));
-				this.roleData = data;
-				$('#editModal').modal();
-				this.showEditModal = true;
-			}, err => {
-				this.editLoading = false;
-			});
-		}
+		// 	this.datasourceDashboardService.loadById(recordId).subscribe(data => {
+		// 		this.editLoading = false;
+		// 		// console.log('the role coming is:' + JSON.stringify(data));
+		// 		this.roleData = data;
+		// 		$('#editModal').modal();
+		// 		this.showEditModal = true;
+		// 	}, err => {
+		// 		this.editLoading = false;
+		// 	});
+    // }
+    console.log("Data", recordId);
+    
+    this.router.navigate(['/custom/my-dashboards/edit'], {state: {recordId: recordId}});
+    
+
 	}
 
 

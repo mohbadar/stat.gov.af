@@ -8,6 +8,7 @@ import { MydashboardRoutes } from './mydashboard.routing';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { MydashboardComponent } from './mydashboard.component';
 import { CreateMydashboardComponent } from './dialogs/create-mydashboard/create-mydashboard.component';
+import { EditDashboardComponent } from './edit-dashboard/edit-dashboard.component';
 
 
 
@@ -25,7 +26,7 @@ import { CreateMydashboardComponent } from './dialogs/create-mydashboard/create-
   ],
   declarations: [
     MydashboardComponent,
-    CreateMydashboardComponent
+    CreateMydashboardComponent,
   ]
 })
 export class MydashboardModule { }

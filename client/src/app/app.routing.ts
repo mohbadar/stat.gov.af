@@ -5,6 +5,7 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
 import { VisualizeComponent } from './visualize/visualize.component';
 import { HomeComponent } from './home/home.component';
+import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
 
 
 export const AppRoutes: Routes = [{
@@ -57,6 +58,12 @@ export const AppRoutes: Routes = [{
 			path: 'my-dashboards', 
 			loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule'
 			// component: DashboardComponent
+		},
+
+		{
+			path: 'my-dashboards/edit',
+			// loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule', 
+			component: EditDashboardComponent
 		},
 
 	]

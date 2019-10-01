@@ -66,6 +66,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelPropagation: true
 };
 import { HomeComponent } from './home/home.component';
+import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
 
 
 @NgModule({
@@ -75,7 +76,7 @@ import { HomeComponent } from './home/home.component';
 		AuthLayoutComponent,
 		DefaultLayoutComponent,
 		HomeComponent,
-
+		EditDashboardComponent,
 		// VisualizeComponent,
 		// DashboardComponent
 	],
