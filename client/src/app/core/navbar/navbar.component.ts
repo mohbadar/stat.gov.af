@@ -31,12 +31,12 @@ export class NavbarComponent implements OnInit {
 	public administrationOpts = [
 		{
 			"name": "User Management",
-			"path": "/user/user-management",
+			"path": "/custom/user-management",
 			"slug": "UM"
 		},
 		{
 			"name": "Role Management",
-			"path": "/user/role-management",
+			"path": "/custom/role-management",
 			"slug": "RM"
 		},
 	];

@@ -35,7 +35,7 @@ export const AppRoutes: Routes = [{
 	]
 }
 , {
-	path: 'usar',
+	path: 'custom',
 	component: PublicLayoutComponent,
 	// canActivate: [AuthGuard],
 	children: [

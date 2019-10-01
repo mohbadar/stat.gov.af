@@ -46,7 +46,12 @@ export class LoginComponent implements OnInit {
 			this.showNotification('top', 'center', msg, 'success', 'pe-7s-check');
 
 			this.authService.saveToken(token);
+			
+			this.authService.setLoggedInUserId(response.user_id)
 			this.allUserRoles = response.data;
+
+			console.log("Loggend User Id", this.authService.getLoggedInUserId());
+
 
 			if(this.allUserRoles.length != 0)
 			{
@@ -57,7 +62,6 @@ export class LoginComponent implements OnInit {
 						this.allPermissions.push(perm[0].name);					
 					});
 				});
-				console.log("All Permissions", this.allPermissions);
 				const authPrinicipal = new AuthPrincipal(response.logged, this.allPermissions, response.token);
 				localStorage.setItem("authPrincipal", JSON.stringify(authPrinicipal));
 			}

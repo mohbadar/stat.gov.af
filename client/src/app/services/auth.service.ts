@@ -17,6 +17,7 @@ export interface UserDetails {
 })
 export class AuthService {
 
+
 	token;
 	principal: Principal = new Principal(false, [], [], [], null, null);
 	userName;
@@ -121,6 +122,7 @@ export class AuthService {
 		localStorage.removeItem('auth_token');
 		localStorage.removeItem('authPrincipal')
 		localStorage.removeItem(this.tokenName);
+		localStorage.removeItem('loggedInUserId');
 		// return this.http.post('/api/logout', '');
 		return true;
 	}
@@ -159,5 +161,15 @@ export class AuthService {
 			return true;
 		}
 		return false;
+	}
+
+
+	setLoggedInUserId(user_id: string) {
+		localStorage.setItem("loggedInUserId", user_id);
+	}
+
+	getLoggedInUserId()
+	{
+		return localStorage.getItem('loggedInUserId') + "";
 	}
 }

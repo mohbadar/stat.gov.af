@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MydashboardRoutes } from './mydashboard.routing';
 import { JwBootstrapSwitchNg2Module } from 'jw-bootstrap-switch-ng2';
 import { MydashboardComponent } from './mydashboard.component';
+import { CreateMydashboardComponent } from './dialogs/create-mydashboard/create-mydashboard.component';
 
 
 
@@ -23,7 +24,8 @@ import { MydashboardComponent } from './mydashboard.component';
   entryComponents: [
   ],
   declarations: [
-    MydashboardComponent
+    MydashboardComponent,
+    CreateMydashboardComponent
   ]
 })
 export class MydashboardModule { }
