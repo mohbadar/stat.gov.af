@@ -45,6 +45,8 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  * @returns {Promise < void >}
  */
 export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
+    console.log("DATA", req.body);
+    
     try {
         const query: IDashboardModel = await DashboardService.insert(req.body);
 
