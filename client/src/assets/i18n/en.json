@@ -147,7 +147,7 @@
   "second_feature_title":"Data visualization",
   "second_feature_description":"Stat is a data visualization tool developed to make statistics available publicly. its support different visualizations types i.e. counters, charts (line, bar, area, pie and scatter), table and map (Map Choropleth, Map Markers)",
   "third_feature_title":"Multiple data source support",
-  "third_Feature_description":"Stat has the ability to represent live data remotely from multiple data sources i.e Databases, JSON, CSV, Google Analytics and more.",
+  "third_feature_description":"Stat has the ability to represent live data remotely from multiple data sources i.e Databases, JSON, CSV, Google Analytics and more.",
   "fourth_feature_title":"Multilingual Support",
   "fourth_feature_description":"Multilingual platform and solution which has support for more than one language (Currently added: English, Pashto, and Dari) for collecting, processing, analyzing, visualizing large and complex datasets quickly, easily and accurately.",
   "fifth_feature_title":"Share Dashboards",

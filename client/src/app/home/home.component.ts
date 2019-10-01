@@ -74,8 +74,9 @@ export class HomeComponent implements OnInit {
 					$(this).text(Math.ceil(now));
 				}
 			});
-		});
 
+
+		});
 
 		this.selectEnvironment = this.getCurrentEnvironment();
 
@@ -84,7 +85,14 @@ export class HomeComponent implements OnInit {
 		this.translate.onLangChange.subscribe((event) => {
 			console.log('Change language called');
 			const selectedLang = event.lang;
-
+			if (selectedLang !== 'en') {
+				$('.feature-back').addClass("text-right");
+				$('.feature-back').css("text-align","right");
+			}
+			else{
+				$('.feature-back').removeClass("text-right");
+				$('.feature-back').css("text-align","left");
+			}
 			this.languageBadge = selectedLang;
 
 			this.datatablesService.callServiceCmpMethod(selectedLang);
