@@ -58,7 +58,7 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 		this.changeLanguage();
 		this.authPrincipal = JSON.parse(localStorage.getItem('authPrincipal'));
 
-		console.log("Perm", this.authPrincipal.hasAuthority(['READ_ROLE']));
+		console.log("Perm", this.authPrincipal);
 		
 	}
 

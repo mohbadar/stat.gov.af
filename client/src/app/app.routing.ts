@@ -35,8 +35,9 @@ export const AppRoutes: Routes = [{
 	]
 }
 , {
-	path: 'node',
+	path: 'usar',
 	component: PublicLayoutComponent,
+	// canActivate: [AuthGuard],
 	children: [
 		{
 			path: 'user-management', 
@@ -48,6 +49,13 @@ export const AppRoutes: Routes = [{
 		{
 			path: 'role-management', 
 			loadChildren: './admin/node/role/role.module#RoleModule'
+			// component: DashboardComponent
+		},
+
+
+		{
+			path: 'my-dashboards', 
+			loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule'
 			// component: DashboardComponent
 		},
 

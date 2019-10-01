@@ -2,9 +2,9 @@
   "MAIN": "Main",
   "HOME": "خانه",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "داشبورد",
+  "DASHBOARD": "داشبورد",
+  "DASHBOARDS": "داشبورد ها",
   "SEARCH_MESSAGE": "اینجا جستجو کنید.",
-
   "APPS": "Apps",
   "CALENDAR": "Calendar",
   "MESSAGES": "Messages",
@@ -19,6 +19,7 @@
   "CARDS": "Cards",
   "SAVE_CHANAGES": "Save Changes",
   "CHECKBOX": "Checkbox",
+
   "USER_MANAGEMENT": "مدیریت حساب ها",
   "ROLE_MANAGEMENT": "مدیریت رول ها",
   "ADMINISTRATION": "مدیریت",
@@ -34,8 +35,6 @@
   "BOTTOMSHEET": "Bottom sheet",
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
-
-
   "DIALOG": "Dialog",
   "DRAWER": "Drawer",
   "EXPANSION": "Expansion",
@@ -62,7 +61,6 @@
   "UPLOAD": "Upload",
   "TREE": "Tree",
   "DND": "Drag and Drop",
-
   "DATAVIZ": "Data Visualization",
   "MAPS": "Maps",
   "GOOGLE": "Google",
@@ -76,12 +74,10 @@
   "SORTING": "Sorting",
   "PINNING": "Pinning",
   "CHARTS": "Charts",
-
   "OPEN": "باز کن",
   "DOWNLOAD_AS_CSV_FILE": "دانلود به صورت فایل CSV",
   "DOWNLOAD_AS_EXCEL_FILE": "به صورت فایل اکسل دانلود کنید",
   "EMBED_SOMEWHERE": "جایی جاسازی کن",
-
   "PAGES": "Pages",
   "ECOMMERCE": "Ecommerce",
   "PRODUCTS": "Products",
@@ -99,42 +95,16 @@
   "ERROR": "Error",
   "404": "404",
   "500": "500",
-
   "LOGIN": "ورود",
   "LOGOUT": "خروج",
-
   "ANALYZE_DATA": "تحلیل",
-
   "DOCS": "Documentation",
   "SETTINGS": "Settings",
-
-  "SELECT_PLACEHOLDER":"لطفاً دیتاست را از Data.gov.af انتخاب کنید",
-  "RESET":"تنظیم مجدد",
-
-  "ADD_VISUALIZATION":"+ تجسم جدید",
-  "EXCEL_EXPORT":"اکسل",
-  "sEmptyTable":     "هیچ داده ای در جدول وجود ندارد",
-  "sInfo":           "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
-  "sInfoEmpty":      "نمایش 0 تا 0 از 0 رکورد",
-  "sInfoFiltered":   "(فیلتر شده از _MAX_ رکورد)",
-  "sInfoPostFix":    "",
-  "sInfoThousands":  ",",
-  "sLengthMenu":     "نمایش _MENU_ رکورد",
-  "sLoadingRecords": "در حال بارگزاری...",
-  "sProcessing":     "در حال پردازش...",
-  "sSearch":         "جستجو:",
-  "sZeroRecords":    "رکوردی با این مشخصات پیدا نشد",
-  "oPaginate": {
-      "sFirst":    "ابتدا",
-      "sLast":     "انتها",
-      "sNext":     "بعدی",
-      "sPrevious": "قبلی"
-  },
-  "oAria": {
-      "sSortAscending":  ": فعال سازی نمایش به صورت صعودی",
-      "sSortDescending": ": فعال سازی نمایش به صورت نزولی"
-  },
-
+  "SELECT_PLACEHOLDER": "لطفاً دیتاست را از Data.gov.af انتخاب کنید",
+  "RESET": "تنظیم مجدد",
+  "ADD_VISUALIZATION": "+ تجسم جدید",
+  "EXCEL_EXPORT": "اکسل",
+  "TABLE_LABEL":"جدول",
   "VISUALIZATION_EIDTOR": "تنظیمات طراحی",
   "VISUALIZATION_TYPE": "نوع طراحی",
   "VISUALIZATION_NAME": "نام طراحی",
@@ -151,8 +121,27 @@
   "LABEL": "علامت",
   "COLOR": "رنگ",
   "TYPE": "نوع",
-
   "X-AXIS": "محور X",
   "Y-AXIS": "محور Y",
-  "SERIES": "سلسله"
+  "SERIES": "سلسله",
+
+  "main_title":"به سیسمتم احصایه افغانستان خوش آمدید",
+  "main_sub_title":"مرکز معلومات احصایوی افغانستان که میتوانید تمامی معلومات احصایوی در مورد دولت را از اینجا بدست بیاورید. حق کاپی تمامی معلومات ها محفوظ برای اداره ملی احصایه و معلومات میباشد.",
+  "data_set":"دیتا ست ها",
+  "data_point":"دیتا پاینت ها",
+  "recent_data_set":"دیتا ست های اخیر",
+  "what_make_us_unique":"آنچه مارا مجزا میسازد",
+  "first_feature_title":"دشبورد های عمومی و خصوصی",
+  "first_feature_description":"توانایی ایجاد کردن دشبورد های عمومی و خصوصی برای کاربر نظر به قوانین اداره و محرمیت دیتاها",
+  "second_feature_title":"تجسم دیتا ها",
+  "second_feature_description":"Statابزاری برای تجسم دیتا ها است که به منظور تهیه احصائیه در دسترس عموم میباشد که انواع مختلف تجسم را پشتیبانی میکند، از جمله کاونترها ، چارت ها (خط ، نوار ، مساحت ، پای و پراکندگی) ، جدول ونقشه ها.",
+  "third_feature_title":"پشتیبانی از منبع چندگانه",
+  "third_feature_description":"Stat  توانایی ارائه دیتا های زنده از راه دور از چندین منبع دیتا را دارد مانند دیتابیس ها، فایلJSON ،فایلCSV ، Google Analytics  و موارد دیگر.",
+  "fourth_feature_title":"پشتبانی چند زبانه",
+  "fourth_feature_description":"پلتفرم چند زبانه ای که بیش از یک زبان را پشتیبانی می کند (در حال حاضر زبان های اضافه شده : انگلیسی ، پشتو و دری) برای جمع آوری ، پروسس ، تجزیه و تحلیل، تجسم دیتا ست های بزرگ و پیچیده  با دقت و سرعت بیشر میباشد.",
+  "fifth_feature_title":"اشتراک دشبورد ها",
+  "fifth_feature_description":"توانایی اشتراک گذاری داشبورد ها  با تیم یا با عموم توسط رسانه های اجتماعی ، جاسازی در جایی و فایل های CSV یا Excel.",
+  "sixth_feature_title":"نشان دادن دیتا ها بر اساس زمان و منطقه",
+  "sixth_feature_description":"ویژگی خوبی Stat در تقویت بخشیدن پروسه نشان دادن دیتا ها بر اساس دوره زمانی منتخب و منطقه یا دومین احصائیوی انتخاب شده به سرعت و با دقت بیشتر میباشد."
+
 }

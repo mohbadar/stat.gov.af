@@ -2,7 +2,8 @@
   "MAIN": "Main",
   "HOME": "کور پاڼه",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "ډاشبورد",
+  "DASHBOARD": "ډاشبورد",
+  "DASHBOARDS": "ډاشبورډونه",
   "SEARCH_MESSAGE": "پلټنه",
   "ADMINISTRATION": "مدیریت",
   "USER_MANAGEMENT": "مدیریت حساب ها",
@@ -33,8 +34,6 @@
   "BOTTOMSHEET": "Bottom sheet",
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
-
-
   "DIALOG": "Dialog",
   "DRAWER": "Drawer",
   "EXPANSION": "Expansion",
@@ -61,7 +60,6 @@
   "UPLOAD": "Upload",
   "TREE": "Tree",
   "DND": "Drag and Drop",
-
   "DATAVIZ": "Data Visualization",
   "MAPS": "Maps",
   "GOOGLE": "Google",
@@ -75,12 +73,10 @@
   "SORTING": "Sorting",
   "PINNING": "Pinning",
   "CHARTS": "Charts",
-
   "OPEN": "پرانيستل",
   "DOWNLOAD_AS_CSV_FILE": "د CSV فایل په توګه ډاونلوډ کړئ",
   "DOWNLOAD_AS_EXCEL_FILE": "د Excel فایل په توګه کښته کړئ",
   "EMBED_SOMEWHERE": "په بل ځای کې خپور کړئ",
-
   "PAGES": "Pages",
   "ECOMMERCE": "Ecommerce",
   "PRODUCTS": "Products",
@@ -98,41 +94,16 @@
   "ERROR": "Error",
   "404": "404",
   "500": "500",
-
   "LOGIN": "د ننه کیدل",
   "LOGOUT": "وتل",
-
   "ANALYZE_DATA": "تحلیل",
-  
   "DOCS": "Documentation",
-  "SETTINGS": "Settings" ,
-
-  "SELECT_PLACEHOLDER":"مهرباني وکړئ د Data.gov.af څخه ډاټاسیټ غوره کړئ",
-  "RESET":"بیا تنظیمول",
-  "ADD_VISUALIZATION":"+ نوې لید",
-  "EXCEL_EXPORT":"اکسل صادرول",
-  "sEmptyTable":     "جدول خالي دی",
-    "sInfo":           "د _START_ څخه تر _END_ پوري، له ټولو _TOTAL_ څخه",
-    "sInfoEmpty":      "د 0 څخه تر 0 پوري، له ټولو 0 څخه",
-    "sInfoFiltered":   "(لټول سوي له ټولو _MAX_ څخه)",
-    "sInfoPostFix":    "",
-    "sInfoThousands":  ",",
-    "sLengthMenu":     "_MENU_ کتاره وښايه",
-    "sLoadingRecords": "منتظر اوسئ...",
-    "sProcessing":     "منتظر اوسئ...",
-    "sSearch":         "لټون:",
-    "sZeroRecords":    "د لټون مطابق معلومات و نه موندل سول",
-    "oPaginate": {
-        "sFirst":    "لومړۍ",
-        "sLast":     "وروستۍ",
-        "sNext":     "بله",
-        "sPrevious": "شاته"
-    },
-    "oAria": {
-        "sSortAscending":  ": په صعودي ډول مرتبول",
-        "sSortDescending": ": په نزولي ډول مرتبول"
-    },
-
+  "SETTINGS": "Settings",
+  "SELECT_PLACEHOLDER": "مهرباني وکړئ د Data.gov.af څخه ډاټاسیټ غوره کړئ",
+  "RESET": "بیا تنظیمول",
+  "ADD_VISUALIZATION": "+ نوې لید",
+  "EXCEL_EXPORT": "اکسل",
+  "TABLE_LABEL":"جدول",
   "VISUALIZATION_EIDTOR": "ډیزاین تنظیمات",
   "VISUALIZATION_TYPE": "د ډیزاین ډول",
   "VISUALIZATION_NAME": "د ډیزاین نوم",
@@ -149,8 +120,27 @@
   "LABEL": "لیبل",
   "COLOR": "رنګ",
   "TYPE": "ډول",
-
   "X-AXIS": "محور X د",
   "Y-AXIS": "محور Y د",
-  "SERIES": "لړۍ"
+  "SERIES": "لړۍ",
+
+  "main_title":"د افغانستان احصایوي سیستم ته ښه راغلاست",
+  "main_sub_title":"د افغانستان یوازنئ احصایوي معلوماتو مرکز. ددی ټول معلومات کاپی حقوق احصایه اداره ته مربوط ده",
+  "data_set":"دیتا ستونه",
+  "data_point":"دیتا پاینتونه",
+  "recent_data_set":"وړوستنئ دیتا ستونه",
+  "what_make_us_unique":"مونږ څه توپیر نورو سره لرو",
+  "first_feature_title":"عمومی او خصوصی ډشبورډونه",
+  "first_feature_description":" د اداری قوانین او دیتا محرمیت پر بنسټ سره سم د کارونکي لپاره عامه او خصوصي ډشبورډونه رامینځته کولو وړتیا",
+  "second_feature_title":"د معلوماتو ښودنه",
+  "second_feature_description":"Stat  د معلوماتو ښودنی وسیله ده چې احصائیوی معلومات په مختلفو ډولونو لکه کاونتر، چارتونه (کرښه ، بار ، سیمه ، پای او سکریټر)، جدولونه او نقشی په عامه توګه وړاندی کوي .",
+  "third_feature_title":"د دیرو سرچینو معلوماتو ملاتړ",
+  "third_feature_description":"Stat  په ژوندی بڼه د لری لاری د دیرو سرچینو معلوماتو ښکاره کولو وړتیا لری لکه دیتابیسونه، JSON فایل، CSV فایل،Google Analytics  او داسی نور.",
+  "fourth_feature_title":"د څو ژبو ملاتړ",
+  "fourth_feature_description":"یو سو ژبی پلتفارم دی چی د یو نه دیر ژبی ملاتړ کوی (اوس مهال اضافه شوي ژبی: انګلیسي ، پښتو ، او دري) چی د پیچلی ډیټاسیټونو راټولول، پروسس، تجزیه او تحلیل، او شکلی بڼه ښودنه په ګرندی ، اسانه او دقیقه توګه تر سره کوی.",
+  "fifth_feature_title":"ډشبورډونو شریکول",
+  "fifth_feature_description":"د ټیم یا د خلکو سره د ډشبورډونو شریکولو وړتیا د لاندی طریقو سره لکه :ټولنیزی رسنیی، Embed په شکل، CSV فایل ، اکسیل فایل او داسی نور.",
+  "sixth_feature_title":"د وخت او ساحې پراساس د معلوماتو سپړونکی",
+  "sixth_feature_description":"د Stat یو د ښه خصوصیاتو څخه د معلوماتو سپړول او ښودنه د ټاکل شوی وخت او ټاکل شوی ساحی پر اساس دی چی په لږ وخت او کره توګه ښکاره کوی."
 }
+

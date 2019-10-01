@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
 	isLoading = false;
 	newRecord;
 	allPermissions: Array<string>[] = [];
+	allUserRoles: Array<any>[] = [];
 
 	constructor(public authService: AuthService, private formBuilder: FormBuilder, private router: Router) {
 		this.myForm = this.formBuilder.group({
@@ -45,17 +46,21 @@ export class LoginComponent implements OnInit {
 			this.showNotification('top', 'center', msg, 'success', 'pe-7s-check');
 
 			this.authService.saveToken(token);
+			this.allUserRoles = response.data;
 
-			// console.log("Deserialized Data: ", );
-
-			JSON.parse(response.data).forEach(role => {
-				role.permissions.forEach(perm => {					
-					this.allPermissions.push(perm[0].name);					
+			if(this.allUserRoles.length != 0)
+			{
+				console.log("Array of data", response.data);
+				
+				JSON.parse(response.data).forEach(role => {
+					role.permissions.forEach(perm => {					
+						this.allPermissions.push(perm[0].name);					
+					});
 				});
-			});
-			console.log("All Permissions", this.allPermissions);
-			const authPrinicipal = new AuthPrincipal(response.logged, this.allPermissions, response.token);
-			localStorage.setItem("authPrincipal", JSON.stringify(authPrinicipal));
+				console.log("All Permissions", this.allPermissions);
+				const authPrinicipal = new AuthPrincipal(response.logged, this.allPermissions, response.token);
+				localStorage.setItem("authPrincipal", JSON.stringify(authPrinicipal));
+			}
 			
 			this.router.navigate(['/dashboard']);
 		}, (err) => {
