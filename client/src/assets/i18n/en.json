@@ -2,7 +2,8 @@
   "MAIN": "Main",
   "HOME": "Home",
   "WIDGETS": "Widgets",
-  "DASHBOARDS": "Dashboard",
+  "DASHBOARD": "Dashboard",
+  "DASHBOARDS": "Dashboards",
   "SEARCH_MESSAGE": "What are you looking for?",
 
   "APPS": "Apps",

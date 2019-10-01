@@ -11,15 +11,15 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-					<div class="employees">
+					<!-- <div class="employees">
 						<p class="counter-count">879</p>
 						<p class="employee-p">{{ 'data_point' | translate }}</p>
-					</div>
+					</div> -->
 				</div>
 
 				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="customer">
-						<p class="counter-count">954</p>
+						<p class="counter-count">{{ dashboardCount }}</p>
 						<p class="customer-p">{{ 'DASHBOARDS' | translate }}</p>
 					</div>
 				</div>
@@ -31,12 +31,12 @@
 					</div>
 				</div>
 
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				<!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="order">
 						<p class="counter-count">652</p>
 						<p class="order-p">{{ 'data_set' | translate }}</p>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>
@@ -44,107 +44,19 @@
 <section id="main-content">
 	<div class="container">
 		<div class="row">
-			<h3>{{ 'recent_data_set' | translate }}</h3>
+			<h3>{{ 'DASHBOARDS' | translate }}</h3>
 			<hr>
-			<div class="col-md-3">
+			<div class="col-md-3" *ngFor="let dashboard of globals.dashboardList">
 				<div class="ibox">
 					<div class="ibox-content dataset-box">
-						<div class="dataset-imitation">
+						<!-- <div class="dataset-imitation">
 							<img src="../../assets/img/features/diagram.png" class="img img-responsive" />
-						</div>
+						</div> -->
 						<div class="dataset-desc">
-							<span class="dataset-price">
-
-							</span>
-							<small class="text-muted">Category</small>
-							<a href="#" class="dataset-name"> dataset</a>
-
+							<a href="#" class="dataset-name"
+                                [routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a>
 							<div class="small m-t-xs">
-								Many desktop publishing packages and web page editors now.
-							</div>
-							<div class="m-t text-righ">
-								<a href="#" class="btn btn-xs btn-outline btn-primary">Info <i
-										class="fa fa-long-arrow-right"></i> </a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="ibox">
-					<div class="ibox-content dataset-box">
-
-						<div class="dataset-imitation">
-							<img src="../../assets/img/features/diagram.png" class="img img-responsive" />
-						</div>
-						<div class="dataset-desc">
-							<span class="dataset-price">
-
-							</span>
-							<small class="text-muted">Category</small>
-							<a href="#" class="dataset-name"> dataset</a>
-
-
-
-							<div class="small m-t-xs">
-								Many desktop publishing packages and web page editors now.
-							</div>
-							<div class="m-t text-righ">
-
-								<a href="#" class="btn btn-xs btn-outline btn-primary">Info <i
-										class="fa fa-long-arrow-right"></i> </a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="ibox">
-					<div class="ibox-content dataset-box active">
-
-						<div class="dataset-imitation">
-							<img src="../../assets/img/features/diagram.png" class="img img-responsive" />
-						</div>
-						<div class="dataset-desc">
-							<span class="dataset-price">
-
-							</span>
-							<small class="text-muted">Category</small>
-							<a href="#" class="dataset-name"> dataset</a>
-
-
-
-							<div class="small m-t-xs">
-								Many desktop publishing packages and web page editors now.
-							</div>
-							<div class="m-t text-righ">
-
-								<a href="#" class="btn btn-xs btn-outline btn-primary">Info <i
-										class="fa fa-long-arrow-right"></i> </a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="ibox">
-					<div class="ibox-content dataset-box">
-
-						<div class="dataset-imitation">
-							<img src="../../assets/img/features/diagram.png" class="img img-responsive" />
-						</div>
-						<div class="dataset-desc">
-							<span class="dataset-price">
-
-							</span>
-							<small class="text-muted">Category</small>
-							<a href="#" class="dataset-name"> dataset</a>
-							<div class="small m-t-xs">
-								Many desktop publishing packages and web page editors now.
-							</div>
-							<div class="m-t text-righ">
-								<a href="#" class="btn btn-xs btn-outline btn-primary">Info <i
-										class="fa fa-long-arrow-right"></i> </a>
+								<small class="text-muted" *ngFor="let tag of dashboard.tags">{{ getTitleByLang(tag) | titlecase }}</small>
 							</div>
 						</div>
 					</div>

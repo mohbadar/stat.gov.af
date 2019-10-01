@@ -24,12 +24,13 @@ export class AuthService {
 
 	private baseUrl = '/api';
 	private nodeApi = '/node-api';
+	private tokenName = 'stat_aut_token';
 
 	constructor(private http: HttpClient, private router: Router, private globals: Globals) { }
 
 	removeToken() {
 		this.token = '';
-		window.localStorage.removeItem('aut_token');
+		window.localStorage.removeItem(this.tokenName);
 	}
 
 	reloadCurrentPage() {
@@ -43,7 +44,7 @@ export class AuthService {
 	routeToLoginPage(clearAuthToken?: boolean) {
 		if (clearAuthToken) {
 			this.token = null;
-			localStorage.removeItem('auth_token');
+			localStorage.removeItem(this.tokenName);
 		}
 		// this.router.navigateByUrl('/login');
 		window.location.href = '/login';
@@ -52,7 +53,7 @@ export class AuthService {
 	routeToHomePage(clearAuthToken?: boolean) {
 		if (clearAuthToken) {
 			this.token = null;
-			localStorage.removeItem('auth_token');
+			localStorage.removeItem(this.tokenName);
 		}
 		this.router.navigateByUrl('/');
 	}
@@ -68,13 +69,13 @@ export class AuthService {
 	}
 
 	public saveToken(token: string) {
-		localStorage.setItem('auth_token', token);
+		localStorage.setItem(this.tokenName, token);
 		this.token = token;
 	}
 
 	public getToken(): string {
 		if (!this.token) {
-			this.token = localStorage.getItem('auth_token');
+			this.token = localStorage.getItem(this.tokenName);
 		}
 		return this.token;
 	}
@@ -106,7 +107,7 @@ export class AuthService {
 
 	public login(data: any) {
 		this.token = null;
-		localStorage.removeItem('auth_token');
+		localStorage.removeItem(this.tokenName);
 		return this.http.post(`${this.nodeApi}/auth/login`, data);
 	}
 
@@ -116,7 +117,7 @@ export class AuthService {
 
 	public logout() {
 		this.token = null;
-		localStorage.removeItem('auth_token');
+		localStorage.removeItem(this.tokenName);
 		// return this.http.post('/api/logout', '');
 		return true;
 	}
