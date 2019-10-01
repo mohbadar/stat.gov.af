@@ -76,6 +76,7 @@ const WidgetSchema: Schema = new Schema({
         widget.config = configJSON;
         widget.data = dataJSON;
         widget.layout = layoutJSON;
+
         next();
     } catch (error) {
         return next(error);

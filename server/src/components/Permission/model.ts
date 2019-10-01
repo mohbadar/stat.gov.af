@@ -22,7 +22,8 @@ const PermissionSchema: Schema = new Schema({
         type: String, 
         required: true,
         trim: true, 
-        index: true 
+        index: true,
+        unique: true
     },
     description: { 
         type: String

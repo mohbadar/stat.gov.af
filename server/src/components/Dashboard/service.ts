@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import DashboardModel, { IDashboardModel } from './model';
-import WidgetValidation from './validation';
+import DashboardValidation from './validation';
 import { IDashboardService } from './interface';
 import { Types } from 'mongoose';
 
@@ -30,7 +30,7 @@ const DashboardService: IDashboardService = {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
-            } > = WidgetValidation.get({
+            } > = DashboardValidation.get({
                 id
             });
 
@@ -53,7 +53,7 @@ const DashboardService: IDashboardService = {
      */
     async insert(body: IDashboardModel): Promise < IDashboardModel > {
         try {
-            const validate: Joi.ValidationResult < IDashboardModel > = WidgetValidation.create(body);
+            const validate: Joi.ValidationResult < IDashboardModel > = DashboardValidation.create(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
@@ -62,6 +62,28 @@ const DashboardService: IDashboardService = {
             const query: IDashboardModel = await DashboardModel.create(body);
 
             return query;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
+
+        /**
+     * @param {IRoleModel} user
+     * @returns {Promise < IRoleModel >}
+     * @memberof PermissionService
+     */
+    async update(code: string, body: IDashboardModel): Promise < IDashboardModel > {
+        try {
+            const validate: Joi.ValidationResult < IDashboardModel > = DashboardValidation.create(body);
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const user: IDashboardModel = await DashboardModel.update({'id': code}, body);
+
+            return user;
         } catch (error) {
             throw new Error(error.message);
         }
@@ -76,7 +98,7 @@ const DashboardService: IDashboardService = {
         try {
             const validate: Joi.ValidationResult < {
                 id: string
-            } > = WidgetValidation.remove({
+            } > = DashboardValidation.remove({
                 id
             });
 

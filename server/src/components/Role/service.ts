@@ -67,6 +67,28 @@ const PermissionService: IRoleService = {
         }
     },
 
+
+    /**
+     * @param {IRoleModel} user
+     * @returns {Promise < IRoleModel >}
+     * @memberof PermissionService
+     */
+    async update(code: string, body: IRoleModel): Promise < IRoleModel > {
+        try {
+            const validate: Joi.ValidationResult < IRoleModel > = RoleValidation.create(body);
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const user: IRoleModel = await RoleModel.update({'id': code}, body);
+
+            return user;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
     /**
      * @param {string} id
      * @returns {Promise < IRoleModel >}
