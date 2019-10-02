@@ -5,6 +5,7 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
 import { VisualizeComponent } from './visualize/visualize.component';
 import { HomeComponent } from './home/home.component';
+import { SelectLangComponent } from './selectlang/selectlang.component';
 import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
 
 
@@ -16,6 +17,10 @@ export const AppRoutes: Routes = [{
 	path: '',
 	component: PublicLayoutComponent,
 	children: [
+		{
+		    path: 'lang',
+		    component: SelectLangComponent
+		},
 		{
 		    path: 'home',
 		    component: HomeComponent
