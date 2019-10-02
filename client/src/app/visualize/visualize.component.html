@@ -62,8 +62,7 @@
 							</div>
 							<div class="form-group">
 								<label for="y_columns">{{ 'Y_COLUMNS' | translate }}</label>
-								<select class="form-control input-sm" multiple formControlName="yColumns" 
-									(change)="onChangeYaxisColumn($event)" required>
+								<select class="form-control input-sm multi-select2" multiple formControlName="yColumns" required>
 									<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
 								</select>
 							</div>

@@ -210,6 +210,10 @@ export class VisualizeComponent implements OnInit {
 		// 	this.preSetValues();
 		// });
 
+		$(".multi-select2").select2().on("change", (event) => {
+			this.onChangeYaxisColumn(event);
+		});
+
 		this.chartForm.valueChanges.subscribe((event) => {
 			console.log(event);
 			if (event.visualizationName != null && event.visualizationName != "") {
@@ -321,7 +325,14 @@ export class VisualizeComponent implements OnInit {
 	}
 
 	onChangeYaxisColumn($event) {
-
+		console.log($event);
+		console.log(JSON.stringify($($event.currentTarget).select2("data")));
+		let selectedValsObj = $($event.currentTarget).select2("data");
+		let selectedVals = [];
+		selectedValsObj.forEach(element => {
+			selectedVals.push(element.text);
+		});
+		this.general.get("yColumns").setValue(selectedVals);
 	}
 
 	identifyColumnDataType(columnName) {
