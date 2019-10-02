@@ -78,9 +78,10 @@
 					</div>
 				</div>
 				<div class="col-md-10">
-					<div class="filter-show" *ngIf="columnDataType !== '' && columnDataType !== 'undefined'">
+					<div class="filter-show"
+						*ngIf="columnDataType !== '' && columnDataType !== 'undefined' && showFilter">
 						<div class="inline-block">
-							<h6>{{ selectedColumnName }}</h6>
+							<h6>{{ selectedColumnName }} : </h6>
 						</div>
 						<div class="dropdown inline-block ml-1">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -90,25 +91,23 @@
 								</span>
 							</a>
 							<ul class="dropdown-menu numbers-dropdown" *ngIf="columnDataType === 'number'">
-								<li (click)="setAction('flEq','Equal to', true)"><a>equal to (=)</a></li>
-								<li (click)="setAction('flLt','Less then', false)"><a>less then (&lt;)</a></li>
-								<li (click)="setAction('flGr','Greater then', false)"><a>greater then (&gt;)</a></li>
-								<li (click)="setAction('flLtEq','Less or Equal', false)"><a>less then or equal to
-										(&lt;=)</a></li>
-								<li (click)="setAction('flGrEq','Greater or Equal', false)"><a>greater then or equal to
-										(&gt;=)</a></li>
-								<li (click)="setAction('flNEq','Not Equal', true)"><a>not equal to (!=)</a></li>
-								<li (click)="setAction('flRng','In Range', true)"><a>In a range (Inclusive)</a></li>
+								<li (click)="setAction('flEq','Equal to', true)"><a>{{ 'EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flLt','Less then', false)"><a>{{ 'LESS_THEN' | translate }}</a></li>
+								<li (click)="setAction('flGr','Greater then', false)"><a>{{ 'GREATER_THEN' | translate }}</a></li>
+								<li (click)="setAction('flLtEq','Less or Equal', false)"><a>{{ 'LESS_OR_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flGrEq','Greater or Equal', false)"><a>{{ 'GREATER_OR_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flNEq','Not Equal', true)"><a>{{ 'NOT_EQUAL' | translate }}</a></li>
+								<!-- <li (click)="setAction('flRng','In Range', true)"><a>In a range (Inclusive)</a></li>
 								<li (click)="setAction('flNRng','Not in Range', true)"><a>Not in a range (Inclusive)</a>
-								</li>
+								</li> -->
 							</ul>
 
 							<ul class="dropdown-menu string-dropdown" *ngIf="columnDataType === 'string'">
-								<li (click)="setAction('flCn','Contains', true)"><a>Contains</a></li>
-								<li (click)="setAction('flCnS','Contains start', true)"><a>Contains in the start</a>
+								<li (click)="setAction('flCn','Contains', true)"><a>{{ 'CONTAINS' | translate }}</a></li>
+								<li (click)="setAction('flCnS','Contains start', true)"><a>{{ 'CONTAINS_START' | translate }}</a>
 								</li>
-								<li (click)="setAction('flCnE','Contains end', true)"><a>Contains in the end</a></li>
-								<li (click)="setAction('flNCn','Not Contains', true)"><a>Doesn't contain</a></li>
+								<li (click)="setAction('flCnE','Contains end', true)"><a>{{ 'CONTAINS_END' | translate }}</a></li>
+								<li (click)="setAction('flNCn','Not Contains', true)"><a>{{ 'NOT_CONTAINS' | translate }}</a></li>
 							</ul>
 						</div>
 						<div class="filter-count inline-block ml-1">
@@ -117,12 +116,15 @@
 								title="Add more then one inputs seperated by commas"></i>
 						</div>
 						<div class="first-input inline-block ml-1">
-							<input type="text" class="form-control" placeholder="filter string"
-								(keyup)="setFilteValue($event.target.value)">
+							<input type="text" id="customFilter" class="form-control" placeholder="{{ 'FILTER_STRING' | translate }}"
+								(keyup)="setFilterValue($event.target.value)">
 						</div>
 						<div class="apply-filter inline-block ml-1">
 							<button class="btn btn-primary btn-fill" [disabled]="!filterAction"
-								(click)="testData()">Apply</button>
+								(click)="testData()">{{ 'APPLY' | translate }}</button>
+						</div>
+						<div class="apply-filter inline-block ml-1">
+							<button class="btn btn-secondary btn-fill" (click)="closeCustomFilter()">{{ 'CANCEL' | translate }}</button>
 						</div>
 					</div>
 					<div class="undefined-data-type text-center" *ngIf="columnDataType === 'undefined'">
@@ -144,11 +146,11 @@
 								data-toggle="modal"
 								data-target="#newVisualization">{{ 'ADD_VISUALIZATION' | translate }}</a>
 
-							<div class="inline-block ml-1 pull-right" *ngIf="authService.isLoggedIn()">
+							<!-- <div class="inline-block ml-1 pull-right" *ngIf="authService.isLoggedIn()">
 								<button class="btn btn-success btn-fill btn-sm " (click)="saveChanges()"
 									*ngIf="data.length">Save
 									Chnages</button>
-							</div>
+							</div> -->
 
 							<div class="inline-block ml-1 pull-right ">
 								<button class="btn btn-secondary btn-fill btn-sm " (click)="resetData()"
