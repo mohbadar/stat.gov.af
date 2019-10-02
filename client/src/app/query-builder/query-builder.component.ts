@@ -4,12 +4,11 @@ import { DatasourceQueryService } from 'app/services/datasource.query.service';
 import { DatatablesService } from '../services/datatables.service';
 import { DatasourceQuery } from '../models/datasource.query';
 import { stringify } from '@angular/compiler/src/util';
-import { Router } from "@angular/router"
-import { Select2OptionData } from 'ng2-select2';
+import { Router } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
-
 import { empty } from 'rxjs';
 import { AuthService } from 'app/services/auth.service';
+import * as jquery from 'jquery';
 declare var $: any;
 
 @Component({
@@ -21,10 +20,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	// these variable will be feed to visualization component
 	visualizationColumns = [];
 	visualizationRows = [];
-
-	public selectOptions: Array<Select2OptionData>;
-	selected: string;
 	customParams = [];
+	customParamsDataset = [];
 	data = [];
 	dataSheets = [];
 	wSheetName: string;
@@ -45,6 +42,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	dTableFlag = false;
 	showFilter = false;
 	isLoading: boolean;
+	isDatasetSelected: boolean = false;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
 	// datatables options
@@ -73,7 +71,24 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// document.getElementById("btnAtach").style.display = 'none';
 		this.customParams.push('title');
 		this.customParams.push('uuid');
-		this.getSelectData(this.customParams);
+		this.customParamsDataset.push('title');
+		this.customParamsDataset.push('nid');
+		this.getDatasets(this.customParamsDataset);
+
+		$(".single-select2").select2({
+			placeholder: "Select a Dataset..."
+		}).change(event => {
+			this.isDatasetSelected = true;
+			const dataset = $(event.currentTarget).select2("val");
+			this.getResources(this.customParams, dataset);
+
+		});
+		$(".single-select2-2").select2({
+			placeholder: "Select a resource..."
+		}).change(event => {
+			const resource = $(event.currentTarget).select2("data");
+			this.changed(resource);
+		});
 		this.dtOptions = {
 			'pagingType': 'full_numbers',
 			'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
@@ -94,8 +109,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				}
 			],
 			language: this.datatables.selectedJsonFile
-			// responsive: true,
-			// language: this.datatables.selectedJsonFile
 		};
 		this.changeLanguage();
 	}
@@ -104,24 +117,32 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 	}
 
-	getSelectData(customParams) {
-		this.datasouceQueryService.getSelectData(customParams, 'resource', 4000).subscribe((selectData) => {
-			// console.log("selectData", selectData);
-			this.selectOptions = [
-				{
-					id: 'placeholder',
-					text: 'Select Dataset'
-				}
-			];
+	getDatasets(customParams) {
+		this.datasouceQueryService.getDatasets(customParams, 'dataset', 4000).subscribe((selectData) => {
 			selectData.forEach((element) => {
-				this.selectOptions.push({
-					id: element.uuid,
-					text: element.title
-				});
+				const newOption = new Option(element.title, element.nid);
+				$('.single-select2').append(newOption);
 			});
-			// console.log("selectOptions",this.selectOptions);
 		});
 	}
+	getResources(customParams, dataset) {
+		const resourceIds = [];
+		if (this.isDatasetSelected) {
+			this.datasouceQueryService.getResourcesList(dataset).subscribe((resourceList) => {
+				resourceList.field_resources.und.forEach((element) => {
+					resourceIds.push(element.target_id)
+				});
+				this.datasouceQueryService.getResources(customParams, 'resource', resourceIds).subscribe((selectData) => {
+					$('.single-select2-2').html('').select2({data: [{id: '', text: ''}]});
+					selectData.forEach((element) => {
+						const newOption = new Option(element.title, element.uuid);
+						$('.single-select2-2').append(newOption);
+					});
+				});
+			});
+		}
+	}
+
 
 	onFileChange(evt: any) {
 		if ($.fn.DataTable.isDataTable('#datatables')) {
@@ -274,7 +295,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.showFilter = true;
 		this.columnDataType = dataType;
 		this.selectedColumnIndex = index;
-		this.action = this.translate.instant('ACTIONS');;
+		this.action = this.translate.instant('ACTIONS');
 		this.selectedColumnName = this.columnNames[index].name;
 		// console.log('Column Data Type: ', this.columnDataType);
 	}
@@ -587,93 +608,91 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// 		}
 		// 	});
 	}
-	public changed(e: any): void {
-		if (e.value !== 'placeholder') {
-			this.selected = e.value;
-			if ($.fn.DataTable.isDataTable('#datatables')) {
-				this.dTable.destroy();
-				this.dTable = null;
-			}
-			this.data = [];
-			this.columnNames = [];
-			this.selectedColumnIndex = 0;
-			this.selectedColumnName = '';
-			this.columnDataType = '';
-			this.columnDataTypes = [];
-			this.filterAction = '';
-			this.filterValue = '';
-			this.dTableFlag = false;
-			this.workBookName = e.data[0].text;
-			this.dtOptions.buttons[0].filename = this.workBookName;
-			this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
-
-			this.datasouceQueryService.getResourceData(this.selected).subscribe((resourceData) => {
-				// console.log("resourceData", resourceData);
-				this.dTableFlag = true;
-
-				this.resourceId = resourceData.result.resource_id;
-				resourceData.result.fields.forEach((element) => {
-					const obj = {
-						showColumn: true,
-						name: element.id
-					};
-					this.columnNames.push(obj);
-				});
-				resourceData.result.records.forEach((element) => {
-					let val = [];
-					for (let prop in element) {
-						let isNum = /^\d*\.?\d+$/.test(element[prop]);
-						if (isNum) {
-							element[prop] = Number(element[prop]);
-						}
-						val.push(element[prop])
-					}
-					this.data.push(val);
-				});
-				if (this.data[0][0] == null) {
-
-					this.data[0][0] = undefined;
-				}
-				// console.log(this.data);
-				// console.log("columnNames",this.columnNames)
-
-				// After taking out the columns remove the first element of the data
-				// this.data.splice(0, 1);
-				this.prepareDataforDataTable();
-
-				// Parse data for better handling
-				const tempData = [];
-
-				this.data.forEach(element => {
-					const obj = {
-						showRow: true,
-						rowData: element
-					}
-					tempData.push(obj);
-				});
-
-				// console.log('temp data: ', tempData);
-
-				this.data = tempData;
-				this.cdref.detectChanges();
-				if (!$.fn.DataTable.isDataTable('#datatables')) {
-					$('#datatables tfoot th').each(function () {
-						const title = $(this).text();
-						$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
-					});
-					this.dTable = $('#datatables').DataTable(this.dtOptions);
-					this.initializeTable();
-				}
-
-				// Save the original data before processing this data
-				this.originalData = this.data;
-
-				// console.log('Updated data: ', this.data);
-
-
-				this.checkColumnDataType();
-			});
+	public changed(resource: any): void {
+		console.log(resource)
+		if ($.fn.DataTable.isDataTable('#datatables')) {
+			this.dTable.destroy();
+			this.dTable = null;
 		}
+		this.data = [];
+		this.columnNames = [];
+		this.selectedColumnIndex = 0;
+		this.selectedColumnName = '';
+		this.columnDataType = '';
+		this.columnDataTypes = [];
+		this.filterAction = '';
+		this.filterValue = '';
+		this.dTableFlag = false;
+		this.workBookName = resource[0].text;
+		this.dtOptions.buttons[0].filename = this.workBookName;
+		this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
+
+		this.datasouceQueryService.getResourceData(resource[0].element.value).subscribe((resourceData) => {
+			// console.log("resourceData", resourceData);
+			this.dTableFlag = true;
+
+			this.resourceId = resourceData.result.resource_id;
+			resourceData.result.fields.forEach((element) => {
+				const obj = {
+					showColumn: true,
+					name: element.id
+				};
+				this.columnNames.push(obj);
+			});
+			resourceData.result.records.forEach((element) => {
+				let val = [];
+				for (let prop in element) {
+					let isNum = /^\d*\.?\d+$/.test(element[prop]);
+					if (isNum) {
+						element[prop] = Number(element[prop]);
+					}
+					val.push(element[prop])
+				}
+				this.data.push(val);
+			});
+			if (this.data[0][0] == null) {
+
+				this.data[0][0] = undefined;
+			}
+			// console.log(this.data);
+			// console.log("columnNames",this.columnNames)
+
+			// After taking out the columns remove the first element of the data
+			// this.data.splice(0, 1);
+			this.prepareDataforDataTable();
+
+			// Parse data for better handling
+			const tempData = [];
+
+			this.data.forEach(element => {
+				const obj = {
+					showRow: true,
+					rowData: element
+				}
+				tempData.push(obj);
+			});
+
+			// console.log('temp data: ', tempData);
+
+			this.data = tempData;
+			this.cdref.detectChanges();
+			if (!$.fn.DataTable.isDataTable('#datatables')) {
+				$('#datatables tfoot th').each(function () {
+					const title = $(this).text();
+					$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
+				});
+				this.dTable = $('#datatables').DataTable(this.dtOptions);
+				this.initializeTable();
+			}
+
+			// Save the original data before processing this data
+			this.originalData = this.data;
+
+			// console.log('Updated data: ', this.data);
+
+
+			this.checkColumnDataType();
+		});
 	}
 
 	// handleChange(event) {
