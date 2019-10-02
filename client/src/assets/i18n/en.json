@@ -31,6 +31,9 @@
   "BOTTOMSHEET": "Bottom sheet",
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
+  "ROLE_MANAGEMENT": "Role Management",
+  "MY_DASHBOARD_MANAGEMENT": "My Dashboards",
+  "EDIT_DASHBOARD_MANAGEMENT": "Dashboard", 
 
   "ADMINISTRATION": "Admin",
   "DIALOG": "Dialog",

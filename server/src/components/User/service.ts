@@ -67,6 +67,28 @@ const UserService: IUserService = {
         }
     },
 
+
+        /**
+     * @param {IRoleModel} user
+     * @returns {Promise < IRoleModel >}
+     * @memberof PermissionService
+     */
+    async update(code: string, body: IUserModel): Promise < IUserModel > {
+        try {
+            const validate: Joi.ValidationResult < IUserModel > = UserValidation.createUser(body);
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const user: IUserModel = await UserModel.update({_id: Types.ObjectId(code)}, body);
+
+            return user;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
     /**
      * @param {string} id
      * @returns {Promise < IUserModel >}

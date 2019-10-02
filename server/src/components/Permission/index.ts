@@ -2,6 +2,7 @@ import PermissionService from './service';
 import { HttpError } from '../../config/error';
 import { IPermissionModel } from './model';
 import { NextFunction, Request, Response } from 'express';
+import { async } from 'rxjs/internal/scheduler/async';
 
 /**
  * @export
@@ -66,6 +67,93 @@ export async function remove(req: Request, res: Response, next: NextFunction): P
         const user: IPermissionModel = await PermissionService.remove(req.params.id);
 
         res.status(200).json(user);
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
+
+
+export async function init(req: Request, res: Response, next: NextFunction): Promise < void > 
+{
+    try {
+        
+        const createRolePerm = {
+            name: 'CREATE_ROLE',
+            description: 'Can Create a New Role',
+            isActive: true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>createRolePerm)
+    
+        const readRolePerm = {
+            'name': 'READ_ROLE',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>readRolePerm)
+    
+    
+        const updateRolePerm = {
+            'name': 'UPDATE_ROLE',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>updateRolePerm)
+    
+    
+    
+        const deleteRolePerm = {
+            'name': 'DELETE_ROLE',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>deleteRolePerm)
+    
+    
+    
+        const userCreatePerm = {
+            'name': 'CREATE_USER',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>userCreatePerm)
+    
+    
+    
+        const deleteUserPerm = {
+            'name': 'DELETE_USER',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>deleteUserPerm)
+    
+    
+        const readUserPerm = {
+            'name': 'READ_USER',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>readUserPerm)
+    
+    
+    
+        const updateUserPerm = {
+            'name': 'UPDATE_USER',
+            'description': 'Can Create a New Role',
+            'isActive': true,
+        };
+    
+        await PermissionService.insert(<IPermissionModel>updateUserPerm)
+
+        
+        
+        res.status(201);
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

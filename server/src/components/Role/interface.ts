@@ -19,6 +19,14 @@ export interface IRoleService {
      */
     findOne(code: string): Promise<IRoleModel>;
 
+
+    /**
+     * @param {string} id
+     * @returns {Promise<IRoleModel>}
+     * @memberof IRoleService
+     */
+    update(id: string, IRoleModel: IRoleModel): Promise<IRoleModel>;
+
     /**
      * @param {IRoleModel} IRoleModel
      * @returns {Promise<IRoleModel>}

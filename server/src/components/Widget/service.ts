@@ -67,6 +67,28 @@ const WidgetService: IWidgetService = {
         }
     },
 
+
+        /**
+     * @param {IRoleModel} user
+     * @returns {Promise < IRoleModel >}
+     * @memberof PermissionService
+     */
+    async update(code: string, body: IWidgetModel): Promise < IWidgetModel > {
+        try {
+            const validate: Joi.ValidationResult < IWidgetModel > = WidgetValidation.create(body);
+
+            if (validate.error) {
+                throw new Error(validate.error.message);
+            }
+
+            const user: IWidgetModel = await WidgetModel.update({_id: Types.ObjectId(code)}, body);
+
+            return user;
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    },
+
     /**
      * @param {string} id
      * @returns {Promise < IWidgetModel >}

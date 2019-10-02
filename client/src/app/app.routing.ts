@@ -5,6 +5,7 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
 import { VisualizeComponent } from './visualize/visualize.component';
 import { HomeComponent } from './home/home.component';
+import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
 
 
 export const AppRoutes: Routes = [{
@@ -35,8 +36,9 @@ export const AppRoutes: Routes = [{
 	]
 }
 , {
-	path: 'node',
+	path: 'custom',
 	component: PublicLayoutComponent,
+	// canActivate: [AuthGuard],
 	children: [
 		{
 			path: 'user-management', 
@@ -49,6 +51,19 @@ export const AppRoutes: Routes = [{
 			path: 'role-management', 
 			loadChildren: './admin/node/role/role.module#RoleModule'
 			// component: DashboardComponent
+		},
+
+
+		{
+			path: 'my-dashboards', 
+			loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule'
+			// component: DashboardComponent
+		},
+
+		{
+			path: 'my-dashboards/edit',
+			// loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule', 
+			component: EditDashboardComponent
 		},
 
 	]

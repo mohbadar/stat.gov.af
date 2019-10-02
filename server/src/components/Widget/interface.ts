@@ -26,6 +26,8 @@ export interface IWidgetService {
      */
     insert(IWidgetModel: IWidgetModel): Promise<IWidgetModel>;
 
+    update(code: string, IWidgetModel: IWidgetModel): Promise<IWidgetModel>
+
     /**
      * @param {string} id
      * @returns {Promise<IWidgetModel>}

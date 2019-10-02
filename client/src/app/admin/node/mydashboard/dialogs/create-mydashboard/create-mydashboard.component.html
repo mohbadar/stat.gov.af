@@ -1,0 +1,20 @@
+<div class="row">
+    <div class="col-md-12">
+  
+      <form [formGroup]="myForm" (ngSubmit)="submit()">
+  
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Dashboard Name" name="name" class="form-control" formControlName="name" required>
+        </div>
+  
+
+        <div class="">
+          <button type="submit" class="btn btn-primary btn-sm btn-fill mx-2"
+            [disabled]="myForm.invalid">Submit</button>&nbsp;&nbsp;
+          <span class="btn btn-warning btn-fill btn-sm mx-2" (click)="cancelRegistration()">Cancel</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  

@@ -39,6 +39,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
 	headerRow = ['Id', 'Name', 'Username', 'Phone', 'Email', 'Last Login', 'Actions'];
 	isLoading = true;
+	roles: any;
 
 	constructor(public httpClient: HttpClient,
 		private userService: UserService,
@@ -89,9 +90,8 @@ export class UserComponent implements OnInit, OnDestroy {
 				console.log('data : ', data);
 				this.showCreateModal = false;
 				$('#createModal').off('hidden.bs.modal');
-				if (data.newRecord) {
 					this.reloadData();
-				}
+				
 			});
 		}
 
@@ -119,9 +119,7 @@ export class UserComponent implements OnInit, OnDestroy {
 		// this.result = [];
 		this.loading = true;
 		this.dTableFlag = false;
-		this.userService.loadAllUsers().subscribe(data => {
-      console.log("USers", data);
-      
+		this.userService.loadAllUsers().subscribe(data => {      
 			this.result = data;
 			this.dTableFlag = true;
 			this.cdref.detectChanges();
@@ -157,9 +155,7 @@ export class UserComponent implements OnInit, OnDestroy {
 		// }
 		this.roleService.loadAllRoles().subscribe(groupsData => {
 			this.allGroupsData = groupsData;
-			console.log('All groups ', this.allGroupsData);
 			this.loading = false;
-
 			$('#createModal').modal();
 			this.showCreateModal = true;
 		}, err => {
@@ -190,12 +186,6 @@ export class UserComponent implements OnInit, OnDestroy {
 	editRecord(recordId) {
 		if (!this.editLoading) {
 			this.editLoading = true;
-			// if (!this.globals.principal.hasAuthority(['ADMIN', 'USER_EDIT'])) {
-			// 	this.editLoading = false;
-			// 	return false;
-
-			// }
-
 			this.userService.loadUser(recordId).subscribe(data => {
 				this.editLoading = false;
 				console.log('the user coming is:', data);
@@ -209,6 +199,12 @@ export class UserComponent implements OnInit, OnDestroy {
 
 	}
 
+	setRoles()
+	{
+		this.roleService.loadAllRoles().subscribe(data => {
+			this.roles = data;
+		});
+	}
 
 	ngOnDestroy() {
 		if (this.dataTablesObservable) {

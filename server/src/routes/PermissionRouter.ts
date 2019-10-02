@@ -19,6 +19,9 @@ router.get('/one/:id', PermissionComponent.findOne);
  */
 router.get('/all', PermissionComponent.findAll);
 
+
+router.get('/init', PermissionComponent.init);
+
 /**
  * POST method route
  * @example http://localhost:PORT/api/dashboards
