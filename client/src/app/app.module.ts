@@ -67,6 +67,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 import { HomeComponent } from './home/home.component';
 import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
+import { AddWidgetComponent } from './admin/node/mydashboard/dialogs/add-widget/add-widget.component';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/
 		DefaultLayoutComponent,
 		HomeComponent,
 		EditDashboardComponent,
+		AddWidgetComponent
 		// VisualizeComponent,
 		// DashboardComponent
 	],

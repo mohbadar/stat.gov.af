@@ -122,25 +122,25 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 		this.reloadData();
 	}
 
-	reloadData() {
-		// this.result = [];
-		this.loading = true;
-		this.dTableFlag = false;
-		this.datasourceDashboardService.load().subscribe(data => {
-			this.result = data;
-			this.dTableFlag = true;
-			this.cdref.detectChanges();
-			this.loading = false;
+    reloadData() {
+      // this.result = [];
+      this.loading = true;
+      this.dTableFlag = false;
+      this.datasourceDashboardService.load().subscribe(data => {
+        this.result = data;
+        this.dTableFlag = true;
+        this.cdref.detectChanges();
+        this.loading = false;
 
-			this.initTable();
-			this.isLoading = false;
-			// console.log('roles data ', this.result);
+        this.initTable();
+        this.isLoading = false;
+        // console.log('roles data ', this.result);
 
-		}, (err) => {
-			console.log('data error: ', err);
-			this.loading = false;
-		});
-	}
+      }, (err) => {
+        console.log('data error: ', err);
+        this.loading = false;
+      });
+    }
 
 	initTable() {
 		// Initialize datatable if not initialized before

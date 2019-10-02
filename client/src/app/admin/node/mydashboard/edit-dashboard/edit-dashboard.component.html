@@ -1,3 +1,70 @@
-<p>
-  edit-dashboard works!
-</p>
+<div class="main-content">
+    <div class="container-fluid">
+  
+
+                          <!-- Create New Role Modal -->
+                          <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel"
+                          data-backdrop="static" data-keyboard="false">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                              aria-hidden="true">&times;</span></button>
+                                      <h4 class="modal-title" id="createModalLabel">Add New Widget to Dashboard</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                      <div class="container-fluid">
+                                          <app-add-widget *ngIf="showCreateModal" [dashboard]="recordId" [data]="allWidgets" (toggleModal)="toggleModal($event)"
+                                            ></app-add-widget>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+            
+  
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title-wrapper">
+                    <h3 class="title">{{ 'EDIT_DASHBOARD_MANAGEMENT' | translate }}</h3>
+                    <div class="title-actions pull-right">
+                        <button class="btn btn-success" type="button" (click)="addNew()" [disabled]="loading"
+                            >
+                            <span class="btn-label" *ngIf="!loading">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+                        </button>
+                        <button class="btn btn-info" type="button" (click)="refresh()" [disabled]="loading">
+                            <span class="btn-label" *ngIf="!loading">
+                                <i class="fa fa-refresh"></i>
+                            </span>
+                            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+                        </button>
+                    </div>
+                </div>
+  
+                <br><br><br>
+  
+                <div class="card">
+                    <div class="content">
+                        <div class="toolbar">
+                            <!--        Here you can write extra buttons/actions for the toolbar              -->
+                        </div>
+                        <div>
+                           
+
+
+                        </div>
+                    </div>
+                    <!-- end content-->
+                </div>
+                <!--  end card  -->
+            </div>
+            <!-- end col-md-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+  </div>
+  

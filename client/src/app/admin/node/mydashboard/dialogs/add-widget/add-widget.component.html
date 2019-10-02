@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12">
+  
+      <form [formGroup]="editForm" (ngSubmit)="submit()">
+  
+          <div class="form-group">
+              <label>Widgets</label>
+              <select id="widgets" multiple data-title="Multiple Select" name="widgets" class="selectpicker" required
+                data-style="btn-primary btn-fill btn-block" data-menu-style="dropdown-blue">
+                <option *ngFor="let widget of data" value="{{widget._id}}">{{ widget.name }}
+                </option>
+              </select>
+            </div>
+
+        <div class="">
+          <button type="submit" class="btn btn-primary btn-sm btn-fill mx-2"
+            [disabled]="editForm.invalid">Submit</button>&nbsp;&nbsp;
+          <span class="btn btn-warning btn-fill btn-sm mx-2" (click)="cancelUpdate()">Cancel</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  
