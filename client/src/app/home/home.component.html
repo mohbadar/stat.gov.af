@@ -41,37 +41,6 @@
 		</div>
 	</div>
 </section>
-<!-- <section id="main-content">
-	<div class="container">
-		<div class="row">
-			<h3>{{ 'DASHBOARDS' | translate }}</h3>
-			<hr>
-		</div>
-		<div class='row'>
-			<div class='col-md-12' *ngIf="dashboardCount > 0">
-				<div class="carousel slide media-carousel" id="media">
-					<div class="carousel-inner">
-						<div class="item" *ngFor="let dashboard of globals.dashboardList;let i = index">
-							<div class="col-md-4">
-									<a href="#" class="dataset-name"
-									[routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a>
-									<div class="small m-t-xs">
-										<small class="text-muted"
-											*ngFor="let tag of dashboard.tags">{{ getTitleByLang(tag) | titlecase }}</small>
-									</div>
-								<a class="thumbnail" href="#"><img alt="" src="../../assets/img/features/diagram.png"></a> 	
-							</div>	
-						</div>
-
-					</div>
-					<a data-slide="prev" href="#media" class="left carousel-control">‹</a>
-					<a data-slide="next" href="#media" class="right carousel-control">›</a>
-				</div>
-
-			</div>
-		</div>
-	</div>
-</section> -->
 <section id="main-content">
 	<div class="container">
 		
@@ -80,26 +49,24 @@
 				<div class="carousel slide" id="myCarousel">
 					<div class="carousel-inner">
 						<div class="item active">
-							<div class="col-md-2">
+							<div class="col-md-2 card">
 									<a href="#" class="dataset-name"
 									[routerLink]="['/dashboard', globals.dashboardList[0].slug]">{{ getTitleByLang(globals.dashboardList[0].name) | titlecase  | translate }}</a>
 									<div class="small m-t-xs">
 										<small class="text-muted"
 											*ngFor="let tag of globals.dashboardList[0].tags">{{ getTitleByLang(tag) | titlecase }}</small>
 									</div>
-								<a class="thumbnail" href="#"><img alt="" src="../../assets/img/features/diagram.png"></a> 
 							</div>
 						</div>
 
 						<div class="item" *ngFor="let dashboard of globals.dashboardList | slice:1">
-							<div class="col-md-2">
+							<div class="col-md-2 card">
 									<a href="#" class="dataset-name"
 									[routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a>
 									<div class="small m-t-xs">
 										<small class="text-muted"
 											*ngFor="let tag of dashboard.tags">{{ getTitleByLang(tag) | titlecase }}</small>
-									</div>
-								<a class="thumbnail" href="#"><img alt="" src="../../assets/img/features/diagram.png"></a> 
+									</div> 
 							</div>
 						</div>
 						

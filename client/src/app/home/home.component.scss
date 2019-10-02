@@ -307,32 +307,6 @@ padding: 10px 15px;
 
 
 
-
-// Dashboards Slider
-/* override position and transform in 3.3.x */
-// .carousel-inner .item.left.active {
-//   transform: translateX(-33%);
-// }
-// .carousel-inner .item.right.active {
-//   transform: translateX(33%);
-// }
-
-// .carousel-inner .item.next {
-//   transform: translateX(33%)
-// }
-// .carousel-inner .item.prev {
-//   transform: translateX(-33%)
-// }
-
-// .carousel-inner .item.right,
-// .carousel-inner .item.left { 
-//   transform: translateX(0);
-// }
-
-
-// .carousel-control.left,.carousel-control.right {background-image:none;}
-
-
 // End of Dashboards Slider
 .carousel-inner .active.left {
   left: -16.6%;
@@ -345,4 +319,18 @@ padding: 10px 15px;
 }
 /* End carousel */
 // End of new slider
+
+
+// Dashboards design css
+
+.item .card{
+  min-height: 200px;
+  text-align: center;
+  font-size: 30px;
+  vertical-align:middle !important;  
+}
+.item .card a{
+  padding-top:30%;
+}
+// End of Dashbard designs
 
