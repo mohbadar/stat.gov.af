@@ -6,6 +6,7 @@ import { PermissionService } from 'app/services/node/permission.service';
 import { AuthService } from 'app/services/auth.service';
 import { Globals } from 'app/core';
 import { DatatablesService } from 'app/services/datatables.service';
+import { AuthPrincipal } from '../AuthPrinicipal';
 
 declare var $: any;
 
@@ -34,6 +35,7 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 	loading;
 	viewLoading;
 	editLoading;
+	authPrincipal: AuthPrincipal = new AuthPrincipal(false, [], null);
 
 	constructor(public httpClient: HttpClient ,
 		private roleService: RoleService,
@@ -54,6 +56,10 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 			language: this.datatables.selectedJsonFile
 		};
 		this.changeLanguage();
+		this.authPrincipal = JSON.parse(localStorage.getItem('authPrincipal'));
+
+		console.log("Perm", this.authPrincipal);
+		
 	}
 
 	ngAfterViewInit() {

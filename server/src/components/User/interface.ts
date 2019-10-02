@@ -26,6 +26,8 @@ export interface IUserService {
      */
     insert(IUserModel: IUserModel): Promise<IUserModel>;
 
+    update(code: String, IUserModel:IUserModel): Promise<IUserModel>;
+
     /**
      * @param {string} id
      * @returns {Promise<IUserModel>}

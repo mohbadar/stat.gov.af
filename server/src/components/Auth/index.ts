@@ -63,6 +63,8 @@ export async function login(req: Request, res: Response, next: NextFunction): Pr
         user.save().then(() => {
             res.json({
                 token,
+                data: user.roles,
+                user_id: user._id,
                 status: 200,
                 logged: true,
                 message: 'Sign in successfull'

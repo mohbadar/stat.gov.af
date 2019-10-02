@@ -17,7 +17,7 @@ const development: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
+        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'stat_gov_af_dev'
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
@@ -26,7 +26,7 @@ const production: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://production_uri/',
-        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'users_db'
+        MONGODB_DB_MAIN: process.env.MONGODB_DB_MAIN || 'stat_gov_af_prod'
     },
     secret: process.env.SECRET || '@QEGTUI'
 };
@@ -35,7 +35,7 @@ const test: IConfig = {
     port: process.env.PORT || 3000,
     database: {
         MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017',
-        MONGODB_DB_MAIN: 'test_users_db'
+        MONGODB_DB_MAIN: 'stat_gov_af_test'
     },
     secret: process.env.SECRET || '@QEGTUI'
 };

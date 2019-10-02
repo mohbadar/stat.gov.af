@@ -59,11 +59,8 @@ export class CreateRoleComponent implements OnInit, AfterViewInit {
 		console.log('Role submitted', this.myForm.value);
 		const vals = Array.from($('.selectpicker').find(':selected')).map((item) => {
 			return String($(item).val());
-    });
-    
-    
-    console.log("Values", vals);
-    
+    	});
+        
 		// Extract permissions by their IDs
 		const permissions = this.data.filter((item) => {
       console.log("Item Id", item._id);

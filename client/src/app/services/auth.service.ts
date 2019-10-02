@@ -16,6 +16,8 @@ export interface UserDetails {
 	providedIn: 'root'
 })
 export class AuthService {
+
+
 	token;
 	principal: Principal = new Principal(false, [], [], [], null, null);
 	userName;
@@ -117,7 +119,10 @@ export class AuthService {
 
 	public logout() {
 		this.token = null;
+		localStorage.removeItem('auth_token');
+		localStorage.removeItem('authPrincipal')
 		localStorage.removeItem(this.tokenName);
+		localStorage.removeItem('loggedInUserId');
 		// return this.http.post('/api/logout', '');
 		return true;
 	}
@@ -149,4 +154,22 @@ export class AuthService {
 	// public isAuthenticated(): Observable<any> {
 	//     return this.http.get(`${this.baseUrl}`, { headers: { Authorization: `Bearer ${this.getToken()}`}});
 	// }
+
+	public isAdmin() {
+		if(JSON.parse(localStorage.getItem('authPrincipal')))
+		{
+			return true;
+		}
+		return false;
+	}
+
+
+	setLoggedInUserId(user_id: string) {
+		localStorage.setItem("loggedInUserId", user_id);
+	}
+
+	getLoggedInUserId()
+	{
+		return localStorage.getItem('loggedInUserId') + "";
+	}
 }

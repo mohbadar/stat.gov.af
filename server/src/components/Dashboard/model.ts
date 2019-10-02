@@ -34,18 +34,19 @@ const WidgetSchema: Schema = new Schema({
     user: {
         ref: 'UserModel',
         type: Schema.Types.ObjectId,
+        required: true
     },
 
     widgets: { 
         type: [[Object]], 
-        required: true, 
+        required: false, 
         trim: false, 
         index: false 
     },
 
     layout: { 
         type: Object, 
-        lowercase: true, 
+        lowercase: false, 
         required: false, 
         trim: false, 
         index: false 

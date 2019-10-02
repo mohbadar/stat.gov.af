@@ -26,6 +26,8 @@ export interface IDashboardService {
      */
     insert(IDashboardModel: IDashboardModel): Promise<IDashboardModel>;
 
+    update(code: string, IDashboardModel: IDashboardModel): Promise<IDashboardModel>;
+
     /**
      * @param {string} id
      * @returns {Promise<IDashboardModel>}

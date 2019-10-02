@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from './../../services/auth.service';
 import { DatatablesService } from '../../services/datatables.service';
 import { Globals } from '../../core/_helpers/globals';
+import { AuthPrincipal } from '../node/AuthPrinicipal';
 
 declare var $: any;
 
@@ -34,6 +35,7 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 	loading;
 	viewLoading;
 	editLoading;
+	authPrincipal: AuthPrincipal; 
 
 	constructor(public httpClient: HttpClient,
 		private roleService: RoleService,
@@ -54,6 +56,8 @@ export class RoleComponent implements OnInit, OnDestroy, AfterViewInit {
 			language: this.datatables.selectedJsonFile
 		};
 		this.changeLanguage();
+
+		this.authPrincipal = JSON.parse(localStorage.getItem('authPrincipal'));
 	}
 
 	ngAfterViewInit() {

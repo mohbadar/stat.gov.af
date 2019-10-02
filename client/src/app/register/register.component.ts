@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
 	registerForm: FormGroup;
 	passwordMatch = true;
 
-	constructor(private fb: FormBuilder, private authService: AuthService) {
+	constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
 
 	}
 
@@ -46,7 +47,7 @@ export class RegisterComponent implements OnInit {
 			fullName: ['', Validators.required],
 			username: ['', Validators.required],
 			mobileNumber: ['', Validators.required],
-			email: ['', Validators.required],
+			email: ['', [Validators.required, Validators.email]],
 			password: ['', Validators.required],
 			passwordConf: ['', Validators.required]
 		}, { validators: this.checkPasswords });
@@ -81,7 +82,11 @@ export class RegisterComponent implements OnInit {
 		};
 		this.authService.createUser(formJson).subscribe(res => {
 			console.log('Response registration: ', res);
-		})
+			this.router.navigate(['/login']);
+		}, (err) =>
+		{
+			console.log("Registeration Failed");
+		});
 	}
 
 	validateNumber(el) {
