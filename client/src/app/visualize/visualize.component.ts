@@ -194,6 +194,7 @@ export class VisualizeComponent implements OnInit {
 
 	save() {
 		console.log("Saving Visulaziation");
+		
 	}
 
 	// preSetValues() {

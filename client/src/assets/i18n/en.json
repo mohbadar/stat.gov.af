@@ -108,7 +108,7 @@
 
   "DOCS": "Documentation",
   "SETTINGS": "Settings" ,
-  "SELECT_PLACEHOLDER":"Please select dataset from Data.gov.af",
+  "SELECT_LABEL":"Please select dataset from Data.gov.af",
   "RESET":"Reset",
   "ADD_VISUALIZATION":"+ New Visualization",
   "EXCEL_EXPORT":"Excel export",
@@ -127,6 +127,9 @@
   "CANCEL":"Cancel",
   "ACTIONS":"Actions",
   "FILTER_STRING":"Filter string",
+  "COLUMN_LIST":"List of all columns:",
+  "UNCHECK_COLUMN":"Uncheck all columns",
+
 
   "VISUALIZATION_EIDTOR": "Visualization Editor",
   "VISUALIZATION_TYPE": "Visualization Type",

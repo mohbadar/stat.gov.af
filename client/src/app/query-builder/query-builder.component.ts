@@ -45,6 +45,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	isDatasetSelected: boolean = false;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
+	// true: check all checkboxes, false: uncheck all checkboxes
+	isAllCheck: boolean = false;
 	// datatables options
 	dtOptions;
 	operators = {
@@ -73,22 +75,25 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.customParams.push('uuid');
 		this.customParamsDataset.push('title');
 		this.customParamsDataset.push('nid');
-		this.getDatasets(this.customParamsDataset);
 
 		$(".single-select2").select2({
-			placeholder: "Select a Dataset..."
+			placeholder: "Select a Dataset...",
 		}).change(event => {
 			this.isDatasetSelected = true;
 			const dataset = $(event.currentTarget).select2("val");
 			this.getResources(this.customParams, dataset);
 
 		});
-		$(".single-select2-2").select2({
-			placeholder: "Select a resource..."
+		$("#single-select2").select2({
+			placeholder: "Select a resource...",
+			allowClear: true
 		}).change(event => {
 			const resource = $(event.currentTarget).select2("data");
 			this.changed(resource);
 		});
+
+		this.getDatasets(this.customParamsDataset);
+
 		this.dtOptions = {
 			'pagingType': 'full_numbers',
 			'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
@@ -133,10 +138,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					resourceIds.push(element.target_id)
 				});
 				this.datasouceQueryService.getResources(customParams, 'resource', resourceIds).subscribe((selectData) => {
-					$('.single-select2-2').html('').select2({data: [{id: '', text: ''}]});
+					$('#single-select2').empty().append($('<option>').text('Select a resource').attr('value', ''));
 					selectData.forEach((element) => {
 						const newOption = new Option(element.title, element.uuid);
-						$('.single-select2-2').append(newOption);
+						$('#single-select2').append(newOption);
 					});
 				});
 			});
@@ -422,6 +427,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	resetData() {
+		let D_T = $("#datatables").DataTable();
+		let cbarray = document.getElementsByName("cn");
 		this.data = this.data.map(dt => {
 			dt.showRow = true;
 			return dt;
@@ -432,13 +439,20 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		});
 		$('customFilter').val('');
 		$('input.table-search').val('');
-		let D_T = $("#datatables").DataTable();
+
+		$("#toggle-all").attr("checked", false);
+
 		$('.c-box').each(function () {
 			this.checked = true;
+
+		});
+
+		cbarray.forEach((element) => {
+			element.setAttribute("checked", "checked");
 			$('.column-name').removeClass("unselected");
 		});
-		$.fn.dataTableExt.afnFiltering.length = 0;
-		$("#datatables").dataTable().fnDraw();
+		// $.fn.dataTableExt.afnFiltering.length = 0;
+		// D_T.dataTable().fnDraw();
 		D_T.
 			search('').
 			columns().search('').visible(true, true).order('asc').
@@ -447,8 +461,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	toggleColumn(column, cIndex) {
-		// console.log("column", column);
-		// console.log("cIndex", cIndex);
 		this.columnDataType = '';
 		$(column).closest('li').toggleClass('unselected');
 		const checkBox = $(column).closest('li').find('input');
@@ -459,6 +471,23 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 		const dColumn = this.dTable.column(cIndex);
 		dColumn.visible(!dColumn.visible());
+	}
+	togglecheckboxes(checkbox, cn) {
+		let toggleAll = document.getElementById('toggle-all');
+		if (toggleAll.hasAttribute("checked")) {
+			toggleAll.removeAttribute("checked");
+		} else {
+			toggleAll.setAttribute("checked", "checked");
+		}
+		let cbarray = document.getElementsByName(cn);
+		cbarray.forEach((element, i) => {
+			this.toggleColumn(element, i);
+			if (element.hasAttribute('checked')) {
+				element.removeAttribute("checked");
+			} else {
+				element.setAttribute("checked", "checked");
+			}
+		});
 	}
 
 	setFilterValue(vl) {
@@ -595,104 +624,105 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	showNotification(from, align, msg, type, icon) {
-		// $.notify({
-		// 	icon: icon,
-		// 	message: msg
+		$.notify({
+			icon: icon,
+			message: msg
 
-		// }, {
-		// 		type: type,
-		// 		timer: 4000,
-		// 		placement: {
-		// 			from: from,
-		// 			align: align
-		// 		}
-		// 	});
+		}, {
+			type: type,
+			timer: 4000,
+			placement: {
+				from: from,
+				align: align
+			}
+		});
 	}
 	public changed(resource: any): void {
-		console.log(resource)
-		if ($.fn.DataTable.isDataTable('#datatables')) {
-			this.dTable.destroy();
-			this.dTable = null;
-		}
-		this.data = [];
-		this.columnNames = [];
-		this.selectedColumnIndex = 0;
-		this.selectedColumnName = '';
-		this.columnDataType = '';
-		this.columnDataTypes = [];
-		this.filterAction = '';
-		this.filterValue = '';
-		this.dTableFlag = false;
-		this.workBookName = resource[0].text;
-		this.dtOptions.buttons[0].filename = this.workBookName;
-		this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
-
-		this.datasouceQueryService.getResourceData(resource[0].element.value).subscribe((resourceData) => {
-			// console.log("resourceData", resourceData);
-			this.dTableFlag = true;
-
-			this.resourceId = resourceData.result.resource_id;
-			resourceData.result.fields.forEach((element) => {
-				const obj = {
-					showColumn: true,
-					name: element.id
-				};
-				this.columnNames.push(obj);
-			});
-			resourceData.result.records.forEach((element) => {
-				let val = [];
-				for (let prop in element) {
-					let isNum = /^\d*\.?\d+$/.test(element[prop]);
-					if (isNum) {
-						element[prop] = Number(element[prop]);
-					}
-					val.push(element[prop])
-				}
-				this.data.push(val);
-			});
-			if (this.data[0][0] == null) {
-
-				this.data[0][0] = undefined;
+		if (resource[0].element.value != '') {
+			if ($.fn.DataTable.isDataTable('#datatables')) {
+				this.dTable.destroy();
+				this.dTable = null;
 			}
-			// console.log(this.data);
-			// console.log("columnNames",this.columnNames)
+			this.data = [];
+			this.columnNames = [];
+			this.selectedColumnIndex = 0;
+			this.selectedColumnName = '';
+			this.columnDataType = '';
+			this.columnDataTypes = [];
+			this.filterAction = '';
+			this.filterValue = '';
+			this.dTableFlag = false;
+			this.workBookName = resource[0].text;
+			this.dtOptions.buttons[0].filename = this.workBookName;
+			this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
 
-			// After taking out the columns remove the first element of the data
-			// this.data.splice(0, 1);
-			this.prepareDataforDataTable();
+			this.datasouceQueryService.getResourceData(resource[0].element.value).subscribe((resourceData) => {
+				// console.log("resourceData", resourceData);
+				this.dTableFlag = true;
 
-			// Parse data for better handling
-			const tempData = [];
-
-			this.data.forEach(element => {
-				const obj = {
-					showRow: true,
-					rowData: element
-				}
-				tempData.push(obj);
-			});
-
-			// console.log('temp data: ', tempData);
-
-			this.data = tempData;
-			this.cdref.detectChanges();
-			if (!$.fn.DataTable.isDataTable('#datatables')) {
-				$('#datatables tfoot th').each(function () {
-					const title = $(this).text();
-					$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
+				this.resourceId = resourceData.result.resource_id;
+				resourceData.result.fields.forEach((element) => {
+					const obj = {
+						showColumn: true,
+						name: element.id
+					};
+					this.columnNames.push(obj);
 				});
-				this.dTable = $('#datatables').DataTable(this.dtOptions);
-				this.initializeTable();
-			}
+				resourceData.result.records.forEach((element) => {
+					let val = [];
+					for (let prop in element) {
+						let isNum = /^\d*\.?\d+$/.test(element[prop]);
+						if (isNum) {
+							element[prop] = Number(element[prop]);
+						}
+						val.push(element[prop])
+					}
+					this.data.push(val);
+				});
+				if (this.data[0][0] == null) {
 
-			// Save the original data before processing this data
-			this.originalData = this.data;
+					this.data[0][0] = undefined;
+				}
+				// console.log(this.data);
+				// console.log("columnNames",this.columnNames)
 
-			// console.log('Updated data: ', this.data);
+				// After taking out the columns remove the first element of the data
+				// this.data.splice(0, 1);
+				this.prepareDataforDataTable();
+
+				// Parse data for better handling
+				const tempData = [];
+
+				this.data.forEach(element => {
+					const obj = {
+						showRow: true,
+						rowData: element
+					}
+					tempData.push(obj);
+				});
+
+				// console.log('temp data: ', tempData);
+
+				this.data = tempData;
+				this.cdref.detectChanges();
+				if (!$.fn.DataTable.isDataTable('#datatables')) {
+					$('#datatables tfoot th').each(function () {
+						const title = $(this).text();
+						$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
+					});
+					this.dTable = $('#datatables').DataTable(this.dtOptions);
+					this.initializeTable();
+				}
+
+				// Save the original data before processing this data
+				this.originalData = this.data;
+
+				// console.log('Updated data: ', this.data);
 
 
-			this.checkColumnDataType();
-		});
+				this.checkColumnDataType();
+			});
+		}
 	}
 
 	// handleChange(event) {
