@@ -80,7 +80,7 @@ export class HomeComponent implements OnInit {
 
 		this.selectEnvironment = this.getCurrentEnvironment();
 
-		this.setupLanguage();
+		//this.setupLanguage();
 
 		this.translate.onLangChange.subscribe((event) => {
 			console.log('Change language called');
