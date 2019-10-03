@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -29,7 +29,7 @@ export class DatasourceQueryService {
     return this.httpClient.post(`${this.nodeApi}/create`, data);
   }
 
-  getSelectData(customP, type, pageSize): Observable<any> {
+  getDatasets(customP, type, pageSize): Observable<any> {
     return this.httpClient.get(`${this.dataGovApi}/dataset/node.json`, {
       params: {
         'parameters[type]': type,
@@ -40,15 +40,33 @@ export class DatasourceQueryService {
       }
     });
   }
-
-  getResourceData(resourceId): Observable<any> {
-    return this.httpClient.get(`${this.dataGovApi}/action/datastore/search.json`, {
+  getResources(customP, type, resourceIds): Observable<any> {
+    return this.httpClient.get(`${this.dataGovApi}/dataset/node.json`, {
       params: {
-        resource_id : resourceId,
-        limit : "0"
+        'parameters[type]': type,
+        'parameters[status]': '1',
+        'parameters[language]': 'en',
+        'parameters[nid]': resourceIds.join(','),
+        fields: customP.join(','),
       }
     });
   }
   
+
+  getResourcesList(datasetId): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.set('Accept', 'application/json');
+    return this.httpClient.get(`${this.dataGovApi}/dataset/node/${datasetId}`,{headers: headers});
+  }
+
+  getResourceData(resourceId): Observable<any> {
+    return this.httpClient.get(`${this.dataGovApi}/action/datastore/search.json`, {
+      params: {
+        resource_id: resourceId,
+        limit: "0"
+      }
+    });
+  }
+
 
 }
