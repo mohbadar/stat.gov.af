@@ -32,7 +32,7 @@
               "src/styles.css",
               "node_modules/gridstack/dist/gridstack.min.css",
               "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
-              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/select2/dist/css/select2.min.css"
             ],
             "scripts": [
               "node_modules/hammerjs/hammer.min.js",

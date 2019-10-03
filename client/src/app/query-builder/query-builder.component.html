@@ -35,10 +35,6 @@
           </ul>
         </div> -->
 				<!-- <div> -->
-				<div class="inline-block ml-1">
-					<!-- <p class="text-secondary">Do you want to attach a file or select a dataset from data.gov.af?</p> -->
-					<p class="text-secondary">{{ 'SELECT_PLACEHOLDER' | translate }}</p>
-				</div>
 				<!-- <div class="inline-block ml-1">
             <label class="text-secondary"><input type="radio" name="sourceData" value="dataset"
                 (change)="handleChange($event)"> Select a Dataset</label>
@@ -48,14 +44,21 @@
                 (change)="handleChange($event)"> Attach a file</label>
           </div> -->
 				<!-- </div> -->
-
-				<div class="inline-block ml-1">
-					<select2 [data]="selectOptions" [cssImport]=true [width]="300" (valueChanged)="changed($event)"
-						id="selectDataset"></select2>
-					<!-- <input type="file" (change)="onFileChange($event)" multiple="false" class="btn btn-secondary" id="inputFile">
-          <button class="btn btn-primary btn-fill ml-1" id="btnAtach">Submit</button> -->
+				<!-- <input type="file" (change)="onFileChange($event)" multiple="false" class="btn btn-secondary" id="inputFile">
+		  <button class="btn btn-primary btn-fill ml-1" id="btnAtach">Submit</button> -->
+				<div class="col-md-3 inline-block ml-1">
+					<p class="text-secondary">{{ 'SELECT_PLACEHOLDER' | translate }} : </p>
 				</div>
-
+				<div class="col-md-3 inline-block ml-1">
+					<select class="single-select2">
+						<option></option>
+					</select>
+				</div>
+				<div class="col-md-3 inline-block ml-1">
+					<select class="single-select2-2" [disabled]="!isDatasetSelected">
+						<option></option>
+					</select>
+				</div><br><br>
 			</div>
 		</div>
 
@@ -92,22 +95,31 @@
 							</a>
 							<ul class="dropdown-menu numbers-dropdown" *ngIf="columnDataType === 'number'">
 								<li (click)="setAction('flEq','Equal to', true)"><a>{{ 'EQUAL' | translate }}</a></li>
-								<li (click)="setAction('flLt','Less then', false)"><a>{{ 'LESS_THEN' | translate }}</a></li>
-								<li (click)="setAction('flGr','Greater then', false)"><a>{{ 'GREATER_THEN' | translate }}</a></li>
-								<li (click)="setAction('flLtEq','Less or Equal', false)"><a>{{ 'LESS_OR_EQUAL' | translate }}</a></li>
-								<li (click)="setAction('flGrEq','Greater or Equal', false)"><a>{{ 'GREATER_OR_EQUAL' | translate }}</a></li>
-								<li (click)="setAction('flNEq','Not Equal', true)"><a>{{ 'NOT_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flLt','Less then', false)"><a>{{ 'LESS_THEN' | translate }}</a>
+								</li>
+								<li (click)="setAction('flGr','Greater then', false)">
+									<a>{{ 'GREATER_THEN' | translate }}</a></li>
+								<li (click)="setAction('flLtEq','Less or Equal', false)">
+									<a>{{ 'LESS_OR_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flGrEq','Greater or Equal', false)">
+									<a>{{ 'GREATER_OR_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flNEq','Not Equal', true)"><a>{{ 'NOT_EQUAL' | translate }}</a>
+								</li>
 								<!-- <li (click)="setAction('flRng','In Range', true)"><a>In a range (Inclusive)</a></li>
 								<li (click)="setAction('flNRng','Not in Range', true)"><a>Not in a range (Inclusive)</a>
 								</li> -->
 							</ul>
 
 							<ul class="dropdown-menu string-dropdown" *ngIf="columnDataType === 'string'">
-								<li (click)="setAction('flCn','Contains', true)"><a>{{ 'CONTAINS' | translate }}</a></li>
-								<li (click)="setAction('flCnS','Contains start', true)"><a>{{ 'CONTAINS_START' | translate }}</a>
+								<li (click)="setAction('flCn','Contains', true)"><a>{{ 'CONTAINS' | translate }}</a>
 								</li>
-								<li (click)="setAction('flCnE','Contains end', true)"><a>{{ 'CONTAINS_END' | translate }}</a></li>
-								<li (click)="setAction('flNCn','Not Contains', true)"><a>{{ 'NOT_CONTAINS' | translate }}</a></li>
+								<li (click)="setAction('flCnS','Contains start', true)">
+									<a>{{ 'CONTAINS_START' | translate }}</a>
+								</li>
+								<li (click)="setAction('flCnE','Contains end', true)">
+									<a>{{ 'CONTAINS_END' | translate }}</a></li>
+								<li (click)="setAction('flNCn','Not Contains', true)">
+									<a>{{ 'NOT_CONTAINS' | translate }}</a></li>
 							</ul>
 						</div>
 						<div class="filter-count inline-block ml-1">
@@ -116,7 +128,8 @@
 								title="Add more then one inputs seperated by commas"></i>
 						</div>
 						<div class="first-input inline-block ml-1">
-							<input type="text" id="customFilter" class="form-control" placeholder="{{ 'FILTER_STRING' | translate }}"
+							<input type="text" id="customFilter" class="form-control"
+								placeholder="{{ 'FILTER_STRING' | translate }}"
 								(keyup)="setFilterValue($event.target.value)">
 						</div>
 						<div class="apply-filter inline-block ml-1">
@@ -124,7 +137,8 @@
 								(click)="testData()">{{ 'APPLY' | translate }}</button>
 						</div>
 						<div class="apply-filter inline-block ml-1">
-							<button class="btn btn-secondary btn-fill" (click)="closeCustomFilter()">{{ 'CANCEL' | translate }}</button>
+							<button class="btn btn-secondary btn-fill"
+								(click)="closeCustomFilter()">{{ 'CANCEL' | translate }}</button>
 						</div>
 					</div>
 					<div class="undefined-data-type text-center" *ngIf="columnDataType === 'undefined'">
