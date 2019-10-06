@@ -17,19 +17,19 @@
 					</div> -->
 				</div>
 
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				<!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 					<div class="customer">
-						<p class="counter-count">{{ dashboardCount }}</p>
+						<p class="counter-count">{{ totalDashboards }}</p>
 						<p class="customer-p">{{ 'DASHBOARDS' | translate }}</p>
 					</div>
-				</div>
+				</div> -->
 
-				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+				<!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="design">
 						<p class="counter-count">{{ widgetCount }}</p>
 						<p class="design-p">{{ 'WIDGETS' | translate }}</p>
 					</div>
-				</div>
+				</div> -->
 
 				<!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
 					<div class="order">
@@ -51,15 +51,14 @@
 						<div class="item active">
 							<div class="col-md-2 card">
 									<a href="#" class="dataset-name"
-									[routerLink]="['/dashboard', globals.dashboardList[0].slug]">{{ getTitleByLang(globals.dashboardList[0].name) | titlecase  | translate }}</a>
+									[routerLink]="['/dashboard']">{{ 'HOME' | titlecase  | translate }}</a>
 									<div class="small m-t-xs">
-										<small class="text-muted"
-											*ngFor="let tag of globals.dashboardList[0].tags">{{ getTitleByLang(tag) | titlecase }}</small>
+										<small class="text-muted"></small>
 									</div>
 							</div>
 						</div>
 
-						<div class="item" *ngFor="let dashboard of globals.dashboardList | slice:1">
+						<div class="item" *ngFor="let dashboard of globals.dashboardList">
 							<div class="col-md-2 card">
 									<a href="#" class="dataset-name"
 									[routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a>

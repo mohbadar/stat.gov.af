@@ -149,15 +149,22 @@ export class NavbarComponent implements OnInit {
 		this.dashboardService.getAll().subscribe(data => {
 			if (data) {
 				this.globals.dashboardList = data['results'];
+				this.globals.isDashboardListUpdated.next(true);
+				
+				this.globals.dashboardList = this.globals.dashboardList.filter(function(currentObj){
+					return currentObj.slug !== 'home';
+				});
+
 				data['results'].forEach(item => {
 					if (item.is_default) {
 						this.globals.default_dashboard = item.slug;
 						this.dashboardService.callDefaultMethod();
 					}
+					
 
-					if (item.slug !== 'home') {
-						this.dashboardSlugs.push(item.slug);
-					}
+					// if (item.slug !== 'home') {
+					// 	this.dashboardSlugs.push(item.slug);
+					// }
 
 					// if (item.tags.indexOf(tag) != -1) {
 					// 	menuItem.children.push({ state: item.slug, name: item.name });
