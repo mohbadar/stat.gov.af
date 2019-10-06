@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { empty } from 'rxjs';
 import { AuthService } from 'app/services/auth.service';
 import * as jquery from 'jquery';
+import { filter } from 'rxjs/operators';
 declare var $: any;
 
 @Component({
@@ -45,22 +46,26 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	isDatasetSelected: boolean = false;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
+	// true: check all checkboxes, false: uncheck all checkboxes
+	isAllCheck: boolean = false;
+	// true: show tag filter false:remove filter
+	visibleTag: boolean = true;
 	// datatables options
+	customFilters = [];
 	dtOptions;
 	operators = {
-		'==': function (a, b) { return a == b },
-		'<': function (a, b) { return a < b },
-		'>': function (a, b) { return a > b },
-		'<=': function (a, b) { return a <= b },
-		'>=': function (a, b) { return a >= b },
-		'!=': function (a, b) { return a != b },
+		'flEq': function (a, b) { return a == b },
+		'flLt': function (a, b) { return a < b },
+		'flGr': function (a, b) { return a > b },
+		'flLtEq': function (a, b) { return a <= b },
+		'flGrEq': function (a, b) { return a >= b },
+		'flNEq': function (a, b) { return a != b },
+		'flCn': function (string, substring) { return string.includes(substring) },
+		'flCnS': function (string, substring) { return string.startsWith(substring) },
+		'flCnE': function (string, substring) { return string.endsWith(substring) },
+		'flNCn': function (string, substring) { return !(string.includes(substring))}
 	};
-	methodNames = {
-		'Cn': function (string, substring) { return string.includes(substring) },
-		'CnS': function (string, substring) { return string.startsWith(substring) },
-		'CnE': function (string, substring) { return string.endsWith(substring) },
-		'NCn': function (string, substring) { return !(string.includes(substring)) }
-	}
+	
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
 		public authService: AuthService, private translate: TranslateService,
 		private datatables: DatatablesService) { }
@@ -73,22 +78,27 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.customParams.push('uuid');
 		this.customParamsDataset.push('title');
 		this.customParamsDataset.push('nid');
-		this.getDatasets(this.customParamsDataset);
 
 		$(".single-select2").select2({
-			placeholder: "Select a Dataset..."
+			placeholder: "Select a Dataset...",
 		}).change(event => {
 			this.isDatasetSelected = true;
 			const dataset = $(event.currentTarget).select2("val");
 			this.getResources(this.customParams, dataset);
 
 		});
-		$(".single-select2-2").select2({
-			placeholder: "Select a resource..."
+		$("#single-select2").select2({
+			placeholder: "Select a resource...",
+			allowClear: true
 		}).change(event => {
 			const resource = $(event.currentTarget).select2("data");
 			this.changed(resource);
 		});
+
+		this.getDatasets(this.customParamsDataset);
+
+
+
 		this.dtOptions = {
 			'pagingType': 'full_numbers',
 			'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
@@ -111,6 +121,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			language: this.datatables.selectedJsonFile
 		};
 		this.changeLanguage();
+
 	}
 
 	ngAfterViewInit() {
@@ -133,10 +144,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					resourceIds.push(element.target_id)
 				});
 				this.datasouceQueryService.getResources(customParams, 'resource', resourceIds).subscribe((selectData) => {
-					$('.single-select2-2').html('').select2({data: [{id: '', text: ''}]});
+					$('#single-select2').empty().append($('<option>').text('Select a resource').attr('value', ''));
 					selectData.forEach((element) => {
 						const newOption = new Option(element.title, element.uuid);
-						$('.single-select2-2').append(newOption);
+						$('#single-select2').append(newOption);
 					});
 				});
 			});
@@ -232,7 +243,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			// console.log('Updated data: ', this.data);
 
 
-			this.checkColumnDataType();
+			//this.checkColumnDataType();
 
 		};
 		reader.readAsBinaryString(target.files[0]);
@@ -265,33 +276,43 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		});
 	}
 
-	checkColumnDataType() {
-		let isInteger;
-		let isUndefined;
-		for (let i = 0; i < this.columnNames.length; i++) {
-			isInteger = true;
-			isUndefined = true;
-			for (let j = 0; j < this.data.length; j++) {
-				if (this.data[j].rowData[i] !== undefined) {
-					isUndefined = false;
-					if (!(/^[0-9]\d*(\.\d+)?$/).test(this.data[j].rowData[i])) {
-						isInteger = false;
-						break;
-					}
-				}
-
-			}
-			if (!isUndefined) {
-				isInteger ? this.columnDataTypes.push('number') : this.columnDataTypes.push('string');
-			} else {
-				this.columnDataTypes.push('undefined');
-			}
-		}
-
+	checkColumnDataType(fields) {
+		// let isInteger;
+		// let isUndefined;
+		// for (let i = 0; i < this.columnNames.length; i++) {
+		// 	isInteger = true;
+		// 	isUndefined = true;
+		// 	for (let j = 0; j < this.data.length; j++) {
+		// 		if (this.data[j].rowData[i] !== undefined) {
+		// 			isUndefined = false;
+		// 			if (!(/^[0-9]\d*(\.\d+)?$/).test(this.data[j].rowData[i])) {
+		// 				isInteger = false;
+		// 				break;
+		// 			}
+		// 		}
+		// 	}
+		// 	if (!isUndefined) {
+		// 		isInteger ? this.columnDataTypes.push('number') : this.columnDataTypes.push('string');
+		// 	} else {
+		// 		this.columnDataTypes.push('undefined');
+		// 	}
+		// }
 		// console.log('Data Types: ', this.columnDataTypes);
+		fields.forEach((element) => {
+			if (element.type === 'text') {
+				this.columnDataTypes.push('string')
+			} else if (element.type === 'int' || element.type === 'float') {
+				this.columnDataTypes.push('number')
+			}
+			else {
+				this.columnDataTypes.push('undefined')
+			}
+		});
 	}
 
 	showFilters(dataType, index) {
+		$('#customFilter').val("");
+		this.filterAction = '';
 		this.showFilter = true;
 		this.columnDataType = dataType;
 		this.selectedColumnIndex = index;
@@ -327,32 +348,52 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		switch (filterAction) {
 			// the equal filter
 			case 'flEq':
-				this.filterN('==');
+				this.filterN('flEq');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flLt':
-				this.filterN('<');
+				this.filterN('flLt');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flGr':
-				this.filterN('>');
+				this.filterN('flGr');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flLtEq':
-				this.filterN('<=');
+				this.filterN('flLtEq');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flGrEq':
-				this.filterN('>=');
+				this.filterN('flGrEq');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flNEq':
-				this.filterN('!=');
+				this.filterN('flNEq');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+				case 'flCn':
+				this.filterN('flCn');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+			case 'flCnS':
+				this.filterN('flCnS');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+			case 'flCnE':
+				this.filterN('flCnE');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+			case 'flNCn':
+				this.filterN('flNCn');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
@@ -366,31 +407,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			// 	this.dTable.draw();
 			// 	dData = this.dTable.rows({ filter: 'applied' }).data();
 			// 	break;
-		}
-	}
-	stringFilterHandler(filterAction) {
-		switch (filterAction) {
-			// the equal filter
-			case 'flCn':
-				this.stringFilterN('Cn');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
-			case 'flCnS':
-				this.stringFilterN('CnS');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
-			case 'flCnE':
-				this.stringFilterN('CnE');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
-			case 'flNCn':
-				this.stringFilterN('NCn');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
 		}
 	}
 
@@ -412,43 +428,65 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// this.data.splice(3, 1);
 
 		// console.log('final data: ', this.data);
+		const filter = {
+			columnName: this.selectedColumnName,
+			datatype: this.columnDataType,
+			value: this.filterValue,
+			action: this.filterAction
+		}
+		this.customFilters.push(filter);
+		this.numberFilterHandler(this.filterAction);
+	}
 
-		if (this.columnDataType === 'number') {
-			this.numberFilterHandler(this.filterAction);
+	removeFilter(columnName, filterValue) {
+		$('#customFilter').val("");
+		let datatype;
+		let filterAction;
+		const index = this.customFilters.findIndex(x => x.columnName === columnName && x.value === filterValue);
+		if (index > -1) {
+			this.customFilters.splice(index, 1);
 		}
-		if (this.columnDataType === 'string') {
-			this.stringFilterHandler(this.filterAction);
-		}
+		let i = $.fn.dataTable.ext.search.indexOf(filterValue);
+		$.fn.dataTable.ext.search.splice(i,1);
+		this.cdref.detectChanges();
+		this.dTable.draw();
+		// if (this.customFilters.length > 0) {
+		// 	this.customFilters.forEach((element, i) => {
+		// 		datatype = this.customFilters[i].datatype;
+		// 		filterAction = this.customFilters[i].action;
+		// 		this.filterValue = this.customFilters[i].value;
+		// 		console.log(datatype);
+		// 		console.log(filterAction);
+		// 		console.log(this.filterValue);
+		// 		if (datatype === 'number') {
+		// 			this.numberFilterHandler(filterAction);
+		// 		}
+		// 		if (datatype === 'string') {
+		// 			this.stringFilterHandler(filterAction);
+		// 			console.log('test');
+		// 		}
+		// 	});
+		// }
 	}
 
 	resetData() {
-		this.data = this.data.map(dt => {
-			dt.showRow = true;
-			return dt;
-		});
-		this.columnNames.forEach(element => {
-			element.showColumn = true;
-			return element;
-		});
-		$('customFilter').val('');
+		$('#customFilter').val("");
 		$('input.table-search').val('');
-		let D_T = $("#datatables").DataTable();
-		$('.c-box').each(function () {
-			this.checked = true;
-			$('.column-name').removeClass("unselected");
-		});
-		$.fn.dataTableExt.afnFiltering.length = 0;
-		$("#datatables").dataTable().fnDraw();
-		D_T.
+		$('.c-box').prop("checked", true);
+		$('toggle-all').prop("checked", true);
+		$('.column-name').removeClass("unselected");
+		this.dTable.
 			search('').
 			columns().search('').visible(true, true).order('asc').
 			draw();
+		$.fn.dataTable.ext.search = [];
+		this.dTable.draw();
+		this.customFilters = [];
+		this.closeCustomFilter();
 
 	}
 
 	toggleColumn(column, cIndex) {
-		// console.log("column", column);
-		// console.log("cIndex", cIndex);
 		this.columnDataType = '';
 		$(column).closest('li').toggleClass('unselected');
 		const checkBox = $(column).closest('li').find('input');
@@ -459,6 +497,18 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 		const dColumn = this.dTable.column(cIndex);
 		dColumn.visible(!dColumn.visible());
+	}
+
+	togglecheckboxes(checkbox, cn) {
+		let cbarray = document.getElementsByName(cn);
+		cbarray.forEach((element, i) => {
+			this.toggleColumn(element, i);
+		});
+		if ($('#toggle-all').prop("checked")) {
+			$('.c-box').prop("checked", false);
+		} else {
+			$('.c-box').prop("checked", true);
+		}
 	}
 
 	setFilterValue(vl) {
@@ -485,26 +535,18 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// })
 		$.fn.dataTable.ext.search.push(
 			function (settings, data, dataIndex) {
-				const id = Number(data[that.selectedColumnIndex]) || 0;
-				// console.log('filter data: ', that.filterValue);
+				let id;
+				const datatype = typeof(data[that.selectedColumnIndex]);
+				console.log(datatype);
+				
+				if(datatype == 'number'){
+					id = Number(data[that.selectedColumnIndex]) || 0;
+					console.log(id)
+				}else{
+					 id = data[that.selectedColumnIndex];
+				}
 				if (that.filterValue !== '') {
 					if (that.operators[operator](id, that.filterValue)) {
-						return true;
-					}
-					return false;
-				} else {
-					return true;
-				}
-			}
-		);
-	}
-	stringFilterN(methodName) {
-		const that = this;
-		$.fn.dataTable.ext.search.push(
-			function (settings, data, dataIndex) {
-				const string = data[that.selectedColumnIndex];
-				if (that.filterValue !== '') {
-					if (that.methodNames[methodName](string, that.filterValue)) {
 						return true;
 					}
 					return false;
@@ -595,104 +637,104 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	showNotification(from, align, msg, type, icon) {
-		// $.notify({
-		// 	icon: icon,
-		// 	message: msg
+		$.notify({
+			icon: icon,
+			message: msg
 
-		// }, {
-		// 		type: type,
-		// 		timer: 4000,
-		// 		placement: {
-		// 			from: from,
-		// 			align: align
-		// 		}
-		// 	});
+		}, {
+			type: type,
+			timer: 4000,
+			placement: {
+				from: from,
+				align: align
+			}
+		});
 	}
 	public changed(resource: any): void {
-		console.log(resource)
-		if ($.fn.DataTable.isDataTable('#datatables')) {
-			this.dTable.destroy();
-			this.dTable = null;
-		}
-		this.data = [];
-		this.columnNames = [];
-		this.selectedColumnIndex = 0;
-		this.selectedColumnName = '';
-		this.columnDataType = '';
-		this.columnDataTypes = [];
-		this.filterAction = '';
-		this.filterValue = '';
-		this.dTableFlag = false;
-		this.workBookName = resource[0].text;
-		this.dtOptions.buttons[0].filename = this.workBookName;
-		this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
-
-		this.datasouceQueryService.getResourceData(resource[0].element.value).subscribe((resourceData) => {
-			// console.log("resourceData", resourceData);
-			this.dTableFlag = true;
-
-			this.resourceId = resourceData.result.resource_id;
-			resourceData.result.fields.forEach((element) => {
-				const obj = {
-					showColumn: true,
-					name: element.id
-				};
-				this.columnNames.push(obj);
-			});
-			resourceData.result.records.forEach((element) => {
-				let val = [];
-				for (let prop in element) {
-					let isNum = /^\d*\.?\d+$/.test(element[prop]);
-					if (isNum) {
-						element[prop] = Number(element[prop]);
-					}
-					val.push(element[prop])
-				}
-				this.data.push(val);
-			});
-			if (this.data[0][0] == null) {
-
-				this.data[0][0] = undefined;
+		if (resource[0].element.value != '') {
+			if ($.fn.DataTable.isDataTable('#datatables')) {
+				this.dTable.destroy();
+				this.dTable = null;
 			}
-			// console.log(this.data);
-			// console.log("columnNames",this.columnNames)
+			this.data = [];
+			this.columnNames = [];
+			this.selectedColumnIndex = 0;
+			this.selectedColumnName = '';
+			this.columnDataType = '';
+			this.columnDataTypes = [];
+			this.filterAction = '';
+			this.filterValue = '';
+			this.dTableFlag = false;
+			this.workBookName = resource[0].text;
+			this.dtOptions.buttons[0].filename = this.workBookName;
+			this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');
 
-			// After taking out the columns remove the first element of the data
-			// this.data.splice(0, 1);
-			this.prepareDataforDataTable();
-
-			// Parse data for better handling
-			const tempData = [];
-
-			this.data.forEach(element => {
-				const obj = {
-					showRow: true,
-					rowData: element
-				}
-				tempData.push(obj);
-			});
-
-			// console.log('temp data: ', tempData);
-
-			this.data = tempData;
-			this.cdref.detectChanges();
-			if (!$.fn.DataTable.isDataTable('#datatables')) {
-				$('#datatables tfoot th').each(function () {
-					const title = $(this).text();
-					$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
+			this.datasouceQueryService.getResourceData(resource[0].element.value).subscribe((resourceData) => {
+				// console.log("resourceData", resourceData);
+				this.dTableFlag = true;
+				this.resourceId = resourceData.result.resource_id;
+				resourceData.result.fields.forEach((element) => {
+					const obj = {
+						showColumn: true,
+						name: element.id
+					};
+					this.columnNames.push(obj);
 				});
-				this.dTable = $('#datatables').DataTable(this.dtOptions);
-				this.initializeTable();
-			}
+				resourceData.result.records.forEach((element) => {
+					let val = [];
+					for (let prop in element) {
+						let isNum = /^\d*\.?\d+$/.test(element[prop]);
+						if (isNum) {
+							element[prop] = Number(element[prop]);
+						}
+						val.push(element[prop])
+					}
+					this.data.push(val);
+				});
+				if (this.data[0][0] == null) {
 
-			// Save the original data before processing this data
-			this.originalData = this.data;
+					this.data[0][0] = undefined;
+				}
+				// console.log(this.data);
+				// console.log("columnNames",this.columnNames)
 
-			// console.log('Updated data: ', this.data);
+				// After taking out the columns remove the first element of the data
+				// this.data.splice(0, 1);
+				this.prepareDataforDataTable();
+
+				// Parse data for better handling
+				const tempData = [];
+
+				this.data.forEach(element => {
+					const obj = {
+						showRow: true,
+						rowData: element
+					}
+					tempData.push(obj);
+				});
+
+				// console.log('temp data: ', tempData);
+
+				this.data = tempData;
+				this.cdref.detectChanges();
+				if (!$.fn.DataTable.isDataTable('#datatables')) {
+					$('#datatables tfoot th').each(function () {
+						const title = $(this).text();
+						$(this).html('<input type="text" id="' + title + '" class="table-search" placeholder="Search ' + title + '" />');
+					});
+					this.dTable = $('#datatables').DataTable(this.dtOptions);
+					this.initializeTable();
+				}
+
+				// Save the original data before processing this data
+				this.originalData = this.data;
+
+				// console.log('Updated data: ', this.data);
 
 
-			this.checkColumnDataType();
-		});
+				this.checkColumnDataType(resourceData.result.fields);
+			});
+		}
 	}
 
 	// handleChange(event) {
