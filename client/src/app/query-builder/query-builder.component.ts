@@ -60,13 +60,12 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		'flLtEq': function (a, b) { return a <= b },
 		'flGrEq': function (a, b) { return a >= b },
 		'flNEq': function (a, b) { return a != b },
-	};
-	methodNames = {
 		'flCn': function (string, substring) { return string.includes(substring) },
 		'flCnS': function (string, substring) { return string.startsWith(substring) },
 		'flCnE': function (string, substring) { return string.endsWith(substring) },
-		'flNCn': function (string, substring) { return !(string.includes(substring)) }
-	}
+		'flNCn': function (string, substring) { return !(string.includes(substring))}
+	};
+	
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
 		public authService: AuthService, private translate: TranslateService,
 		private datatables: DatatablesService) { }
@@ -378,6 +377,26 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
+				case 'flCn':
+				this.filterN('flCn');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+			case 'flCnS':
+				this.filterN('flCnS');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+			case 'flCnE':
+				this.filterN('flCnE');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
+			case 'flNCn':
+				this.filterN('flNCn');
+				this.dTable.draw();
+				this.dTable.rows({ filter: 'applied' }).data();
+				break;
 			// case 'flRng':
 			// 	this.FilterN('..');
 			// 	this.dTable.draw();
@@ -388,31 +407,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			// 	this.dTable.draw();
 			// 	dData = this.dTable.rows({ filter: 'applied' }).data();
 			// 	break;
-		}
-	}
-	stringFilterHandler(filterAction) {
-		switch (filterAction) {
-			// the equal filter
-			case 'flCn':
-				this.stringFilterN('flCn');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
-			case 'flCnS':
-				this.stringFilterN('flCnS');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
-			case 'flCnE':
-				this.stringFilterN('flCnE');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
-			case 'flNCn':
-				this.stringFilterN('flNCn');
-				this.dTable.draw();
-				this.dTable.rows({ filter: 'applied' }).data();
-				break;
 		}
 	}
 
@@ -441,12 +435,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			action: this.filterAction
 		}
 		this.customFilters.push(filter);
-		if (this.columnDataType === 'number') {
-			this.numberFilterHandler(this.filterAction);
-		}
-		if (this.columnDataType === 'string') {
-			this.stringFilterHandler(this.filterAction);
-		}
+		this.numberFilterHandler(this.filterAction);
 	}
 
 	removeFilter(columnName, filterValue) {
@@ -457,25 +446,27 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		if (index > -1) {
 			this.customFilters.splice(index, 1);
 		}
-		$.fn.dataTable.ext.search = [];
+		let i = $.fn.dataTable.ext.search.indexOf(filterValue);
+		$.fn.dataTable.ext.search.splice(i,1);
+		this.cdref.detectChanges();
 		this.dTable.draw();
-		if (this.customFilters.length > 0) {
-			this.customFilters.forEach((element, i) => {
-				datatype = this.customFilters[i].datatype;
-				filterAction = this.customFilters[i].action;
-				this.filterValue = this.customFilters[i].value;
-				console.log(datatype);
-				console.log(filterAction);
-				console.log(this.filterValue);
-				if (datatype === 'number') {
-					this.numberFilterHandler(filterAction);
-				}
-				if (datatype === 'string') {
-					this.stringFilterHandler(filterAction);
-					console.log('test');
-				}
-			});
-		}
+		// if (this.customFilters.length > 0) {
+		// 	this.customFilters.forEach((element, i) => {
+		// 		datatype = this.customFilters[i].datatype;
+		// 		filterAction = this.customFilters[i].action;
+		// 		this.filterValue = this.customFilters[i].value;
+		// 		console.log(datatype);
+		// 		console.log(filterAction);
+		// 		console.log(this.filterValue);
+		// 		if (datatype === 'number') {
+		// 			this.numberFilterHandler(filterAction);
+		// 		}
+		// 		if (datatype === 'string') {
+		// 			this.stringFilterHandler(filterAction);
+		// 			console.log('test');
+		// 		}
+		// 	});
+		// }
 	}
 
 	resetData() {
@@ -544,25 +535,18 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// })
 		$.fn.dataTable.ext.search.push(
 			function (settings, data, dataIndex) {
-				const id = Number(data[that.selectedColumnIndex]) || 0;
+				let id;
+				const datatype = typeof(data[that.selectedColumnIndex]);
+				console.log(datatype);
+				
+				if(datatype == 'number'){
+					id = Number(data[that.selectedColumnIndex]) || 0;
+					console.log(id)
+				}else{
+					 id = data[that.selectedColumnIndex];
+				}
 				if (that.filterValue !== '') {
 					if (that.operators[operator](id, that.filterValue)) {
-						return true;
-					}
-					return false;
-				} else {
-					return true;
-				}
-			}
-		);
-	}
-	stringFilterN(methodName) {
-		const that = this;
-		$.fn.dataTable.ext.search.push(
-			function (settings, data, dataIndex) {
-				const string = data[that.selectedColumnIndex];
-				if (that.filterValue !== '') {
-					if (that.methodNames[methodName](string, that.filterValue)) {
 						return true;
 					}
 					return false;
