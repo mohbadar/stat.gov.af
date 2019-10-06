@@ -43,7 +43,7 @@
 								<span class="ml-1"><strong>{{ 'UNCHECK_COLUMN' | translate }}</strong></span>
 							</li>
 							<li *ngFor="let col of columnNames; let i=index" class="column-name">
-								<input type="checkbox" class="c-box" [id]="col.name" checked
+								<input type="checkbox" name="cb" class="c-box" [id]="col.name" checked
 									(click)="toggleColumn($event.target, i)">
 								<span class="ml-1">{{col.name}}</span>
 								<div class="inline-block ml-1 pull-right plus-icon ">

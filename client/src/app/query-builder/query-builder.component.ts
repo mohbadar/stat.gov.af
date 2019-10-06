@@ -488,6 +488,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			search('').
 			columns().search('').visible(true, true).order('asc').
 			draw();
+		$.fn.dataTable.ext.search = [];
+		this.dTable.draw();
+		this.customFilters = [];
+		this.closeCustomFilter();
 
 	}
 
@@ -549,7 +553,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				} else {
 					return true;
 				}
-			}		
+			}
 		);
 	}
 	stringFilterN(methodName) {
