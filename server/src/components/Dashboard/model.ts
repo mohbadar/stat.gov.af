@@ -21,7 +21,7 @@ export interface IDashboardModel extends Document {
 }
 
 
-const WidgetSchema: Schema = new Schema({
+const DashboardSchema: Schema = new Schema({
     name: { 
         type: String, 
         lowercase: true, 
@@ -71,4 +71,4 @@ const WidgetSchema: Schema = new Schema({
         return next(error);
     }
 });
-export default connections.db.model < IDashboardModel > ('DashboardModel', WidgetSchema);
+export default connections.db.model < IDashboardModel > ('DashboardModel', DashboardSchema);

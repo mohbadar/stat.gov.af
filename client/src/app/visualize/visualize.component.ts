@@ -1,10 +1,12 @@
-import { Component, Input, OnInit, ViewChild, ElementRef, Inject, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef, Inject, EventEmitter, Output, AfterViewInit } from '@angular/core';
 import * as _ from 'lodash';
 import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from 'app/services/auth.service';
+import { DatasourceWidgetService } from 'app/services/datasource.widget.service';
 import { isNumber, isBoolean } from 'util';
+import swal from 'sweetalert2';
 
 declare var $: any;
 
@@ -37,12 +39,17 @@ const DEFAULT_OPTIONS = {
 	templateUrl: './visualize.component.html',
 	styleUrls: ['./visualize.component.scss']
 })
-export class VisualizeComponent implements OnInit {
+export class VisualizeComponent implements OnInit, AfterViewInit {
 	@ViewChild('plotlyChartContainer', { static: true }) plotlyChartContainer: ElementRef;
 	Plotly;
 	plotlyElement;
 
 	isLoading = true;
+
+	// Input forms
+	registerForm: FormGroup;
+	passwordMatch;
+	loginForm: FormGroup;
 
 	@Input() columns: any = [];
 	@Input() rows: any = [];
@@ -146,8 +153,10 @@ export class VisualizeComponent implements OnInit {
 	constructor(public translate: TranslateService,
 		public globals: Globals,
 		private fb: FormBuilder,
-		public authService: AuthService) {
-			
+		public authService: AuthService,
+		private widgetService: DatasourceWidgetService
+	) {
+
 	}
 
 	get series() { return this.chartForm.get("series") as FormArray; }
@@ -163,8 +172,8 @@ export class VisualizeComponent implements OnInit {
 	get yColumns() { return this.chartForm.get("general").get("yColumns"); }
 
 	get groupByColumns() {
-		let ySelectedCols: any = this.yColumns == null? []: this.yColumns.value;
-		let xSelectedCols: any = this.xColumn == null? []: this.xColumn.value;
+		let ySelectedCols: any = this.yColumns == null ? [] : this.yColumns.value;
+		let xSelectedCols: any = this.xColumn == null ? [] : this.xColumn.value;
 
 		let difference = this.xColumnsList.filter(x => !ySelectedCols.includes(x));
 		difference = difference.filter(x => !xSelectedCols.includes(x));
@@ -177,23 +186,108 @@ export class VisualizeComponent implements OnInit {
 		// this.plotlyElement.updatePlot();
 		this.plotlyElement = this.plotlyElement.plotEl.nativeElement;
 
+		this.initializeRegistrationForm();
+		this.initializeLoginForm();
+
 		// set columns to both x and y columns dorpdown
 		this.xColumnsList = this.columns;
 		this.yColumnsList = this.columns;
-		console.log("rows",this.rows);
-		console.log("columns",this.columns);
-		
+		console.log("rows", this.rows);
+		console.log("columns", this.columns);
+
 
 		// this.data.push(this.trace1);
 		// this.data.push(this.trace2);
+	}
+
+	initializeRegistrationForm() {
+		this.registerForm = this.fb.group({
+			fullName: ['', Validators.required],
+			username: ['', Validators.required],
+			mobileNumber: ['', Validators.required],
+			email: ['', [Validators.required, Validators.email]],
+			password: ['', Validators.required],
+			passwordConf: ['', Validators.required]
+		}, { validators: this.checkPasswords });
+
+	}
+
+	initializeLoginForm() {
+		this.loginForm = this.fb.group({
+			username: ['', Validators.required],
+			password: ['', Validators.required],
+		});
+
+	}
+
+	checkPasswords(group: FormGroup) { // here we have the 'passwords' group
+		const pass = group.controls.password.value;
+		const confirmPass = group.controls.passwordConf.value;
+
+		return pass === confirmPass ? null : { notSame: true }
+	}
+
+	checkPassword(pass, confPass) {
+		if (pass !== confPass) {
+			this.passwordMatch = false;
+		} else {
+			this.passwordMatch = true;
+		}
 	}
 
 	close() {
 		this.closeFlag.emit();
 	}
 
+	checkUserLoggedIn() {
+		if (this.authService.isLoggedIn()) {
+			console.log('Saving Visulaziation');
+			this.save();
+		} else {
+			this.showSignUpPopUp();
+		}
+	}
+
 	save() {
-		console.log("Saving Visulaziation");
+
+		const chartData = {
+			columns: this.columns,
+			rows: this.rows
+		}
+
+		const data = {
+			name: this.chartForm.get('visualizationName').value,
+			user: this.authService.getLoggedInUserId(),
+			config: JSON.stringify(this.chartForm.value),
+			data: JSON.stringify(chartData)
+		}
+
+		this.widgetService.createWiget(data).subscribe(res => {
+			console.log('widget save data: ', res);
+			swal({
+				title: this.translate.instant('WELL_DONE'),
+				text: this.translate.instant('WIDGET_SUBMITTED'),
+				buttonsStyling: false,
+				confirmButtonClass: 'btn btn-fill btn-success',
+				type: 'success'
+			}).catch(swal.noop)
+
+			this.close();
+		}, err => {
+			console.error('error saving widget: ', err);
+			swal({
+				title: this.translate.instant('Error!'),
+				text: this.translate.instant('Something went wrong!'),
+				buttonsStyling: false,
+				confirmButtonClass: 'btn btn-fill btn-danger',
+				type: 'error'
+			}).catch(swal.noop)
+		});
+	}
+
+	showSignUpPopUp() {
+		$('#signupModal').modal();
+		$('#home').tab('show');
 	}
 
 	// preSetValues() {
@@ -205,10 +299,16 @@ export class VisualizeComponent implements OnInit {
 	// 	});
 	// }
 
+	changeTab(vl) {
+		$('a[href="#' + vl + '"]').tab('show');
+	}
+
 	ngAfterViewInit() {
 		// setTimeout(()=> {
 		// 	this.preSetValues();
 		// });
+
+
 
 		$(".multi-select2").select2().on("change", (event) => {
 			this.onChangeYaxisColumn(event);
@@ -296,6 +396,57 @@ export class VisualizeComponent implements OnInit {
 
 	}
 
+	login() {
+		console.log('Login form: ', this.loginForm);
+		const newRecord = {
+			'username': this.loginForm.get('username').value,
+			'password': this.loginForm.get('password').value
+		}
+		this.authService.login(newRecord).subscribe((res: any) => {
+			console.log('login res: ', res);
+			// Hide the modal back
+			$('#signupModal').modal('hide');
+			this.loginForm.reset({});
+			this.registerForm.reset({});
+
+			this.authService.saveToken(res.token);
+			this.authService.setLoggedInUserId(res.user_id);
+
+			// Save the chart
+			this.save();
+
+		}, err => {
+			console.log('Error: ', err);
+
+		});
+	}
+
+	register() {
+		console.log('Register Form: ', this.registerForm);
+		const formJson = {
+			'fullName': this.registerForm.get('fullName').value,
+			'username': this.registerForm.get('username').value,
+			'mobileNumber': this.registerForm.get('mobileNumber').value,
+			'email': this.registerForm.get('email').value,
+			'password': this.registerForm.get('password').value
+		};
+
+		this.authService.createUser(formJson).subscribe(res => {
+			console.log('registeration success: ', res);
+			// Hide the modal back
+			$('#signupModal').modal('hide');
+			this.loginForm.reset({});
+			this.registerForm.reset({});
+
+			// Save the chart
+			this.save();
+
+		}, err => {
+			console.log('error: ', err);
+
+		});
+	}
+
 	// on change of x-axis column selection, 
 	// 1. the given column should be removed from yColumns dropdown
 	// 2. Also remove that column from chartForm if selected earlier
@@ -308,7 +459,7 @@ export class VisualizeComponent implements OnInit {
 		}
 
 		//set the scale based on datatype, for text column the scale should be category
-		if(this.identifyColumnDataType($event.currentTarget.value) == "string") {
+		if (this.identifyColumnDataType($event.currentTarget.value) == "string") {
 			this.layout.xaxis.type = 'category';
 			this.xaxis.get("scale").setValue('category');
 		} else {
@@ -338,20 +489,20 @@ export class VisualizeComponent implements OnInit {
 	identifyColumnDataType(columnName) {
 		let columnData = this.unpack(this.rows, this.columns.indexOf(columnName));
 		let loopIterations = columnData.length;
-		if(loopIterations > 5) {
+		if (loopIterations > 5) {
 			loopIterations = 5;
 		}
 		for (let index = 0; index < columnData.length; index++) {
 			const element = columnData[index];
-			if(element == undefined) {
+			if (element == undefined) {
 				continue;
-			} else if(element == null) {
+			} else if (element == null) {
 				continue;
-			} else if(element == "") {
+			} else if (element == "") {
 				continue;
 			} else {
 				let numFlag = isNumber(element);
-				if(!numFlag) {
+				if (!numFlag) {
 					return "string";
 				}
 				return "int";
@@ -364,9 +515,9 @@ export class VisualizeComponent implements OnInit {
 		this.Plotly.getPlotly().redraw(this.plotlyElement);
 
 		this.Plotly.getPlotly().relayout(this.plotlyElement, {
-            'xaxis.autorange': true,
-            'yaxis.autorange': true
-        });
+			'xaxis.autorange': true,
+			'yaxis.autorange': true
+		});
 	}
 
 	unpack(rows, key) {
@@ -390,7 +541,7 @@ export class VisualizeComponent implements OnInit {
 					})
 				);
 
-				if(this.generalChartType.value == 'pie') {
+				if (this.generalChartType.value == 'pie') {
 					newData[index++] = {
 						values: this.unpack(this.rows, this.columns.indexOf(item)),
 						labels: this.xAxisData,
@@ -409,7 +560,7 @@ export class VisualizeComponent implements OnInit {
 						// color:
 					};
 				}
-				
+
 			});
 			this.series = serieseFormArray;
 			this.data = newData;
@@ -445,4 +596,13 @@ export class VisualizeComponent implements OnInit {
 	getData() {
 		return JSON.stringify(this.data, null, 4)
 	}
+
+	test() {
+		console.log('getValue: ', this.getValue());
+		console.log('getPlotlyConfig: ', this.getPlotlyConfig());
+		console.log('getLayout: ', this.getLayout());
+		console.log('getData: ', this.getData());
+	}
+
+
 }
