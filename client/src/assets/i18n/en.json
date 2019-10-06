@@ -123,7 +123,7 @@
   "CONTAINS_START":"Contains in the start",
   "CONTAINS_END":"Contains in the end",
   "NOT_CONTAINS":"Contains in the end",
-  "APPLY":"Apply",
+  "APPLY":"Add",
   "CANCEL":"Cancel",
   "ACTIONS":"Actions",
   "FILTER_STRING":"Filter string",
