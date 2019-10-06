@@ -63,13 +63,12 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		'flLtEq': function (a, b) { return a <= b },
 		'flGrEq': function (a, b) { return a >= b },
 		'flNEq': function (a, b) { return a != b },
-	};
-	methodNames = {
 		'flCn': function (string, substring) { return string.includes(substring) },
 		'flCnS': function (string, substring) { return string.startsWith(substring) },
 		'flCnE': function (string, substring) { return string.endsWith(substring) },
-		'flNCn': function (string, substring) { return !(string.includes(substring)) }
-	}
+		'flNCn': function (string, substring) { return !(string.includes(substring))}
+	};
+	
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
 		public authService: AuthService, private translate: TranslateService,
 		private datatables: DatatablesService) { }
@@ -407,20 +406,30 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flCnS':
-				this.stringFilterN('flCnS');
+				this.filterN('flCnS');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flCnE':
-				this.stringFilterN('flCnE');
+				this.filterN('flCnE');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
 			case 'flNCn':
-				this.stringFilterN('flNCn');
+				this.filterN('flNCn');
 				this.dTable.draw();
 				this.dTable.rows({ filter: 'applied' }).data();
 				break;
+			// case 'flRng':
+			// 	this.FilterN('..');
+			// 	this.dTable.draw();
+			// 	dData = this.dTable.rows({ filter: 'applied' }).data();
+			// 	break;
+			// case 'flNRng':
+			// 	this.FilterN('!..');
+			// 	this.dTable.draw();
+			// 	dData = this.dTable.rows({ filter: 'applied' }).data();
+			// 	break;
 		}
 	}
 

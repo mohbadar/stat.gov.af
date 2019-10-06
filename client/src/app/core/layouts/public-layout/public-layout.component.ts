@@ -19,6 +19,7 @@ import {
 	PerfectScrollbarConfigInterface,
 	PerfectScrollbarDirective
 } from 'ngx-perfect-scrollbar';
+import { CookieService } from 'ngx-cookie-service';
 
 const SMALL_WIDTH_BREAKPOINT = 960;
 
@@ -52,8 +53,15 @@ export class PublicLayoutComponent implements OnInit, OnDestroy, AfterViewInit {
 		public zone: NgZone,
 		public loader: LoadingBarService,
 		private titleService: Title,
-		public globals: Globals
+		public globals: Globals,
+		private cookieService: CookieService
 	) {
+		let browserLang = this.cookieService.get('lang');
+		if (browserLang) {
+			this.globals.lang = browserLang;
+		} else {
+			this.router.navigate(["/lang"]);
+		}
 		// this.mediaMatcher.addListener(mql =>
 		// 	zone.run(() => {
 		// 		this.mediaMatcher = mql;

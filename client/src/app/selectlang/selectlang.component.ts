@@ -41,18 +41,17 @@ export class SelectLangComponent implements OnInit {
 	lang = '';
 	ngOnInit() {
 		this.year = new Date().getFullYear();
-		localStorage.removeItem('lang');
 	}
 
 	 detectLanguage(el) {
 		this.lang = $(el).closest('.lan').attr('id');
-		localStorage.setItem('lang', this.lang);
-		this.translate.use(this.lang);
-		this.languageBadge = this.lang;
-		this.globals.lang = this.languageBadge;
-		this.datatablesService.callServiceCmpMethod(this.lang);
+		// this.cookieService.set('lang', this.globals.lang);
+		this.globals.lang = this.lang;
+		this.cookieService.set('lang', this.globals.lang);
+		this.translate.use(this.globals.lang);
+		this.languageBadge = this.globals.lang;
+		this.datatablesService.callServiceCmpMethod(this.globals.lang);
 		this.router.navigate(["/home"]);
-
 	 }
 
 

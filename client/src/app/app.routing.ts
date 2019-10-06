@@ -11,16 +11,13 @@ import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/
 
 export const AppRoutes: Routes = [{
 	path: '',
-	redirectTo: 'lang',
+	redirectTo: 'home',
 	pathMatch: 'full',
 }, {
 	path: '',
 	component: PublicLayoutComponent,
 	children: [
-		{
-		    path: 'lang',
-		    component: SelectLangComponent
-		},
+		
 		{
 		    path: 'home',
 		    component: HomeComponent
@@ -92,6 +89,10 @@ export const AppRoutes: Routes = [{
 	path: '',
 	component: AuthLayoutComponent,
 	children: [
+		{
+		    path: 'lang',
+		    component: SelectLangComponent
+		},
 		{
 			path: 'login',
 			loadChildren: './login/login.module#LoginModule',

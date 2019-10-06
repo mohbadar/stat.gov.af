@@ -7,6 +7,7 @@ import { AuthService } from 'app/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthPrincipal } from '../../admin/node/AuthPrinicipal';
 import { DatatablesService } from '../../services/datatables.service';
+import { CookieService } from 'ngx-cookie-service';
 
 var misc: any = {
 	navbar_menu_visible: 0,
@@ -61,7 +62,8 @@ export class NavbarComponent implements OnInit {
 		public authService: AuthService,
 		private router: Router,
 		public translate: TranslateService,
-		private datatables: DatatablesService
+		private datatables: DatatablesService,
+		private cookieService:CookieService
 	) {
 		this.location = location;
 		this.nativeElement = element.nativeElement;
@@ -78,9 +80,11 @@ export class NavbarComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		if (localStorage.getItem('lang')) {
-			this.translate.defaultLang = localStorage.getItem('lang');
-			this.languageBadge = localStorage.getItem('lang');
+		if (this.cookieService.get("lang")) {
+			console.log('language: ', this.cookieService.get('lang'));
+			
+			this.translate.defaultLang = this.cookieService.get('lang');
+			this.languageBadge = this.cookieService.get('lang');
 		} else {
 			this.translate.defaultLang = 'en';
 			this.languageBadge = 'en';
@@ -100,7 +104,7 @@ export class NavbarComponent implements OnInit {
 		// translator listener
 		this.translate.onLangChange.subscribe((event) => {
 			// Save the language into localstorage for future reference
-			localStorage.setItem('lang', event.lang);
+			this.cookieService.set('lang', event.lang);
 			if (event.lang !== 'en') {
 				$('body').addClass('rtl');
 			} else {
@@ -145,15 +149,22 @@ export class NavbarComponent implements OnInit {
 		this.dashboardService.getAll().subscribe(data => {
 			if (data) {
 				this.globals.dashboardList = data['results'];
+				this.globals.isDashboardListUpdated.next(true);
+				
+				this.globals.dashboardList = this.globals.dashboardList.filter(function(currentObj){
+					return currentObj.slug !== 'home';
+				});
+
 				data['results'].forEach(item => {
 					if (item.is_default) {
 						this.globals.default_dashboard = item.slug;
 						this.dashboardService.callDefaultMethod();
 					}
+					
 
-					if (item.slug !== 'home') {
-						this.dashboardSlugs.push(item.slug);
-					}
+					// if (item.slug !== 'home') {
+					// 	this.dashboardSlugs.push(item.slug);
+					// }
 
 					// if (item.tags.indexOf(tag) != -1) {
 					// 	menuItem.children.push({ state: item.slug, name: item.name });

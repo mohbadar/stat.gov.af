@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 	private sidebarVisible: boolean;
 	languageBadge;
 	selectEnvironment;
+	totalDashboards = 0;
 
 	availLangs = [
 		{ name: 'English', value: 'en', dir: 'ltr' },
@@ -32,15 +33,8 @@ export class HomeComponent implements OnInit {
 		public globals: Globals,
 		private cookieService: CookieService,
 		private datatablesService: DatatablesService) {
-		console.log("Home Component");
-	}
 
-	get dashboardCount() {
-		if (this.globals.dashboardList && this.globals.dashboardList.length > 0) {
-			return this.globals.dashboardList.length;
-		} else {
-			return 0;
-		}
+		
 	}
 
 	get widgetCount() {
@@ -62,7 +56,28 @@ export class HomeComponent implements OnInit {
 
 	}
 
-	ngOnInit() {
+	ngOnInit() { }
+
+	ngAfterViewInit() {
+		this.globals.isDashboardListUpdated.subscribe((value) => { 
+			console.log(value);
+			if (true === value) {
+				setTimeout(() => {
+					this.renderCarousel();
+				}, 2000);
+			} else {
+				// do some other stuff
+			}
+		});
+	}
+
+	renderCarousel() {
+		if (this.globals.dashboardList && this.globals.dashboardList.length > 0) {
+			this.totalDashboards = this.globals.dashboardList.length;
+		} else {
+			this.totalDashboards = 0;
+		}
+
 		// counter
 		$('.counter-count').each(function () {
 			$(this).prop('Counter', 0).animate({
@@ -80,7 +95,7 @@ export class HomeComponent implements OnInit {
 
 		this.selectEnvironment = this.getCurrentEnvironment();
 
-		this.setupLanguage();
+		//this.setupLanguage();
 
 		this.translate.onLangChange.subscribe((event) => {
 			console.log('Change language called');
@@ -110,13 +125,6 @@ export class HomeComponent implements OnInit {
 			interval: 400000
 		});
 
-
-		
-	}
-
-	ngAfterViewInit() {
-
-		
 
 		$('.carousel .item').each(function () {
 			var next = $(this).next();
