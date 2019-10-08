@@ -3,31 +3,29 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class DatasourceWidgetService {
 
-  constructor(private httpClient: HttpClient) { }
 
-  private baseUrl = "/api/dashboards";
-  private nodeApi = '/node-api/widgets';
+	private baseUrl = '/api/dashboards';
+	private nodeApi = '/node-api/widgets';
 
-  loadWidgets(): Observable<any>
-  {
-    return this.httpClient.get(`${this.nodeApi}/all`);
-  }
+	constructor(private httpClient: HttpClient) { }
 
-  loadWidgetById(id:string): Observable<any>
-  {
-    return this.httpClient.get(`${this.nodeApi}/one/${id}`);
-  }
+	loadWidgets(): Observable<any> {
+		return this.httpClient.get(`${this.nodeApi}/all`);
+	}
 
-  deleteWidget(id:string)
-  {
-      return this.httpClient.delete(`${this.nodeApi}/remove/${id}`);
-  }
+	loadWidgetById(id: string): Observable<any> {
+		return this.httpClient.get(`${this.nodeApi}/one/${id}`);
+	}
 
-  createWiget(data): Observable<any>{
-    return this.httpClient.post(`${this.nodeApi}/create`, data);
-  }
+	deleteWidget(id: string) {
+		return this.httpClient.delete(`${this.nodeApi}/remove/${id}`);
+	}
+
+	createWiget(data): Observable<any> {
+		return this.httpClient.post(`${this.nodeApi}/create`, data);
+	}
 }

@@ -171,7 +171,9 @@
   "fifth_feature_title":"Share Dashboards",
   "fifth_feature_description":"Ability to share dashboards with team or with the public by social media, embed somewhere and CSV or Excel files.",
   "sixth_feature_title":"Data explorer based on time-period and area",
-  "sixth_feature_description":"Key major contribution of stat is to strengthening process of exploring data based on selected time period and selected statistical domain area quickly, easily and accurately."
+  "sixth_feature_description":"Key major contribution of stat is to strengthening process of exploring data based on selected time period and selected statistical domain area quickly, easily and accurately.",
+  "WELL_DONE": "Well Done",
+  "WIDGET_SUBMITTED": "Widget Submitted Successfully"
 
 
 }

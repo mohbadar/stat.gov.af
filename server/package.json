@@ -31,7 +31,8 @@
     "src"
   ],
   "dependencies": {
-    "bcrypt": "3.0.4",
+    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "body-parser": "1.18.2",
     "compression": "1.7.1",
     "cookie-parser": "1.4.3",
@@ -40,10 +41,10 @@
     "express": "4.16.2",
     "helmet": "3.9.0",
     "joi": "14.3.0",
+    "jsonwebtoken": "8.5.1",
     "mongoose": "5.4.0",
     "ts-node": "6.0.3",
-    "util": "0.11.1",
-    "jsonwebtoken": "8.5.1"
+    "util": "0.11.1"
   },
   "devDependencies": {
     "@types/bcrypt": "3.0.0",

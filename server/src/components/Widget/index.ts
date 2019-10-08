@@ -46,6 +46,8 @@ export async function findOne(req: Request, res: Response, next: NextFunction): 
  */
 export async function create(req: Request, res: Response, next: NextFunction): Promise < void > {
     try {
+        console.log(JSON.stringify(req.body));
+        
         const widget: IWidgetModel = await WidgetService.insert(req.body);
 
         res.status(201).json(widget);
