@@ -39,7 +39,8 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="text-default">{{ 'DASHBOARDS' | translate }}<i class="fa fa-angle-down"></i></span>
                     </a>
-                    <ul class="dropdown-menu" *ngIf="dashboardSlugs.length">
+                    <ul class="dropdown-menu" *ngIf="globals.dashboardList.length">
+                            <li><a href="#" [routerLink]="['/dashboard']">{{ 'HOME' | titlecase  | translate }}</a></li>
                         <li *ngFor="let dashboard of globals.dashboardList"><a href="#"
                                 [routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a></li>
                     </ul>

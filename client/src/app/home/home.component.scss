@@ -323,56 +323,60 @@ padding: 10px 15px;
 
 // Dashboards design css
 
-.item .card{
+.item .card {
   min-height: 200px;
   text-align: center;
   font-size: 30px;
   vertical-align:middle !important;  
 }
-.item .card a{
+.item .card a {
   padding-top:30%;
 }
 
-div.item>div:nth-child(even){
-  background-color:#1ab394;
-  color: #fff !important;
- }
+.item .card div {
+  font-size: 15px;
+}
 
- div.item>div:nth-child(even):hover{
-  background-color: #fff;
-    -webkit-transition: background-color 250ms linear;
-    -ms-transition: background-color 250ms linear;
-    transition: background-color 250ms linear;
-    border:1px solid #ccc;
- }
+// div.item>div:nth-child(even){
+//   background-color:#1ab394;
+//   color: #fff !important;
+//  }
 
- div.item>div:nth-child(even) a{
-  color: #fff !important;
- }
+//  div.item>div:nth-child(even):hover{
+//   background-color: #fff;
+//     -webkit-transition: background-color 250ms linear;
+//     -ms-transition: background-color 250ms linear;
+//     transition: background-color 250ms linear;
+//     border:1px solid #ccc;
+//  }
 
- div.item>div:nth-child(even):hover a{
-  color: #1ab394 !important;
- }
+//  div.item>div:nth-child(even) a{
+//   color: #fff !important;
+//  }
 
- div.item>div:nth-child(even) small{
-  color: #fff !important;
- }
+//  div.item>div:nth-child(even):hover a{
+//   color: #1ab394 !important;
+//  }
 
- div.item>div:nth-child(even):hover small{
-  color: #1ab394 !important;
- }
+//  div.item>div:nth-child(even) small{
+//   color: #fff !important;
+//  }
 
- div.item>div:nth-child(odd){
-  background-color:#fff;
-  color: #1ab394 !important;
- }
+//  div.item>div:nth-child(even):hover small{
+//   color: #1ab394 !important;
+//  }
 
- div.item>div:nth-child(odd):hover{
-  background-color: #1ab394;
-    -webkit-transition: background-color 250ms linear;
-    -ms-transition: background-color 250ms linear;
-    transition: background-color 250ms linear;
-    border:2px solid #ccc;
- }
+//  div.item>div:nth-child(odd){
+//   background-color:#fff;
+//   color: #1ab394 !important;
+//  }
+
+//  div.item>div:nth-child(odd):hover{
+//   background-color: #1ab394;
+//     -webkit-transition: background-color 250ms linear;
+//     -ms-transition: background-color 250ms linear;
+//     transition: background-color 250ms linear;
+//     border:2px solid #ccc;
+//  }
 // End of Dashbard designs
 
