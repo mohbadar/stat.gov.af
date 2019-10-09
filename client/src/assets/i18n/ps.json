@@ -143,6 +143,12 @@
   "Y-AXIS": "محور Y د",
   "SERIES": "لړۍ",
 
+  "LOGIN-TO-SYSTEM": "Login Into System",
+  "SAVE-CHART-LOGIN": "Please register in to the system to save this chart",
+
+  "USERNAME": "Username",
+
+
   "main_title":"د افغانستان احصایوي سیستم ته ښه راغلاست",
   "main_sub_title":"د افغانستان یوازنئ احصایوي معلوماتو مرکز. ددی ټول معلومات کاپی حقوق احصایه اداره ته مربوط ده",
   "data_set":"دیتا ستونه",

@@ -151,8 +151,11 @@
   "X-AXIS": "X-Axis",
   "Y-AXIS": "Y-Axis",
   "SERIES": "Series",
-  
 
+  "LOGIN-TO-SYSTEM": "Login Into System",
+  "SAVE-CHART-LOGIN": "Please register in to the system to save this chart",
+  
+  "USERNAME": "Username",
 
   "main_title":"Welcome to Stat.gov.af",
   "main_sub_title":"Main center to achieve all statistical data of Afghanistan. All rights of data reserved to nsia (national statistics & information authority)",

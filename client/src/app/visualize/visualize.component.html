@@ -228,8 +228,8 @@
 						aria-hidden="true">&times;</span></button>
 				<div class="header">
 
-					<h4 class="modal-title" id="editModalLabel">Login Into System</h4>
-					<small>Please register in to the system to save this chart</small>
+					<h4 class="modal-title" id="editModalLabel">{{ 'LOGIN-TO-SYSTEM' | translate}}</h4>
+					<small>{{ 'SAVE-CHART-LOGIN' | translate }}</small>
 				</div>
 			</div>
 			<div class="modal-body">
@@ -237,10 +237,10 @@
 
 					<ul role="tablist" class="nav nav-tabs" style="visibility: hidden">
 						<li role="presentation" class="active">
-							<a href="#login" data-toggle="tab">Info</a>
+							<a href="#login" data-toggle="tab"></a>
 						</li>
 						<li>
-							<a href="#signup" data-toggle="tab">Account</a>
+							<a href="#signup" data-toggle="tab"></a>
 						</li>
 
 					</ul>
@@ -249,53 +249,51 @@
 						<div id="login" class="tab-pane fade in active">
 							<form action="" [formGroup]="loginForm" (ngSubmit)="login()">
 								<div class="form-group">
-									<label for="username">Username</label>
+									<label for="username">{{'USERNAME' | translate }}</label>
 									<input type="text" name="username" class="form-control" formControlName="username">
 								</div>
 								<div class="form-group">
-									<label for="password">Password</label>
+									<label for="password">{{ 'PASSWORD' | translate}}</label>
 									<input type="password" name="password" class="form-control" formControlName="password">
 								</div>
 								<div class="form-group">
 									<input type="submit" value="Log In" class="form-control btn btn-primary btn-fill" [disabled]="loginForm.invalid">
-									<small>Don't have account? <span (click)="changeTab('signup')">Sign
-											up</span></small>
+									<small>{{ 'NOACCOUNT' | translate }} <span (click)="changeTab('signup')">{{ 'SIGNUP' | translate }}</span></small>
 								</div>
 							</form>
 						</div>
 						<div id="signup" class="tab-pane fade">
 							<form action=""  [formGroup]="registerForm" (ngSubmit)="register()">
 								<div class="form-group">
-									<input type="text" placeholder="Your Full Name" class="form-control"
+									<input type="text" [placeholder]="'FULLNAME' | translate" class="form-control"
 										formControlName="fullName">
 								</div>
 								<div class="form-group">
-									<input type="text" placeholder="Your User Name" class="form-control"
+									<input type="text" [placeholder]="'YOURUSERNAME' | translate" class="form-control"
 										formControlName="username">
 								</div>
 								<div class="form-group">
-									<input type="text" maxlength="10" placeholder="Mobile Number" class="form-control"
+									<input type="text" maxlength="10" [placeholder]="'MOBILENUMBER' | translate" class="form-control"
 										formControlName="mobileNumber" (keyup)="validateNumber($event.target)">
 								</div>
 								<div class="form-group">
-									<input type="email" placeholder="Enter email" class="form-control"
+									<input type="email" [placeholder]="'ENTEREMAIL' | translate" class="form-control"
 										formControlName="email">
 								</div>
 								<div class="form-group">
-									<input type="password" placeholder="Password" class="form-control"
+									<input type="password" [placeholder]="'PASSWORD' | translate" class="form-control"
 										formControlName="password" #pass
 										(keyup)="checkPassword(pass.value, passConf.value)">
 								</div>
 								<div class="form-group">
-									<input type="password" placeholder="Password Confirmation" class="form-control"
+									<input type="password" placeholder="'PASSWORDCONF' | translate" class="form-control"
 										formControlName="passwordConf" #passConf required
 										(keyup)="checkPassword(pass.value, passConf.value)">
-									<small class="text-danger" [hidden]="passwordMatch">passwords should
-										match</small>
+									<small class="text-danger" [hidden]="passwordMatch">{{ 'PASSWORDMATCH' | translate }}</small>
 								</div>
 								<div class="form-group">
 									<input type="submit" value="Sign Up" class="form-control btn btn-success btn-fill" [disabled]="registerForm.invalid">
-									<small>have account? <span (click)="changeTab('login')">Log in</span></small>
+									<small>{{ 'HAVEACCOUNT' | translate }} <span (click)="changeTab('login')">{{ 'LOGIN' | translate }}</span></small>
 								</div>
 							</form>
 						</div>

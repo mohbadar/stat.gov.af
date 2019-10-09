@@ -141,6 +141,13 @@
   "Y-AXIS": "محور Y",
   "SERIES": "سلسله",
 
+  "LOGIN-TO-SYSTEM": "Login Into System",
+  "SAVE-CHART-LOGIN": "Please register in to the system to save this chart",
+
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+
+
   "main_title":"به سیستم احصایوی افغانستان خوش آمدید",
   "main_sub_title":"مرکز معلومات احصایوی افغانستان که میتوانید تمامی معلومات احصایوی در مورد دولت را از اینجا بدست بیاورید. حق کاپی تمامی معلومات ها محفوظ برای اداره ملی احصایه و معلومات میباشد.",
   "data_set":"دیتا ست ها",
