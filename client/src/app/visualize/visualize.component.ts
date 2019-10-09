@@ -604,5 +604,12 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 		console.log('getData: ', this.getData());
 	}
 
+	validateNumber(el) {
+		const elValue = el.value;
+		if (!(/^[0-9]*$/gm).test(elValue) || elValue.length > 10) {
+			$(el).val(elValue.slice(0, elValue.length - 1));
+		}
+	}
+
 
 }

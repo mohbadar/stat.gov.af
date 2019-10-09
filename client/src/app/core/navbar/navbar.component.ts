@@ -58,7 +58,7 @@ export class NavbarComponent implements OnInit {
 		private renderer: Renderer,
 		private element: ElementRef,
 		private dashboardService: DashboardService,
-		private globals: Globals,
+		public globals: Globals,
 		public authService: AuthService,
 		private router: Router,
 		public translate: TranslateService,
