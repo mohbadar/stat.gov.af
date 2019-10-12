@@ -129,7 +129,7 @@
 					</div>
 					<hr />
 					<div class="filters">
-						<h6>List of added filters</h6><br />
+						<h6>{{ 'LIST_ADD_FILTERS' | translate }}</h6><br />
 						<div class="inline-block ml-1" *ngFor="let filter of customFilters">
 							<button type="button" class="btn btn-info btn-fill btn-sm"
 								*ngIf="visibleTag">{{ filter.columnName }}

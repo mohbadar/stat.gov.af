@@ -3089,3 +3089,7 @@ caption {
     font-size:16px;
     color: #000000;
 }
+.rtl .wrapper, body {
+    min-height: 100% !important;
+    position: static !important;
+}

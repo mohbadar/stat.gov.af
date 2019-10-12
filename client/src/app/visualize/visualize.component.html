@@ -1,10 +1,10 @@
 <div class="query-wrapper container-fluid" style="font-size: smaller;">
 	<div class="card">
 		<div class="header">
-			<button class="btn btn-social btn-fill btn-primary shadowed pull-right" (click)="checkUserLoggedIn()">
+			<button class="btn btn-social btn-fill btn-primary shadowed pull-right ml-1" (click)="checkUserLoggedIn()">
 				{{ 'SAVE' | translate }}
 			</button>&nbsp;&nbsp;&nbsp;
-			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right" (click)="close()">
+			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right " (click)="close()">
 				{{ 'BACK' | translate }}
 			</button>
 			<h5>{{ 'VISUALIZATION_EIDTOR' | translate }}</h5>
@@ -228,7 +228,7 @@
 						aria-hidden="true">&times;</span></button>
 				<div class="header">
 
-					<h4 class="modal-title" id="editModalLabel">{{ 'LOGIN-TO-SYSTEM' | translate}}</h4>
+					<h4 class="modal-title" id="editModalLabel">{{ 'LOGIN-TO-SYSTEM' | translate}}</h4> 
 					<small>{{ 'SAVE-CHART-LOGIN' | translate }}</small>
 				</div>
 			</div>
@@ -256,8 +256,11 @@
 									<label for="password">{{ 'PASSWORD' | translate}}</label>
 									<input type="password" name="password" class="form-control" formControlName="password">
 								</div>
+								<div class="form-group form-inline text-center ">
+									<input type="submit" value="{{ 'LOGIN' | translate }}" class="form-control btn btn-primary btn-fill ml-1" [disabled]="loginForm.invalid">
+									<input type="btn" value="{{ 'CANCEL' | translate }}" class="form-control btn btn-secondary btn-fill" data-dismiss="modal">
+								</div>
 								<div class="form-group">
-									<input type="submit" value="Log In" class="form-control btn btn-primary btn-fill" [disabled]="loginForm.invalid">
 									<small>{{ 'NOACCOUNT' | translate }} <span (click)="changeTab('signup')">{{ 'SIGNUP' | translate }}</span></small>
 								</div>
 							</form>
@@ -291,8 +294,11 @@
 										(keyup)="checkPassword(pass.value, passConf.value)">
 									<small class="text-danger" [hidden]="passwordMatch">{{ 'PASSWORDMATCH' | translate }}</small>
 								</div>
+								<div class="form-group form-inline text-center">
+									<input type="submit" value="{{ 'SIGNUP' | translate }}" class="form-control btn btn-success btn-fill ml-1" [disabled]="registerForm.invalid">
+									<input type="btn" value="{{ 'CANCEL' | translate }}" class="form-control btn btn-secondary btn-fill" data-dismiss="modal">
+								</div>
 								<div class="form-group">
-									<input type="submit" value="Sign Up" class="form-control btn btn-success btn-fill" [disabled]="registerForm.invalid">
 									<small>{{ 'HAVEACCOUNT' | translate }} <span (click)="changeTab('login')">{{ 'LOGIN' | translate }}</span></small>
 								</div>
 							</form>

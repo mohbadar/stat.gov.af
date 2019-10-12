@@ -129,6 +129,7 @@
   "FILTER_STRING": "Filter string",
   "COLUMN_LIST": "List of all columns:",
   "UNCHECK_COLUMN": "Uncheck all columns",
+  "LIST_ADD_FILTERS":"List of added filters",
 
 
   "VISUALIZATION_EIDTOR": "Visualization Editor",
@@ -151,6 +152,10 @@
   "X-AXIS": "X-Axis",
   "Y-AXIS": "Y-Axis",
   "SERIES": "Series",
+
+  "SAVE":"Save",
+  "BACK":"Back",
+  
 
   "LOGIN-TO-SYSTEM": "Login Into System",
   "SAVE-CHART-LOGIN": "Please register in to the system to save this chart",
