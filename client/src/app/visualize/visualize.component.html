@@ -289,7 +289,7 @@
 										(keyup)="checkPassword(pass.value, passConf.value)">
 								</div>
 								<div class="form-group">
-									<input type="password" placeholder="'PASSWORDCONF' | translate" class="form-control"
+									<input type="password" [placeholder]="'PASSWORDCONF' | translate" class="form-control"
 										formControlName="passwordConf" #passConf required
 										(keyup)="checkPassword(pass.value, passConf.value)">
 									<small class="text-danger" [hidden]="passwordMatch">{{ 'PASSWORDMATCH' | translate }}</small>
