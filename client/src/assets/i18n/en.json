@@ -122,7 +122,7 @@
   "CONTAINS": "Contains",
   "CONTAINS_START": "Contains in the start",
   "CONTAINS_END": "Contains in the end",
-  "NOT_CONTAINS": "Contains in the end",
+  "NOT_CONTAINS": "Not contains",
   "APPLY": "Add",
   "CANCEL": "Cancel",
   "ACTIONS": "Actions",

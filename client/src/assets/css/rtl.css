@@ -3093,3 +3093,7 @@ caption {
     min-height: 100% !important;
     position: static !important;
 }
+.rtl .plus-icon{
+    float: right !important;
+    margin-left: 3% !important;
+ }

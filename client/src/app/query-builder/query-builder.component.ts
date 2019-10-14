@@ -33,7 +33,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	selectedColumnIndex = 0;
 	selectedColumnName = '';
 	columnNames = [];
-	action = this.translate.instant('ACTIONS');
+	action = 'ACTIONS';
 	applyMultiple = false;
 	originalData;
 	filterValue;
@@ -324,7 +324,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.showFilter = true;
 		this.columnDataType = dataType;
 		this.selectedColumnIndex = index;
-		this.action = this.translate.instant('ACTIONS');
+		this.action = 'ACTIONS';
 		this.selectedColumnName = this.columnNames[index].name;
 		// console.log('Column Data Type: ', this.columnDataType);
 	}

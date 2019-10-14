@@ -54,6 +54,8 @@
 }
 .plus-icon{
    display: none;
+   float: left;
+   margin-right: 3%;
 }
 .column-name:hover .plus-icon {
     display: block;
