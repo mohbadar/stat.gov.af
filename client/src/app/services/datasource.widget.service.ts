@@ -11,21 +11,25 @@ export class DatasourceWidgetService {
 	private baseUrl = '/api/dashboards';
 	private nodeApi = '/node-api/widgets';
 
-	constructor(private httpClient: HttpClient) { }
+	constructor(private http: HttpClient) { }
 
 	loadWidgets(): Observable<any> {
-		return this.httpClient.get(`${this.nodeApi}/all`);
+		return this.http.get(`${this.nodeApi}/all`);
 	}
 
 	loadWidgetById(id: string): Observable<any> {
-		return this.httpClient.get(`${this.nodeApi}/one/${id}`);
+		return this.http.get(`${this.nodeApi}/one/${id}`);
 	}
 
 	deleteWidget(id: string) {
-		return this.httpClient.delete(`${this.nodeApi}/remove/${id}`);
+		return this.http.delete(`${this.nodeApi}/remove/${id}`);
 	}
 
 	createWiget(data): Observable<any> {
-		return this.httpClient.post(`${this.nodeApi}/create`, data);
+		return this.http.post(`${this.nodeApi}/create`, data);
+	}
+
+	addBulkWidgets(data): Observable<any> {
+		return this.http.post(`${this.nodeApi}/bulk-add`, data);
 	}
 }

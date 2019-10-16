@@ -37,12 +37,12 @@ const DashboardSchema: Schema = new Schema({
         required: true
     },
 
-    widgets: { 
-        type: [[Object]], 
+    widgets: [{ 
+        type: String, 
         required: false, 
         trim: false, 
         index: false 
-    },
+    }],
 
     layout: { 
         type: Object, 
@@ -63,8 +63,8 @@ const DashboardSchema: Schema = new Schema({
 
     try {
         const layoutJSON = JSON.parse(dash.layout);
-        const widgetsJSON = JSON.parse(dash.widgets);
-        dash.widgets = widgetsJSON;
+        // const widgetsJSON = JSON.parse(dash.widgets);
+        // dash.widgets = widgetsJSON;
         dash.config = layoutJSON;
         next();
     } catch (error) {

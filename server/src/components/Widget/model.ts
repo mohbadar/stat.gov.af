@@ -41,6 +41,13 @@ const WidgetSchema: Schema = new Schema({
         index: false
     },
 
+    layout: {
+        type: String,
+        required: true,
+        trim: false,
+        index: false
+    },
+
     config: {
         type: Object,
         required: false,
@@ -62,6 +69,7 @@ const WidgetSchema: Schema = new Schema({
     try {
         const configJSON = JSON.parse(widget.config);
         const dataJSON = JSON.parse(widget.data)
+        const layoutJSON = JSON.parse(widget.layout)
         widget.config = configJSON;
         widget.data = dataJSON;
 

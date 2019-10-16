@@ -28,4 +28,4 @@ PlotlyModule.plotlyjs = PlotlyJS;
 		DashboardComponent
 	],
 })
-export class DashbaordModule { }
+export class DashboardModule { }

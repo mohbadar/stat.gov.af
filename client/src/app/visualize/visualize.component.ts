@@ -250,16 +250,11 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 
 	save() {
 
-		const chartData = {
-			columns: this.columns,
-			rows: this.rows
-		}
-
 		const data = {
 			name: this.chartForm.get('visualizationName').value,
 			user: this.authService.getLoggedInUserId(),
 			config: JSON.stringify(this.chartForm.value),
-			data: JSON.stringify(chartData)
+			data: JSON.stringify(this.data)
 		}
 
 		this.widgetService.createWiget(data).subscribe(res => {

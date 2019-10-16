@@ -175,6 +175,10 @@ export class NavbarComponent implements OnInit {
 
 	}
 
+	navigateToMyDashboards() {
+		this.authService.isLoggedIn() ?	this.router.navigate(['/test']) : this.router.navigate(['/public-dashboard']);
+	}
+
 
 
 	// isMobileMenu() {

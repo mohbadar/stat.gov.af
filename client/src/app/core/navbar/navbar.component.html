@@ -24,6 +24,9 @@
                 <li>
                     <a href="" [routerLink]="['/']"><span class="text-default">{{ 'HOME' | translate }}</span></a>
                 </li>
+                <li>
+                    <a href="" [routerLink]="['/test']"><span class="text-default">Test</span></a>
+                </li>
                 <li *ngIf="authService.isAdmin()" class="dropdown" >
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
                         <span class="text-default">{{ 'ADMINISTRATION' | translate }}<i class="fa fa-angle-down"></i></span>
@@ -47,17 +50,10 @@
                 </li>
 
                 <li>
-                    <a href="#"  [routerLink]="['/build-query']">
-                        <span class="text-default"><i class="fa fa-bar-chart"></i> {{ 'ANALYZE_DATA' | translate }} </span>
-                    </a>
-                </li>
-
-                <li *ngIf="authService.isLoggedIn()">
-                    <a href="#"  [routerLink]="['/custom/my-dashboards']">
+                    <a (click)="navigateToMyDashboards()">
                         <span class="text-default"><i class="fa fa-bar-chart"></i> {{ 'MY_DASHBOARDS' | translate }} </span>
                     </a>
                 </li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
