@@ -70,6 +70,10 @@ import { AddWidgetComponent } from './admin/node/mydashboard/dialogs/add-widget/
 import { SelectLangComponent } from './selectlang/selectlang.component';
 import { EditDashboardComponent } from './admin/node/mydashboard/dialogs/edit-dashboard/edit-dashboard.component';
 
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
+
 
 @NgModule({
 	declarations: [
@@ -87,8 +91,9 @@ import { EditDashboardComponent } from './admin/node/mydashboard/dialogs/edit-da
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		PlotlyModule,
 		RouterModule.forRoot(AppRoutes),
-		
+
 		FormsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
@@ -112,7 +117,7 @@ import { EditDashboardComponent } from './admin/node/mydashboard/dialogs/edit-da
 		LoadingBarHttpClientModule,
 		GridStackModule,
 		LoadingBarModule.forRoot(),
-		
+
 		PerfectScrollbarModule,
 		// PlotlyModule,
 		ShareModule,

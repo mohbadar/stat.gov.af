@@ -4,54 +4,58 @@ import { DatasourceWidgetService } from 'app/services/datasource.widget.service'
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-edit-dashboard',
-  templateUrl: './edit-dashboard.component.html',
-  styleUrls: ['./edit-dashboard.component.scss']
+	selector: 'app-edit-dashboard',
+	templateUrl: './edit-dashboard.component.html',
+	styleUrls: ['./edit-dashboard.component.scss']
 })
 export class EditDashboardComponent implements OnInit {
-  recordId: any;
-  dashboard: any; 
-  showCreateModal: boolean;
-  showEditModal: boolean;
-  loading: boolean;
-  allWidgets: any;
+	recordId: any;
+	dashboard: any;
+	showCreateModal: boolean;
+	showEditModal: boolean;
+	loading: boolean;
+	allWidgets: any;
 
-  constructor(
-    private datasourceDashboardService: DatasourceDashboardService,
-    private datasourceWidgetService: DatasourceWidgetService,
-    private router: Router
-  ) { }
+	constructor(
+		private datasourceDashboardService: DatasourceDashboardService,
+		private datasourceWidgetService: DatasourceWidgetService,
+		private router: Router
+	) { }
 
-  ngOnInit() {
+	ngOnInit() {
 
-    this.recordId= history.state.recordId;
-
-    console.log("Dashboard ID: ", this.router.getCurrentNavigation().extras.state);
-    
-
-    this.datasourceDashboardService.loadById(this.recordId).subscribe((data) => {
-        this.dashboard =data;
-        console.log("Data", data);
-        
-    },(err) => {
-
-      console.log("Dashboard ID doesn't exist!");
-      this.router.navigate(['/custom/my-dashboards']);
-
-    });
-    
-  }
+		this.recordId = history.state.recordId;
+		console.log('record ID: ', this.recordId);
 
 
-  reloadData() {
+		// console.log('Dashboard ID: ', this.router.getCurrentNavigation().extras.state);
+
+
+		this.datasourceDashboardService.loadById(this.recordId).subscribe((data) => {
+			this.dashboard = data;
+			console.log('Data', data);
+			
+
+		}, (err) => {
+
+			console.log('Dashboard ID doesn\'t exist!');
+			this.router.navigate(['/custom/my-dashboards']);
+
+		});
+
+	}
+
+
+	reloadData() {
 		// this.result = [];
 		this.datasourceDashboardService.loadById(this.recordId).subscribe(data => {
-      this.dashboard = data;
+			this.dashboard = data;
+
 		}, (err) => {
 			console.log('data error: ', err);
 		});
-  }
-  
+	}
+
 
 
 
@@ -87,11 +91,11 @@ export class EditDashboardComponent implements OnInit {
 
 
 
-  addNew() {
+	addNew() {
 		// if (!this.globals.principal.hasAuthority(['ROLE_CREATE', 'ADMIN'])) {
 		// 	return false;
-    // }
-    this.loading = true;
+		// }
+		this.loading = true;
 
 		this.datasourceWidgetService.loadWidgets().subscribe((data) => {
 			this.allWidgets = data;
@@ -102,6 +106,7 @@ export class EditDashboardComponent implements OnInit {
 		});
 
 	}
+
 
 
 

@@ -86,7 +86,7 @@ export async function bulkAdd(req: Request, res: Response, next: NextFunction): 
         const ids: any = [];
 
         console.log('body: ', JSON.stringify(req.body));
-        
+
         for (let i = 0; i < req.body.length; i++) {
             const widget: IWidgetModel = await WidgetService.insert(req.body[i]);
 
@@ -113,6 +113,27 @@ export async function bulkAdd(req: Request, res: Response, next: NextFunction): 
             });
         }
 
+    } catch (error) {
+        next(new HttpError(error.message.status, error.message));
+    }
+}
+
+/**
+ * @export
+ * @param {Request} req
+ * @param {Response} res
+ * @param {NextFunction} next
+ * @returns {Promise < void >}
+ */
+export async function findByDashboardId(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+        const dashboardId = req.params.id;
+        
+        console.log('req params: ', req.params.id);
+
+        res.status(200).json({
+            message: 'charts successfully fetched',
+        });
     } catch (error) {
         next(new HttpError(error.message.status, error.message));
     }

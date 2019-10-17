@@ -32,6 +32,12 @@ router.post('/create', WidgetComponent.create);
 router.post('/bulk-add', WidgetComponent.bulkAdd);
 
 /**
+ * POST method route
+ * @example http://localhost:PORT/node-api/queries
+ */
+router.get('/find-by-dashboard/:id', WidgetComponent.findByDashboardId);
+
+/**
  * DELETE method route
  * @example  http://localhost:PORT/node-api/queries/:id
  */

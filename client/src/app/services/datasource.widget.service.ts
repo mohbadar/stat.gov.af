@@ -17,6 +17,10 @@ export class DatasourceWidgetService {
 		return this.http.get(`${this.nodeApi}/all`);
 	}
 
+	loadWidgetsByDashboardID(dashboardId): Observable<any> {
+		return this.http.get(`${this.nodeApi}/find-by-dashboard/${dashboardId}`);
+	}
+
 	loadWidgetById(id: string): Observable<any> {
 		return this.http.get(`${this.nodeApi}/one/${id}`);
 	}

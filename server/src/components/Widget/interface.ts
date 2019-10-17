@@ -20,6 +20,13 @@ export interface IWidgetService {
     findOne(code: string): Promise<IWidgetModel>;
 
     /**
+     * @param {Object} widgetIds
+     * @returns {Promise<IWidgetModel[]>}
+     * @memberof IWidgetService
+     */
+    findAllByIds(widgetIds: [[object]]): Promise<IWidgetModel[]>;
+
+    /**
      * @param {IWidgetModel} IWidgetModel
      * @returns {Promise<IWidgetModel>}
      * @memberof IWidgetService
