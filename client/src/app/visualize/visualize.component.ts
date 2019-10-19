@@ -4,6 +4,7 @@ import { Globals } from './../core/_helpers';
 import { TranslateService } from '@ngx-translate/core';
 import { FormGroup, FormControl, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { AuthService } from 'app/services/auth.service';
+import { Router } from '@angular/router';
 import { DatasourceWidgetService } from 'app/services/datasource.widget.service';
 import { isNumber, isBoolean } from 'util';
 import swal from 'sweetalert2';
@@ -166,7 +167,8 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 		public globals: Globals,
 		private fb: FormBuilder,
 		public authService: AuthService,
-		private widgetService: DatasourceWidgetService
+		private widgetService: DatasourceWidgetService,
+		private router: Router
 	) {
 
 	}
@@ -620,11 +622,11 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 	saveLocally() {
 		const chart = {
 			data: this.data,
-			FilteredData: {
+			filteredData: {
 				rows: this.rows,
 				column: this.columns
 			},
-			plotlyconfig: this.plotlyConfig,
+			config: this.plotlyConfig,
 			layout: this.layout,
 			gridstack: this.gridstack
 		}
@@ -648,6 +650,8 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 			this.charts.push(chart);
 		}
 		localStorage.setItem('charts', JSON.stringify(this.charts));
+		this.router.navigate(['/public-dashboard']);
+
 	}
 
 

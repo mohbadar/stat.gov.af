@@ -9,6 +9,7 @@ import { AuthService } from 'app/services/auth.service';
 import { DatasourceWidgetService } from 'app/services/datasource.widget.service';
 import { DatasourceDashboard } from 'app/models/datasource.dashboard';
 import { DatasourceDashboardService } from 'app/services/datasource.dashboard.service';
+import Swal from 'sweetalert2';
 
 
 // import 'jquery-ui/ui/widgets/draggable';
@@ -112,7 +113,7 @@ export class PublicDashboardComponent implements OnInit {
 
 		if (window.localStorage) {
 			if (localStorage.getItem('charts')) {
-				this.charts = localStorage.getItem('charts');
+				this.charts = JSON.parse(localStorage.getItem('charts'));
 			}
 		}
 	}
@@ -188,23 +189,6 @@ export class PublicDashboardComponent implements OnInit {
 		$('#home').tab('show');
 	}
 
-	// addWidget(widget) {
-	// 	const gridStackItemEl = this.gridStackEl.querySelectorAll('.grid-stack-item[id="' + widget.id + '"]');
-	// 	const gridStackComponenet: any = this.gridStackMain;
-	// 	const grid = gridStackComponenet.grid;
-	// 	if (grid) {
-	// 		grid.addWidget(
-	// 			gridStackItemEl,
-	// 			widget.options.position.col, widget.options.position.row,
-	// 			widget.options.position.sizeX, widget.options.position.sizeY,
-	// 			false, // auto position
-	// 			widget.options.position.minSizeX, widget.options.position.maxSizeX,
-	// 			widget.options.position.minSizeY, widget.options.position.maxSizeY,
-	// 			widget.id,
-	// 		);
-	// 	}
-
-	// }
 
 	ngAfterViewInit() {
 		// this.charts.forEach(el => {
@@ -250,7 +234,7 @@ export class PublicDashboardComponent implements OnInit {
 	saveCharts() {
 		// The array is deep copied to the uploadCharts
 		const uploadCharts = $.extend(true, [], this.charts);
-		console.log('new charts: ', uploadCharts);
+		console.log('old charts: ', this.charts);
 
 		uploadCharts.map(chart => {
 			chart.name = chart.layout.hasOwnProperty('title') ? chart.layout.title.text : 'CHART_NAME';
@@ -260,6 +244,7 @@ export class PublicDashboardComponent implements OnInit {
 			chart.data = JSON.stringify(chart.data);
 			delete chart['gridstack'];
 			delete chart['id'];
+			delete chart['filteredData'];
 			chart.user = this.authService.getLoggedInUserId();
 			return chart;
 		});
@@ -268,7 +253,7 @@ export class PublicDashboardComponent implements OnInit {
 		this.widgetService.addBulkWidgets(uploadCharts).subscribe(res => {
 			console.log(res);
 			this.widgetIds = res.ids;
-			if(!this.dashboardName.length) {
+			if (!this.dashboardName.length) {
 				this.getDashboardName();
 			} else {
 				this.saveDashboard();
@@ -277,7 +262,27 @@ export class PublicDashboardComponent implements OnInit {
 			console.log('err: ', err);
 		});
 
+	}
 
+	resetCharts() {
+		Swal({
+			title: 'Are you sure?',
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, Reset it!',
+			useRejections: true
+		}).then(
+			result => {
+				this.charts = [];
+				if(localStorage.getItem('charts')) {
+					localStorage.removeItem('charts');
+				}
+			},
+			dismiss => {
+				console.log(`dialog was dismissed by ${dismiss}`);
+			});
 	}
 
 }

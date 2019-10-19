@@ -545,7 +545,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// })
 		console.log('Filter Application: ', operator);
 
-		console.log('data table data: ', $.fn.dataTable.ext.search);
+		// console.log('data table data: ', $.fn.dataTable.ext.search);
 
 		$.fn.dataTable.ext.search.push(
 			function (settings, data, dataIndex) {
