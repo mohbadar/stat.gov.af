@@ -7,37 +7,37 @@ import { UserService } from 'app/services/node/user.service';
 declare var $: any;
 
 @Component({
-  selector: 'app-create-mydashboard',
-  templateUrl: './create-mydashboard.component.html',
-  styleUrls: ['./create-mydashboard.component.scss']
+	selector: 'app-create-mydashboard',
+	templateUrl: './create-mydashboard.component.html',
+	styleUrls: ['./create-mydashboard.component.scss']
 })
 export class CreateMydashboardComponent implements OnInit {
 
-  @Output()
+	@Output()
 	toggleModal = new EventEmitter<Object>();
 	@Input() data;
 	myForm: FormGroup;
 	isLoading = false;
-  user: any;
+	user: any;
 
-  constructor(
-      public datasourceDashboardService: DatasourceDashboardService, 
-      private formBuilder: FormBuilder,
-      private authService: AuthService,
-      private userService: UserService
-    ) {
+	constructor(
+		public datasourceDashboardService: DatasourceDashboardService,
+		private formBuilder: FormBuilder,
+		private authService: AuthService,
+		private userService: UserService
+	) {
 		this.myForm = this.formBuilder.group({
 			name: ['', [Validators.required]],
 		});
 	}
 
 	ngOnInit() {
-    console.log("User Data", this.authService.getUserDetails());
-    
-    this.userService.loadUser(this.authService.getLoggedInUserId()).subscribe(data => {
-        this.user = data;
-    });
-   }
+		console.log("User Data", this.authService.getUserDetails());
+
+		this.userService.loadUser(this.authService.getLoggedInUserId()).subscribe(data => {
+			this.user = data;
+		});
+	}
 
 	ngAfterViewInit() {
 		if ($('.selectpicker').length !== 0) {
@@ -53,26 +53,26 @@ export class CreateMydashboardComponent implements OnInit {
 		// this.newRecord = new NodeRole();
 		// this.newRecord.name = this.myForm.get('name').value;
 		// this.newRecord.description = this.myForm.get('description').value;
-    // this.newRecord.isActive = this.myForm.get('active').value + "";
+		// this.newRecord.isActive = this.myForm.get('active').value + "";
 
-    
-    const formJson = {
-      name : this.myForm.get('name').value,
-      user: this.authService.getLoggedInUserId()
-    };
 
-    const obj = new DatasourceDashboard();
-    obj.name = this.myForm.get('name').value,
-    obj.user = this.authService.getLoggedInUserId();
-    obj.layout= null;
-    obj.widgets = null;
+		const formJson = {
+			name: this.myForm.get('name').value,
+			user: this.authService.getLoggedInUserId()
+		};
+
+		const obj = new DatasourceDashboard();
+		obj.name = this.myForm.get('name').value;
+		obj.user = this.authService.getLoggedInUserId();
+		obj.layout = null;
+		obj.widgets = null;
 
 
 		// this.newRecord.permissions = JSON.stringify(permissions);
 
 		console.log('here is the new record', JSON.stringify(localStorage.getItem('loggedInUserId')));
 
-				this.isLoading = true;
+		this.isLoading = true;
 		this.datasourceDashboardService.create(obj).subscribe((response) => {
 			console.log('server response: ', response);
 			const msg = 'Record successfully created';
@@ -83,8 +83,8 @@ export class CreateMydashboardComponent implements OnInit {
 		}, (err) => {
 			const msg = 'There was an error creating record'
 			// this.showNotification('top', 'center', msg, 'danger', 'pe-7s-attention');
-    });
-    
+		});
+
 	}
 
 

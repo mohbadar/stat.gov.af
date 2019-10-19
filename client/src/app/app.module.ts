@@ -34,7 +34,7 @@ import {
 	DefaultLayoutComponent
 } from './core';
 
-// import { DashbaordModule } from './dashboard/dashboard.module';
+// import { DashboardModule } from './dashboard/dashboard.module';
 
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -66,9 +66,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 	wheelPropagation: true
 };
 import { HomeComponent } from './home/home.component';
-import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
 import { AddWidgetComponent } from './admin/node/mydashboard/dialogs/add-widget/add-widget.component';
 import { SelectLangComponent } from './selectlang/selectlang.component';
+import { EditDashboardComponent } from './admin/node/mydashboard/dialogs/edit-dashboard/edit-dashboard.component';
+
+import * as PlotlyJS from 'plotly.js/dist/plotly.js';
+import { PlotlyModule } from 'angular-plotly.js';
+PlotlyModule.plotlyjs = PlotlyJS;
 
 
 @NgModule({
@@ -79,16 +83,17 @@ import { SelectLangComponent } from './selectlang/selectlang.component';
 		DefaultLayoutComponent,
 		HomeComponent,
 		SelectLangComponent,
-		EditDashboardComponent,
-		AddWidgetComponent
+		AddWidgetComponent,
+		EditDashboardComponent
 		// VisualizeComponent,
 		// DashboardComponent
 	],
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
+		PlotlyModule,
 		RouterModule.forRoot(AppRoutes),
-		
+
 		FormsModule,
 		HttpClientModule,
 		ReactiveFormsModule,
@@ -112,7 +117,7 @@ import { SelectLangComponent } from './selectlang/selectlang.component';
 		LoadingBarHttpClientModule,
 		GridStackModule,
 		LoadingBarModule.forRoot(),
-		
+
 		PerfectScrollbarModule,
 		// PlotlyModule,
 		ShareModule,

@@ -15,13 +15,13 @@ import { Router } from '@angular/router';
 declare var $: any;
 
 @Component({
-  selector: 'app-mydashboard',
-  templateUrl: './mydashboard.component.html',
-  styleUrls: ['./mydashboard.component.scss']
+	selector: 'app-mydashboard',
+	templateUrl: './mydashboard.component.html',
+	styleUrls: ['./mydashboard.component.scss']
 })
-export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
+export class MydashboardComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  
+
 	result: DatasourceDashboard[];
 	roleData;
 	allPermissionsData;
@@ -35,21 +35,21 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 	// datatables options
 	dtOptions = {};
 
-	headerRow = [ 'Name', 'Actions'];
+	headerRow = ['Name', 'Actions'];
 	isLoading = true;
 	loading;
 	viewLoading;
 	editLoading;
 	authPrincipal: AuthPrincipal = new AuthPrincipal(false, [], null);
 
-	constructor(public httpClient: HttpClient ,
+	constructor(public httpClient: HttpClient,
 		private datasourceDashboardService: DatasourceDashboardService,
 		private datasourceWidgetService: DatasourceWidgetService,
 		public authService: AuthService,
 		public globals: Globals,
 		private cdref: ChangeDetectorRef,
-    private datatables: DatatablesService, 
-    private router: Router
+		private datatables: DatatablesService,
+		private router: Router
 	) { }
 
 	ngOnInit() {
@@ -64,8 +64,8 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 		this.changeLanguage();
 		this.authPrincipal = JSON.parse(localStorage.getItem('authPrincipal'));
 
-		console.log("Perm", this.authPrincipal);
-		
+		console.log('Perm', this.authPrincipal);
+
 	}
 
 	ngAfterViewInit() {
@@ -122,25 +122,25 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 		this.reloadData();
 	}
 
-    reloadData() {
-      // this.result = [];
-      this.loading = true;
-      this.dTableFlag = false;
-      this.datasourceDashboardService.load().subscribe(data => {
-        this.result = data;
-        this.dTableFlag = true;
-        this.cdref.detectChanges();
-        this.loading = false;
+	reloadData() {
+		// this.result = [];
+		this.loading = true;
+		this.dTableFlag = false;
+		this.datasourceDashboardService.load().subscribe(data => {
+			this.result = data;
+			this.dTableFlag = true;
+			this.cdref.detectChanges();
+			this.loading = false;
 
-        this.initTable();
-        this.isLoading = false;
-        // console.log('roles data ', this.result);
+			this.initTable();
+			this.isLoading = false;
+			// console.log('roles data ', this.result);
 
-      }, (err) => {
-        console.log('data error: ', err);
-        this.loading = false;
-      });
-    }
+		}, (err) => {
+			console.log('data error: ', err);
+			this.loading = false;
+		});
+	}
 
 	initTable() {
 		// Initialize datatable if not initialized before
@@ -175,9 +175,9 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 			// 	return false;
 			// }
 			this.datasourceDashboardService.loadById(recordId).subscribe(data => {
-        console.log("Role Data", data);
-        
-        this.viewLoading = false;
+				console.log('Role Data', data);
+
+				this.viewLoading = false;
 
 				this.roleData = data;
 				$('#showModal').modal();
@@ -204,11 +204,11 @@ export class MydashboardComponent  implements OnInit, OnDestroy, AfterViewInit{
 		// 	}, err => {
 		// 		this.editLoading = false;
 		// 	});
-    // }
-    console.log("Data", recordId);
-    
-    this.router.navigate(['/custom/my-dashboards/edit'], {state: {recordId: recordId}});
-    
+		// }
+		console.log('Data', recordId);
+
+		this.router.navigate(['/custom/my-dashboards/edit'], { state: { recordId: recordId } });
+
 
 	}
 

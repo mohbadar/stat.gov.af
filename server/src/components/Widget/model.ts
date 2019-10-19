@@ -35,7 +35,14 @@ const WidgetSchema: Schema = new Schema({
 
 
     data: {
-        type: String,
+        type: Object,
+        required: true,
+        trim: false,
+        index: false
+    },
+
+    layout: {
+        type: Object,
         required: true,
         trim: false,
         index: false
@@ -62,8 +69,10 @@ const WidgetSchema: Schema = new Schema({
     try {
         const configJSON = JSON.parse(widget.config);
         const dataJSON = JSON.parse(widget.data)
+        const layoutJSON = JSON.parse(widget.layout)
         widget.config = configJSON;
         widget.data = dataJSON;
+        widget.layout = layoutJSON;
 
         next();
     } catch (error) {

@@ -6,7 +6,7 @@ import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
 import { VisualizeComponent } from './visualize/visualize.component';
 import { HomeComponent } from './home/home.component';
 import { SelectLangComponent } from './selectlang/selectlang.component';
-import { EditDashboardComponent } from './admin/node/mydashboard/edit-dashboard/edit-dashboard.component';
+import { EditDashboardComponent } from './admin/node/mydashboard/dialogs/edit-dashboard/edit-dashboard.component';
 
 
 export const AppRoutes: Routes = [{
@@ -17,47 +17,49 @@ export const AppRoutes: Routes = [{
 	path: '',
 	component: PublicLayoutComponent,
 	children: [
-		
+
 		{
-		    path: 'home',
-		    component: HomeComponent
+			path: 'home',
+			component: HomeComponent
 		},
 		{
-			path: 'dashboard', 
-			loadChildren: './dashboard/dashboard.module#DashbaordModule'
+			path: 'dashboard',
+			loadChildren: './dashboard/dashboard.module#DashboardModule'
 			// component: DashboardComponent
 		},
-		{ 
-			path: 'dashboard/:slug', 
-			loadChildren: './dashboard/dashboard.module#DashbaordModule'
+		{
+			path: 'dashboard/:slug',
+			loadChildren: './dashboard/dashboard.module#DashboardModule'
 			// component: DashboardComponent
 		},
 		{ path: 'build-query', loadChildren: './query-builder/query-builder.module#QueryBuilderModule' },
+		{ path: 'test', loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule' },
+		{ path: 'public-dashboard', loadChildren: './admin/node/public-dashboard/public-dashboard.module#PublicDashboardModule' },
 		// { path: 'visualize', component: VisualizeComponent},
 		{ path: '', redirectTo: 'home', pathMatch: 'full' },
 	]
 }
-, {
+	, {
 	path: 'custom',
 	component: PublicLayoutComponent,
 	// canActivate: [AuthGuard],
 	children: [
 		{
-			path: 'user-management', 
+			path: 'user-management',
 			loadChildren: './admin/node/user/user.module#UserModule'
 			// component: DashboardComponent
 		},
 
 
 		{
-			path: 'role-management', 
+			path: 'role-management',
 			loadChildren: './admin/node/role/role.module#RoleModule'
 			// component: DashboardComponent
 		},
 
 
 		{
-			path: 'my-dashboards', 
+			path: 'my-dashboards',
 			loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule'
 			// component: DashboardComponent
 		},
@@ -90,8 +92,8 @@ export const AppRoutes: Routes = [{
 	component: AuthLayoutComponent,
 	children: [
 		{
-		    path: 'lang',
-		    component: SelectLangComponent
+			path: 'lang',
+			component: SelectLangComponent
 		},
 		{
 			path: 'login',

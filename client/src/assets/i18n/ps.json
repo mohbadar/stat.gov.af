@@ -145,8 +145,8 @@
   "SERIES": "لړۍ",
 
   "LOGIN-TO-SYSTEM": "سیسټم ته ننوتل",
-  "SAVE-CHART-LOGIN": "مهرباني وکړئ د دې چارټ خوندي کولو لپاره سیسټم کې ثبت کړئ",
-  "SAVE":"خوندي کړئ",
+  "SAVE-CHART-LOGIN": "مهرباني وکړئ د دې چارټ خوندي کولو لپاره ځان سیسټم کې ثبت کړئ",
+  "SAVE":"ثبت کړئ",
   "BACK":"شاته",
 
   "USERNAME": "کارن نوم",
@@ -159,6 +159,10 @@
   "PASSWORDCONF": "د پسورد تایید",
   "PASSWORDMATCH": "پسورد باید سمون وخوري",
   "HAVEACCOUNT": "حساب لری؟",
+  "NODATA": "معلومات نشته",
+  "SAVE-DASHBOARD": "ډشبورډ ثبت کړئ",
+  "ADD-CHART": "Add Chart",
+  "REFRESH-DASHBOARD": "Refresh Dashboard",
 
 
   "main_title": "د افغانستان احصایوي سیستم ته ښه راغلاست",

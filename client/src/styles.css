@@ -59,6 +59,14 @@
   display: none;
 }
 
+/* General CSS */
+.no-data {
+  width: 100%;
+  border-radius: 0px;
+  color: #BFC0C0;
+}
+
+
 #navbar {
   width: 100%;
   position: fixed;
@@ -188,6 +196,7 @@
 .ml-2 {
   margin-left: 16px;
 }
+
 .bg-transparent {
   background: transparent !important;
 }
@@ -222,9 +231,10 @@
 }
 
 .title h4 {
-  margin: 0px !important;  
+  margin: 0px !important;
   font-weight: 400;
 }
+
 .c-pointer {
   cursor: pointer;
 }

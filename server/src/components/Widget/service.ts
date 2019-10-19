@@ -13,7 +13,7 @@ const WidgetService: IWidgetService = {
      * @returns {Promise < IWidgetModel[] >}
      * @memberof WidgetService
      */
-    async findAll(): Promise < IWidgetModel[] > {
+    async findAll(): Promise<IWidgetModel[]> {
         try {
             return await WidgetModel.find({});
         } catch (error) {
@@ -26,11 +26,11 @@ const WidgetService: IWidgetService = {
      * @returns {Promise < IWidgetModel >}
      * @memberof WidgetService
      */
-    async findOne(id: string): Promise < IWidgetModel > {
+    async findOne(id: string): Promise<IWidgetModel> {
         try {
-            const validate: Joi.ValidationResult < {
+            const validate: Joi.ValidationResult<{
                 id: string
-            } > = WidgetValidation.get({
+            }> = WidgetValidation.get({
                 id
             });
 
@@ -51,9 +51,9 @@ const WidgetService: IWidgetService = {
      * @returns {Promise < IWidgetModel >}
      * @memberof WidgetService
      */
-    async insert(body: IWidgetModel): Promise < IWidgetModel > {
+    async insert(body: IWidgetModel): Promise<IWidgetModel> {
         try {
-            const validate: Joi.ValidationResult < IWidgetModel > = WidgetValidation.create(body);
+            const validate: Joi.ValidationResult<IWidgetModel> = WidgetValidation.create(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
@@ -68,20 +68,20 @@ const WidgetService: IWidgetService = {
     },
 
 
-        /**
-     * @param {IRoleModel} user
-     * @returns {Promise < IRoleModel >}
-     * @memberof PermissionService
-     */
-    async update(code: string, body: IWidgetModel): Promise < IWidgetModel > {
+    /**
+ * @param {IRoleModel} user
+ * @returns {Promise < IRoleModel >}
+ * @memberof PermissionService
+ */
+    async update(code: string, body: IWidgetModel): Promise<IWidgetModel> {
         try {
-            const validate: Joi.ValidationResult < IWidgetModel > = WidgetValidation.create(body);
+            const validate: Joi.ValidationResult<IWidgetModel> = WidgetValidation.create(body);
 
             if (validate.error) {
                 throw new Error(validate.error.message);
             }
 
-            const user: IWidgetModel = await WidgetModel.update({_id: Types.ObjectId(code)}, body);
+            const user: IWidgetModel = await WidgetModel.update({ _id: Types.ObjectId(code) }, body);
 
             return user;
         } catch (error) {
@@ -94,11 +94,11 @@ const WidgetService: IWidgetService = {
      * @returns {Promise < IWidgetModel >}
      * @memberof WidgetService
      */
-    async remove(id: string): Promise < IWidgetModel > {
+    async remove(id: string): Promise<IWidgetModel> {
         try {
-            const validate: Joi.ValidationResult < {
+            const validate: Joi.ValidationResult<{
                 id: string
-            } > = WidgetValidation.remove({
+            }> = WidgetValidation.remove({
                 id
             });
 
@@ -115,6 +115,26 @@ const WidgetService: IWidgetService = {
             throw new Error(error.message);
         }
     },
+
+    /**
+    * @param {Object} widgetIds
+    * @returns {Promise < IWidgetModel[] >}
+    * @memberof WidgetService
+    */
+    async findAllByIds(widgetIds: [[object]]): Promise<IWidgetModel[]> {
+        try {
+            const query: IWidgetModel[] = await WidgetModel.find({
+                _id: {
+                    $in: widgetIds
+                }
+            });
+
+            return query;
+
+        } catch (error) {
+            throw new Error(error.message);
+        }
+    }
 };
 
 export default WidgetService;

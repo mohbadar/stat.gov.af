@@ -158,6 +158,11 @@
   "PASSWORDCONF": "پسورد خود را تایید کنید",
   "PASSWORDMATCH": "پسورد باید مطابقت داشته باشد",
   "HAVEACCOUNT": "حساب دارید؟",
+  "NODATA": "اطلاعات موجود نیست",
+  "SAVE-DASHBOARD": "داشبورد را ذخیره کنید",
+  "ADD-CHART": "Add Chart",
+  "REFRESH-DASHBOARD": "Refresh Dashboard",
+
 
 
   "main_title": "به سیستم احصایوی افغانستان خوش آمدید",
