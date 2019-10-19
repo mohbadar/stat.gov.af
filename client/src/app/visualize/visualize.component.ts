@@ -625,6 +625,10 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 	saveLocally() {
 		const chart = {
 			data: this.data,
+			FilteredData: {
+				rows: this.rows,
+				column: this.columns
+			},
 			plotlyconfig: this.plotlyConfig,
 			layout: this.layout,
 			gridstack: this.gridstack
