@@ -5,14 +5,6 @@
         <div class="title-wrapper">
           <h3 class="title">{{ 'MY_DASHBOARD_MANAGEMENT' | translate }}</h3>
           <div class="title-actions pull-right">
-            <button class="btn btn-warning" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
-              data-placement="top" [title]="'SAVE-DASHBOARD' | translate" (click)="saveCharts()">
-              <span class="btn-label" *ngIf="!loading">
-                <i class="fa fa-upload"></i>
-              </span>
-              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-danger" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
               data-placement="top" [title]="'SAVE-DASHBOARD' | translate" (click)="checkUserLoggedIn()">
               <span class="btn-label" *ngIf="!loading">

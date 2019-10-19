@@ -110,28 +110,6 @@ export class PublicDashboardComponent implements OnInit {
 
 	fetchDataFromLocalStorage() {
 
-		this.charts = [{
-			'data':
-				[{
-					'x': ['Apple', 'Apricot', 'Berrie',
-						'Citrus fruit nec',
-						'Common flax seed',
-						'Cotton seed', 'Figs', 'Fruit fresh nec', 'Grape', 'Medical seeds', 'Melon', 'Mustard', 'Oil seeds', 'Orange', 'Peache', 'Pear', 'Plum', 'Sesame seed', 'Sunflower seed', 'Total fruits', 'Vegetables fresh', 'Watermelon'], 'y': ['13038', '9116', '3800', '300', '21917', '42124', '1525', '29626', '78681', '4500', '34270', '3891', '92383', '1005', '2498', '717', '4931', '24241', '210', '218636', '89246', '39129'], 'name': '2015-16', 'type': 'bar'
-				}],
-			'config': { 'modeBarButtonsToRemove': ['sendDataToCloud'], 'showLink': false, 'displaylogo': false, 'type': 'bar', 'title': ['2015-16'] },
-			'layout': {
-				'autosize': true, 'xaxis': {
-					'showticklabels': true, 'autorange': true, 'range': [-0.5, 21.5], 'type': 'category'
-				}, 'yaxis': { 'showticklabels': true, 'autorange': true, 'range': [0, 230143.15789473685], 'type': 'linear' }, 'title': 'dummy title', 'showlegend': false
-			}, 'gridstack': {
-				'autoHeight': false,
-				'col': 0, 'maxSizeX': 6, 'maxSizeY': 1000, 'minSizeX': 1, 'minSizeY': 5, 'row': 0, 'sizeX': 3, 'sizeY': 10
-			}, 'id': 1
-		}, {
-			'data':
-				[{ 'x': ['13038', '9116', '3800', '300', '21917', '42124', '1525', '29626', '78681', '4500', '34270', '3891', '92383', '1005', '2498', '717', '4931', '24241', '210', '218636', '89246', '39129'], 'y': ['Apple', 'Apricot', 'Berrie', 'Citrus fruit nec', 'Common flax seed', 'Cotton seed', 'Figs', 'Fruit fresh nec', 'Grape', 'Medical seeds', 'Melon', 'Mustard', 'Oil seeds', 'Orange', 'Peache', 'Pear', 'Plum', 'Sesame seed', 'Sunflower seed', 'Total fruits', 'Vegetables fresh', 'Watermelon'], 'name': 'Indicator', 'type': 'bar' }],
-			'config': { 'modeBarButtonsToRemove': ['sendDataToCloud'], 'showLink': false, 'displaylogo': false, 'type': 'bar', 'title': ['Indicator'] }, 'layout': { 'autosize': true, 'xaxis': { 'showticklabels': true, 'autorange': true, 'range': [-0.5, 21.5], 'type': 'category' }, 'yaxis': { 'showticklabels': true, 'autorange': true, 'range': [-1.1666666666666665, 22.166666666666668], 'type': 'category' }, 'showlegend': false }, 'gridstack': { 'autoHeight': false, 'col': 3, 'maxSizeX': 6, 'maxSizeY': 1000, 'minSizeX': 1, 'minSizeY': 5, 'row': 0, 'sizeX': 3, 'sizeY': 10 }, 'id': 2
-		}]
 		if (window.localStorage) {
 			if (localStorage.getItem('charts')) {
 				this.charts = localStorage.getItem('charts');
