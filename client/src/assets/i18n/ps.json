@@ -121,7 +121,7 @@
   "CONTAINS": "Contains",
   "CONTAINS_START": "Contains in the start",
   "CONTAINS_END": "Contains in the end",
-  "NOT_CONTAINS": "Contains in the end",
+  "NOT_CONTAINS": "پکې شامل نه کړئ",
   "LIST_ADD_FILTERS":"د اضافه شوي فلټرونو لیست",
 
   "VISUALIZATION_EIDTOR": "ډیزاین تنظیمات",

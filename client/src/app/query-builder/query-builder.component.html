@@ -46,7 +46,7 @@
 								<input type="checkbox" name="cb" class="c-box" [id]="col.name" checked
 									(click)="toggleColumn($event.target, i)">
 								<span class="ml-1">{{col.name}}</span>
-								<div class="inline-block ml-1 pull-right plus-icon ">
+								<div class="inline-block ml-1 plus-icon ">
 									<a data-toggle="tooltip" data-placement="top" title="Add filter">
 										<i class="fa fa-plus-circle" (click)="showFilters(columnDataTypes[i], i)"></i>
 									</a>
@@ -64,21 +64,21 @@
 						<div class="dropdown inline-block ml-1">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<span class="btn btn-primary btn-fill">
-									{{ action }}
+									{{ action | translate }}
 									<i class="fa fa-angle-down"></i>
 								</span>
 							</a>
 							<ul class="dropdown-menu numbers-dropdown" *ngIf="columnDataType === 'number'">
-								<li (click)="setAction('flEq','Equal to', true)"><a>{{ 'EQUAL' | translate }}</a></li>
-								<li (click)="setAction('flLt','Less then', false)"><a>{{ 'LESS_THEN' | translate }}</a>
+								<li (click)="setAction('flEq','EQUAL', true)"><a>{{ 'EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flLt','LESS_THEN', false)"><a>{{ 'LESS_THEN' | translate }}</a>
 								</li>
-								<li (click)="setAction('flGr','Greater then', false)">
+								<li (click)="setAction('flGr','GREATER_THEN', false)">
 									<a>{{ 'GREATER_THEN' | translate }}</a></li>
-								<li (click)="setAction('flLtEq','Less or Equal', false)">
+								<li (click)="setAction('flLtEq','LESS_OR_EQUAL', false)">
 									<a>{{ 'LESS_OR_EQUAL' | translate }}</a></li>
-								<li (click)="setAction('flGrEq','Greater or Equal', false)">
+								<li (click)="setAction('flGrEq','GREATER_OR_EQUAL', false)">
 									<a>{{ 'GREATER_OR_EQUAL' | translate }}</a></li>
-								<li (click)="setAction('flNEq','Not Equal', true)"><a>{{ 'NOT_EQUAL' | translate }}</a>
+								<li (click)="setAction('flNEq','NOT_EQUAL', true)"><a>{{ 'NOT_EQUAL' | translate }}</a>
 								</li>
 								<!-- <li (click)="setAction('flRng','In Range', true)"><a>In a range (Inclusive)</a></li>
 								<li (click)="setAction('flNRng','Not in Range', true)"><a>Not in a range (Inclusive)</a>
@@ -86,14 +86,14 @@
 							</ul>
 
 							<ul class="dropdown-menu string-dropdown" *ngIf="columnDataType === 'string'">
-								<li (click)="setAction('flCn','Contains', true)"><a>{{ 'CONTAINS' | translate }}</a>
+								<li (click)="setAction('flCn','CONTAINS', true)"><a>{{ 'CONTAINS' | translate }}</a>
 								</li>
-								<li (click)="setAction('flCnS','Contains start', true)">
+								<li (click)="setAction('flCnS','CONTAINS_START', true)">
 									<a>{{ 'CONTAINS_START' | translate }}</a>
 								</li>
-								<li (click)="setAction('flCnE','Contains end', true)">
+								<li (click)="setAction('flCnE','CONTAINS_END', true)">
 									<a>{{ 'CONTAINS_END' | translate }}</a></li>
-								<li (click)="setAction('flNCn','Not Contains', true)">
+								<li (click)="setAction('flNCn','NOT_CONTAINS', true)">
 									<a>{{ 'NOT_CONTAINS' | translate }}</a></li>
 							</ul>
 						</div>

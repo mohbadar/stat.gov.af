@@ -72,7 +72,19 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 			// type: 'linear'
 		}
 	};
+	gridstack: any = {
+		autoHeight: false,
+		col: 0,
+		maxSizeX: 6,
+		maxSizeY: 1000,
+		minSizeX: 1,
+		minSizeY: 5,
+		row: 0,
+		sizeX: 3,
+		sizeY: 10,
+	}
 	data: any = [];
+	charts: any = [];
 	xAxisData: any = [];
 
 	visualizationTypes = [
@@ -609,6 +621,38 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 		if (!(/^[0-9]*$/gm).test(elValue) || elValue.length > 10) {
 			$(el).val(elValue.slice(0, elValue.length - 1));
 		}
+	}
+	saveLocally() {
+		const chart = {
+			data: this.data,
+			FilteredData: {
+				rows: this.rows,
+				column: this.columns
+			},
+			plotlyconfig: this.plotlyConfig,
+			layout: this.layout,
+			gridstack: this.gridstack
+		}
+		if (!localStorage.charts) {
+			chart['id'] = 1;
+			this.charts.push(chart);
+			localStorage.setItem('chartId', JSON.stringify(1));
+
+		} else {
+			this.charts = JSON.parse(localStorage.getItem('charts'));
+			chart['id'] = (Number(localStorage.getItem('chartId'))) + 1;
+			if (chart['id'] % 2 === 0) {
+				chart['gridstack'].col = 3;
+			} else {
+				chart['gridstack'].col = 0;
+			}
+			if (this.charts.length % 2 === 0) {
+				chart['gridstack'].row = chart['gridstack'].row + 10;
+			}
+			localStorage.setItem('chartId', JSON.stringify(chart['id']));
+			this.charts.push(chart);
+		}
+		localStorage.setItem('charts', JSON.stringify(this.charts));
 	}
 
 
