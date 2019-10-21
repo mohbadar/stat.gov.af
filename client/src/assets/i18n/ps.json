@@ -8,7 +8,7 @@
   "ADMINISTRATION": "مدیریت",
   "USER_MANAGEMENT": "مدیریت حساب ها",
   "ROLE_MANAGEMENT": "مدیریت رول ها",
-  "MY_DASHBOARD_MANAGEMENT": "زما دشبوردونه",
+  "MY_DASHBOARD_MANAGEMENT": "زما دشبورد",
 
   "APPS": "Apps",
   "CALENDAR": "Calendar",
@@ -161,8 +161,10 @@
   "HAVEACCOUNT": "حساب لری؟",
   "NODATA": "معلومات نشته",
   "SAVE-DASHBOARD": "ډشبورډ ثبت کړئ",
-  "ADD-CHART": "Add Chart",
-  "REFRESH-DASHBOARD": "Refresh Dashboard",
+  "ADD-WIDGET": "ویجټ اضافه کړئ",
+  "REFRESH-DASHBOARD": "ډشبورډ رفرش کړئ",
+  "RESET-DASHBOARD" : "ډشبورډ بیا تنظیم کړئ",
+  "ANALYZE-DATA":" دیتا تحلیل کړئ",
 
 
   "main_title": "د افغانستان احصایوي سیستم ته ښه راغلاست",

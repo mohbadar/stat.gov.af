@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="title-wrapper">
-          <h3 class="title">{{ 'MY_DASHBOARD_MANAGEMENT' | translate }}</h3>
+          <h3 class="title">{{ 'MY_DASHBOARD_MANAGEMENT' | translate }}</h3><br>
           <div class="title-actions pull-right">
             <button class="btn btn-danger" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
               data-placement="top" [title]="'RESET-DASHBOARD' | translate" (click)="resetCharts()">
@@ -22,9 +22,9 @@
             </button>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <button class="btn btn-success" type="button" [routerLink]="['/build-query']" [disabled]="loading"
-              data-toggle="tooltip" data-placement="top" [title]="'ADD-CHART' | translate">
+              data-toggle="tooltip" data-placement="top" [title]="'ADD-WIDGET' | translate">
               <span class="btn-label" *ngIf="!loading">
-                <i class="fa fa-plus"></i>
+                <i class="fa fa-plus"></i> {{ 'ADD-WIDGET' | translate }}
               </span>
               <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
             </button>
@@ -63,7 +63,11 @@
       <ng-template #nodata>
         <div class="jumbotron no-data">
           <div [class.dot-falling]="loading"></div>
-          <h4 *ngIf="!loading" class="text-center">{{ 'NODATA' | translate }}</h4>
+          <div *ngIf="!loading" class="text-center">
+          <button class="btn btn-success btn-fill btn-lg" [routerLink]="['/build-query']">
+              <i class="fa fa-plus"></i> {{ 'ADD-WIDGET' | translate }} / {{ 'ANALYZE-DATA' | translate }}
+          </button>
+          </div>
         </div>
       </ng-template>
 

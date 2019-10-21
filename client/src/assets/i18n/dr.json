@@ -19,7 +19,7 @@
   "CARDS": "Cards",
   "SAVE_CHANAGES": "Save Changes",
   "CHECKBOX": "Checkbox",
-  "MY_DASHBOARD_MANAGEMENT": "دشبورد های من",
+  "MY_DASHBOARD_MANAGEMENT": "دشبورد من",
   "USER_MANAGEMENT": "مدیریت حساب ها",
   "ROLE_MANAGEMENT": "مدیریت رول ها",
   "ADMINISTRATION": "مدیریت",
@@ -160,8 +160,10 @@
   "HAVEACCOUNT": "حساب دارید؟",
   "NODATA": "اطلاعات موجود نیست",
   "SAVE-DASHBOARD": "داشبورد را ذخیره کنید",
-  "ADD-CHART": "Add Chart",
-  "REFRESH-DASHBOARD": "Refresh Dashboard",
+  "ADD-WIDGET": "ویجت اضافه کنید",
+  "REFRESH-DASHBOARD": "داشبورد را رفرش کنید",
+  "RESET-DASHBOARD" : "تنظیم مجدد داشبورد",
+  "ANALYZE-DATA":"تحلیل دیتا",
 
 
 

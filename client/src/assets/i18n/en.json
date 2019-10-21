@@ -32,7 +32,7 @@
   "PAGINATOR": "Paginator",
   "SORTHEADER": "Sort header",
   "ROLE_MANAGEMENT": "Role Management",
-  "MY_DASHBOARD_MANAGEMENT": "My Dashboards",
+  "MY_DASHBOARD_MANAGEMENT": "My Dashboard",
   "EDIT_DASHBOARD_MANAGEMENT": "Dashboard",
 
   "ADMINISTRATION": "Admin",
@@ -172,8 +172,10 @@
   "HAVEACCOUNT": "Have account?",
   "NODATA": "NO DATA",
   "SAVE-DASHBOARD": "Save Dashboard",
-  "ADD-CHART": "Add Chart",
+  "ADD-WIDGET": "Add widget",
   "REFRESH-DASHBOARD": "Refresh Dashboard",
+  "RESET-DASHBOARD" : "Reset Dashboard",
+  "ANALYZE-DATA":"Analyze Data",
 
 
   "main_title": "Welcome to Stat.gov.af",
