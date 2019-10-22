@@ -3101,3 +3101,6 @@ caption {
     float: right;
     margin-right: 3px;
 }
+/* .rtl .title-actions{
+    float: left !important;
+}  */

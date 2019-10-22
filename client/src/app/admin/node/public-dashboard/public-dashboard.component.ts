@@ -9,6 +9,7 @@ import { AuthService } from 'app/services/auth.service';
 import { DatasourceWidgetService } from 'app/services/datasource.widget.service';
 import { DatasourceDashboard } from 'app/models/datasource.dashboard';
 import { DatasourceDashboardService } from 'app/services/datasource.dashboard.service';
+import { TranslateService } from '@ngx-translate/core';
 import Swal from 'sweetalert2';
 
 
@@ -45,7 +46,8 @@ export class PublicDashboardComponent implements OnInit {
 		private fb: FormBuilder,
 		public authService: AuthService,
 		public widgetService: DatasourceWidgetService,
-		public datasourceDashboardService: DatasourceDashboardService
+		public datasourceDashboardService: DatasourceDashboardService,
+		private translate: TranslateService,
 	) { }
 
 	ngOnInit() {
@@ -266,12 +268,13 @@ export class PublicDashboardComponent implements OnInit {
 
 	resetCharts() {
 		Swal({
-			title: 'Are you sure?',
+			title: this.translate.instant('RESET-ALL-ALERT'),
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, Reset it!',
+			confirmButtonText: this.translate.instant('CONFIRM-BUTTONT-TEXT'),
+			cancelButtonText: this.translate.instant('CANCEL'),
 			useRejections: true
 		}).then(
 			result => {

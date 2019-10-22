@@ -4,23 +4,7 @@
       <div class="col-md-12">
         <div class="title-wrapper">
           <h3 class="title">{{ 'MY_DASHBOARD_MANAGEMENT' | translate }}</h3><br>
-          <div class="title-actions pull-right">
-            <button class="btn btn-danger" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
-              data-placement="top" [title]="'RESET-DASHBOARD' | translate" (click)="resetCharts()">
-              <span class="btn-label" *ngIf="!loading">
-                <i class="fa fa-trash"></i>
-              </span>
-              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <button class="btn btn-waning" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
-              data-placement="top" [title]="'SAVE-DASHBOARD' | translate" (click)="checkUserLoggedIn()">
-              <span class="btn-label" *ngIf="!loading">
-                <i class="fa fa-upload"></i>
-              </span>
-              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+          <div class="title-actions">
             <button class="btn btn-success" type="button" [routerLink]="['/build-query']" [disabled]="loading"
               data-toggle="tooltip" data-placement="top" [title]="'ADD-WIDGET' | translate">
               <span class="btn-label" *ngIf="!loading">
@@ -28,13 +12,29 @@
               </span>
               <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
             </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
+
+            <button class="btn btn-waning" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
+              data-placement="top" [title]="'SAVE-DASHBOARD' | translate" (click)="checkUserLoggedIn()">
+              <span class="btn-label" *ngIf="!loading">
+                <i class="fa fa-upload"></i>
+              </span>
+              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+
             <button class="btn btn-info" type="button" (click)="refresh()" [disabled]="loading" data-toggle="tooltip"
               data-placement="top" [title]="'REFRESH-DASHBOARD' | translate">
               <span class="btn-label" *ngIf="!loading">
                 <i class="fa fa-refresh"></i>
               </span>
               <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+
+            <button class="btn btn-danger" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
+            data-placement="top" [title]="'RESET-DASHBOARD' | translate" (click)="resetCharts()">
+            <span class="btn-label" *ngIf="!loading">
+              <i class="fa fa-trash"></i>
+            </span>
+            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
             </button>
           </div>
         </div>
@@ -49,7 +49,8 @@
         <div class="row">
           <div class="col-md-6 col-sm-12" *ngFor="let chart of charts">
             <div class="card">
-              <span class="btn-label close pull-right" (click)="removeChart(chart.id)">
+              <span class="btn-label close pull-right" (click)="removeChart(chart.id)"
+              data-toggle="tooltip" data-placement="top" [title]="'REMOVE' | translate">
                 <i class="fa fa-close"></i>
               </span>
               <div class="content">

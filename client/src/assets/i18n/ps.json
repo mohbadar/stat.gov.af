@@ -167,6 +167,9 @@
   "ANALYZE-DATA":" دیتا تحلیل کړئ",
   "PLACEHOLDER-DATASET":"ډاټاسیټ غوره کړئ",
   "PLACEHOLDER-RESOURCE":"سرچینه غوره کړئ",
+  "RESET-ALL-ALERT":"تاسو ډاډه یاست؟",
+  "CONFIRM-BUTTONT-TEXT":"هو ، دا بیا تنظیم کړئ!",
+  "REMOVE":"لرې کول",
 
 
   "main_title": "د افغانستان احصایوي سیستم ته ښه راغلاست",

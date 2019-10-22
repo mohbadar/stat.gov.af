@@ -178,6 +178,9 @@
   "ANALYZE-DATA":"Analyze Data",
   "PLACEHOLDER-DATASET":"Select a dataset",
   "PLACEHOLDER-RESOURCE":"Select a resource",
+  "RESET-ALL-ALERT":"Are you sure?",
+  "CONFIRM-BUTTONT-TEXT":"Yes, Reset it!",
+  "REMOVE":"Remove",
 
 
 
