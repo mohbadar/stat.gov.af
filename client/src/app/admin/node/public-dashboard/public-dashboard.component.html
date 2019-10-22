@@ -49,8 +49,10 @@
         <div class="row">
           <div class="col-md-6 col-sm-12" *ngFor="let chart of charts">
             <div class="card">
+              <span class="btn-label close pull-right" (click)="removeChart(chart.id)">
+                <i class="fa fa-close"></i>
+              </span>
               <div class="content">
-
                 <plotly-plot [data]="chart.data" [config]="chart.config" [layout]="chart.layout"
                   [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}"
                   #plotlyChartContainer>
@@ -64,9 +66,9 @@
         <div class="jumbotron no-data">
           <div [class.dot-falling]="loading"></div>
           <div *ngIf="!loading" class="text-center">
-          <button class="btn btn-success btn-fill btn-lg" [routerLink]="['/build-query']">
+            <button class="btn btn-success btn-fill btn-lg" [routerLink]="['/build-query']">
               <i class="fa fa-plus"></i> {{ 'ADD-WIDGET' | translate }} / {{ 'ANALYZE-DATA' | translate }}
-          </button>
+            </button>
           </div>
         </div>
       </ng-template>
@@ -190,12 +192,14 @@
       <div class="modal-body">
         <div class="container-fluid">
           <div class="form-group">
-            <input type="text" name="" id="" class="form-control" placeholder="Dashboard Name" [(ngModel)]="dashboardName">
+            <input type="text" name="" id="" class="form-control" placeholder="Dashboard Name"
+              [(ngModel)]="dashboardName">
           </div>
         </div>
       </div>
       <div class="footer">
-        <button class="btn btn-primary btn-fill" (click)="saveDashboard()" [disabled]="!dashboardName.length" data-dismiss="modal">Submit</button>
+        <button class="btn btn-primary btn-fill" (click)="saveDashboard()" [disabled]="!dashboardName.length"
+          data-dismiss="modal">Submit</button>
       </div>
     </div>
   </div>

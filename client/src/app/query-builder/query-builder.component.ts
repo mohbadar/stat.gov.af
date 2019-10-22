@@ -3,13 +3,9 @@ import * as XLSX from 'xlsx';
 import { DatasourceQueryService } from 'app/services/datasource.query.service';
 import { DatatablesService } from '../services/datatables.service';
 import { DatasourceQuery } from '../models/datasource.query';
-import { stringify } from '@angular/compiler/src/util';
-import { Router } from "@angular/router";
 import { TranslateService } from '@ngx-translate/core';
-import { empty } from 'rxjs';
 import { AuthService } from 'app/services/auth.service';
-import * as jquery from 'jquery';
-import { filter } from 'rxjs/operators';
+
 declare var $: any;
 
 @Component({
@@ -48,10 +44,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	isDatasetSelected: boolean = false;
 	// true: show the visualization, false: show tabular data
 	isVisualize: boolean = false;
-	// true: check all checkboxes, false: uncheck all checkboxes
-	isAllCheck: boolean = false;
-	// true: show tag filter false:remove filter
-	visibleTag: boolean = true;
 	// datatables options
 	resetTableFlag = false;
 	customFilters = [];
@@ -318,7 +310,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 	showFilters(dataType, index) {
 		console.log('Index: ', index);
-
 		$('#customFilter').val("");
 		this.filterAction = '';
 		this.showFilter = true;
@@ -543,13 +534,13 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// 	}
 		// 	return dt;
 		// })
-		console.log('Filter Application: ', operator);
+		// console.log('Filter Application: ', operator);
 
 		// console.log('data table data: ', $.fn.dataTable.ext.search);
 
 		$.fn.dataTable.ext.search.push(
 			function (settings, data, dataIndex) {
-				console.log('settings: ', settings['aiDisplay'].length);
+				// console.log('settings: ', settings['aiDisplay'].length);
 				if (that.columnDataType === 'number') {
 					console.log(data[that.selectedColumnIndex]);
 					const id = parseFloat(data[that.selectedColumnIndex]) || 0;
@@ -711,10 +702,6 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					}
 					this.data.push(val);
 				});
-				if (this.data[0][0] == null) {
-
-					this.data[0][0] = undefined;
-				}
 				// console.log(this.data);
 				// console.log("columnNames",this.columnNames)
 

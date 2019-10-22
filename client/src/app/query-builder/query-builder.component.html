@@ -27,10 +27,10 @@
 				</div>
 
 				<button class="btn btn-social btn-fill btn-youtube shadowed" [routerLink]="['/public-dashboard']">
-						{{ 'BACK' | translate }}
+					{{ 'BACK' | translate }}
 				</button>
 
-				
+
 				<br><br>
 			</div>
 		</div>
@@ -138,8 +138,7 @@
 					<div class="filters">
 						<h6>{{ 'LIST_ADD_FILTERS' | translate }}</h6><br />
 						<div class="inline-block ml-1" *ngFor="let filter of customFilters">
-							<button type="button" class="btn btn-info btn-fill btn-sm"
-								*ngIf="visibleTag">{{ filter.columnName }}
+							<button type="button" class="btn btn-info btn-fill btn-sm">{{ filter.columnName }}
 								<span class="badge">{{ filter.value }}</span>
 								<span id='close' (click)="removeFilter(filter.columnName,filter.value)">x</span>
 							</button>
@@ -173,7 +172,7 @@
 									<thead>
 										<tr>
 											<th *ngFor="let val of columnNames; let i=index" class="p-1">
-												<span >
+												<span>
 													{{val.name}}
 												</span>
 											</th>

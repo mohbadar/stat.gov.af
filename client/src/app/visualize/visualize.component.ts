@@ -620,6 +620,9 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 		}
 	}
 	saveLocally() {
+		if (!localStorage.hasOwnProperty('charts')) {
+			localStorage.setItem('charts', JSON.stringify(this.charts));
+		}
 		const chart = {
 			data: this.data,
 			filteredData: {
@@ -630,21 +633,24 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 			layout: this.layout,
 			gridstack: this.gridstack
 		}
-		if (!localStorage.charts) {
+		this.charts = JSON.parse(localStorage.getItem('charts'));
+		const chartLength = this.charts.length;
+		if (chartLength === 0) {
 			chart['id'] = 1;
 			this.charts.push(chart);
 			localStorage.setItem('chartId', JSON.stringify(1));
-
 		} else {
-			this.charts = JSON.parse(localStorage.getItem('charts'));
 			chart['id'] = (Number(localStorage.getItem('chartId'))) + 1;
 			if (chart['id'] % 2 === 0) {
 				chart['gridstack'].col = 3;
 			} else {
 				chart['gridstack'].col = 0;
 			}
-			if (this.charts.length % 2 === 0) {
-				chart['gridstack'].row = chart['gridstack'].row + 10;
+			const charObj = this.charts[chartLength - 1];
+			if (chartLength % 2 === 0) {
+				chart['gridstack'].row = charObj.gridstack.row + 10;
+			} else {
+				chart['gridstack'].row = charObj.gridstack.row;
 			}
 			localStorage.setItem('chartId', JSON.stringify(chart['id']));
 			this.charts.push(chart);

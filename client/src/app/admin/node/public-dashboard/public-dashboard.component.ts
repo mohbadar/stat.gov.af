@@ -276,7 +276,7 @@ export class PublicDashboardComponent implements OnInit {
 		}).then(
 			result => {
 				this.charts = [];
-				if(localStorage.getItem('charts')) {
+				if (localStorage.getItem('charts')) {
 					localStorage.removeItem('charts');
 				}
 			},
@@ -284,5 +284,18 @@ export class PublicDashboardComponent implements OnInit {
 				console.log(`dialog was dismissed by ${dismiss}`);
 			});
 	}
+	removeChart(chartId) {
+		this.charts = JSON.parse(localStorage.getItem('charts'));
+		this.charts.forEach((el, i) => {
+			if (el.id === chartId) {
+				this.charts.splice(i, 1);
+			}
+		});
+		if (this.charts.length === 0) {
+			localStorage.setItem('chartId', JSON.stringify(1));
+		}
+		localStorage.setItem('charts', JSON.stringify(this.charts));
+	}
+
 
 }
