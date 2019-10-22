@@ -176,6 +176,9 @@
   "REFRESH-DASHBOARD": "Refresh Dashboard",
   "RESET-DASHBOARD" : "Reset Dashboard",
   "ANALYZE-DATA":"Analyze Data",
+  "PLACEHOLDER-DATASET":"Select a dataset",
+  "PLACEHOLDER-RESOURCE":"Select a resource",
+
 
 
   "main_title": "Welcome to Stat.gov.af",

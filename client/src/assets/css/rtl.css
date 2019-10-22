@@ -3096,4 +3096,8 @@ caption {
 .rtl .plus-icon{
     float: right !important;
     margin-left: 3% !important;
- }
+}
+.rtl .filters span{
+    float: right;
+    margin-right: 3px;
+}

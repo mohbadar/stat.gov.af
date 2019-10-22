@@ -165,6 +165,8 @@
   "REFRESH-DASHBOARD": "ډشبورډ رفرش کړئ",
   "RESET-DASHBOARD" : "ډشبورډ بیا تنظیم کړئ",
   "ANALYZE-DATA":" دیتا تحلیل کړئ",
+  "PLACEHOLDER-DATASET":"ډاټاسیټ غوره کړئ",
+  "PLACEHOLDER-RESOURCE":"سرچینه غوره کړئ",
 
 
   "main_title": "د افغانستان احصایوي سیستم ته ښه راغلاست",

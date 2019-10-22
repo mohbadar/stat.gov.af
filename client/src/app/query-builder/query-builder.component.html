@@ -134,12 +134,14 @@
 								(click)="updateDataType('string')">String</button>
 						</div>
 					</div>
-					<hr />
-					<div class="filters">
+					<div class="filters" *ngIf="customFilters.length > 0">
+						<hr />
 						<h6>{{ 'LIST_ADD_FILTERS' | translate }}</h6><br />
 						<div class="inline-block ml-1" *ngFor="let filter of customFilters">
-							<button type="button" class="btn btn-info btn-fill btn-sm">{{ filter.columnName }}
-								<span class="badge">{{ filter.value }}</span>
+							<button class="btn btn-info btn-fill btn-sm">
+								<span> {{ filter.columnName }} </span>
+								<span class="badge"> {{ filter.actionName | translate }} </span>
+								<span> {{ filter.value }} </span>
 								<span id='close' (click)="removeFilter(filter.columnName,filter.value)">x</span>
 							</button>
 						</div>

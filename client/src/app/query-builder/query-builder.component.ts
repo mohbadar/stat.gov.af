@@ -3,8 +3,9 @@ import * as XLSX from 'xlsx';
 import { DatasourceQueryService } from 'app/services/datasource.query.service';
 import { DatatablesService } from '../services/datatables.service';
 import { DatasourceQuery } from '../models/datasource.query';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'app/services/auth.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var $: any;
 
@@ -78,25 +79,28 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.filterN('flEq');
 
 
-		$(".single-select2").select2({
-			placeholder: "Select a Dataset...",
-		}).change(event => {
+		$('.single-select2').select2().change(event => {
 			this.isDatasetSelected = true;
-			const dataset = $(event.currentTarget).select2("val");
+			const dataset = $(event.currentTarget).select2('val');
 			this.getResources(this.customParams, dataset);
 
 		});
-		$("#single-select2").select2({
-			placeholder: "Select a resource...",
+		$('#single-select2').select2({
 			allowClear: true
 		}).change(event => {
-			const resource = $(event.currentTarget).select2("data");
+			const resource = $(event.currentTarget).select2('data');
 			this.changed(resource);
 		});
 
 		this.getDatasets(this.customParamsDataset);
-
-
+		this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
+			$('.single-select2').select2({
+				placeholder: this.translate.instant('PLACEHOLDER-DATASET')
+			})
+			$('#single-select2').select2({
+				placeholder: this.translate.instant('PLACEHOLDER-RESOURCE')
+			})
+		});
 
 		this.dtOptions = {
 			'pagingType': 'full_numbers',
@@ -109,7 +113,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 					extend: 'excel',
 					text: 'Export',
 					className: '',
-					filename: "Stat.gov.af",
+					filename: 'Stat.gov.af',
 					exportOptions: {
 						modifier: {
 							page: 'all'
@@ -310,7 +314,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 	showFilters(dataType, index) {
 		console.log('Index: ', index);
-		$('#customFilter').val("");
+		$('#customFilter').val('');
 		this.filterAction = '';
 		this.showFilter = true;
 		this.columnDataType = dataType;
@@ -427,6 +431,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 			datatype: this.columnDataType,
 			value: this.filterValue,
 			action: this.filterAction,
+			actionName: this.action,
 			columnIndex: this.selectedColumnIndex
 		}
 		this.customFilters.push(cFilter);
@@ -471,11 +476,11 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	resetData() {
-		$('#customFilter').val("");
+		$('#customFilter').val('');
 		$('input.table-search').val('');
-		$('.c-box').prop("checked", true);
-		$('toggle-all').prop("checked", true);
-		$('.column-name').removeClass("unselected");
+		$('.c-box').prop('checked', true);
+		$('toggle-all').prop('checked', true);
+		$('.column-name').removeClass('unselected');
 		this.dTable.
 			search('').
 			columns().search('').visible(true, true).order('asc').
@@ -505,10 +510,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		cbarray.forEach((element, i) => {
 			this.toggleColumn(element, i);
 		});
-		if ($('#toggle-all').prop("checked")) {
-			$('.c-box').prop("checked", false);
+		if ($('#toggle-all').prop('checked')) {
+			$('.c-box').prop('checked', false);
 		} else {
-			$('.c-box').prop("checked", true);
+			$('.c-box').prop('checked', true);
 		}
 	}
 
@@ -644,7 +649,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	visualizeChange() {
-		console.log("Visualize this data", this.data);
+		console.log('Visualize this data', this.data);
 	}
 
 	showNotification(from, align, msg, type, icon) {

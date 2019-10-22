@@ -164,6 +164,8 @@
   "REFRESH-DASHBOARD": "داشبورد را رفرش کنید",
   "RESET-DASHBOARD" : "تنظیم مجدد داشبورد",
   "ANALYZE-DATA":"تحلیل دیتا",
+  "PLACEHOLDER-DATASET":"دیتاست را انتخاب کنید",
+  "PLACEHOLDER-RESOURCE":"منبع دیتا را انتخاب کنید",
 
 
 
