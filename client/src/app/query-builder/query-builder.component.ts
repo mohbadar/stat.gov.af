@@ -79,13 +79,16 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.filterN('flEq');
 
 
-		$('.single-select2').select2().change(event => {
+		$('.single-select2').select2({
+			placeholder : this.translate.instant('PLACEHOLDER-DATASET')
+		}).change(event => {
 			this.isDatasetSelected = true;
 			const dataset = $(event.currentTarget).select2('val');
 			this.getResources(this.customParams, dataset);
 
 		});
 		$('#single-select2').select2({
+			placeholder : this.translate.instant('PLACEHOLDER-RESOURCE'),
 			allowClear: true
 		}).change(event => {
 			const resource = $(event.currentTarget).select2('data');
