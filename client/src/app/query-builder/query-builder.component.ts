@@ -6,6 +6,7 @@ import { DatasourceQuery } from '../models/datasource.query';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { AuthService } from 'app/services/auth.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -55,17 +56,16 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		'flGr': function (a, b) { return a > b },
 		'flLtEq': function (a, b) { return a <= b },
 		'flGrEq': function (a, b) { return a >= b },
-		'flNEq': function (a, b) { return a != b }
-	};
-	methodNames = {
+		'flNEq': function (a, b) { return a != b },
 		'flCn': function (string, substring) { return string.includes(substring) },
 		'flCnS': function (string, substring) { return string.startsWith(substring) },
 		'flCnE': function (string, substring) { return string.endsWith(substring) },
 		'flNCn': function (string, substring) { return !(string.includes(substring)) }
-	}
+	};
 	constructor(private cdref: ChangeDetectorRef, public datasouceQueryService: DatasourceQueryService,
 		public authService: AuthService, private translate: TranslateService,
-		private datatables: DatatablesService) { }
+		private datatables: DatatablesService,
+		private router: Router) { }
 
 	ngOnInit() {
 		// document.getElementById("selectDataset").style.display = 'none';
@@ -76,11 +76,8 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		this.customParamsDataset.push('title');
 		this.customParamsDataset.push('nid');
 
-		this.filterN('flEq');
-
-
 		$('.single-select2').select2({
-			placeholder : this.translate.instant('PLACEHOLDER-DATASET')
+			placeholder: this.translate.instant('PLACEHOLDER-DATASET')
 		}).change(event => {
 			this.isDatasetSelected = true;
 			const dataset = $(event.currentTarget).select2('val');
@@ -88,9 +85,10 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 
 		});
 		$('#single-select2').select2({
-			placeholder : this.translate.instant('PLACEHOLDER-RESOURCE'),
+			placeholder: this.translate.instant('PLACEHOLDER-RESOURCE'),
 			allowClear: true
 		}).change(event => {
+			this.customFilters = [];
 			const resource = $(event.currentTarget).select2('data');
 			this.changed(resource);
 		});
@@ -104,7 +102,7 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 				placeholder: this.translate.instant('PLACEHOLDER-RESOURCE')
 			})
 		});
-
+		this.filterN('flEq');
 		this.dtOptions = {
 			'pagingType': 'full_numbers',
 			'lengthMenu': [[10, 25, 50, -1], [10, 25, 50, 'All']],
@@ -545,34 +543,23 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 		// console.log('Filter Application: ', operator);
 
 		// console.log('data table data: ', $.fn.dataTable.ext.search);
-
 		$.fn.dataTable.ext.search.push(
-			function (settings, data, dataIndex) {
+			(settings, data, dataIndex) => {
 				// console.log('settings: ', settings['aiDisplay'].length);
-				if (that.columnDataType === 'number') {
-					console.log(data[that.selectedColumnIndex]);
-					const id = parseFloat(data[that.selectedColumnIndex]) || 0;
-					if (that.filterValue !== '') {
-						if (that.operators[that.filterAction](id, that.filterValue)) {
-							return true;
-						}
-						return false;
-					} else {
-						return true;
-					}
+				let cellValue ;
+				if (this.columnDataType === 'number') {
+					cellValue = parseFloat(data[this.selectedColumnIndex]) || 0;
 				} else {
-					const stringt = data[that.selectedColumnIndex];
-					if (that.filterValue !== '') {
-						if (that.methodNames[that.filterAction](stringt, that.filterValue)) {
-							return true;
-
-						}
-						return false;
-					} else {
+					cellValue = data[this.selectedColumnIndex];
+				}
+				if (this.filterValue !== '') {
+					if (this.operators[this.filterAction](cellValue, this.filterValue)) {
 						return true;
 					}
+					return false;
+				} else {
+					return true;
 				}
-
 			}
 		);
 	}
@@ -766,6 +753,12 @@ export class QueryBuilderComponent implements OnInit, AfterViewInit {
 	// 	}
 
 	// }
+	backDashboard() {
+		if ($.fn.dataTable.isDataTable('#datatables')) {
+			this.resetData();
+		}
+		this.router.navigate(['/public-dashboard']);
+	}
 	changeLanguage() {
 		this.dataTablesObservable = this.datatables.callToServiceMethodSource.subscribe(data => {
 			this.dtOptions.buttons[0].text = this.translate.instant('EXCEL_EXPORT');

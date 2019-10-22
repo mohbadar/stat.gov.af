@@ -66,11 +66,13 @@ export class VisualizeComponent implements OnInit, AfterViewInit {
 			showticklabels: true,
 			autorange: true,
 			// type: 'linear'
+			automargin: true
 		},
 		yaxis: {
 			showticklabels: true,
 			autorange: true,
 			// type: 'linear'
+			automargin: true
 		}
 	};
 	gridstack: any = {
