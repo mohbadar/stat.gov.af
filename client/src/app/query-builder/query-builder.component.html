@@ -53,8 +53,8 @@
 								<input type="checkbox" name="cb" class="c-box" [id]="col.name" checked
 									(click)="toggleColumn($event.target, i)">
 								<span class="ml-1">{{col.name}}</span>
-								<div class="inline-block ml-1 plus-icon ">
-									<a data-toggle="tooltip" data-placement="top" title="Add filter">
+								<div class="inline-block ml-1 plus-icon " >
+									<a data-toggle="tooltip" data-placement="top" title="Add filter" [hidden]="!columnNames[i].showColumn">
 										<i class="fa fa-plus-circle" (click)="showFilters(columnDataTypes[i], i)"></i>
 									</a>
 								</div>
