@@ -1,62 +1,119 @@
 import { Routes } from '@angular/router';
 
-import { AdminLayoutComponent, AuthLayoutComponent, DefaultLayoutComponent } from './core';
-
-import { AppComponent } from './app.component';
+import { AdminLayoutComponent } from './core/layouts/admin-layout/admin-layout.component';
+import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.component';
+import { PublicLayoutComponent, DefaultLayoutComponent } from './core/';
+import { VisualizeComponent } from './visualize/visualize.component';
 import { HomeComponent } from './home/home.component';
-import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
-import {WidgetPageComponent } from './widget-page/widget-page.component';
-// import { DashboardListComponent } from './dashboard/dashboard-list/dashboard-list.component';
+import { SelectLangComponent } from './selectlang/selectlang.component';
+import { EditDashboardComponent } from './admin/node/mydashboard/dialogs/edit-dashboard/edit-dashboard.component';
 
-export const AppRoutes: Routes = [
-  {
-    path: '',
-    component: AdminLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: HomeComponent,
-        // loadChildren: './home/home.module#HomeModule'
-      },
-      // {
-      //   path: 'documentation',
-      //   loadChildren: './docs/docs.module#DocsModule'
-      // }
-      {
-        path: 'dashboard/:slug',
-        component: DashboardPageComponent
-        // loadChildren: './dashboard-page/dashboard-page.module#DashboardPageModule'
-      },
-      {
-        path: 'dashboards',
-        // component: DashboardListComponent
-        loadChildren: './dashboard-list/dashboard-list.module#DashboardListModule'
-      },
-    ]
-  },
-  {
-    path: 'widgets/:slug',
-    component: DefaultLayoutComponent,
-    children: [
-      {
-        path: '',
-        component: WidgetPageComponent,
-        // loadChildren: './home/home.module#HomeModule'
-      },
-    ]
-  },
-  {
-    path: '',
-    component: AuthLayoutComponent,
-    children: [
-      {
-        path: 'error',
-        loadChildren: './error/error.module#ErrorModule'
-      }
-    ]
-  },
-  {
-    path: '**',
-    redirectTo: 'error/404'
-  }
+
+export const AppRoutes: Routes = [{
+	path: '',
+	redirectTo: 'home',
+	pathMatch: 'full',
+}, {
+	path: '',
+	component: PublicLayoutComponent,
+	children: [
+
+		{
+			path: 'home',
+			component: HomeComponent
+		},
+		{
+			path: 'dashboard',
+			loadChildren: './dashboard/dashboard.module#DashboardModule'
+			// component: DashboardComponent
+		},
+		{
+			path: 'dashboard/:slug',
+			loadChildren: './dashboard/dashboard.module#DashboardModule'
+			// component: DashboardComponent
+		},
+		{ path: 'build-query', loadChildren: './query-builder/query-builder.module#QueryBuilderModule' },
+		{ path: 'test', loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule' },
+		{ path: 'public-dashboard', loadChildren: './admin/node/public-dashboard/public-dashboard.module#PublicDashboardModule' },
+		// { path: 'visualize', component: VisualizeComponent},
+		{ path: '', redirectTo: 'home', pathMatch: 'full' },
+	]
+}
+	, {
+	path: 'custom',
+	component: PublicLayoutComponent,
+	// canActivate: [AuthGuard],
+	children: [
+		{
+			path: 'user-management',
+			loadChildren: './admin/node/user/user.module#UserModule'
+			// component: DashboardComponent
+		},
+
+
+		{
+			path: 'role-management',
+			loadChildren: './admin/node/role/role.module#RoleModule'
+			// component: DashboardComponent
+		},
+
+
+		{
+			path: 'my-dashboards',
+			loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule'
+			// component: DashboardComponent
+		},
+
+		{
+			path: 'my-dashboards/edit',
+			// loadChildren: './admin/node/mydashboard/mydashboard.module#MydashboardModule', 
+			component: EditDashboardComponent
+		},
+
+	]
+},
+{
+	path: 'widgets/:slug',
+	component: DefaultLayoutComponent,
+	children: [
+		{
+			path: '',
+			loadChildren: './widget-page/widget-page.module#WidgetPageModule'
+			// component: WidgetPageComponent,
+			// loadChildren: './home/home.module#HomeModule'
+		},
+	]
+}, {
+	path: 'more',
+	loadChildren: './core/layouts/admin-layout/admin-layout.module#AdminLayoutModule',
+	// canActivate:[AuthGuard],
+}, {
+	path: '',
+	component: AuthLayoutComponent,
+	children: [
+		{
+			path: 'lang',
+			component: SelectLangComponent
+		},
+		{
+			path: 'login',
+			loadChildren: './login/login.module#LoginModule',
+			pathMatch: 'full',
+
+		}, {
+			path: 'signup',
+			loadChildren: './register/register.module#RegisterModule',
+			pathMatch: 'full'
+		}
+
+	]
+},
+	// , {
+	// 	path: '',
+	// 	component: AuthLayoutComponent,
+	// 	children: [{
+	// 		path: 'pages',
+	// 		loadChildren: './pages/pages.module#PagesModule'
+	// 	}]
+	// }
 ];

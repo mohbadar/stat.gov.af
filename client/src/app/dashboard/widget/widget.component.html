@@ -1,0 +1,67 @@
+<div class="widget-wrapper" #widgetContainer>
+  <div *ngIf="type=='visualization'" [ngSwitch]="widget.getQueryResult().getStatus()"
+    [style.height]="widget.isStandalone? '90vh': 'auto'"
+    class="tile body-container widget-visualization visualization card">
+    <div  class="body-row header">
+      <h6 [innerHTML]="getWidgetTitle() | safeHtml" style="display: inline;"></h6>
+      <li class="dropdown pull-right" style="list-style: none;">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+          <i class="fa fa-bars" style="cursor: pointer"></i>
+        </a>
+        <ul class="dropdown-menu options-menu">
+          <li><a href="{{widgetURL}}" target="_blank"> {{ 'OPEN' | translate }}</a></li>
+          <li><a
+              href="{{widget.getQueryResult().getLink(widget.getQuery().id, widget.getQueryResult().latest_query_data_id, 'csv')}}">{{ 'DOWNLOAD_AS_CSV_FILE' | translate }}</a>
+          </li>
+          <li><a
+              href="{{widget.getQueryResult().getLink(widget.getQueryResult().id, widget.getQueryResult().latest_query_data_id, 'xlsx')}}">{{ 'DOWNLOAD_AS_EXCEL_FILE' | translate }}</a>
+          </li>
+          <li>
+            <a href="">
+              <button class="btn btn-social btn-simple btn-facebook"><i class="fa fa-facebook-square"></i></button>
+              <button class="btn btn-social btn-simple btn-twitter"><i class="fa fa-twitter"></i></button>
+              <button class="btn btn-social btn-simple btn-linkedin"><i class="fa fa-linkedin-square"></i></button>
+            </a>
+          </li>
+          <li (click)="openBottomSheet()"><a >{{ 'EMBED_SOMEWHERE' | translate }}</a></li>
+        </ul>
+      </li>
+
+    </div>
+    <div class="body-row-auto spinner-container content">
+      <div *ngSwitchCase="'failed'" class="body-row-auto scrollbox">
+        Failed
+        <div class="alert alert-danger m-5" ng-show="widget.getQueryResult().getError()">Error running query:
+          <strong>{{widget.getQueryResult().getError()}}</strong></div>
+      </div>
+
+      <div *ngSwitchCase="'done'" class="body-row-auto scrollbox">
+        <visualization-renderer [visualization]="widget.visualization" [query-result]="widget.getQueryResult()"
+          class="t-body"></visualization-renderer>
+      </div>
+
+      <div *ngSwitchDefault>
+        <div class="spinner" style="padding-left: 43%;">
+          <!-- <i class="zmdi zmdi-refresh zmdi-hc-spin zmdi-hc-5x"></i> -->
+          <div id="loader"><img src="../../../../assets/img/loader-preview.svg" alt="loading"></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+      <span [innerHTML]="getWidgetDescription() | safeHtml"></span>
+      <i (click)="reloadWidget()" style="cursor: pointer; font-size: 14px;" class="fa fa-refresh pull-right"></i>
+    </div>
+  </div>
+
+  <div *ngIf="type=='textbox'" ng-hide="widget.width === 0"
+    class="tile body-container widget-text textbox card">
+    <div class="scrollbox content">
+      <div class="body-container" ng-class="type">
+        <div class="body-row-auto tiled t-body p-15" style="padding: 15px !important;"
+          [innerHTML]="widget.$parsedText | safeHtml"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="snackbar"></div>

@@ -1,0 +1,207 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title-wrapper">
+          <h3 class="title">{{ 'MY_DASHBOARD_MANAGEMENT' | translate }}</h3><br>
+          <div class="title-actions">
+            <button class="btn btn-success" type="button" [routerLink]="['/build-query']" [disabled]="loading"
+              data-toggle="tooltip" data-placement="top" [title]="'ADD-WIDGET' | translate">
+              <span class="btn-label" *ngIf="!loading">
+                <i class="fa fa-plus"></i> {{ 'ADD-WIDGET' | translate }}
+              </span>
+              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+
+            <button class="btn btn-waning" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
+              data-placement="top" [title]="'SAVE-DASHBOARD' | translate" (click)="checkUserLoggedIn()">
+              <span class="btn-label" *ngIf="!loading">
+                <i class="fa fa-upload"></i>
+              </span>
+              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+
+            <button class="btn btn-info" type="button" (click)="refresh()" [disabled]="loading" data-toggle="tooltip"
+              data-placement="top" [title]="'REFRESH-DASHBOARD' | translate">
+              <span class="btn-label" *ngIf="!loading">
+                <i class="fa fa-refresh"></i>
+              </span>
+              <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+
+            <button class="btn btn-danger" type="button" [disabled]="loading || !charts.length" data-toggle="tooltip"
+            data-placement="top" [title]="'RESET-DASHBOARD' | translate" (click)="resetCharts()">
+            <span class="btn-label" *ngIf="!loading">
+              <i class="fa fa-trash"></i>
+            </span>
+            <i class="fa fa-spinner fa-spin" *ngIf="loading"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <!-- end col-md-12 -->
+    </div>
+    <!-- end row -->
+    <hr>
+    <div class="all-charts">
+      <div class="chart-view" *ngIf="charts.length; else nodata">
+        <div class="row">
+          <div class="col-md-6 col-sm-12" *ngFor="let chart of charts">
+            <div class="card">
+              <span class="btn-label close pull-right" (click)="removeChart(chart.id)"
+              data-toggle="tooltip" data-placement="top" [title]="'REMOVE' | translate">
+                <i class="fa fa-close"></i>
+              </span>
+              <div class="content">
+                <plotly-plot [data]="chart.data" [config]="chart.config" [layout]="chart.layout"
+                  [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}"
+                  #plotlyChartContainer>
+                </plotly-plot>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #nodata>
+        <div><br>
+          <div [class.dot-falling]="loading"></div>
+          <div *ngIf="!loading" class="text-center">
+            <button class="btn btn-success btn-fill btn-lg" [routerLink]="['/build-query']">
+              <i class="fa fa-plus"></i> {{ 'ADD-WIDGET' | translate }} / {{ 'ANALYZE-DATA' | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel"
+  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <div class="header">
+
+          <h4 class="modal-title" id="editModalLabel">{{ 'LOGIN-TO-SYSTEM' | translate}}</h4>
+          <small>{{ 'SAVE-CHART-LOGIN' | translate }}</small>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+
+          <ul role="tablist" class="nav nav-tabs" style="visibility: hidden">
+            <li role="presentation" class="active">
+              <a href="#login" data-toggle="tab"></a>
+            </li>
+            <li>
+              <a href="#signup" data-toggle="tab"></a>
+            </li>
+
+          </ul>
+
+          <div class="tab-content">
+            <div id="login" class="tab-pane fade in active">
+              <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="form-group">
+                  <label for="username">{{'USERNAME' | translate }}</label>
+                  <input type="text" name="username" class="form-control" formControlName="username">
+                </div>
+                <div class="form-group">
+                  <label for="password">{{ 'PASSWORD' | translate}}</label>
+                  <input type="password" name="password" class="form-control" formControlName="password">
+                </div>
+                <div class="form-group form-inline text-center ">
+                  <input type="submit" value="{{ 'LOGIN' | translate }}"
+                    class="form-control btn btn-primary btn-fill ml-1" [disabled]="loginForm.invalid">
+                    <input type="btn" value="{{ 'CANCEL' | translate }}" class="form-control btn btn-secondary btn-fill"
+                    data-dismiss="modal">
+                </div>
+                <div class="form-group">
+                  <small>{{ 'NOACCOUNT' | translate }} <span
+                      (click)="changeTab('signup')">{{ 'SIGNUP' | translate }}</span></small>
+                </div>
+              </form>
+            </div>
+            <div id="signup" class="tab-pane fade">
+              <form action="" [formGroup]="registerForm" (ngSubmit)="register()">
+                <div class="form-group">
+                  <input type="text" [placeholder]="'FULLNAME' | translate" class="form-control"
+                    formControlName="fullName">
+                </div>
+                <div class="form-group">
+                  <input type="text" [placeholder]="'YOURUSERNAME' | translate" class="form-control"
+                    formControlName="username">
+                </div>
+                <div class="form-group">
+                  <input type="text" maxlength="10" [placeholder]="'MOBILENUMBER' | translate" class="form-control"
+                    formControlName="mobileNumber" (keyup)="validateNumber($event.target)">
+                </div>
+                <div class="form-group">
+                  <input type="email" [placeholder]="'ENTEREMAIL' | translate" class="form-control"
+                    formControlName="email">
+                </div>
+                <div class="form-group">
+                  <input type="password" [placeholder]="'PASSWORD' | translate" class="form-control"
+                    formControlName="password" #pass (keyup)="checkPassword(pass.value, passConf.value)">
+                </div>
+                <div class="form-group">
+                  <input type="password" [placeholder]="'PASSWORDCONF' | translate" class="form-control"
+                    formControlName="passwordConf" #passConf required
+                    (keyup)="checkPassword(pass.value, passConf.value)">
+                  <small class="text-danger" [hidden]="passwordMatch">{{ 'PASSWORDMATCH' | translate }}</small>
+                </div>
+                <div class="form-group form-inline text-center">
+                  <input type="submit" value="{{ 'SIGNUP' | translate }}"
+                    class="form-control btn btn-success btn-fill ml-1" [disabled]="registerForm.invalid">
+                  <input type="btn" value="{{ 'CANCEL' | translate }}" class="form-control btn btn-secondary btn-fill"
+                    data-dismiss="modal">
+                </div>
+                <div class="form-group">
+                  <small>{{ 'HAVEACCOUNT' | translate }} <span
+                      (click)="changeTab('login')">{{ 'LOGIN' | translate }}</span></small>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--  -->
+<div class="modal fade" id="dashboarModal" tabindex="-1" role="dialog" aria-labelledby="dashboarModalLabel"
+  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+        <div class="header">
+
+          <h4 class="modal-title" id="editModalLabel">{{ 'DASHBOARD-NAME' | translate }}</h4>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="form-group">
+            <input type="text" name="" id="" class="form-control" placeholder="Dashboard Name"
+              [(ngModel)]="dashboardName">
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <button class="btn btn-primary btn-fill" (click)="saveDashboard()" [disabled]="!dashboardName.length"
+          data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>

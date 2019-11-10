@@ -1,0 +1,37 @@
+{
+  "index": "/index.html",
+  "assetGroups": [{
+    "name": "app",
+    "installMode": "prefetch",
+    "resources": {
+      "files": [
+        "/favicon.ico",
+        "/index.html",
+        "/*.css",
+        "/*.js"
+      ]
+    }
+  }, {
+    "name": "assets",
+    "installMode": "lazy",
+    "updateMode": "prefetch",
+    "resources": {
+      "files": [
+        "/assets/**"
+      ]
+    }
+  }],
+  "dataGroups": [{
+    "name": "nsia-carousel",
+    "urls": [
+     "http://13.59.44.192/api/public/**",
+     "http://13.59.44.192:8080/api/public/**"
+    ],
+    "cacheConfig": {
+      "maxSize": 20,
+      "maxAge": "6h",
+      "timeout": "5s",
+      "strategy": "performance"
+    }
+  }]
+}

@@ -1,13 +1,13 @@
 import { Component, OnInit, SimpleChanges, SimpleChange } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Widget } from '../models/widget';
-import { WidgetComponent } from '../core';
-import { Globals } from './../core/helpers/globals';
+import { WidgetComponent } from './../dashboard/widget/widget.component';
+import { Globals } from '../core/_helpers/globals';
 
 @Component({
-  selector: 'widget-page',
-  templateUrl: './widget-page.component.html',
-  styleUrls: ['./widget-page.component.scss']
+	selector: 'widget-page',
+	templateUrl: './widget-page.component.html',
+	styleUrls: ['./widget-page.component.scss']
 })
 export class WidgetPageComponent implements OnInit {
 	widget_id;
@@ -17,13 +17,13 @@ export class WidgetPageComponent implements OnInit {
 		this.route.paramMap.subscribe(params => {
 			this.widget_id = params.get("slug");
 		});
-		
+
 	}
 
 	ngOnChanges(changes: SimpleChanges) {
 		const widget: SimpleChange = changes.widget;
-		if(!widget.isFirstChange() && changes.widget) {
-        	this.renderWidget();
+		if (!widget.isFirstChange() && changes.widget) {
+			this.renderWidget();
 		}
 	}
 

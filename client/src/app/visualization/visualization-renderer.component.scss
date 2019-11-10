@@ -1,0 +1,17 @@
+:host ::ng-deep counter-renderer {
+    display: block;
+    text-align: center;
+    padding: 15px 10px;
+    overflow: hidden;
+  }
+  
+  :host ::ng-deep plotly-plot > div {
+    position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: auto;
+      height: auto;
+      overflow: hidden;
+  }

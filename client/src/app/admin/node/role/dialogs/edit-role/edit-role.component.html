@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+  
+      <form [formGroup]="editForm" (ngSubmit)="submit()">
+  
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Role Name" name="name" class="form-control" formControlName="name" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" placeholder="Description" name="description" class="form-control"
+            formControlName="description" required>
+        </div>
+  
+        <div class="form-group">
+          <label>Permissions</label>
+          <select id="groups" multiple data-title="Multiple Select" name="permissions" class="selectpicker" required
+            data-style="btn-primary btn-fill btn-block" data-menu-style="dropdown-blue">
+            <option *ngFor="let permission of permissions" value="{{permission[0]._id}}">{{ permission[0].name }}
+            </option>
+          </select>
+        </div>
+  
+        <div class="form-group">
+          <label>Active</label>
+          <div>
+            <bSwitch [switch-on-color]="'primary'" [switch-off-text]="' '" [switch-on-text]="' '" formControlName="active"
+              name="active">
+            </bSwitch>
+          </div>
+        </div>
+        <div class="">
+          <button type="submit" class="btn btn-primary btn-sm btn-fill mx-2"
+            [disabled]="editForm.invalid">Submit</button>&nbsp;&nbsp;
+          <span class="btn btn-warning btn-fill btn-sm mx-2" (click)="cancelUpdate()">Cancel</span>
+        </div>
+      </form>
+    </div>
+  </div>
+  

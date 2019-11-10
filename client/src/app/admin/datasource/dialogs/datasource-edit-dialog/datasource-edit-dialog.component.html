@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col-md-12">
+    <form [formGroup]="editForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" placeholder=" Name" name="name" formControlName="name" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <label>host</label>
+        <input type="text" placeholder="Host" name="host" formControlName="host" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Port</label>
+        <input type="text" placeholder="Port" name="port" formControlName="port" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>User Name</label>
+        <input type="text" placeholder="User Name" name="userName" formControlName="userName" class="form-control"
+          required>
+      </div>
+      <div class="form-group">
+        <label>Database Password</label>
+        <input type="text" placeholder="db_pswrd" name="db_pswrd" formControlName="db_pswrd" class="form-control"
+          required>
+      </div>
+      <div class="form-group">
+        <label>SSL</label>
+        <input type="text" placeholder="SSL" name="ssl" formControlName="ssl" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Database name</label>
+        <input type="text" placeholder="DB_Name" name="db_Name" formControlName="db_Name" class="form-control" required>
+      </div>
+
+      <div class="form-group">
+        <bSwitch [switch-on-color]="'primary'" [switch-off-text]="' '" [switch-on-text]="' '" name="active"
+          formControlName="active">
+        </bSwitch>
+      </div>
+      <div class="form-group">
+        <button type="submit" [disabled]="editForm.invalid"
+          class="btn btn-primary btn-sm btn-fill mx-2">Submit</button>&nbsp;&nbsp;
+        <span class="btn btn-warning btn-fill btn-sm mx-2" (click)="cancelUpdate()">Cancel</span>
+      </div>
+    </form>
+  </div>
+</div>

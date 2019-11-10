@@ -1,0 +1,151 @@
+
+#bg{
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  /* Preserve aspet ratio */
+  min-width: 100%;
+  min-height: 100%;
+}
+.content {
+  width: 55vw;
+  height: 50vh;
+  // background-color: rgba(255, 255, 255, 0.61);
+  background-color:#1ab394; 
+  position:absolute; /*it can be fixed too*/
+  left:0; right:0;
+  top:0; bottom:0;
+  margin:auto;
+
+  /*this to solve "the content will not be cut when the window is smaller than the content": */
+  max-width:100%;
+  max-height:100%;
+  overflow:auto;
+
+  display: flex;
+  flex-direction: column;
+}
+.center{
+  width:50%;
+  height:50%;
+  left:0; right:0;
+  top:0; bottom:0;
+
+  margin:auto !important;
+  background:rgba(255, 255, 255, 0.61);
+  position:absolute;
+  text-align:center;
+  display: flex;
+  flex-direction: column;
+}
+.nsia-log { 
+  display:block;
+  margin:auto;
+}
+
+.nsia-log img{
+  width: 100%;
+}  
+
+.lang-buttons {
+  margin: auto;
+  margin-top: 0px;
+}  
+
+/* First Primary: #01a79b green */
+/* Second Primary: #282560 blue */
+.lan {
+  /* margin: 0px 10px;
+  background-color: transparent;
+  border: 1.5px solid #282560; 
+  color: #282560;
+  padding: 10px;
+  cursor: pointer; */
+  display:inline-block;
+  cursor: pointer;
+  padding:0.5em 3em;
+  border:1.5px solid #282560;
+  margin:0 0.3em;
+  box-sizing: border-box;
+  color:#282560;
+  text-align:center;
+  transition: all 0.15s;
+}
+
+.lan:hover {
+  background-color: #282560;
+  color: rgb(214, 211, 211);
+}
+
+/* .cp-right {
+  position: absolute;
+  bottom: 40px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  color: #282560;
+} */
+
+/* @media only screen and (max-width: 1050px) {
+  .lang-buttons .lan {
+      width: 24% !important;
+      overflow: hidden;
+  }
+}  */
+.footer{
+position: absolute;
+bottom: 25px;
+width: 100%;
+text-align: center;
+font-size: 1em;
+}
+
+/* Portrait and Landscape */
+@media only screen 
+and (min-device-width: 720px) 
+and (max-device-width: 1000px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+  .lan{
+      padding: 10px;
+      width: 110px;
+
+      margin:10px 0px;
+      cursor: pointer;
+  }
+}
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 480px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+  .lan{
+      padding: 5px;
+      width: 110px;
+      display:block;
+      margin:10px 0px;
+      font-size: 0.8em;
+      cursor: pointer;
+  }
+  .nsia-log img{
+      margin-top:5px; 
+      width: 90%;
+      height: 95%;
+  }
+}
+@media only screen 
+and (min-device-width: 460px) 
+and (max-device-width: 900px) 
+and (-webkit-min-device-pixel-ratio: 1) {
+  .lan{
+      padding: 5px;
+      width: 80px;
+      margin:10px 5px;
+      cursor: pointer;
+      font-size: 0.6em;
+  }
+  .nsia-log img{
+      margin-top:5px; 
+      width: 70%;
+      height: 70%;
+  } 
+}

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "node": {
+    "pd-pro-angularcli": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -24,21 +24,40 @@
                 "input": "./node_modules/leaflet/dist/images",
                 "output": "assets/"
               },
+              "src/manifest.webmanifest",
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/leaflet/dist/leaflet.css",
-              "node_modules/@swimlane/ngx-datatable/release/index.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/material.css",
-              "src/assets/fonts/data-table/icons.css",
-              "src/assets/styles/scss/node.scss",
-              "node_modules/gridstack/dist/gridstack.min.css"
+              "src/assets/sass/light-bootstrap-dashboard.scss",
+              "src/styles.css",
+              "node_modules/gridstack/dist/gridstack.min.css",
+              "node_modules/datatables.net-buttons-dt/css/buttons.dataTables.css",
+              "node_modules/select2/dist/css/select2.min.css"
             ],
             "scripts": [
               "node_modules/hammerjs/hammer.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/select2/dist/js/select2.min.js",
               "node_modules/lodash/lodash.min.js",
-              "node_modules/gridstack/dist/gridstack.js"
+              "node_modules/gridstack/dist/gridstack.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/moment/moment.js",
+              "node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js",
+              "src/assets/js/perfect-scrollbar.min.js",
+              "src/assets/js/jquery-jvectormap.js",
+              "node_modules/nouislider/distribute/nouislider.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net-bs/js/dataTables.bootstrap.js",
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+              "node_modules/bootstrap-select/dist/js/bootstrap-select.js",
+              "node_modules/bootstrap-switch/dist/js/bootstrap-switch.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js",
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js"   
             ]
           },
           "configurations": {
@@ -58,25 +77,26 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "serviceWorker": true
+              "serviceWorker": true,
+              "ngswConfigPath": "ngsw-config.json"
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "node:build"
+            "browserTarget": "pd-pro-angularcli:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "node:build:production"
+              "browserTarget": "pd-pro-angularcli:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "node:build"
+            "browserTarget": "pd-pro-angularcli:build"
           }
         },
         "test": {
@@ -87,14 +107,22 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
-              "node_modules/hammerjs/hammer.min.js"
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/moment/moment.js",
+              "node_modules/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js",
+              "src/assets/js/perfect-scrollbar.min.js",
+              "src/assets/js/jquery-jvectormap.js",
+              "node_modules/nouislider/distribute/nouislider.min.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "node_modules/datatables.net-bs/js/dataTables.bootstrap.js",
+              "node_modules/datatables.net-responsive/js/dataTables.responsive.js",
+              "node_modules/bootstrap-select/dist/js/bootstrap-select.js",
+              "node_modules/bootstrap-switch/dist/js/bootstrap-switch.js",
+              "node_modules/sweetalert2/dist/sweetalert2.js"
             ],
             "styles": [
-              "node_modules/leaflet/dist/leaflet.css",
-              "node_modules/@swimlane/ngx-datatable/release/index.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/material.css",
-              "src/assets/fonts/data-table/icons.css",
-              "src/assets/styles/scss/node.scss"
+              "src/assets/sass/light-bootstrap-dashboard.scss"
             ],
             "assets": [
               "src/assets",
@@ -110,14 +138,12 @@
               "src/tsconfig.app.json",
               "src/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": []
           }
         }
       }
     },
-    "node-e2e": {
+    "pd-pro-angularcli-e2e": {
       "root": "",
       "sourceRoot": "",
       "projectType": "application",
@@ -126,7 +152,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "node:serve"
+            "devServerTarget": "pd-pro-angularcli:serve"
           }
         },
         "lint": {
@@ -135,15 +161,13 @@
             "tsConfig": [
               "e2e/tsconfig.e2e.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": []
           }
         }
       }
     }
   },
-  "defaultProject": "node",
+  "defaultProject": "pd-pro-angularcli",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

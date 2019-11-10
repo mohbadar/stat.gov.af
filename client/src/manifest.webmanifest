@@ -1,6 +1,6 @@
 {
-  "name": "node",
-  "short_name": "node",
+  "name": "pd-pro-angularcli",
+  "short_name": "pd-pro-angularcli",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

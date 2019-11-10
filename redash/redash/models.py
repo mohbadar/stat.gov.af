@@ -1359,6 +1359,7 @@ class Dashboard(ChangeTrackingMixin, TimestampMixin, BelongsToOrgMixin, db.Model
     is_draft = Column(db.Boolean, default=True, index=True)
     is_public = Column(db.Boolean, default=False, index=True)
     is_default = Column(db.Boolean, default=False, index=True)
+    lang_slug = Column(db.Text)
     widgets = db.relationship('Widget', backref='dashboard', lazy='dynamic')
     tags = Column('tags', MutableList.as_mutable(postgresql.ARRAY(db.Unicode)), nullable=True)
 
@@ -1390,7 +1391,7 @@ class Dashboard(ChangeTrackingMixin, TimestampMixin, BelongsToOrgMixin, db.Model
 
     # this function return all entries of dashboard table that has is_public=true
     @classmethod
-    def all_public(self):
+    def all_public(self, language):
         query = (
             Dashboard.query
             .filter(
@@ -1399,6 +1400,7 @@ class Dashboard(ChangeTrackingMixin, TimestampMixin, BelongsToOrgMixin, db.Model
             .distinct())
 
         query = query.filter(or_(Dashboard.is_draft == False))
+        query = query.filter(or_(Dashboard.lang_slug == "", Dashboard.lang_slug == language))
         logging.info("models\Dashboard all_public() query (%s)", query)
         
         return query

@@ -1,1 +1,219 @@
-<dashboard [slug]=this.globals.default_dashboard></dashboard>
+<section id="main-top">
+	<div class="container-fluid">
+		<div class="col-md-offset-3 col-md-6 text-center">
+			<h1>{{ 'main_title' | translate }}</h1>
+			<p>{{"main_sub_title" | translate}}</p>
+		</div>
+	</div>
+</section>
+<section id="counter">
+	<div class="counter">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+					<!-- <div class="employees">
+						<p class="counter-count">879</p>
+						<p class="employee-p">{{ 'data_point' | translate }}</p>
+					</div> -->
+				</div>
+
+				<!-- <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					<div class="customer">
+						<p class="counter-count">{{ totalDashboards }}</p>
+						<p class="customer-p">{{ 'DASHBOARDS' | translate }}</p>
+					</div>
+				</div> -->
+
+				<!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+					<div class="design">
+						<p class="counter-count">{{ widgetCount }}</p>
+						<p class="design-p">{{ 'WIDGETS' | translate }}</p>
+					</div>
+				</div> -->
+
+				<!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+					<div class="order">
+						<p class="counter-count">652</p>
+						<p class="order-p">{{ 'data_set' | translate }}</p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</section>
+<section id="main-content">
+	<div class="container">
+		
+					<h3>{{ 'DASHBOARDS' | translate }}</h3>
+					<hr>
+				<div class="carousel slide" id="myCarousel">
+					<div class="carousel-inner">
+						<div class="item active">
+							<div class="col-md-2 card">
+									<a href="#" class="dataset-name"
+									[routerLink]="['/dashboard']">{{ 'HOME' | titlecase  | translate }}</a>
+									<div class="small m-t-xs">
+										<small class="text-muted"></small>
+									</div>
+							</div>
+						</div>
+
+						<div class="item" *ngFor="let dashboard of globals.dashboardList">
+							<div class="col-md-2 card">
+									<a href="#" class="dataset-name"
+									[routerLink]="['/dashboard', dashboard.slug]">{{ getTitleByLang(dashboard.name) | titlecase  | translate }}</a>
+									<div class="small m-t-xs">
+										<small class="text-muted"
+											*ngFor="let tag of dashboard.tags">{{ getTitleByLang(tag) | titlecase }}</small>
+									</div> 
+							</div>
+						</div>
+						
+					</div> 
+					<a class="left carousel-control" href="#myCarousel" data-slide="prev"><i
+							class="fa fa-arrow-left"></i></a>
+					<a class="right carousel-control" href="#myCarousel" data-slide="next"><i
+							class="fa fa-arrow-right"></i></a>
+
+				</div>
+		
+	</div>
+</section>
+<section class="bg-light text-center breadcrumb parallax">
+	<div class="container-fluid">
+		<div style="padding:100px;">
+			<h1 class="text-center" style="font-family: 'landing-font'">{{ 'what_make_us_unique' | translate }}!</h1>
+		</div>
+	</div>
+</section>
+<section id="feature-section">
+	<div class="container">
+		<div class="row">
+			<!--feature-1-->
+			<div class="col-lg-4">
+				<div class="our-feature-main">
+
+					<div class="feature-front">
+						
+						<i class="fa fa-dashboard"></i>
+						<h3>{{ 'first_feature_title' | translate }}</h3>
+					</div>
+
+					<div class="feature-back">
+						<span>
+							{{ 'first_feature_description' | translate }}
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<!--feature-1-->
+
+			<!--feature-2-->
+			<div class="col-lg-4">
+				<div class="our-feature-main">
+
+					<div class="feature-front">
+						
+						<i class="fa fa-bar-chart"></i>
+						<h3>{{ 'second_feature_title' | translate }}</h3>
+					</div>
+
+					<div class="feature-back">
+						<span>
+							{{ 'second_feature_description' | translate }}
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<!--feature-2-->
+
+			<!--feature-3-->
+			<div class="col-lg-4">
+				<div class="our-feature-main">
+
+					<div class="feature-front">
+						<i class="fa fa-database"></i>
+						<h3>{{ 'third_feature_title' | translate }}</h3>
+					</div>
+
+					<div class="feature-back">
+						<span>
+							{{ 'third_feature_description' | translate }}
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<!--feature-3-->
+
+			<!--feature-4-->
+			<div class="col-lg-4">
+				<div class="our-feature-main">
+
+					<div class="feature-front">
+							<i class="fa fa-language"></i>
+						<h3>{{ 'fourth_feature_title' | translate }}</h3>
+
+					</div>
+
+					<div class="feature-back">
+						<span>
+							{{ 'fourth_feature_description' | translate }}
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<!--feature-4-->
+
+			<!--feature-5-->
+			<div class="col-lg-4">
+				<div class="our-feature-main">
+
+					<div class="feature-front">
+						<i class="fa fa-share-alt"></i>
+						<h3>{{ 'fifth_feature_title' | translate }}</h3>
+					</div>
+
+					<div class="feature-back">
+						<span>
+							{{ 'fifth_feature_description' | translate }}
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<!--feature-5-->
+
+			<!--feature-6-->
+			<div class="col-lg-4">
+				<div class="our-feature-main">
+					<div class="feature-front">
+							<i class="fa fa-map-marker" aria-hidden="true"></i>
+						<h3>{{ 'sixth_feature_title' | translate }}</h3>
+					</div>
+
+					<div class="feature-back">
+						<span>
+							{{ 'sixth_feature_description' | translate }}
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<!--feature-6-->
+		</div>
+	</div>
+</section>
+<!-- FOOTER -->
+<footer class="footer footer-transparent">
+	<div class="container text-center">
+		<p class="copyright ">
+			&copy; {{currentDate | date: 'yyyy'}} <a href="http://nsia.gov.af">NSIA</a>, made for data collection,
+			process and visulaizaiton
+		</p>
+	</div>
+</footer>
+<!-- End FOOTER -->

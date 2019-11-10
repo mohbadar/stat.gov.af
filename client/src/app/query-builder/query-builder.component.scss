@@ -1,0 +1,71 @@
+.text-secondary{
+    text-transform: none;
+    color: #888888
+}
+.table-label{
+    cursor: pointer;
+    border-bottom:2px solid #2196f3; 
+    font-size: 1.5rem;
+    font-weight:500;
+}
+.visualize{
+    color: #16181a;
+    font-size: 1.4rem;
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+}
+.visualize:hover{
+        background-color: #e2e6ea;
+        border-color: #dae0e5;
+}
+.modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .modal-content {
+    height: auto;
+    min-height: 100%;
+    border-radius: 0;
+  }
+  .dropdown-menu{
+      cursor: pointer;
+  }
+
+.single-select2 {
+    width: 100%;
+}
+#single-select2 {
+    width: 100%;
+}
+.scroll {
+    height:100vh;
+    overflow-y: scroll;
+    white-space: pre-wrap;      /* CSS3 */   
+    white-space: -moz-pre-wrap; /* Firefox */    
+    white-space: -pre-wrap;     /* Opera <7 */   
+    white-space: -o-pre-wrap;   /* Opera 7 */    
+    word-wrap: break-word;      /* IE */
+}
+.column-name:hover{
+    background-color: #eceff1; 
+}
+.plus-icon{
+   display: none;
+   float: left;
+   margin-right: 3%;
+}
+.column-name:hover .plus-icon {
+    display: block;
+}
+#close {
+    float:right;
+    display:inline-block;
+    padding:0px 5px;
+}
+.fa{
+    font-size: 18px;
+}
+

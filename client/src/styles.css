@@ -1,0 +1,244 @@
+/* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: 'Bahij Halvetica';
+  src: url('./assets/fonts/bahij_helvetica_neue_bold_by_bahijvirtualacademy-dammcmt_0.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Bahij Halvetica';
+  src: url('./assets/fonts/Bahij_Helvetica_Neue-Light_1.ttf');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: 'Bahij Halvetica';
+  src: url('./assets/fonts/bahij_helvetica_neue_roman_by_bahijvirtualacademy-dammd50_0.ttf');
+  font-weight: normal;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(226, 226, 226);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(138, 137, 137);
+}
+
+.main-panel {
+  width: 100% !important;
+  overflow-y: auto;
+}
+
+@media (min-width: 992px) {
+  .navbar-fixed {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    display: block !important;
+  }
+}
+
+.sidebar {
+  display: none;
+}
+
+/* General CSS */
+.no-data {
+  width: 100%;
+  border-radius: 0px;
+  color: #BFC0C0;
+}
+
+
+#navbar {
+  width: 100%;
+  position: fixed;
+  z-index: 400;
+  -webkit-box-shadow: 0 8px 6px -6px #cacaca;
+  -moz-box-shadow: 0 8px 6px -6px #cacaca;
+  box-shadow: 0 8px 6px -6px #cacaca;
+}
+
+#navbar .dashboards-dropdown {
+  display: inline;
+}
+
+.main-outlet {
+  margin-top: 6rem;
+}
+
+.legendtext {
+  font-family: "Roboto", "Bahij Halvetica", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+/* Snackbar */
+#snackbar {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 34%;
+  bottom: 30px;
+  font-size: 17px;
+}
+
+#snackbar.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 8s;
+  animation: fadein 0.5s, fadeout 0.5s 8s;
+}
+
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1;
+  }
+
+  to {
+    bottom: 0;
+    opacity: 0;
+  }
+}
+
+#scroll {
+  position: fixed;
+  right: 30px;
+  bottom: 60px;
+  z-index: 1200;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  background-color: #01a79b;
+  color: #fff;
+  /* display: none; */
+  padding: 11px 16px;
+  -webkit-border-radius: 60px;
+  -moz-border-radius: 60px;
+  border-radius: 60px
+}
+
+#scroll i {
+  font-size: 28px;
+}
+
+.table-show {
+
+  overflow: hidden;
+}
+
+.query-wrapper {
+  padding: 15px 33px;
+}
+
+.ml-1 {
+  margin-left: 8px;
+}
+
+.ml-2 {
+  margin-left: 16px;
+}
+
+.bg-transparent {
+  background: transparent !important;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+.shadowed {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(63, 63, 68, 0.1);
+}
+
+.p-1 {
+  padding: 0px 4px;
+}
+
+.column-name {
+  cursor: pointer;
+}
+
+.column-name:hover {
+  background-color: aliceblue;
+  transition: background .2s ease-in-out;
+}
+
+.unselected {
+  color: gray;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.title h4 {
+  margin: 0px !important;
+  font-weight: 400;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.mr-3 {
+  margin-top: 3rem !important;
+}

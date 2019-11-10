@@ -1,0 +1,312 @@
+<div class="query-wrapper container-fluid" style="font-size: smaller;">
+	<div class="card">
+		<div class="header">
+			<button class="btn btn-social btn-fill btn-primary shadowed pull-right ml-1" (click)="saveLocally()">
+				{{ 'SAVE' | translate }}
+			</button>&nbsp;&nbsp;&nbsp;
+			<button class="btn btn-social btn-fill btn-youtube shadowed pull-right " (click)="close()">
+				{{ 'BACK' | translate }}
+			</button>
+			<h5>{{ 'VISUALIZATION_EIDTOR' | translate }}</h5>
+		</div>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-4">
+					<form [formGroup]="chartForm">
+						<div class="form-group">
+							<label for="visualization_type">{{ 'VISUALIZATION_TYPE' | translate }}</label>
+							<select class="form-control input-sm" name="visualization_type"
+								formControlName="visualizationType" required>
+								<option *ngFor="let vType of visualizationTypes" [value]="vType.id">
+									{{ vType.name | translate }}
+								</option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="visualization_name">{{ 'VISUALIZATION_NAME' | translate }}</label>
+							<input type="text" class="form-control input-sm" name="visualization_name"
+								formControlName="visualizationName" placeholder="Visualization Name" required>
+						</div>
+
+						<ul role="tablist" class="nav nav-tabs">
+							<li role="presentation" class="active">
+								<a href="#general-tab" data-toggle="tab">{{ 'GENERAL' | translate }}</a>
+							</li>
+							<li>
+								<a href="#xaxis-tab" data-toggle="tab">{{ 'X-AXIS' | translate }}</a>
+							</li>
+							<li>
+								<a href="#yaxis-tab" data-toggle="tab">{{ 'Y-AXIS' | translate }}</a>
+							</li>
+							<li>
+								<a href="#series-tab" data-toggle="tab">{{ 'SERIES' | translate }}</a>
+							</li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="general-tab" class="tab-pane active" formGroupName="general">
+								<div class="form-group">
+									<label for="chart_type">{{ 'CHART_TYPE' | translate }}</label>
+									<select class="form-control input-sm" formControlName="chartType" required>
+										<option *ngFor="let cType of chartTypes" [value]="cType.id">{{ cType.name }}
+										</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="x_column">{{ 'X_COLUMN' | translate }}</label>
+									<select class="form-control input-sm" formControlName="xColumn"
+										(change)="onChangeXaxisColumn($event)" placeholder="Choose Column">
+										<option *ngFor="let col of xColumnsList" [value]="col">{{ col }}</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="y_columns">{{ 'Y_COLUMNS' | translate }}</label>
+									<select class="form-control input-sm multi-select2" multiple
+										formControlName="yColumns" required>
+										<option *ngFor="let col of yColumnsList" [value]="col">{{ col }}</option>
+									</select>
+								</div>
+								<!-- <div class="form-group">
+								<label for="exampleInputEmail1">Group By </label>
+								<select class="form-control input-sm" formControlName="groupBy">
+									<option value=""></option>
+									<option *ngFor="let col of groupByColumns" [value]="col">{{ col }}</option>
+								</select>
+							</div> -->
+								<div class="form-group input-sm">
+									<div>
+										<span><input type="checkbox" formControlName="showLegends">
+											{{ 'SHOW_LEDGENDS' | translate }}</span>
+									</div>
+								</div>
+							</div>
+							<div id="xaxis-tab" class="tab-pane" formGroupName="xaxis">
+								<div class="form-group">
+									<label for="exampleInputEmail1">{{ 'SCALE' | translate }}</label>
+									<select class="form-control input-sm" formControlName="scale">
+										<option *ngFor="let sType of scaleTypes" [value]="sType.id">{{ sType.name }}
+										</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">{{ 'NAME' | translate }}</label>
+									<input type="text" class="form-control input-sm" formControlName="name"
+										placeholder="Name">
+								</div>
+								<div class="form-group">
+									<div>
+										<span><input type="checkbox" formControlName="sortValue">
+											{{ 'SORT_VALUE' | translate }}</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div>
+										<span><input type="checkbox" formControlName="reverseOrder">
+											{{ 'REVERSE_ORDER' | translate }}</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div>
+										<span><input type="checkbox" formControlName="showLabels">
+											{{ 'SHOW_LABELS' | translate }}</span>
+									</div>
+								</div>
+							</div>
+							<div id="yaxis-tab" class="tab-pane" formGroupName="yaxis">
+								<div class="form-group">
+									<label for="yaxis_name">{{ 'SCALE' | translate }}</label>
+									<select class="form-control input-sm" formControlName="scale">
+										<option *ngFor="let sType of scaleTypes" [value]="sType.id">
+											{{ sType.name | translate }}
+										</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">{{ 'NAME' | translate }}</label>
+									<input type="text" class="form-control input-sm" formControlName="name"
+										placeholder="Name">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">{{ 'MIN_VALUE' | translate }}</label>
+									<input type="text" class="form-control input-sm" formControlName="minValue"
+										placeholder="Min Value">
+								</div>
+								<div class="form-group">
+									<label for="exampleInputEmail1">{{ 'MAX_VALUE' | translate }}</label>
+									<input type="text" class="form-control input-sm" formControlName="maxValue"
+										placeholder="Max Value">
+								</div>
+								<div class="form-group">
+									<div>
+										<span>
+											<input type="checkbox" formControlName="sortValue">
+											{{ 'SORT_VALUE' | translate }}
+										</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<div>
+										<span>
+											<input type="checkbox" formControlName="reverseOrder">
+											{{ 'REVERSE_ORDER' | translate }}
+										</span>
+									</div>
+								</div>
+							</div>
+							<div id="series-tab" class="tab-pane" formGroupName="series">
+								<div class="form-group">
+									<table class="table table-condensed table-hover">
+										<tr>
+											<th>{{ 'LABEL' | translate }}</th>
+											<th *ngIf="generalChartType.value != 'pie'">{{ 'TYPE' | translate }}</th>
+											<th *ngIf="generalChartType.value != 'pie'">{{ 'COLOR' | translate }}</th>
+										</tr>
+										<tbody>
+											<tr *ngFor="let elem of series.controls; let i = index"
+												column-name="elem.label" [formGroup]="elem">
+												<td>
+													<input class="form-control input-sm" formControlName="label"
+														[value]="elem.controls.label.value"
+														(change)="onSeriesLabelChange(data[i], $event)">
+												</td>
+												<td *ngIf="generalChartType.value != 'pie'">
+													<select class="form-control input-sm" formControlName="type"
+														(change)="onSeriesTypeChange(data[i], $event)">
+														<option *ngFor="let cType of chartTypes" [value]="cType.id">
+															{{ cType.name }}</option>
+													</select>
+												</td>
+												<td *ngIf="generalChartType.value != 'pie'">
+													<select class="form-control input-sm" formControlName="color"
+														(change)="onSeriesColorChange(data[i], $event)">
+														<option *ngFor="let cType of colorTypes" [value]="cType.id">
+															{{ cType.name }}</option>
+													</select>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+						<!-- <div>
+						{{ getValue() }}
+					</div>
+					<hr>Layout
+					<div>
+						{{ getLayout() }}
+					</div>
+					<hr>PlotlyConfig
+					<div>
+						{{ getPlotlyConfig() }}
+					</div>
+					<hr>data
+					<div>
+						{{ getData() }}
+					</div> -->
+					</form>
+				</div>
+				<div class="col-md-8">
+					<plotly-plot [data]="data" [config]="plotlyConfig" [layout]="layout" [useResizeHandler]="true"
+						[style]="{position: 'relative', width: '100%', height: '100%'}" #plotlyChartContainer>
+					</plotly-plot>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModalLabel"
+	data-backdrop="static" data-keyboard="false">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+						aria-hidden="true">&times;</span></button>
+				<div class="header">
+
+					<h4 class="modal-title" id="editModalLabel">{{ 'LOGIN-TO-SYSTEM' | translate}}</h4> 
+					<small>{{ 'SAVE-CHART-LOGIN' | translate }}</small>
+				</div>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid">
+
+					<ul role="tablist" class="nav nav-tabs" style="visibility: hidden">
+						<li role="presentation" class="active">
+							<a href="#login" data-toggle="tab"></a>
+						</li>
+						<li>
+							<a href="#signup" data-toggle="tab"></a>
+						</li>
+
+					</ul>
+
+					<div class="tab-content">
+						<div id="login" class="tab-pane fade in active">
+							<form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+								<div class="form-group">
+									<label for="username">{{'USERNAME' | translate }}</label>
+									<input type="text" name="username" class="form-control" formControlName="username">
+								</div>
+								<div class="form-group">
+									<label for="password">{{ 'PASSWORD' | translate}}</label>
+									<input type="password" name="password" class="form-control" formControlName="password">
+								</div>
+								<div class="form-group form-inline text-center ">
+									<input type="submit" value="{{ 'LOGIN' | translate }}" class="form-control btn btn-primary btn-fill ml-1" [disabled]="loginForm.invalid">
+									<input type="btn" value="{{ 'CANCEL' | translate }}" class="form-control btn btn-secondary btn-fill" data-dismiss="modal">
+								</div>
+								<div class="form-group">
+									<small>{{ 'NOACCOUNT' | translate }} <span (click)="changeTab('signup')">{{ 'SIGNUP' | translate }}</span></small>
+								</div>
+							</form>
+						</div>
+						<div id="signup" class="tab-pane fade">
+							<form action=""  [formGroup]="registerForm" (ngSubmit)="register()">
+								<div class="form-group">
+									<input type="text" [placeholder]="'FULLNAME' | translate" class="form-control"
+										formControlName="fullName">
+								</div>
+								<div class="form-group">
+									<input type="text" [placeholder]="'YOURUSERNAME' | translate" class="form-control"
+										formControlName="username">
+								</div>
+								<div class="form-group">
+									<input type="text" maxlength="10" [placeholder]="'MOBILENUMBER' | translate" class="form-control"
+										formControlName="mobileNumber" (keyup)="validateNumber($event.target)">
+								</div>
+								<div class="form-group">
+									<input type="email" [placeholder]="'ENTEREMAIL' | translate" class="form-control"
+										formControlName="email">
+								</div>
+								<div class="form-group">
+									<input type="password" [placeholder]="'PASSWORD' | translate" class="form-control"
+										formControlName="password" #pass
+										(keyup)="checkPassword(pass.value, passConf.value)">
+								</div>
+								<div class="form-group">
+									<input type="password" [placeholder]="'PASSWORDCONF' | translate" class="form-control"
+										formControlName="passwordConf" #passConf required
+										(keyup)="checkPassword(pass.value, passConf.value)">
+									<small class="text-danger" [hidden]="passwordMatch">{{ 'PASSWORDMATCH' | translate }}</small>
+								</div>
+								<div class="form-group form-inline text-center">
+									<input type="submit" value="{{ 'SIGNUP' | translate }}" class="form-control btn btn-success btn-fill ml-1" [disabled]="registerForm.invalid">
+									<input type="btn" value="{{ 'CANCEL' | translate }}" class="form-control btn btn-secondary btn-fill" data-dismiss="modal">
+								</div>
+								<div class="form-group">
+									<small>{{ 'HAVEACCOUNT' | translate }} <span (click)="changeTab('login')">{{ 'LOGIN' | translate }}</span></small>
+								</div>
+							</form>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

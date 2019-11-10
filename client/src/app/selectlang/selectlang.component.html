@@ -1,0 +1,16 @@
+<div id="main">
+	<img src="../../assets/img/lang.jpg" id="bg">
+	<div class="center">
+		<div class="nsia-log">
+			<img src="../../assets/img/amended-logo final final-01.svg" />
+		</div>
+		<div class="lang-buttons">
+			<div (click)="detectLanguage($event.target)" id="en" class="lan">English</div>
+			<div (click)="detectLanguage($event.target)" id="dr" class="lan">دری</div>
+			<div (click)="detectLanguage($event.target)" id="ps" class="lan">پښتو</div>
+		</div>
+	</div>
+	<footer class="footer">
+		© {{ year }}, All rights reserved, National Statistics and Information Authority
+	</footer>
+</div>

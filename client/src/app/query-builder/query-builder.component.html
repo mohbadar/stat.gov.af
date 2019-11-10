@@ -1,0 +1,210 @@
+<div class="query-wrapper container-fluid" [hidden]="isVisualize">
+	<div class="action-bar">
+		<div class="card bg-transparent no-shadow">
+			<div class="card-body text-center"><br>
+				<!-- <div class="inline-block ml-1">
+            <label class="text-secondary"><input type="radio" name="sourceData" value="dataset"
+                (change)="handleChange($event)"> Select a Dataset</label>
+          </div>
+          <div class="inline-block ml-1">
+            <label class="text-secondary"><input type="radio" name="sourceData" value="file"
+                (change)="handleChange($event)"> Attach a file</label>
+          </div> -->
+				<!-- <input type="file" (change)="onFileChange($event)" multiple="false" class="btn btn-secondary" id="inputFile">
+		  <button class="btn btn-primary btn-fill ml-1" id="btnAtach">Submit</button> -->
+				<div class="col-md-3 inline-block ml-1">
+					<p class="text-secondary">{{ 'SELECT_LABEL' | translate }} : </p>
+				</div>
+				<div class="col-md-3 inline-block ml-1">
+					<select class="single-select2">
+						<option></option>
+					</select>
+				</div>
+				<div class="col-md-3 inline-block ml-1">
+					<select id="single-select2" [disabled]="!isDatasetSelected">
+						<option></option>
+					</select>
+				</div>
+
+				<button class="btn btn-social btn-fill btn-youtube shadowed" (click)="backDashboard()">
+					{{ 'BACK' | translate }}
+				</button>
+
+
+				<br><br>
+			</div>
+		</div>
+	</div>
+	<div class="card" *ngIf="data.length">
+		<div class="header">
+			<h5>{{ workBookName }}</h5>
+		</div>
+		<div class="content">
+			<div class="row">
+				<div class="col-md-2 scroll">
+					<div class="sheetlist">
+						<ul *ngIf="data" style="padding: 0px; list-style: none;">
+							<p class="font-weight-bold">{{ 'COLUMN_LIST' | translate }}</p>
+							<li (click)="togglecheckboxes($event.target, 'cb')">
+								<input type="checkbox" id="toggle-all">
+								<span class="ml-1"><strong>{{ 'UNCHECK_COLUMN' | translate }}</strong></span>
+							</li>
+							<li *ngFor="let col of columnNames; let i=index" class="column-name">
+								<input type="checkbox" name="cb" class="c-box" [id]="col.name" checked
+									(click)="toggleColumn($event.target, i)">
+								<span class="ml-1">{{col.name}}</span>
+								<div class="inline-block ml-1 plus-icon " >
+									<a data-toggle="tooltip" data-placement="top" title="Add filter" [hidden]="!columnNames[i].showColumn">
+										<i class="fa fa-plus-circle" (click)="showFilters(columnDataTypes[i], i)"></i>
+									</a>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<div class="filter-show"
+						*ngIf="columnDataType !== '' && columnDataType !== 'undefined' && showFilter">
+						<div class="inline-block">
+							<h6>{{ selectedColumnName }} : </h6>
+						</div>
+						<div class="dropdown inline-block ml-1">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="btn btn-primary btn-fill">
+									{{ action | translate }}
+									<i class="fa fa-angle-down"></i>
+								</span>
+							</a>
+							<ul class="dropdown-menu numbers-dropdown" *ngIf="columnDataType === 'number'">
+								<li (click)="setAction('flEq','EQUAL', true)"><a>{{ 'EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flLt','LESS_THEN', false)"><a>{{ 'LESS_THEN' | translate }}</a>
+								</li>
+								<li (click)="setAction('flGr','GREATER_THEN', false)">
+									<a>{{ 'GREATER_THEN' | translate }}</a></li>
+								<li (click)="setAction('flLtEq','LESS_OR_EQUAL', false)">
+									<a>{{ 'LESS_OR_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flGrEq','GREATER_OR_EQUAL', false)">
+									<a>{{ 'GREATER_OR_EQUAL' | translate }}</a></li>
+								<li (click)="setAction('flNEq','NOT_EQUAL', true)"><a>{{ 'NOT_EQUAL' | translate }}</a>
+								</li>
+								<!-- <li (click)="setAction('flRng','In Range', true)"><a>In a range (Inclusive)</a></li>
+								<li (click)="setAction('flNRng','Not in Range', true)"><a>Not in a range (Inclusive)</a>
+								</li> -->
+							</ul>
+
+							<ul class="dropdown-menu string-dropdown" *ngIf="columnDataType === 'string'">
+								<li (click)="setAction('flCn','CONTAINS', true)"><a>{{ 'CONTAINS' | translate }}</a>
+								</li>
+								<li (click)="setAction('flCnS','CONTAINS_START', true)">
+									<a>{{ 'CONTAINS_START' | translate }}</a>
+								</li>
+								<li (click)="setAction('flCnE','CONTAINS_END', true)">
+									<a>{{ 'CONTAINS_END' | translate }}</a></li>
+								<li (click)="setAction('flNCn','NOT_CONTAINS', true)">
+									<a>{{ 'NOT_CONTAINS' | translate }}</a></li>
+							</ul>
+						</div>
+						<div class="filter-count inline-block ml-1">
+							<input type="checkbox" name="multiple" [disabled]="!applyMultiple" id="multiple-filter">
+							Multiple<i class="fa fa-info-circle" data-toggle="tooltip" data-placement="top"
+								title="Add more then one inputs seperated by commas"></i>
+						</div>
+						<div class="first-input inline-block ml-1">
+							<input type="text" id="customFilter" class="form-control"
+								placeholder="{{ 'FILTER_STRING' | translate }}"
+								(keyup)="setFilterValue($event.target.value)">
+						</div>
+						<div class="apply-filter inline-block ml-1">
+							<button class="btn btn-primary btn-fill" [disabled]="!filterAction"
+								(click)="testData()">{{ 'APPLY' | translate }}</button>
+						</div>
+						<div class="apply-filter inline-block ml-1">
+							<button class="btn btn-secondary btn-fill"
+								(click)="closeCustomFilter()">{{ 'CANCEL' | translate }}</button>
+						</div>
+					</div>
+					<div class="undefined-data-type text-center" *ngIf="columnDataType === 'undefined'">
+						<div class="inline-block ">
+							<h5>Please choose a data type for this column</h5>
+						</div>
+						<div class="inline-block ml-1">
+							<button class="btn btn-info btn-sm btn-fill "
+								(click)="updateDataType('number')">Number</button>
+							<button class="btn btn-warning btn-sm btn-fill ml-1"
+								(click)="updateDataType('string')">String</button>
+						</div>
+					</div>
+					<div class="filters" *ngIf="customFilters.length > 0">
+						<hr />
+						<h6>{{ 'LIST_ADD_FILTERS' | translate }}</h6><br />
+						<div class="inline-block ml-1" *ngFor="let filter of customFilters">
+							<button class="btn btn-info btn-fill btn-sm">
+								<span> {{ filter.columnName }} </span>
+								<span class="badge"> {{ filter.actionName | translate }} </span>
+								<span> {{ filter.value }} </span>
+								<span id='close' (click)="removeFilter(filter.columnName,filter.value)">x</span>
+							</button>
+						</div>
+					</div>
+					<hr />
+					<div class="content">
+						<div class="table-show">
+							<div class="inline-block ml-1 pull-left">
+								<span class="table-label">{{ 'TABLE_LABEL' | translate }}</span>
+							</div>
+							<a class="btn btn-sm visualize ml-1 pull-right" (click)="generateChart()"
+								data-toggle="modal"
+								data-target="#newVisualization">{{ 'ADD_VISUALIZATION' | translate }}</a>
+
+							<!-- <div class="inline-block ml-1 pull-right" *ngIf="authService.isLoggedIn()">
+								<button class="btn btn-success btn-fill btn-sm " (click)="saveChanges()"
+									*ngIf="data.length">Save
+									Chnages</button>
+							</div> -->
+
+							<div class="inline-block ml-1 pull-right ">
+								<button class="btn btn-secondary btn-fill btn-sm " (click)="resetData()"
+									*ngIf="data.length">{{ 'RESET' | translate }}</button>
+							</div>
+							<div class="toolbar">
+							</div>
+							<div class="fresh-datatables" *ngIf="data.length"><br><br>
+								<table id="datatables" class="table table-striped table-no-bordered table-hover"
+									cellspacing="0" width="100%" style="width:100%">
+									<thead>
+										<tr>
+											<th *ngFor="let val of columnNames; let i=index" class="p-1">
+												<span>
+													{{val.name}}
+												</span>
+											</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let row of data">
+											<td *ngFor="let val of row.rowData; let j=index" class="p-1">
+												{{val}}
+											</td>
+										</tr>
+									</tbody>
+									<tfoot>
+										<tr>
+											<th *ngFor="let val of columnNames; let i=index" class="p-1">
+												{{val.name}}
+											</th>
+										</tr>
+									</tfoot>
+								</table><br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="query-wrapper container-fluid" *ngIf="isVisualize">
+	<visualize [columns]="visualizationColumns" [rows]="visualizationRows" (closeFlag)="hideVisualization()">
+	</visualize>
+</div>
